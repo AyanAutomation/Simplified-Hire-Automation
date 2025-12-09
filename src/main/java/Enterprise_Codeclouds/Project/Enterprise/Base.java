@@ -21,19 +21,21 @@ public class Base {
 		
     Data_Reader f = new Data_Reader();
 		
-	String Browser = System.getProperty("Browsername")!=null ? "Browsername" : f.Data_Fetcher("Url");	
-	Target_url = System.getProperty("url")!=null ? "url":f.Data_Fetcher("Browser");
+	String Browser = System.getProperty("Browsername")!=null ? System.getProperty("Browsername") : f.Data_Fetcher("Browser");	
+	Target_url = System.getProperty("url")!=null ? System.getProperty("url"):f.Data_Fetcher("Url");
 	
 	if(Browser.equalsIgnoreCase("Chrome")){
 		
-		d = new ChromeDriver();
+		
 		WebDriverManager.chromedriver().setup();
+		d = new ChromeDriver();
 		d.manage().window().maximize();}
 	
 	if(Browser.equalsIgnoreCase("Firefox")){
 		
-		d = new FirefoxDriver();
+		
 		WebDriverManager.firefoxdriver().setup();
+		d = new FirefoxDriver();
 		d.manage().window().maximize();}}
 	
 	
