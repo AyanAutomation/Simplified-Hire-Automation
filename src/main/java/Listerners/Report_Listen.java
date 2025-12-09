@@ -76,6 +76,8 @@ public class Report_Listen extends Reports implements ITestListener{
 	public void onFinish(ITestContext context) {
 	
 		ITestListener.super.onFinish(context);
+		
+		report.flush();
 	}
 	
 	
