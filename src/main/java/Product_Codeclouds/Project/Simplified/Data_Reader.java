@@ -1,4 +1,4 @@
-package Enterprise_Codeclouds.Project.Enterprise;
+package Product_Codeclouds.Project.Simplified;
 
 import java.io.FileInputStream;
 import java.io.IOException;

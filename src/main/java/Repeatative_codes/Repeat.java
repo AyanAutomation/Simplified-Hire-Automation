@@ -38,6 +38,14 @@ public class Repeat {
 	   	 w.until(ExpectedConditions.visibilityOfAllElements(element));
 	   	 
 		 }
+	
+	public void wait_for_invisibilty_of_theElement(WebElement element){
+		 
+	     
+	   	 WebDriverWait w = new WebDriverWait(d,Duration.ofSeconds(10));
+	   	 w.until(ExpectedConditions.invisibilityOf(element));
+	   	 
+		 }
 		
     public void movetoelement(WebElement element){
 			

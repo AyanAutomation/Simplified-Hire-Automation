@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
-import Enterprise_Codeclouds.Project.Enterprise.Data_Reader;
+import Product_Codeclouds.Project.Simplified.Data_Reader;
 import Locaters.Login_Locaters;
 import io.cucumber.java.en.Given;
 

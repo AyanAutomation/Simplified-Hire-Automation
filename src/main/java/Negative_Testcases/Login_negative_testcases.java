@@ -7,8 +7,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-import Enterprise_Codeclouds.Project.Enterprise.Data_Reader;
-import Enterprise_Codeclouds.Project.Enterprise.Login;
+import Product_Codeclouds.Project.Simplified.Data_Reader;
+import Product_Codeclouds.Project.Simplified.Login;
 import Locaters.Login_Locaters;
 @Listeners(Listerners.Report_Listen.class)
 public class Login_negative_testcases extends Login{
