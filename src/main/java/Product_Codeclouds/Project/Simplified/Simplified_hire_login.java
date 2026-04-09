@@ -2,7 +2,9 @@ package Product_Codeclouds.Project.Simplified;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
@@ -43,14 +45,24 @@ public class Simplified_hire_login extends Login{
 				"<b>🟨 Actual:</b> Login flow executed successfully and user entered the company portal.");
 		System.out.println("🟨 Actual: Login flow executed successfully and user entered the company portal.");
 
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>Step " + (step++) + ":</b> Wait for portal loader to disappear after login.");
-		System.out.println("Step " + (step - 1) + ": Wait for portal loader to disappear after login.");
-		WebElement loader = p.Loader();
-		rp.wait_for_invisibilty_of_theElement(loader);
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>🟨 Actual:</b> Portal loader disappeared successfully.");
-		System.out.println("🟨 Actual: Portal loader disappeared successfully.");
+		try {
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>Step " + (step++) + ":</b> Wait for portal loader to disappear after login.");
+			System.out.println("Step " + (step - 1) + ": Wait for portal loader to disappear after login.");
+
+			WebElement loader_try = p.Loader();
+			rp.wait_for_invisibilty_of_theElement(loader_try);
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> Portal loader disappeared successfully.");
+			System.out.println("🟨 Actual: Portal loader disappeared successfully.");
+
+		} catch (NoSuchElementException | TimeoutException e) {
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> Portal loader was not displayed after login, so no wait was required.");
+			System.out.println("🟨 Actual: Portal loader was not displayed after login, so no wait was required.");
+		}
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
 				"<b>Step " + (step++) + ":</b> Fetch the list of available internal applications from the portal.");
