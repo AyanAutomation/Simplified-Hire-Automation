@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Runner_Cucumber.Login_Runner">
+      <class name="Product_Codeclouds.Project.Simplified.Candidate_module">
         <methods>
-          <include name="setUpClass"/>
-          <include name="tearDownClass"/>
-          <include name="runScenario" invocation-numbers="0"/>
+          <include name="CV_upload" invocation-numbers="0"/>
+          <include name="setup"/>
+          <include name="Kill"/>
         </methods>
-      </class> <!-- Runner_Cucumber.Login_Runner -->
+      </class> <!-- Product_Codeclouds.Project.Simplified.Candidate_module -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -30,75 +30,92 @@ public class Simplified_hire_login extends Login{
 		System.out.println("🔹 Scenario Title: Access Simplified Hire internal application from portal");
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>📘 Description:</b> Login into the system, wait for portal loader to disappear, identify available internal applications, click on Simplified Hire, and validate successful landing on the dashboard.");
-		System.out.println("📘 Description: Login into the system, wait for portal loader to disappear, identify available internal applications, click on Simplified Hire, and validate successful landing on the dashboard.");
+				"<b>📘 Description:</b> Login into the system, wait for portal loader to disappear, identify available internal applications, click on Simplified Hire, and validate successful landing on the dashboard. If login flow is not shown and user is directly redirected due to single organization and single app mapping, validate direct landing on dashboard.");
+		System.out.println("📘 Description: Login into the system, wait for portal loader to disappear, identify available internal applications, click on Simplified Hire, and validate successful landing on the dashboard. If login flow is not shown and user is directly redirected due to single organization and single app mapping, validate direct landing on dashboard.");
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>✅ Expected:</b> User should be logged into the portal successfully, portal loader should disappear, internal applications should be visible, Simplified Hire application should be accessible, and dashboard should load successfully.");
-		System.out.println("✅ Expected: User should be logged into the portal successfully, portal loader should disappear, internal applications should be visible, Simplified Hire application should be accessible, and dashboard should load successfully.");
-
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>Step " + (step++) + ":</b> Perform login into the application.");
-		System.out.println("Step " + (step - 1) + ": Perform login into the application.");
-		login();
-		Report_Listen.log_print_in_report().log(Status.PASS,
-				"<b>🟨 Actual:</b> Login flow executed successfully and user entered the company portal.");
-		System.out.println("🟨 Actual: Login flow executed successfully and user entered the company portal.");
+				"<b>✅ Expected:</b> User should either complete login and access Simplified Hire from the portal, or if mapped to only one organization and one app, should be directly redirected and land on the dashboard successfully.");
+		System.out.println("✅ Expected: User should either complete login and access Simplified Hire from the portal, or if mapped to only one organization and one app, should be directly redirected and land on the dashboard successfully.");
 
 		try {
-			Report_Listen.log_print_in_report().log(Status.INFO,
-					"<b>Step " + (step++) + ":</b> Wait for portal loader to disappear after login.");
-			System.out.println("Step " + (step - 1) + ": Wait for portal loader to disappear after login.");
-
-			WebElement loader_try = p.Loader();
-			rp.wait_for_invisibilty_of_theElement(loader_try);
 
 			Report_Listen.log_print_in_report().log(Status.INFO,
-					"<b>🟨 Actual:</b> Portal loader disappeared successfully.");
-			System.out.println("🟨 Actual: Portal loader disappeared successfully.");
+					"<b>Step " + (step++) + ":</b> Perform login into the application.");
+			System.out.println("Step " + (step - 1) + ": Perform login into the application.");
+			login();
+			Report_Listen.log_print_in_report().log(Status.PASS,
+					"<b>🟨 Actual:</b> Login flow executed successfully and user entered the company portal.");
+			System.out.println("🟨 Actual: Login flow executed successfully and user entered the company portal.");
 
-		} catch (NoSuchElementException | TimeoutException e) {
+			try {
+				Report_Listen.log_print_in_report().log(Status.INFO,
+						"<b>Step " + (step++) + ":</b> Wait for portal loader to disappear after login.");
+				System.out.println("Step " + (step - 1) + ": Wait for portal loader to disappear after login.");
+
+				WebElement loader_try = p.Loader();
+				rp.wait_for_invisibilty_of_theElement(loader_try);
+
+				Report_Listen.log_print_in_report().log(Status.INFO,
+						"<b>🟨 Actual:</b> Portal loader disappeared successfully.");
+				System.out.println("🟨 Actual: Portal loader disappeared successfully.");
+
+			} catch (NoSuchElementException | TimeoutException e) {
+
+				Report_Listen.log_print_in_report().log(Status.INFO,
+						"<b>🟨 Actual:</b> Portal loader was not displayed after login, so no wait was required.");
+				System.out.println("🟨 Actual: Portal loader was not displayed after login, so no wait was required.");
+			}
 
 			Report_Listen.log_print_in_report().log(Status.INFO,
-					"<b>🟨 Actual:</b> Portal loader was not displayed after login, so no wait was required.");
-			System.out.println("🟨 Actual: Portal loader was not displayed after login, so no wait was required.");
+					"<b>Step " + (step++) + ":</b> Fetch the list of available internal applications from the portal.");
+			System.out.println("Step " + (step - 1) + ": Fetch the list of available internal applications from the portal.");
+			List<WebElement> internal_apps = p.Apps();
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> Internal applications fetched successfully. Total apps found = " + internal_apps.size());
+			System.out.println("🟨 Actual: Internal applications fetched successfully. Total apps found = " + internal_apps.size());
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>Step " + (step++) + ":</b> Select the Simplified Hire application from the internal applications list.");
+			System.out.println("Step " + (step - 1) + ": Select the Simplified Hire application from the internal applications list.");
+			WebElement Simplified_Hire = internal_apps.get(0);
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> Simplified Hire application identified successfully from the list.");
+			System.out.println("🟨 Actual: Simplified Hire application identified successfully from the list.");
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>Step " + (step++) + ":</b> Click on the Simplified Hire application.");
+			System.out.println("Step " + (step - 1) + ": Click on the Simplified Hire application.");
+			Simplified_Hire.click();
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> Simplified Hire application clicked successfully.");
+			System.out.println("🟨 Actual: Simplified Hire application clicked successfully.");
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>Step " + (step++) + ":</b> Validate landing on the Simplified Hire dashboard.");
+			System.out.println("Step " + (step - 1) + ": Validate landing on the Simplified Hire dashboard.");
+			p.Landed_in_Dashboard();
+			Report_Listen.log_print_in_report().log(Status.PASS,
+					"<b>🟨 Actual:</b> User landed successfully on the Simplified Hire dashboard.");
+			System.out.println("🟨 Actual: User landed successfully on the Simplified Hire dashboard.");
+
+		} catch (Exception e) {
+
+			Report_Listen.log_print_in_report().log(Status.WARNING,
+					"<b>⚠ Fallback:</b> Standard login/company/app selection flow was not completed. Verifying whether the user was directly redirected to the dashboard because the account is mapped to only one organization and only one application.");
+			System.out.println("⚠ Fallback: Standard login/company/app selection flow was not completed. Verifying whether the user was directly redirected to the dashboard because the account is mapped to only one organization and only one application.");
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>Step " + (step++) + ":</b> Validate direct landing on the Simplified Hire dashboard.");
+			System.out.println("Step " + (step - 1) + ": Validate direct landing on the Simplified Hire dashboard.");
+			p.Landed_in_Dashboard();
+			Report_Listen.log_print_in_report().log(Status.PASS,
+					"<b>🟨 Actual:</b> User was directly redirected and landed successfully on the Simplified Hire dashboard.");
+			System.out.println("🟨 Actual: User was directly redirected and landed successfully on the Simplified Hire dashboard.");
 		}
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>Step " + (step++) + ":</b> Fetch the list of available internal applications from the portal.");
-		System.out.println("Step " + (step - 1) + ": Fetch the list of available internal applications from the portal.");
-		List<WebElement> internal_apps = p.Apps();
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>🟨 Actual:</b> Internal applications fetched successfully. Total apps found = " + internal_apps.size());
-		System.out.println("🟨 Actual: Internal applications fetched successfully. Total apps found = " + internal_apps.size());
-
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>Step " + (step++) + ":</b> Select the Simplified Hire application from the internal applications list.");
-		System.out.println("Step " + (step - 1) + ": Select the Simplified Hire application from the internal applications list.");
-		WebElement Simplified_Hire = internal_apps.get(0);
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>🟨 Actual:</b> Simplified Hire application identified successfully from the list.");
-		System.out.println("🟨 Actual: Simplified Hire application identified successfully from the list.");
-
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>Step " + (step++) + ":</b> Click on the Simplified Hire application.");
-		System.out.println("Step " + (step - 1) + ": Click on the Simplified Hire application.");
-		Simplified_Hire.click();
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>🟨 Actual:</b> Simplified Hire application clicked successfully.");
-		System.out.println("🟨 Actual: Simplified Hire application clicked successfully.");
-
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>Step " + (step++) + ":</b> Validate landing on the Simplified Hire dashboard.");
-		System.out.println("Step " + (step - 1) + ": Validate landing on the Simplified Hire dashboard.");
-		p.Landed_in_Dashboard();
-		Report_Listen.log_print_in_report().log(Status.PASS,
-				"<b>🟨 Actual:</b> User landed successfully on the Simplified Hire dashboard.");
-		System.out.println("🟨 Actual: User landed successfully on the Simplified Hire dashboard.");
-
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>📌 Final Status:</b> Simplified Hire application accessed successfully from the portal.");
-		System.out.println("📌 Final Status: Simplified Hire application accessed successfully from the portal.");
+				"<b>📌 Final Status:</b> Simplified Hire application access flow completed successfully.");
+		System.out.println("📌 Final Status: Simplified Hire application access flow completed successfully.");
 	}
 
 }

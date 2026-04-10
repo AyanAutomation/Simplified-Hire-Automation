@@ -1,63 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="0" failed="1" skipped="0">
+<testng-results ignored="1" total="2" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-04-10T13:31:10 IST" name="Default suite" finished-at="2026-04-10T13:31:12 IST" duration-ms="1190">
+  <suite started-at="2026-04-10T17:35:27 IST" name="Default suite" finished-at="2026-04-10T17:35:49 IST" duration-ms="22309">
     <groups>
-      <group name="cucumber">
-        <method signature="AbstractTestNGCucumberTests.runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:Runner_Cucumber.Login_Runner@394df057]" name="runScenario" class="io.cucumber.testng.AbstractTestNGCucumberTests"/>
-      </group> <!-- cucumber -->
     </groups>
-    <test started-at="2026-04-10T13:31:10 IST" name="Default test" finished-at="2026-04-10T13:31:12 IST" duration-ms="1190">
-      <class name="Runner_Cucumber.Login_Runner">
-        <test-method is-config="true" signature="setUpClass(org.testng.ITestContext)[pri:0, instance:Runner_Cucumber.Login_Runner@394df057]" started-at="2026-04-10T13:31:11 IST" name="setUpClass" finished-at="2026-04-10T13:31:11 IST" duration-ms="935" status="PASS">
+    <test started-at="2026-04-10T17:35:27 IST" name="Default test" finished-at="2026-04-10T17:35:49 IST" duration-ms="22309">
+      <class name="Product_Codeclouds.Project.Simplified.Candidate_module">
+        <test-method is-config="true" signature="setup()[pri:0, instance:Product_Codeclouds.Project.Simplified.Candidate_module@65e98b1c]" started-at="2026-04-10T17:35:27 IST" name="setup" finished-at="2026-04-10T17:35:29 IST" duration-ms="2204" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="CV_upload(java.util.TreeMap)[pri:0, instance:Product_Codeclouds.Project.Simplified.Candidate_module@65e98b1c]" started-at="2026-04-10T17:35:29 IST" name="CV_upload" data-provider="Candidate_CV_Upload_Files" finished-at="2026-04-10T17:35:49 IST" duration-ms="20030" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@7c129ef6]]>
+                <![CDATA[{File Path=C:\Users\CODECLOUDS-AYAN\OneDrive\Documents\Automation Projects\Simplified Hire\Dummy Cvs\candidate_resume_valid.pdf, File Type=Valid PDF}]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- setUpClass -->
-        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:Runner_Cucumber.Login_Runner@394df057]" started-at="2026-04-10T13:31:11 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2026-04-10T13:31:12 IST" duration-ms="143" status="FAIL">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[""]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA["Login with cucumber"]]>
-              </value>
-            </param>
-          </params>
-          <exception class="java.lang.IllegalArgumentException">
-            <message>
-              <![CDATA[Test name must not be null or empty]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.IllegalArgumentException: Test name must not be null or empty
-at com.aventstack.extentreports.util.Assert.notEmpty(Assert.java:12)
-at com.aventstack.extentreports.ExtentTest.<init>(ExtentTest.java:97)
-at com.aventstack.extentreports.ExtentTest.<init>(ExtentTest.java:118)
-at com.aventstack.extentreports.ExtentReports.createTest(ExtentReports.java:231)
-at com.aventstack.extentreports.ExtentReports.createTest(ExtentReports.java:245)
-at Listerners.Report_Listen.start_cucumber_test(Report_Listen.java:26)
-at Cucumber.Step.Definition.Java.Classes.Base_Cucumber.setup(Base_Cucumber.java:36)
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.IllegalArgumentException -->
+        </test-method> <!-- CV_upload -->
+        <test-method is-config="true" signature="Kill()[pri:0, instance:Product_Codeclouds.Project.Simplified.Candidate_module@65e98b1c]" started-at="2026-04-10T17:35:49 IST" name="Kill" finished-at="2026-04-10T17:35:49 IST" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- runScenario -->
-        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:Runner_Cucumber.Login_Runner@394df057]" started-at="2026-04-10T13:31:12 IST" name="tearDownClass" finished-at="2026-04-10T13:31:12 IST" duration-ms="32" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDownClass -->
-      </class> <!-- Runner_Cucumber.Login_Runner -->
+        </test-method> <!-- Kill -->
+      </class> <!-- Product_Codeclouds.Project.Simplified.Candidate_module -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

@@ -3,6 +3,7 @@ package Repeatative_codes;
 import java.time.Duration;
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -27,6 +28,14 @@ public class Repeat {
 		
 		WebDriverWait w = new WebDriverWait(d,Duration.ofSeconds(10));
 	    w.until(ExpectedConditions.visibilityOf(element));}
+   
+   
+   public WebElement wait_for_presence_of_theElement(By by) {
+
+		WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(10));
+		w.until(ExpectedConditions.presenceOfElementLocated(by));
+		return d.findElement(by);
+	}
 	
 	
 	public void wait_for_theElement(List <WebElement> element){
