@@ -15,14 +15,13 @@ public class Cucumber_Login extends Login{
 	
 	public void BindDriver(){
 		
-		super.d= Base_Cucumber.d;
+		super.d= Base_Cucumber.D.get();
 		super.Target_url= Base_Cucumber.Target_url;
 		
 	}
 
     @Given("Cucumber Postive login")	
-    @Test
-	public void login_by_cucumber() throws IOException{
+    public void login_by_cucumber() throws IOException{
     	
     	BindDriver();
     	login();

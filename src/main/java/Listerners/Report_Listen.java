@@ -3,87 +3,87 @@ package Listerners;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 
 import Report.Reports;
 
-public class Report_Listen extends Reports implements ITestListener{
-	
-	
-	ExtentReports report = Get_reports();
+public class Report_Listen extends Reports implements ITestListener {
+
+	public static ExtentReports report = new Reports().Get_reports();
 	public static final ThreadLocal<ExtentTest> log_report = new ThreadLocal<ExtentTest>();
-	ExtentTest Test_result;
-	
-	public static ExtentTest log_print_in_report(){
-		
+
+	public static ExtentTest log_print_in_report() {
+
 		return log_report.get();
+	}
+
+	// For Cucumber zone
+	public static void start_cucumber_test(String scenario_name) {
+
+		log_report.set(report.createTest(scenario_name));
+	}
+
+	// For Cucumber zone
+	public static void flush_cucumber_report() {
+
+		report.flush();
+	}
+
+	public static void remove_cucumber_test() {
+
+		log_report.remove();
 	}
 
 	@Override
 	public void onTestStart(ITestResult result) {
-		
+
 		String Test_Method_name = result.getMethod().getMethodName();
-		 log_report.set(report.createTest(Test_Method_name));	  // Here Log_reader is storing the MEthod name and since
+		log_report.set(report.createTest(Test_Method_name));
 	}
 
 	@Override
 	public void onTestSuccess(ITestResult result) {
-		
-		log_report.get().log(Status.PASS, "Test passed"); 
-		/* Since createTest()(Log_reader also storing extent report) and method_Name has been Stored in "Log_reader" object on " onTestStart(ITestResult result)" 
-		so in this Method execution no need to write it
-		( Code :- "String method_Name = result.getMethod().getMethodName();" ) here again. */
-		
+
+		log_report.get().log(Status.PASS, "Test passed");
 	}
 
 	@Override
 	public void onTestFailure(ITestResult result) {
-	
-       log_report.get().log(Status.FAIL, result.getThrowable());
-		
-		/* Since createTest()(Log_reader also storing extent report) and method_Name has been Stored in "Log_reader" object on " onTestStart(ITestResult result)" 
-		so in this Method execution no need to write it
-		( Code :- "String method_Name = result.getMethod().getMethodName();" ) here again. */
+
+		log_report.get().log(Status.FAIL, result.getThrowable());
 	}
 
 	@Override
 	public void onTestSkipped(ITestResult result) {
-		
+
 		ITestListener.super.onTestSkipped(result);
 	}
 
 	@Override
 	public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
-		
+
 		ITestListener.super.onTestFailedButWithinSuccessPercentage(result);
 	}
 
 	@Override
 	public void onTestFailedWithTimeout(ITestResult result) {
-		
+
 		ITestListener.super.onTestFailedWithTimeout(result);
 	}
 
 	@Override
 	public void onStart(ITestContext context) {
-		
+
 		ITestListener.super.onStart(context);
 	}
 
 	@Override
 	public void onFinish(ITestContext context) {
-	
+
 		ITestListener.super.onFinish(context);
-		
 		report.flush();
 	}
-	
-	
-	
-	
-	
-	
-
 }

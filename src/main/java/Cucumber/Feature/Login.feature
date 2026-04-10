@@ -1,4 +1,4 @@
 Feature: Login with cucumber
-Scenario:
-Login Through Cucumber
-Given Cucumber Postive login
+
+  Scenario: Login with valid configured credentials and enter company portal
+    Given Cucumber Postive login
