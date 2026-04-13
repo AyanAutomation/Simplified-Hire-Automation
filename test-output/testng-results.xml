@@ -1,32 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="1" total="2" passed="1" failed="0" skipped="0">
+<testng-results ignored="2" total="3" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-04-10T17:35:27 IST" name="Default suite" finished-at="2026-04-10T17:35:49 IST" duration-ms="22309">
+  <suite started-at="2026-04-13T19:35:00 IST" name="Default suite" finished-at="2026-04-13T19:35:16 IST" duration-ms="15835">
     <groups>
     </groups>
-    <test started-at="2026-04-10T17:35:27 IST" name="Default test" finished-at="2026-04-10T17:35:49 IST" duration-ms="22309">
-      <class name="Product_Codeclouds.Project.Simplified.Candidate_module">
-        <test-method is-config="true" signature="setup()[pri:0, instance:Product_Codeclouds.Project.Simplified.Candidate_module@65e98b1c]" started-at="2026-04-10T17:35:27 IST" name="setup" finished-at="2026-04-10T17:35:29 IST" duration-ms="2204" status="PASS">
+    <test started-at="2026-04-13T19:35:00 IST" name="Default test" finished-at="2026-04-13T19:35:16 IST" duration-ms="15835">
+      <class name="Product_Codeclouds.Project.Simplified.Job_Module">
+        <test-method is-config="true" signature="setup()[pri:0, instance:Product_Codeclouds.Project.Simplified.Job_Module@7817fd62]" started-at="2026-04-13T19:35:00 IST" name="setup" finished-at="2026-04-13T19:35:02 IST" duration-ms="2078" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="CV_upload(java.util.TreeMap)[pri:0, instance:Product_Codeclouds.Project.Simplified.Candidate_module@65e98b1c]" started-at="2026-04-10T17:35:29 IST" name="CV_upload" data-provider="Candidate_CV_Upload_Files" finished-at="2026-04-10T17:35:49 IST" duration-ms="20030" status="PASS">
+        <test-method signature="Job_Add(java.util.TreeMap)[pri:0, instance:Product_Codeclouds.Project.Simplified.Job_Module@7817fd62]" started-at="2026-04-13T19:35:02 IST" name="Job_Add" data-provider="Job_Posting_Data" finished-at="2026-04-13T19:35:16 IST" duration-ms="13684" status="FAIL">
           <params>
             <param index="0">
               <value>
-                <![CDATA[{File Path=C:\Users\CODECLOUDS-AYAN\OneDrive\Documents\Automation Projects\Simplified Hire\Dummy Cvs\candidate_resume_valid.pdf, File Type=Valid PDF}]]>
+                <![CDATA[{Benefits=Competitive compensation, health insurance coverage, performance-based increments, paid leave, exposure to enterprise-level QA practices, career growth support, collaborative team culture, and opportunities to work on modern automation tools and evolving testing processes., Category=IT / Software, City / State=Kolkata, West Bengal, Country=India, Currency 1=INR(₹), Currency 2=INR(₹), Currency 3=INR(₹), Department / Division=Quality Assurance, Employment Type=Full Time, Expected Hiring Date=15-05-2026, Expiry Date=30-04-2026, Job Description=We are hiring an Automation Test Engineer to join our growing quality engineering team. The candidate will be responsible for designing, maintaining, and executing automated test cases for web-based applications, validating end-to-end user flows, identifying regression impact areas, and collaborating with developers, business analysts, and product stakeholders to ensure high product quality. The role requires hands-on experience in functional automation, defect reporting, test design, and framework usage across fast-paced release cycles., Job Posting Name=Automation QA Engineer Hiring 01, Job Requirements=Strong hands-on experience in Java, Selenium WebDriver, TestNG, Maven, Git, and basic SQL. Good understanding of SDLC, STLC, bug life cycle, data validation, functional testing, smoke testing, regression testing, and cross-browser verification. Candidate should be comfortable with locators, synchronization handling, reusable framework components, reporting, and debugging flaky automation scenarios in dynamic UI applications., Job Title=Automation Test Engineer, Job Urgency=High, Number of Positions=3, Remote=Yes, Required Education=B.Tech, Required Experience=3-5 Years, Salary From 1=500000, Salary From 2=700001, Salary From 3=900001, Salary To 1=700000, Salary To 2=900000, Salary To 3=1200000, Save As Job Posting Template=No, Select Template=Custom Template, Unit 1=Yearly, Unit 2=Yearly, Unit 3=Yearly, When Positions Fulfilled=Close Job Posting}]]>
               </value>
             </param>
           </params>
+          <exception class="org.openqa.selenium.NoSuchSessionException">
+            <message>
+              <![CDATA[invalid session id
+Build info: version: '4.33.0', revision: '2c6aaad03a'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.9'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [031c62ce974f370deb08d6a52946cf9a, findElement {using=xpath, value=//*[contains(@class,'title-row')]//*[text()='Dashboard']}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.178, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: C:\Users\CODECL~1\AppData\L...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:55789}, goog:processID: 16800, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:55789/devtoo..., se:cdpVersion: 146.0.7680.178, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 031c62ce974f370deb08d6a52946cf9a]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchSessionException: invalid session id
+Build info: version: '4.33.0', revision: '2c6aaad03a'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.9'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [031c62ce974f370deb08d6a52946cf9a, findElement {using=xpath, value=//*[contains(@class,'title-row')]//*[text()='Dashboard']}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.178, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: C:\Users\CODECL~1\AppData\L...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:55789}, goog:processID: 16800, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:55789/devtoo..., se:cdpVersion: 146.0.7680.178, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 031c62ce974f370deb08d6a52946cf9a
+at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:544)
+at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:165)
+at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:367)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:361)
+at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:68)
+at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
+at jdk.proxy2/jdk.proxy2.$Proxy17.isDisplayed(Unknown Source)
+at org.openqa.selenium.support.ui.ExpectedConditions.elementIfVisible(ExpectedConditions.java:304)
+at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:290)
+at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:287)
+at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
+at Repeatative_codes.Repeat.wait_for_theElement(Repeat.java:30)
+at Locaters.Simplified_portal_locaters.Landed_in_Dashboard(Simplified_portal_locaters.java:34)
+at Product_Codeclouds.Project.Simplified.Simplified_hire_login.Simplified_Hire_Accessor(Simplified_hire_login.java:110)
+at Product_Codeclouds.Project.Simplified.Side_menu_Handler.Menu_option_selector(Side_menu_Handler.java:24)
+at Product_Codeclouds.Project.Simplified.Job_Module.Access_Job_Module_List(Job_Module.java:31)
+at Product_Codeclouds.Project.Simplified.Job_Module.Job_Add(Job_Module.java:86)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+at org.testng.TestRunner.privateRun(TestRunner.java:741)
+at org.testng.TestRunner.run(TestRunner.java:616)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+at org.testng.TestNG.runSuites(TestNG.java:1112)
+at org.testng.TestNG.run(TestNG.java:1079)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchSessionException -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- CV_upload -->
-        <test-method is-config="true" signature="Kill()[pri:0, instance:Product_Codeclouds.Project.Simplified.Candidate_module@65e98b1c]" started-at="2026-04-10T17:35:49 IST" name="Kill" finished-at="2026-04-10T17:35:49 IST" duration-ms="0" status="PASS">
+        </test-method> <!-- Job_Add -->
+        <test-method is-config="true" signature="Kill()[pri:0, instance:Product_Codeclouds.Project.Simplified.Job_Module@7817fd62]" started-at="2026-04-13T19:35:16 IST" name="Kill" finished-at="2026-04-13T19:35:16 IST" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Kill -->
-      </class> <!-- Product_Codeclouds.Project.Simplified.Candidate_module -->
+      </class> <!-- Product_Codeclouds.Project.Simplified.Job_Module -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

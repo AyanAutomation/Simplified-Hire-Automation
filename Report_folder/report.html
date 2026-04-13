@@ -35,7 +35,7 @@
 <a href="#"><span class="badge badge-primary">Dummy Project</span></a>
 </li>
 <li class="m-r-10">
-<a href="#"><span class="badge badge-primary">Apr 10, 2026 05:35:26 PM</span></a>
+<a href="#"><span class="badge badge-primary">Apr 13, 2026 07:35:00 PM</span></a>
 </li>
 </ul>
 </div>
@@ -45,6 +45,11 @@
 <li class="nav-item dropdown" onclick="toggleView('test-view')">
 <a id="nav-test" class="dropdown-toggle" href="#">
 <span class="ico"><i class="fa fa-list"></i></span>
+</a>
+</li>
+<li class="nav-item dropdown" onclick="toggleView('exception-view')">
+<a id="nav-exception" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-bug"></i></span>
 </a>
 </li>
 <li class="nav-item dropdown" onclick="toggleView('dashboard-view')">
@@ -66,7 +71,7 @@
 <li class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-exclamation-circle"></i></a>
 <ul id="status-toggle" class="dropdown-menu dropdown-md p-v-0">
-<a class="dropdown-item" status="warning" href="#"><span>Warning</span><span class="status warning"></span></a>
+<a class="dropdown-item" status="fail" href="#"><span>Fail</span><span class="status danger"></span></a>
 <div class="dropdown-divider"></div>
 <a status="clear" class="dropdown-item" href="#"><span>Clear</span><span class="pull-right"><i class="fa fa-close"></i></span></a>
 </ul>
@@ -74,25 +79,25 @@
 </ul>
 </div>    <div class="test-list-wrapper scrollable">
       <ul class="test-list-item">
-        <li class="test-item"  status="warning" test-id="1"
+        <li class="test-item"  status="fail" test-id="1"
           author=""
           tag=""
           device="">
           <div class="test-detail">
-            <p class="name">CV_upload</p>
+            <p class="name">Job_Add</p>
             <p class="text-sm">
-              <span>5:35:29 PM</span> / <span>00:00:20:024</span>
-              <span class="badge warning-bg log float-right">Warning</span>
+              <span>7:35:02 PM</span> / <span>00:00:13:683</span>
+              <span class="badge fail-bg log float-right">Fail</span>
             </p>
           </div>
           <div class="test-contents d-none">
 <div class="detail-head">
 <div class="p-v-10">
 <div class="info">
-<h5 class="test-status text-warning">CV_upload</h5>
-<span class='badge badge-success'>04.10.2026 5:35:29 PM</span>
-<span class='badge badge-danger'>04.10.2026 5:35:49 PM</span>
-<span class='badge badge-default'>00:00:20:024</span>
+<h5 class="test-status text-fail">Job_Add</h5>
+<span class='badge badge-success'>04.13.2026 7:35:02 PM</span>
+<span class='badge badge-danger'>04.13.2026 7:35:16 PM</span>
+<span class='badge badge-default'>00:00:13:683</span>
 &middot; <span class='uri-anchor badge badge-default'>#test-id=1</span>
 <span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
 <span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
@@ -105,352 +110,161 @@
   <tbody>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:29 PM</td>
-        <td>
-          <b>🔹 Scenario Title:</b> Validate candidate CV upload using different file types
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:29 PM</td>
-        <td>
-          <b>📘 Description:</b> Open the Candidate Import CV section, upload the configured file from data provider, and validate CV parsing behavior for the selected file type.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:29 PM</td>
-        <td>
-          <b>📥 Input:</b> File Type = Valid PDF | File Path = C:\Users\CODECLOUDS-AYAN\OneDrive\Documents\Automation Projects\Simplified Hire\Dummy Cvs\candidate_resume_valid.pdf
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:29 PM</td>
-        <td>
-          <b>✅ Expected:</b> Import CV section should open successfully, upload field should accept the configured file path, and the system should process the uploaded file according to the supported/unsupported file type behavior.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:29 PM</td>
-        <td>
-          <b>Step 1:</b> Open Candidate Import CV section.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:29 PM</td>
-        <td>
-          <b>🔹 Scenario Title:</b> Access Candidate import CV section
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:29 PM</td>
-        <td>
-          <b>📘 Description:</b> Open the Candidates module, validate landing in Candidate list using the Import CV button as the unique identifier, and click it to open the candidate CV import section.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:29 PM</td>
-        <td>
-          <b>✅ Expected:</b> Candidates module should open successfully, Import CV button should be visible as the Candidate list identifier, and clicking it should open the candidate CV import section.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:29 PM</td>
-        <td>
-          <b>Step:</b> Navigate to Candidates module from side menu.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:29 PM</td>
+        <td>7:35:03 PM</td>
         <td>
           <b>Step:</b> Open side menu and fetch all available menu options.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:29 PM</td>
+        <td>7:35:03 PM</td>
         <td>
           <b>🔹 Scenario Title:</b> Access Simplified Hire internal application from portal
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:29 PM</td>
+        <td>7:35:03 PM</td>
         <td>
           <b>📘 Description:</b> Login into the system, wait for portal loader to disappear, identify available internal applications, click on Simplified Hire, and validate successful landing on the dashboard. If login flow is not shown and user is directly redirected due to single organization and single app mapping, validate direct landing on dashboard.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:29 PM</td>
+        <td>7:35:03 PM</td>
         <td>
           <b>✅ Expected:</b> User should either complete login and access Simplified Hire from the portal, or if mapped to only one organization and one app, should be directly redirected and land on the dashboard successfully.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:29 PM</td>
+        <td>7:35:03 PM</td>
         <td>
           <b>Step 1:</b> Perform login into the application.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:29 PM</td>
+        <td>7:35:03 PM</td>
         <td>
           <b>🔹 Scenario Title:</b> Login with valid configured credentials and enter company portal
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:29 PM</td>
+        <td>7:35:03 PM</td>
         <td>
           <b>📘 Description:</b> Open the application URL, wait until login page is loaded, enter configured credentials, verify password visibility interaction, click Login button, validate successful login confirmation, select company, wait for loader disappearance, and validate successful entry inside the company portal.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:29 PM</td>
+        <td>7:35:03 PM</td>
         <td>
           <b>📥 Input:</b> Target URL = https://accounts.dev.besimplified.net/home | Login ID = ayansimplified@yopmail.com | Password = Password@123
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:29 PM</td>
+        <td>7:35:03 PM</td>
         <td>
           <b>✅ Expected:</b> Application should open successfully, login page should load properly, login credentials should be accepted, password eye icon should be clickable, user should be able to click Login, login confirmation should be displayed, company option should be selectable, loader should disappear, and user should land successfully inside the company portal.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:29 PM</td>
+        <td>7:35:03 PM</td>
         <td>
           <b>Step 1:</b> Open target application URL and wait until login page is loaded.
         </td>
       </tr>
       <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:36 PM</td>
+        <td><span class="badge log warning-bg">Warning</span></td>
+        <td>7:35:14 PM</td>
         <td>
-          <b>🟨 Actual:</b> Application URL opened successfully and login page loaded = https://accounts.dev.besimplified.net/home
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:36 PM</td>
-        <td>
-          <b>Step 2:</b> Enter Login ID into the login field.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:37 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Login ID entered successfully = ayansimplified@yopmail.com
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:37 PM</td>
-        <td>
-          <b>Step 3:</b> Enter Password into the password field.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:37 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Password entered successfully.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:37 PM</td>
-        <td>
-          <b>Step 4:</b> Click password eye icon to verify password visibility functionality.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:37 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Password eye icon clicked successfully.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:37 PM</td>
-        <td>
-          <b>Step 5:</b> Click on Login button.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:37 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Login button clicked successfully.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:37 PM</td>
-        <td>
-          <b>Step 6:</b> Validate successful login confirmation.
+          <b>⚠ Retry:</b> Initial wait for login page load failed. Retrying the same operation again.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log warning-bg">Warning</span></td>
-        <td>5:35:47 PM</td>
+        <td>7:35:16 PM</td>
         <td>
           <b>⚠ Fallback:</b> Standard login/company/app selection flow was not completed. Verifying whether the user was directly redirected to the dashboard because the account is mapped to only one organization and only one application.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:47 PM</td>
+        <td>7:35:16 PM</td>
         <td>
           <b>Step 2:</b> Validate direct landing on the Simplified Hire dashboard.
         </td>
       </tr>
       <tr class="event-row">
-        <td><span class="badge log pass-bg">Pass</span></td>
-        <td>5:35:47 PM</td>
+        <td><span class="badge log fail-bg">Fail</span></td>
+        <td>7:35:16 PM</td>
         <td>
-          <b>🟨 Actual:</b> User was directly redirected and landed successfully on the Simplified Hire dashboard.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:47 PM</td>
-        <td>
-          <b>📌 Final Status:</b> Simplified Hire application access flow completed successfully.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:48 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Side menu options fetched successfully. Total menu options found = 7
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:48 PM</td>
-        <td>
-          <b>Step:</b> Search for side menu option = Candidates and click on it.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log pass-bg">Pass</span></td>
-        <td>5:35:48 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Side menu option clicked successfully = Candidates
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:48 PM</td>
-        <td>
-          <b>Step:</b> Validate landing in Candidate list by identifying the Import CV button.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log pass-bg">Pass</span></td>
-        <td>5:35:48 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Candidate list opened successfully and Import CV button was identified.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:48 PM</td>
-        <td>
-          <b>Step:</b> Click on Import CV button.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log pass-bg">Pass</span></td>
-        <td>5:35:48 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Import CV button clicked successfully and candidate import flow was opened.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:48 PM</td>
-        <td>
-          <b>📌 Final Status:</b> Candidate Import CV access flow completed successfully.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:48 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Candidate Import CV section opened successfully.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:48 PM</td>
-        <td>
-          <b>Step 2:</b> Identify CV upload field.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:49 PM</td>
-        <td>
-          <b>🟨 Actual:</b> CV upload field identified successfully.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:49 PM</td>
-        <td>
-          <b>Step 3:</b> Upload file into CV upload field.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:49 PM</td>
-        <td>
-          <b>🟨 Actual:</b> File path sent successfully for upload = C:\Users\CODECLOUDS-AYAN\OneDrive\Documents\Automation Projects\Simplified Hire\Dummy Cvs\candidate_resume_valid.pdf
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:49 PM</td>
-        <td>
-          <b>Step 4:</b> Trigger/validate CV parsing process after upload.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log pass-bg">Pass</span></td>
-        <td>5:35:49 PM</td>
-        <td>
-          <b>🟨 Actual:</b> CV parsing flow executed successfully for file type = Valid PDF
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>5:35:49 PM</td>
-        <td>
-          <b>📌 Final Status:</b> Candidate CV upload validation flow completed for file type = Valid PDF
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log pass-bg">Pass</span></td>
-        <td>5:35:49 PM</td>
-        <td>
-          Test passed
+          <textarea readonly class="code-block">org.openqa.selenium.NoSuchSessionException: invalid session id
+Build info: version: '4.33.0', revision: '2c6aaad03a'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.9'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [031c62ce974f370deb08d6a52946cf9a, findElement {using=xpath, value=//*[contains(@class,'title-row')]//*[text()='Dashboard']}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.178, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: C:\Users\CODECL~1\AppData\L...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:55789}, goog:processID: 16800, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:55789/devtoo..., se:cdpVersion: 146.0.7680.178, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 031c62ce974f370deb08d6a52946cf9a
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:544)
+	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:165)
+	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:367)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:361)
+	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:68)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
+	at jdk.proxy2/jdk.proxy2.$Proxy17.isDisplayed(Unknown Source)
+	at org.openqa.selenium.support.ui.ExpectedConditions.elementIfVisible(ExpectedConditions.java:304)
+	at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:290)
+	at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:287)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
+	at Repeatative_codes.Repeat.wait_for_theElement(Repeat.java:30)
+	at Locaters.Simplified_portal_locaters.Landed_in_Dashboard(Simplified_portal_locaters.java:34)
+	at Product_Codeclouds.Project.Simplified.Simplified_hire_login.Simplified_Hire_Accessor(Simplified_hire_login.java:110)
+	at Product_Codeclouds.Project.Simplified.Side_menu_Handler.Menu_option_selector(Side_menu_Handler.java:24)
+	at Product_Codeclouds.Project.Simplified.Job_Module.Access_Job_Module_List(Job_Module.java:31)
+	at Product_Codeclouds.Project.Simplified.Job_Module.Job_Add(Job_Module.java:86)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+	at org.testng.TestNG.runSuites(TestNG.java:1112)
+	at org.testng.TestNG.run(TestNG.java:1079)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+</textarea>
+          
         </td>
       </tr>
   </tbody>
@@ -467,18 +281,67 @@
 </div>
 <div class="test-content-detail"><div class="detail-body"></div></div>
 </div></div>
-<div class="container-fluid p-4 view dashboard-view">
+<div class="test-wrapper row view exception-view attributes-view">
+<div class="test-list">
+<div class="test-list-tools">
+<ul class="tools pull-left"><li><a href=""><span class="font-size-14">Exception</span></a></li></ul>
+<ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">1</span></a></li></ul>
+</div>
+<div class="test-list-wrapper scrollable">
+<ul class="test-list-item">
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log badge-danger'>1</span>
+</span>
+<p class="name">org.openqa.selenium.NoSuchSessionException</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>org.openqa.selenium.NoSuchSessionException</h4>
+<span status="fail" class='badge log badge-danger'>1 failed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="fail">
+<td><span class="badge log fail-bg">Fail</span></td>
+<td>19:35:02 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='1'>Job_Add</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="test-content scrollable">
+<div class="test-content-detail">
+<div class="detail-body"></div>
+</div>
+</div>
+</div><div class="container-fluid p-4 view dashboard-view">
 <div class="row">
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Started</p>
-<h3>Apr 10, 2026 05:35:26 PM</h3>
+<h3>Apr 13, 2026 07:35:00 PM</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Ended</p>
-<h3>Apr 10, 2026 05:35:49 PM</h3>
+<h3>Apr 13, 2026 07:35:16 PM</h3>
 </div></div>
 </div>
 <div class="col-md-3">
@@ -490,7 +353,7 @@
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0 text-fail">Tests Failed</p>
-<h3>0</h3>
+<h3>1</h3>
 </div></div>
 </div>
 </div>
@@ -511,8 +374,8 @@
 </small>
 </div>
 <div>
-<small data-tooltip='0%'><b>0</b> tests failed,
-<b>0</b> skipped, <b data-tooltip='100%'>1</b> others
+<small data-tooltip='100%'><b>1</b> tests failed,
+<b>0</b> skipped, <b data-tooltip='0%'>0</b> others
 </small>
 </div>
 </div>
@@ -529,10 +392,10 @@
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='12%'><b>6</b> events passed</small></div>
+<div><small data-tooltip='0%'><b>0</b> events passed</small></div>
 <div>
-<small data-tooltip='0%'><b>0</b> events failed,
-<b data-tooltip='%'>44</b> others
+<small data-tooltip='7%'><b>1</b> events failed,
+<b data-tooltip='%'>13</b> others
 </small>
 </div>
 </div>
@@ -548,7 +411,7 @@
 </div></div>
 <script>
 var timeline = {
-"CV_upload":20.024
+"Job_Add":13.683
 };
 </script>
 <div class="row">
@@ -588,8 +451,8 @@ var timeline = {
 var statusGroup = {
 parentCount: 5,
 passParent: 0,
-failParent: 0,
-warningParent: 1,
+failParent: 1,
+warningParent: 0,
 skipParent: 0,
 childCount: 5,
 passChild: 0,
@@ -604,11 +467,11 @@ warningGrandChild: 0,
 skipGrandChild: 0,
 infoGrandChild: 0,
 eventsCount: 5,
-passEvents: 6,
-failEvents: 0,
-warningEvents: 1,
+passEvents: 0,
+failEvents: 1,
+warningEvents: 2,
 skipEvents: 0,
-infoEvents: 43
+infoEvents: 11
 };
 </script>        </div>
       </div>

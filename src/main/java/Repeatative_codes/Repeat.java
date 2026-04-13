@@ -48,6 +48,11 @@ public class Repeat {
 	   	 
 		 }
 	
+	 public List<WebElement> wait_for_nested(WebElement parent, By childLocator){
+	        WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(10));
+	      return  w.until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(parent, childLocator));
+	    }
+	
 	public void wait_for_invisibilty_of_theElement(WebElement element){
 		 
 	     
