@@ -1,5 +1,7 @@
 package Product_Codeclouds.Project.Simplified;
 
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.io.IOException;
 import java.util.List;
 import java.util.TreeMap;
@@ -34,11 +36,12 @@ public class Job_Module extends Candidate_module{
 	}
 	
 	@Test(dataProvider = "Job_Posting_Data")
-	public void Job_Add(TreeMap<String, String> job_data) throws IOException, InterruptedException {
+	public void Job_Add(TreeMap<String, String> job_data) throws IOException, InterruptedException, AWTException {
 		
 		Job_Module_locaters p = new Job_Module_locaters(d);
 		JavascriptExecutor js = (JavascriptExecutor) d;
 		Repeat rp = new Repeat(d);
+		Robot r = new Robot();
 		
 		String Select_Template = job_data.get("Select Template");
 
@@ -122,7 +125,7 @@ public class Job_Module extends Candidate_module{
 			Thread.sleep(800);
 			Custom_Dropdowns = p.Form_Custom_Dropdown_fields();
 		}
-		
+		Thread.sleep(1000);
 		List<WebElement> Buttons = p.Buttons();
 		List<WebElement> Description_feilds = null;
 
@@ -132,8 +135,9 @@ public class Job_Module extends Candidate_module{
 			Description_feilds = p.Form_Description_fields();
 
 		} catch (Exception e) {
-			js.executeScript("window.scrollBy(0,500)");
+			r.mouseWheel(15);
 			Thread.sleep(1000);
+			r.mouseWheel(-15);
 			Description_feilds = p.Form_Description_fields();
 		}
 		
@@ -304,9 +308,18 @@ public class Job_Module extends Candidate_module{
 	    	if(emp_opt_text.contains("Full")) {
 	    		emp_opt.click();
 	    		break;}}
-	    WebElement Category_feild = Custom_Dropdowns.get(1);
-	    js.executeScript("arguments[0].click();", Category_feild);/*
-	    p.Category_field().sendKeys(Category);/*
+	    r.mouseWheel(3);
+	    WebElement Category_feild = Custom_Dropdowns.get(0);
+	    rp.movetoelement(Category_feild);
+	    Thread.sleep(800);
+	    Category_feild.click();
+	    List<WebElement> Category_Type_options = p.Fourth_dropdown_Options();
+	    for(WebElement cat_opt:Category_Type_options){
+	    	
+	    	String cat_opt_text = cat_opt.getText().trim();
+	    	if(cat_opt_text.contains(Category)) {
+	    		cat_opt.click();
+	    		break;}}/*
 		input_fields.get(4).sendKeys();
 		input_fields.get(5).sendKeys(); */
 		

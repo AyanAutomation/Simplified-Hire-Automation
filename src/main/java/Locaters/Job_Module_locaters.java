@@ -32,11 +32,11 @@ public class Job_Module_locaters extends Repeat{
 	@FindBy(xpath="//div[@class='rc-virtual-list-holder-inner']")
 	private WebElement List_holder_Inner; 
 	@FindBy(xpath="//input[@id='category']")
-	private WebElement Category_field; 
-	@FindBy(xpath="//*[text()='Yes']/..")
-	private WebElement Yes_button;/*
-	@FindBy(xpath="")
-	private WebElement  ;
+	private WebElement Category_field;  
+	@FindBy(xpath="//*[text()='Yes']/..") 
+	private WebElement Yes_button;
+	@FindBy(xpath="(//*[contains(@class,'rc-virtual-list-holder')])[7]")
+	private WebElement Fourth_dropdown_list;/*
 	@FindBy(xpath="")
 	private WebElement  ;
 	@FindBy(xpath="")
@@ -77,7 +77,7 @@ public class Job_Module_locaters extends Repeat{
 	wait_for_theElement(Form_General_Dropdown_fields);
 	return Form_General_Dropdown_fields;} 
 	public List<WebElement> Form_Custom_Dropdown_fields() {
-	List<WebElement> Form_Custom_Dropdown_fields = Form().findElements(By.xpath(".//span[@class='ant-select-selection-placeholder']"));
+	List<WebElement> Form_Custom_Dropdown_fields = Form().findElements(By.xpath(".//span[@class='ant-select-selection-placeholder']/../../.."));
 	wait_for_theElement(Form_Custom_Dropdown_fields);
 	return Form_Custom_Dropdown_fields;}
 	public List<WebElement> Form_Description_fields() {
@@ -114,22 +114,20 @@ public class Job_Module_locaters extends Repeat{
 	List<WebElement> Third_dropdown_Options = Third_dropdown_list().findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
 	wait_for_theElement(Third_dropdown_Options);
 	return Third_dropdown_Options;
-	}/*
-	public WebElement Third_dropdown_list(){
-	wait_for_theElement(Third_dropdown_list);
-	return Third_dropdown_list;} 
-	public List<WebElement> Third_dropdown_Options(){
-	List<WebElement> Third_dropdown_Options = Third_dropdown_list().findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
-	wait_for_theElement(Third_dropdown_Options);
-	return Third_dropdown_Options;
-	wait_for_theElement();
-	return Third_dropdown_Options;}*/
+	}
+	public WebElement Fourth_dropdown_list(){
+	wait_for_theElement(Fourth_dropdown_list);
+	return Fourth_dropdown_list;} 
+	public List<WebElement> Fourth_dropdown_Options(){
+	List<WebElement> Fourth_dropdown_Options = Fourth_dropdown_list().findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+	wait_for_theElement(Fourth_dropdown_Options);
+	return Fourth_dropdown_Options;}
 	public WebElement Category_field(){
 	wait_for_theElement(Category_field);
-	return Category_field;}/*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return Category_field;}
+	public WebElement Yes_button(){
+	wait_for_theElement(Yes_button);
+	return Yes_button;}/*
 	public WebElement (){
 	wait_for_theElement();
 	return ;} public WebElement (){
