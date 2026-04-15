@@ -13,7 +13,7 @@ public class Simplified_portal_locaters extends Repeat{
 	
 
 
-		@FindBy(xpath="//*[contains(@class,'cursor-pointer')]")
+		@FindBy(xpath="//*[contains(@class,'cursor-pointer')]/../..")
 		private List<WebElement> Apps;
 		@FindBy(xpath="//*[contains(@class,'title-row')]//*[text()='Dashboard']")
 		private WebElement Landed_in_Dashboard; 

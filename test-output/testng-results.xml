@@ -2,44 +2,35 @@
 <testng-results ignored="2" total="3" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-04-14T18:37:47 IST" name="Default suite" finished-at="2026-04-14T18:38:34 IST" duration-ms="47023">
+  <suite started-at="2026-04-15T19:11:40 IST" name="Default suite" finished-at="2026-04-15T19:13:12 IST" duration-ms="91959">
     <groups>
     </groups>
-    <test started-at="2026-04-14T18:37:47 IST" name="Default test" finished-at="2026-04-14T18:38:34 IST" duration-ms="47023">
+    <test started-at="2026-04-15T19:11:40 IST" name="Default test" finished-at="2026-04-15T19:13:12 IST" duration-ms="91959">
       <class name="Product_Codeclouds.Project.Simplified.Job_Module">
-        <test-method is-config="true" signature="setup()[pri:0, instance:Product_Codeclouds.Project.Simplified.Job_Module@7817fd62]" started-at="2026-04-14T18:37:47 IST" name="setup" finished-at="2026-04-14T18:37:49 IST" duration-ms="1956" status="PASS">
+        <test-method is-config="true" signature="setup()[pri:0, instance:Product_Codeclouds.Project.Simplified.Job_Module@7817fd62]" started-at="2026-04-15T19:11:40 IST" name="setup" finished-at="2026-04-15T19:11:42 IST" duration-ms="2104" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="Job_Add(java.util.TreeMap)[pri:0, instance:Product_Codeclouds.Project.Simplified.Job_Module@7817fd62]" started-at="2026-04-14T18:37:49 IST" name="Job_Add" data-provider="Job_Posting_Data" finished-at="2026-04-14T18:38:34 IST" duration-ms="44600" status="FAIL">
+        <test-method signature="Job_Add(java.util.TreeMap)[pri:0, instance:Product_Codeclouds.Project.Simplified.Job_Module@7817fd62]" started-at="2026-04-15T19:11:42 IST" name="Job_Add" data-provider="Job_Posting_Data" finished-at="2026-04-15T19:13:12 IST" duration-ms="89784" status="FAIL">
           <params>
             <param index="0">
               <value>
-                <![CDATA[{Benefits=Competitive compensation, health insurance coverage, performance-based increments, paid leave, exposure to enterprise-level QA practices, career growth support, collaborative team culture, and opportunities to work on modern automation tools and evolving testing processes., Category=IT / Software, City / State=Kolkata, West Bengal, Country=India, Currency 1=INR(₹), Currency 2=INR(₹), Currency 3=INR(₹), Department / Division=Quality Assurance, Employment Type=Full Time, Expected Hiring Date=15-05-2026, Expiry Date=30-04-2026, Job Description=We are hiring an Automation Test Engineer to join our growing quality engineering team. The candidate will be responsible for designing, maintaining, and executing automated test cases for web-based applications, validating end-to-end user flows, identifying regression impact areas, and collaborating with developers, business analysts, and product stakeholders to ensure high product quality. The role requires hands-on experience in functional automation, defect reporting, test design, and framework usage across fast-paced release cycles., Job Posting Name=Automation QA Engineer Hiring 01, Job Requirements=Strong hands-on experience in Java, Selenium WebDriver, TestNG, Maven, Git, and basic SQL. Good understanding of SDLC, STLC, bug life cycle, data validation, functional testing, smoke testing, regression testing, and cross-browser verification. Candidate should be comfortable with locators, synchronization handling, reusable framework components, reporting, and debugging flaky automation scenarios in dynamic UI applications., Job Title=Automation Test Engineer, Job Urgency=High, Number of Positions=3, Remote=Yes, Required Education=B.Tech, Required Experience=3-5 Years, Salary From 1=500000, Salary From 2=700001, Salary From 3=900001, Salary To 1=700000, Salary To 2=900000, Salary To 3=1200000, Save As Job Posting Template=No, Select Template=Custom Template, Unit 1=Yearly, Unit 2=Yearly, Unit 3=Yearly, When Positions Fulfilled=Close Job Posting}]]>
+                <![CDATA[{Benefits=Competitive salary, insurance, AI focused research exposure, flexible work support, and long term career growth in intelligent systems engineering., Category=Information Technology, City / State=Bengaluru, Karnataka, Country=India, Currency 1=INR(₹), Currency 2=INR(₹), Currency 3=INR(₹), Department / Division=Artificial Intelligence and Autonomy, Employment Type=Full Time, Expected Hiring Date=18-08-2026, Expiry Date=26-06-2026, Job Description=We are hiring an AI and Autonomy Engineer to support intelligent decision making, mission automation, autonomous navigation behavior, and advanced UAV control logic through AI driven approaches., Job Posting Name=AI and Autonomy Engineer Hiring 01, Job Requirements=Experience in AI systems, autonomy concepts, machine learning integration, decision logic, and intelligent control workflows. Exposure to robotics or autonomous systems is strongly preferred., Job Title=AI and Autonomy Engineer, Job Urgency=High, Number of Positions=1, Remote=Yes, Required Education=M.Tech, Required Experience=Senior, Salary From 1=1800000, Salary From 2=2400001, Salary From 3=3200001, Salary To 1=2400000, Salary To 2=3200000, Salary To 3=4000000, Save As Job Posting Template=No, Screening Question 1=Do you have experience in AI systems, autonomy workflows, or machine learning integration in real world products?, Screening Question 2=Have you worked on intelligent control, mission automation, or decision making logic for autonomous systems?, Screening Question 3=Which AI or machine learning tools, frameworks, or deployment approaches have you used in your projects?, Select Template=Custom Template, Unit 1=Yearly, Unit 2=Yearly, Unit 3=Yearly, When Positions Fulfilled=Enable Waitlist}]]>
               </value>
             </param>
           </params>
           <exception class="org.openqa.selenium.TimeoutException">
             <message>
-              <![CDATA[Expected condition failed: waiting for visibility of all [[[[[ChromeDriver: chrome on windows (bca00d481f155f893a1d8f7dc9d1eccc)] -> xpath: (//*[contains(@class,'rc-virtual-list-holder')])[7]]] -> xpath: .//div[contains(@class,'ant-select-item ant-select-item-option')]], [[[[ChromeDriver: chrome on windows (bca00d481f155f893a1d8f7dc9d1eccc)] -> xpath: (//*[contains(@class,'rc-virtual-list-holder')])[7]]] -> xpath: .//div[contains(@class,'ant-select-item ant-select-item-option')]], [[[[ChromeDriver: chrome on windows (bca00d481f155f893a1d8f7dc9d1eccc)] -> xpath: (//*[contains(@class,'rc-virtual-list-holder')])[7]]] -> xpath: .//div[contains(@class,'ant-select-item ant-select-item-option')]], [[[[ChromeDriver: chrome on windows (bca00d481f155f893a1d8f7dc9d1eccc)] -> xpath: (//*[contains(@class,'rc-virtual-list-holder')])[7]]] -> xpath: .//div[contains(@class,'ant-select-item ant-select-item-option')]], [[[[ChromeDriver: chrome on windows (bca00d481f155f893a1d8f7dc9d1eccc)] -> xpath: (//*[contains(@class,'rc-virtual-list-holder')])[7]]] -> xpath: .//div[contains(@class,'ant-select-item ant-select-item-option')]], [[[[ChromeDriver: chrome on windows (bca00d481f155f893a1d8f7dc9d1eccc)] -> xpath: (//*[contains(@class,'rc-virtual-list-holder')])[7]]] -> xpath: .//div[contains(@class,'ant-select-item ant-select-item-option')]], [[[[ChromeDriver: chrome on windows (bca00d481f155f893a1d8f7dc9d1eccc)] -> xpath: (//*[contains(@class,'rc-virtual-list-holder')])[7]]] -> xpath: .//div[contains(@class,'ant-select-item ant-select-item-option')]], [[[[ChromeDriver: chrome on windows (bca00d481f155f893a1d8f7dc9d1eccc)] -> xpath: (//*[contains(@class,'rc-virtual-list-holder')])[7]]] -> xpath: .//div[contains(@class,'ant-select-item ant-select-item-option')]]] (tried for 10 second(s) with 500 milliseconds interval)
-Build info: version: '4.33.0', revision: '2c6aaad03a'
-System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.9'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 147.0.7727.56, chrome: {chromedriverVersion: 147.0.7727.56 (b28eac7a1a97..., userDataDir: C:\Users\CODECL~1\AppData\L...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:63689}, goog:processID: 4252, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:63689/devtoo..., se:cdpVersion: 147.0.7727.56, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: bca00d481f155f893a1d8f7dc9d1eccc]]>
+              <![CDATA[Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator 'By.xpath: (//*[contains(@class,'rc-virtual-list-holder')])[15]' (tried for 10 second(s) with 500 milliseconds interval)]]>
             </message>
             <full-stacktrace>
-              <![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of all [[[[[ChromeDriver: chrome on windows (bca00d481f155f893a1d8f7dc9d1eccc)] -> xpath: (//*[contains(@class,'rc-virtual-list-holder')])[7]]] -> xpath: .//div[contains(@class,'ant-select-item ant-select-item-option')]], [[[[ChromeDriver: chrome on windows (bca00d481f155f893a1d8f7dc9d1eccc)] -> xpath: (//*[contains(@class,'rc-virtual-list-holder')])[7]]] -> xpath: .//div[contains(@class,'ant-select-item ant-select-item-option')]], [[[[ChromeDriver: chrome on windows (bca00d481f155f893a1d8f7dc9d1eccc)] -> xpath: (//*[contains(@class,'rc-virtual-list-holder')])[7]]] -> xpath: .//div[contains(@class,'ant-select-item ant-select-item-option')]], [[[[ChromeDriver: chrome on windows (bca00d481f155f893a1d8f7dc9d1eccc)] -> xpath: (//*[contains(@class,'rc-virtual-list-holder')])[7]]] -> xpath: .//div[contains(@class,'ant-select-item ant-select-item-option')]], [[[[ChromeDriver: chrome on windows (bca00d481f155f893a1d8f7dc9d1eccc)] -> xpath: (//*[contains(@class,'rc-virtual-list-holder')])[7]]] -> xpath: .//div[contains(@class,'ant-select-item ant-select-item-option')]], [[[[ChromeDriver: chrome on windows (bca00d481f155f893a1d8f7dc9d1eccc)] -> xpath: (//*[contains(@class,'rc-virtual-list-holder')])[7]]] -> xpath: .//div[contains(@class,'ant-select-item ant-select-item-option')]], [[[[ChromeDriver: chrome on windows (bca00d481f155f893a1d8f7dc9d1eccc)] -> xpath: (//*[contains(@class,'rc-virtual-list-holder')])[7]]] -> xpath: .//div[contains(@class,'ant-select-item ant-select-item-option')]], [[[[ChromeDriver: chrome on windows (bca00d481f155f893a1d8f7dc9d1eccc)] -> xpath: (//*[contains(@class,'rc-virtual-list-holder')])[7]]] -> xpath: .//div[contains(@class,'ant-select-item ant-select-item-option')]]] (tried for 10 second(s) with 500 milliseconds interval)
-Build info: version: '4.33.0', revision: '2c6aaad03a'
-System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.9'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 147.0.7727.56, chrome: {chromedriverVersion: 147.0.7727.56 (b28eac7a1a97..., userDataDir: C:\Users\CODECL~1\AppData\L...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:63689}, goog:processID: 4252, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:63689/devtoo..., se:cdpVersion: 147.0.7727.56, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: bca00d481f155f893a1d8f7dc9d1eccc
+              <![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator 'By.xpath: (//*[contains(@class,'rc-virtual-list-holder')])[15]' (tried for 10 second(s) with 500 milliseconds interval)
 at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
 at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
-at Repeatative_codes.Repeat.wait_for_theElement(Repeat.java:47)
-at Locaters.Job_Module_locaters.Fourth_dropdown_Options(Job_Module_locaters.java:123)
-at Product_Codeclouds.Project.Simplified.Job_Module.Job_Add(Job_Module.java:316)
+at Repeatative_codes.Repeat.wait_for_theElement(Repeat.java:30)
+at Locaters.Job_Module_locaters.eighth_dropdown_list(Job_Module_locaters.java:263)
+at Locaters.Job_Module_locaters.Ninth_dropdown_Options(Job_Module_locaters.java:273)
+at Product_Codeclouds.Project.Simplified.Job_Module.Job_Add(Job_Module.java:415)
 at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
@@ -66,13 +57,44 @@ at org.testng.TestNG.run(TestNG.java:1079)
 at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
 at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
 at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"(//*[contains(@class,'rc-virtual-list-holder')])[15]"}
+  (Session info: chrome=147.0.7727.56)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Build info: version: '4.33.0', revision: '2c6aaad03a'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.9'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [af031774d0fe42c44674cd7ed0678b7a, findElement {using=xpath, value=(//*[contains(@class,'rc-virtual-list-holder')])[15]}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 147.0.7727.56, chrome: {chromedriverVersion: 147.0.7727.56 (b28eac7a1a97..., userDataDir: C:\Users\CODECL~1\AppData\L...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:56192}, goog:processID: 15564, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:56192/devtoo..., se:cdpVersion: 147.0.7727.56, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: af031774d0fe42c44674cd7ed0678b7a
+at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:544)
+at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:165)
+at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:367)
+at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:361)
+at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:68)
+at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
+at jdk.proxy2/jdk.proxy2.$Proxy17.isDisplayed(Unknown Source)
+at org.openqa.selenium.support.ui.ExpectedConditions.elementIfVisible(ExpectedConditions.java:304)
+at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:290)
+at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:287)
+at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
+... 30 more
 ]]>
             </full-stacktrace>
           </exception> <!-- org.openqa.selenium.TimeoutException -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Job_Add -->
-        <test-method is-config="true" signature="Kill()[pri:0, instance:Product_Codeclouds.Project.Simplified.Job_Module@7817fd62]" started-at="2026-04-14T18:38:34 IST" name="Kill" finished-at="2026-04-14T18:38:34 IST" duration-ms="386" status="PASS">
+        <test-method is-config="true" signature="Kill()[pri:0, instance:Product_Codeclouds.Project.Simplified.Job_Module@7817fd62]" started-at="2026-04-15T19:13:12 IST" name="Kill" finished-at="2026-04-15T19:13:12 IST" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Kill -->

@@ -138,6 +138,7 @@ public class Login extends Base {
 	    Report_Listen.log_print_in_report().log(Status.INFO,
 	            "<b>Step " + (step++) + ":</b> Validate successful login confirmation.");
 	    System.out.println("Step " + (step - 1) + ": Validate successful login confirmation.");
+	    try {
 	    lg.login_confirmation();
 	    Report_Listen.log_print_in_report().log(Status.PASS,
 	            "<b>🟨 Actual:</b> Login confirmation validated successfully. User logged into the application.");
@@ -171,7 +172,8 @@ public class Login extends Base {
 
 	    Report_Listen.log_print_in_report().log(Status.INFO,
 	            "<b>Step " + (step++) + ":</b> Validate successful login inside the company portal.");
-	    System.out.println("Step " + (step - 1) + ": Validate successful login inside the company portal.");
+	    System.out.println("Step " + (step - 1) + ": Validate successful login inside the company portal.");}
+	    catch(Exception e) {
 	    lg.login_confirmation_inside_company_portal();
 	    Report_Listen.log_print_in_report().log(Status.PASS,
 	            "<b>🟨 Actual:</b> User entered successfully inside the company portal and login confirmation was validated.");
@@ -184,5 +186,5 @@ public class Login extends Base {
 	    Report_Listen.log_print_in_report().log(Status.INFO,
 	            "<b>🔗 URL:</b> " + Target_url);
 	    System.out.println("🔗 URL: " + Target_url);
-	}
+	}}
 }

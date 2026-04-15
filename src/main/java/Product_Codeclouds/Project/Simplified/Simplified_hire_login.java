@@ -65,7 +65,7 @@ public class Simplified_hire_login extends Login{
 						"<b>🟨 Actual:</b> Portal loader was not displayed after login, so no wait was required.");
 				System.out.println("🟨 Actual: Portal loader was not displayed after login, so no wait was required.");
 			}
-
+            Thread.sleep(800);
 			Report_Listen.log_print_in_report().log(Status.INFO,
 					"<b>Step " + (step++) + ":</b> Fetch the list of available internal applications from the portal.");
 			System.out.println("Step " + (step - 1) + ": Fetch the list of available internal applications from the portal.");
