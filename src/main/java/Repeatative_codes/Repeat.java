@@ -1,6 +1,7 @@
 package Repeatative_codes;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -35,6 +36,19 @@ public class Repeat {
 		WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(10));
 		w.until(ExpectedConditions.presenceOfElementLocated(by));
 		return d.findElement(by);
+	}
+   
+   public List<WebElement> wait_for_presence_of_theElement(List<By> byList) {
+
+	   WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(10));
+	   List<WebElement> allElements = new ArrayList<WebElement>();
+		
+
+		for (By by : byList) {
+			w.until(ExpectedConditions.presenceOfAllElementsLocatedBy(by));
+			allElements.addAll(d.findElements(by));
+		}
+		return allElements;
 	}
 	
 	

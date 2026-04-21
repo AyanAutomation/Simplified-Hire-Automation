@@ -1,5 +1,6 @@
 package Locaters;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -56,51 +57,50 @@ public class Job_Module_locaters extends Repeat{
 	@FindBy(xpath="//input[@id='vacancy']")
 	private WebElement Vacancy_field_input; 
     @FindBy(xpath="//input[@id='city_1']")
-	private WebElement State_field_input; /*
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
+	private WebElement State_field_input; 
+	@FindBy(xpath="//input[@id='department']")
+	private WebElement department_field_input; 
+	@FindBy(xpath="//div[@class='border rounded p-20 pl-24 pr-24 accordion-bg']")
+	private List<WebElement> Question_blocks; 
+	@FindBy(xpath="//*[@placeholder='Type your question...']")
+	private List<WebElement> Question_input_fields;
+	@FindBy(xpath="//*[text()='Add']/..")
+	private WebElement ADD_button;
+	@FindBy(xpath="//*[@type='checkbox']/..")
+	private List<WebElement> checkboxes;
+	@FindBy(xpath="(//*[text()='Save & Continue']/..)[2]")
+	private WebElement save_and_continue_button;
+	@FindBy(xpath="//*[text()='Create Job']/..")
+	private WebElement  Create_Job_button;
+	@FindBy(xpath="//*[text()='The job was created successfully!']/..")
+	private WebElement Job_Creation_success_message;
+	@FindBy(xpath="//h3[text()='Workflow']")
+	private WebElement Landed_on_Workflow_page; 
+	@FindBy(xpath="//div[contains(@class,'ant-notification-notice') and contains(@class,'ant-notification-notice-error') and contains(@class,'notify-box')]")
+	private WebElement Error_toast_message;
+	@FindBy(xpath="//*[text()='Back']/..")
+	private WebElement Back_button; 
+	@FindBy(xpath="//*[contains(@placeholder,'Search')]")
+	private WebElement search_field;
+	@FindBy(xpath="//input[@placeholder='Search']")
+	private WebElement Search_field_input;
+	@FindBy(css="svg[role='img']:nth-of-type(1)")
+	private WebElement List_loader;
+	@FindBy(xpath="//*[contains(@aria-label,'more')]")
+	private List<WebElement> Three_dots_buttons;
+	@FindBy(xpath="//*[contains(@class,'ant-dropdown-menu-root ant-dropdown-menu-vertical ant-dropdown-menu-light')]")
+	private WebElement three_dots_dropdown_menu;
+	@FindBy(xpath="//*[@role='dialog']")
+	private WebElement popup;
+	@FindBy(xpath="//a[@aria-label='Close']")
+	private WebElement Toast_close_button;
+	@FindBy(xpath="(//*[contains(@class,'ant-row justify-content-between')])[1]")
+	private WebElement top_row_of_the_page;
+	@FindBy(xpath="//h3[contains(@class,'main-heading-color font-')]")
+	private WebElement Result_card_heading;
+    private By questionfields = By.xpath("//div[@class='border rounded p-20 pl-24 pr-24 accordion-bg']"); 
+	@FindBy(xpath="//*[text()='Owner']") 
+	private WebElement Landed_on_create_job_page; /*
 	@FindBy(xpath="")
 	private WebElement  ;
 	@FindBy(xpath="")
@@ -270,7 +270,7 @@ public class Job_Module_locaters extends Repeat{
 	wait_for_theElement(Ninth_dropdown_list);
 	return Ninth_dropdown_list;} 
 	public List<WebElement> Ninth_dropdown_Options(){
-	List<WebElement> Ninth_dropdown_Options = eighth_dropdown_list().findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+	List<WebElement> Ninth_dropdown_Options = Ninth_dropdown_list().findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
 	wait_for_theElement(Ninth_dropdown_Options);
 	return Ninth_dropdown_Options;}
 	public WebElement Job_title_field(){
@@ -292,75 +292,87 @@ public class Job_Module_locaters extends Repeat{
 	return Vacancy_field_input;}
 	public WebElement State_field_input(){
 	wait_for_theElement(State_field_input);
-	return State_field_input;}/*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
+	return State_field_input;}
+	public WebElement department_field_input(){
+	wait_for_theElement(department_field_input);
+	return department_field_input;} 
+	public List<WebElement> Question_blocks(){
+	List<By> locatorList = Arrays.asList(questionfields);
+    return wait_for_presence_of_theElement(locatorList);} 
+	public List<WebElement> Question_input_fields(){
+	wait_for_theElement(Question_input_fields);
+	return Question_input_fields;}
+	public WebElement ADD_button(){
+	wait_for_theElement(ADD_button);
+	return ADD_button;}
+	public List<WebElement> checkboxes(){
+	wait_for_theElement(checkboxes);
+	return checkboxes;} 
+	public WebElement save_and_continue_button(){
+	wait_for_theElement(save_and_continue_button);
+	return save_and_continue_button;} 
+	public WebElement Create_Job_button(){
+	wait_for_theElement(Create_Job_button);
+	return Create_Job_button;}
+	public WebElement Job_Creation_success_message(){
+	wait_for_theElement(Job_Creation_success_message);
+	return Job_Creation_success_message;}  
+	public WebElement Landed_on_Workflow_page(){
+	wait_for_theElement(Landed_on_Workflow_page);
+	return Landed_on_Workflow_page;}
+	public WebElement Error_toast_message(){
+	wait_for_theElement(Error_toast_message);
+	return Error_toast_message;} 
+	public WebElement Back_button(){
+	wait_for_theElement(Back_button);
+	return Back_button;}  
+	public WebElement search_field(){
+	wait_for_theElement(search_field);
+	return search_field;}
+	public WebElement Search_field_input(){
+	wait_for_theElement(Search_field_input);
+	return Search_field_input;}
+	public WebElement List_loader(){
+	wait_for_theElement(List_loader);
+	return List_loader;} 
+	public List<WebElement> Three_dots_buttons(){
+	wait_for_theElement(Three_dots_buttons);
+	return Three_dots_buttons;}
+	public WebElement three_dots_dropdown_menu(){
+	wait_for_theElement(three_dots_dropdown_menu);
+	return three_dots_dropdown_menu;}
+	public List<WebElement> list_dropdowm_options(){
+	List<WebElement> list_dropdowm_options = three_dots_dropdown_menu().findElements(By.xpath(".//*[contains(@class,'item-only-child')]//button"));
+	wait_for_theElement(list_dropdowm_options);
+	return list_dropdowm_options;} 
+	public WebElement popup(){
+	wait_for_theElement(popup);
+	return popup;}
+	public WebElement Delete_input(){
+	WebElement Delete_input = popup().findElement(By.xpath(".//*[contains(@class,'ant-input-outlined')]"));
+	wait_for_theElement(Delete_input);
+	return Delete_input;}
+	public WebElement Bold_text_in_popup(){
+	WebElement Bold_text_in_popup = popup().findElement(By.xpath(".//strong"));
+	wait_for_theElement(Bold_text_in_popup);
+	return Bold_text_in_popup;} 
+	public WebElement pop_up_delete_button(){
+	WebElement pop_up_delete_button = popup().findElement(By.xpath(".//*[text()='Delete']/.."));
+	wait_for_theElement(pop_up_delete_button);
+	return pop_up_delete_button;}
+	public WebElement Toast_close_button(){
+	wait_for_theElement(Toast_close_button);
+	return Toast_close_button;}
+	public WebElement top_row_of_the_page(){
+	wait_for_theElement(top_row_of_the_page);
+	return top_row_of_the_page;} 
+	public WebElement Result_card_heading(){
+	wait_for_theElement(Result_card_heading);
+	return Result_card_heading;}
+	public WebElement Landed_on_create_job_page(){
+	wait_for_theElement(Landed_on_create_job_page);
+	return Landed_on_create_job_page;} /*
+	public WebElement (){ 
 	wait_for_theElement();
 	return ;} public WebElement (){
 	wait_for_theElement();
