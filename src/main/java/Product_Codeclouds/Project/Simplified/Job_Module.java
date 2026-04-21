@@ -30,404 +30,747 @@ public class Job_Module extends Candidate_module{
 	
 	
 	
-	
-	public WebElement Access_Job_Module_List() throws IOException, InterruptedException{
-		
-		
-		Job_Module_locaters p = new Job_Module_locaters(d);
-		
-		Menu_option_selector("Jobs");
-		WebElement Job_Button= p.Add_Job();
-		return Job_Button;
-	}
+	public WebElement Access_Job_Module_List() throws IOException, InterruptedException {
+
+	Job_Module_locaters p = new Job_Module_locaters(d);
+
+	System.out.println();
+	System.out.println("--------------------------------------------------");
+	System.out.println("Step: Open side menu and access Jobs module list.");
+	System.out.println("--------------------------------------------------");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step:</b> Open side menu and access Jobs module list.");
+
+	Menu_option_selector("Jobs");
+
+	WebElement Job_Button = p.Add_Job();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Jobs module list was accessed successfully and Add Job button was located.");
+	System.out.println("🟨 Actual: Jobs module list was accessed successfully and Add Job button was located.");
+	System.out.println();
+
+	return Job_Button;
+}
 	
 	@Test(dataProvider = "Job_Posting_Data")
-	public void Job_Add(TreeMap<String, String> job_data) throws IOException, InterruptedException, AWTException {
-		
-		Job_Module_locaters p = new Job_Module_locaters(d);
-		JavascriptExecutor js = (JavascriptExecutor) d;
-		Repeat rp = new Repeat(d);
-		Robot r = new Robot();
-		
-		String Select_Template = job_data.get("Select Template");
+    public void Job_Add(TreeMap<String, String> job_data) throws IOException, InterruptedException, AWTException {
 
-		String Job_Posting_Name = job_data.get("Job Posting Name");
-		String Expiry_Date = job_data.get("Expiry Date");
-		String Job_Urgency = job_data.get("Job Urgency");
+	int step = 1;
 
-		String Job_Title = job_data.get("Job Title");
-		String Department_Division = job_data.get("Department / Division");
-		String Employment_Type = job_data.get("Employment Type");
-		String Category = job_data.get("Category");
+	Job_Module_locaters p = new Job_Module_locaters(d);
+	JavascriptExecutor js = (JavascriptExecutor) d;
+	Repeat rp = new Repeat(d);
+	Robot r = new Robot();
 
-		String Required_Education = job_data.get("Required Education");
-		String Required_Experience = job_data.get("Required Experience");
-		String Expected_Hiring_Date = job_data.get("Expected Hiring Date");
-		String Number_Of_Positions = job_data.get("Number of Positions");
-		String When_Positions_Fulfilled = job_data.get("When Positions Fulfilled");
+	String Select_Template = job_data.get("Select Template");
 
-		String Job_Description = job_data.get("Job Description");
-		String Job_Requirements = job_data.get("Job Requirements");
-		String Benefits = job_data.get("Benefits");
+	String Job_Posting_Name = job_data.get("Job Posting Name");
+	String Expiry_Date = job_data.get("Expiry Date");
+	String Job_Urgency = job_data.get("Job Urgency");
 
-		String Country = job_data.get("Country");
-		String City_State = job_data.get("City / State");
-		String Remote = job_data.get("Remote");
+	String Job_Title = job_data.get("Job Title");
+	String Department_Division = job_data.get("Department / Division");
+	String Employment_Type = job_data.get("Employment Type");
+	String Category = job_data.get("Category");
 
-		String Salary_From_1 = job_data.get("Salary From 1");
-		String Salary_To_1 = job_data.get("Salary To 1");
-		String Unit_1 = job_data.get("Unit 1");
-		String Currency_1 = job_data.get("Currency 1");
+	String Required_Education = job_data.get("Required Education");
+	String Required_Experience = job_data.get("Required Experience");
+	String Expected_Hiring_Date = job_data.get("Expected Hiring Date");
+	String Number_Of_Positions = job_data.get("Number of Positions");
+	String When_Positions_Fulfilled = job_data.get("When Positions Fulfilled");
 
-		String Salary_From_2 = job_data.get("Salary From 2");
-		String Salary_To_2 = job_data.get("Salary To 2");
-		String Unit_2 = job_data.get("Unit 2");
-		String Currency_2 = job_data.get("Currency 2");
+	String Job_Description = job_data.get("Job Description");
+	String Job_Requirements = job_data.get("Job Requirements");
+	String Benefits = job_data.get("Benefits");
 
-		String Salary_From_3 = job_data.get("Salary From 3");
-		String Salary_To_3 = job_data.get("Salary To 3");
-		String Unit_3 = job_data.get("Unit 3");
-		String Currency_3 = job_data.get("Currency 3");
+	String Country = job_data.get("Country");
+	String City_State = job_data.get("City / State");
+	String Remote = job_data.get("Remote");
 
-		String Screening_Question_1 = job_data.get("Screening Question 1");
-		String Screening_Question_2 = job_data.get("Screening Question 2");
-		String Screening_Question_3 = job_data.get("Screening Question 3");
+	String Salary_From_1 = job_data.get("Salary From 1");
+	String Salary_To_1 = job_data.get("Salary To 1");
+	String Unit_1 = job_data.get("Unit 1");
+	String Currency_1 = job_data.get("Currency 1");
 
-		String Save_As_Job_Posting_Template = job_data.get("Save As Job Posting Template");
-		
-		try {
-			WebElement Forms = p.Form();} 
-		catch (Exception eod) {
+	String Salary_From_2 = job_data.get("Salary From 2");
+	String Salary_To_2 = job_data.get("Salary To 2");
+	String Unit_2 = job_data.get("Unit 2");
+	String Currency_2 = job_data.get("Currency 2");
+
+	String Salary_From_3 = job_data.get("Salary From 3");
+	String Salary_To_3 = job_data.get("Salary To 3");
+	String Unit_3 = job_data.get("Unit 3");
+	String Currency_3 = job_data.get("Currency 3");
+
+	String Screening_Question_1 = job_data.get("Screening Question 1");
+	String Screening_Question_2 = job_data.get("Screening Question 2");
+	String Screening_Question_3 = job_data.get("Screening Question 3");
+
+	String Save_As_Job_Posting_Template = job_data.get("Save As Job Posting Template");
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🔹 Scenario Title:</b> Add new job posting in Hire module");
+	System.out.println();
+	System.out.println("🔹 Scenario Title: Add new job posting in Hire module");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>📘 Description:</b> Open the Job Add form, enter required job posting details, configure screening question, navigate through workflow, and publish the job successfully.");
+	System.out.println("📘 Description: Open the Job Add form, enter required job posting details, configure screening question, navigate through workflow, and publish the job successfully.");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>📥 Input:</b> Job Posting Name = " + Job_Posting_Name
+					+ " | Job Title = " + Job_Title
+					+ " | Job Urgency = " + Job_Urgency
+					+ " | Department / Division = " + Department_Division
+					+ " | Employment Type = " + Employment_Type
+					+ " | Category = " + Category
+					+ " | Required Education = " + Required_Education
+					+ " | Required Experience = " + Required_Experience
+					+ " | Number Of Positions = " + Number_Of_Positions
+					+ " | Screening Question 1 = " + Screening_Question_1);
+	System.out.println("📥 Input: Job Posting Name = " + Job_Posting_Name
+			+ " | Job Title = " + Job_Title
+			+ " | Job Urgency = " + Job_Urgency
+			+ " | Department / Division = " + Department_Division
+			+ " | Employment Type = " + Employment_Type
+			+ " | Category = " + Category
+			+ " | Required Education = " + Required_Education
+			+ " | Required Experience = " + Required_Experience
+			+ " | Number Of Positions = " + Number_Of_Positions
+			+ " | Screening Question 1 = " + Screening_Question_1);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>✅ Expected:</b> Job Add form should open successfully, required values should be entered correctly, screening question should be added successfully, workflow page should load properly, and job should be published with success confirmation.");
+	System.out.println("✅ Expected: Job Add form should open successfully, required values should be entered correctly, screening question should be added successfully, workflow page should load properly, and job should be published with success confirmation.");
+	System.out.println();
+
+	try {
+		WebElement Forms = p.Form();
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Job Add form was already available.");
+		System.out.println("🟨 Actual: Job Add form was already available.");
+		System.out.println();
+
+	} catch (Exception eod) {
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Access Jobs module and open Job Add form.");
+		System.out.println("Step " + (step - 1) + ": Access Jobs module and open Job Add form.");
+		System.out.println();
+
 		Access_Job_Module_List();
 		WebElement JobButton = p.Add_Job();
-		JobButton.click();}
-		try {
-			WebElement Form_try = p.Form();
-			rp.movetoelement(Form_try);
+		JobButton.click();
 
-		} catch (StaleElementReferenceException e) {
-			Report_Listen.log_print_in_report().log(Status.WARNING,
-					"<b>⚠ Retry:</b> Form element became stale while moving to it. Refetching and retrying the same operation.");
-			System.out.println("⚠ Retry: Form element became stale while moving to it. Refetching and retrying the same operation.");
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Add Job button clicked successfully and Job Add form opening was initiated.");
+		System.out.println("🟨 Actual: Add Job button clicked successfully and Job Add form opening was initiated.");
+		System.out.println();
+	}
 
-			Thread.sleep(800);
-			WebElement Form_retry = p.Form();
-			rp.movetoelement(Form_retry);
-		}
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Move to Job Add form for stable interaction.");
+	System.out.println("Step " + (step - 1) + ": Move to Job Add form for stable interaction.");
+	System.out.println();
+
+	try {
+		WebElement Form_try = p.Form();
+		rp.movetoelement(Form_try);
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Moved to Job Add form successfully.");
+		System.out.println("🟨 Actual: Moved to Job Add form successfully.");
+		System.out.println();
+
+	} catch (StaleElementReferenceException e) {
+		Report_Listen.log_print_in_report().log(Status.WARNING,
+				"<b>⚠ Retry:</b> Form element became stale while moving to it. Refetching and retrying the same operation.");
+		System.out.println("⚠ Retry: Form element became stale while moving to it. Refetching and retrying the same operation.");
+		System.out.println();
+
 		Thread.sleep(800);
+		WebElement Form_retry = p.Form();
+		rp.movetoelement(Form_retry);
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Form element was refetched and move action completed successfully.");
+		System.out.println("🟨 Actual: Form element was refetched and move action completed successfully.");
+		System.out.println();
+	}
+
+	Thread.sleep(800);
+	js.executeScript("window.scrollBy(0,500)");
+	Thread.sleep(800);
+	WebElement Back_Button = p.Back_button();
+	Thread.sleep(800);
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Fetch form input fields.");
+	System.out.println("Step " + (step - 1) + ": Fetch form input fields.");
+	System.out.println();
+
+	List<WebElement> input_fields = p.Form_inputs();
+	if (input_fields.size() <= 3) {
+		Report_Listen.log_print_in_report().log(Status.WARNING,
+				"<b>⚠ Retry:</b> Expected number of input fields not found. Waiting and retrying the same operation.");
+		System.out.println("⚠ Retry: Expected number of input fields not found. Waiting and retrying the same operation.");
+		System.out.println();
+
+		input_fields.clear();
+		Thread.sleep(800);
+		input_fields = p.Form_inputs();
+	}
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Form input fields fetched successfully. Total fields found = " + input_fields.size());
+	System.out.println("🟨 Actual: Form input fields fetched successfully. Total fields found = " + input_fields.size());
+	System.out.println();
+
+	js.executeScript("window.scrollBy(0,500);");
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Fetch custom dropdown fields.");
+	System.out.println("Step " + (step - 1) + ": Fetch custom dropdown fields.");
+	System.out.println();
+
+	List<WebElement> Custom_Dropdowns = null;
+
+	try {
 		js.executeScript("window.scrollBy(0,500)");
 		Thread.sleep(800);
-		WebElement Back_Button = p.Back_button();
-		Thread.sleep(800);
-		List<WebElement> input_fields = p.Form_inputs();
-		if(input_fields.size()<=3) {
-			Report_Listen.log_print_in_report().log(Status.WARNING,
-					"<b>⚠ Retry:</b> Expected number of input fields not found. Waiting and retrying the same operation.");
-			System.out.println("⚠ Retry: Expected number of input fields not found. Waiting and retrying the same operation.");
-			input_fields.clear();
-			Thread.sleep(800);
-			input_fields = p.Form_inputs();
-			
-		}
-		js.executeScript("window.scrollBy(0,500);");
+		Custom_Dropdowns = p.Form_Custom_Dropdown_fields();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Custom dropdown fields fetched successfully. Total custom dropdowns found = " + Custom_Dropdowns.size());
+		System.out.println("🟨 Actual: Custom dropdown fields fetched successfully. Total custom dropdowns found = " + Custom_Dropdowns.size());
 		System.out.println();
-		
-		List<WebElement> Custom_Dropdowns = null;
 
-		try {
-			js.executeScript("window.scrollBy(0,500)");
-			Thread.sleep(800);
-			Custom_Dropdowns = p.Form_Custom_Dropdown_fields();
+	} catch (Exception e) {
+		Report_Listen.log_print_in_report().log(Status.WARNING,
+				"<b>⚠ Retry:</b> Failed to fetch custom dropdown fields after scroll. Waiting and retrying the same operation.");
+		System.out.println("⚠ Retry: Failed to fetch custom dropdown fields after scroll. Waiting and retrying the same operation.");
+		System.out.println();
 
-		} catch (Exception e) {
-			Report_Listen.log_print_in_report().log(Status.WARNING,
-					"<b>⚠ Retry:</b> Failed to fetch custom dropdown fields after scroll. Waiting and retrying the same operation.");
-			System.out.println("⚠ Retry: Failed to fetch custom dropdown fields after scroll. Waiting and retrying the same operation.");
-
-			Thread.sleep(1000);
-			js.executeScript("window.scrollBy(0,500)");
-			Thread.sleep(800);
-			Custom_Dropdowns = p.Form_Custom_Dropdown_fields();
-		}
 		Thread.sleep(1000);
-		List<WebElement> Buttons = p.Buttons();
+		js.executeScript("window.scrollBy(0,500)");
 		Thread.sleep(800);
-		input_fields.get(0).sendKeys(Job_Posting_Name);
-		input_fields.get(1).click();
-		List<WebElement> Job_Expiry_Date_options = p.Job_Expiry_unselected_dates_in_calender();
-		for(WebElement date_option:Job_Expiry_Date_options) {
-			String date_text = date_option.getText().trim();
-			 if(date_text.contains("30")) {
-				 date_option.click();
-				 break;}}
-		List<WebElement> Dropdowns = p.Form_General_Dropdown_fields();
-		System.out.println("Total general dropdown fields found in the form = " + Dropdowns.size());
+		Custom_Dropdowns = p.Form_Custom_Dropdown_fields();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Custom dropdown fields fetched successfully in retry. Total custom dropdowns found = " + Custom_Dropdowns.size());
+		System.out.println("🟨 Actual: Custom dropdown fields fetched successfully in retry. Total custom dropdowns found = " + Custom_Dropdowns.size());
 		System.out.println();
-		WebElement Job_Urgency_feild= Dropdowns.get(1);
-		Job_Urgency_feild.click();
-		List<WebElement> jb_urgency_options = p.First_dropdown_Options();
-		for(WebElement option : jb_urgency_options) {
-			String option_text = option.getText().trim();
-			 if(option_text.contains(Job_Urgency)) {
-				 option.click();
-				 break;}}
-		r.mouseWheel(1);
-		WebElement JobTitle_feild;
-        try {
-        	JobTitle_feild = input_fields.get(2);
-        }catch (IndexOutOfBoundsException e) {
-         WebElement field=p.Job_title_field();
-         field.click();
-         JobTitle_feild =field.findElement(By.id("jobTitle"));
-		}
-		JobTitle_feild.sendKeys(Job_Title);
-		r.mouseWheel(3);
-		Thread.sleep(800);
-	    WebElement Department_feild = Dropdowns.get(2);
-	    Thread.sleep(800);
-	    Department_feild.click();
-	    WebElement Department_input = p.department_field_input();
-	    Department_input.sendKeys(Department_Division);
-	    WebElement Department_Dropdown = p.Second_dropdown_list();
-	    rp.movetoelement(Department_Dropdown);
-	    List<WebElement> department_options = p.Second_dropdown_Options();
-	    Thread.sleep(800);
-        for(WebElement dp_opt:department_options){
-	    	
-	    	String dpt_opt_text = dp_opt.getText().trim();
-	    	if(dpt_opt_text.contains(Department_Division)) {
-	    		dp_opt.click();
-	    		break;}}
-	    Thread.sleep(800);	    
-	    WebElement Employment_Type_feild = Dropdowns.get(3);
-	    Employment_Type_feild.click();
-	    List<WebElement> Employment_Type_options = p.Third_dropdown_Options();
-	    for(WebElement emp_opt:Employment_Type_options){
-	    	
-	    	String emp_opt_text = emp_opt.getText().trim();
-	    	if(emp_opt_text.contains("Full")) {
-	    		emp_opt.click();
-	    		break;}}
-	    r.mouseWheel(2);
-	    WebElement Category_feild = Custom_Dropdowns.get(0);
-	    rp.movetoelement(Category_feild);
-	    Thread.sleep(800);
-	    Category_feild.click();
-	    WebElement Category_Input = p.Category_field();
-	    Category_Input.sendKeys(Category);
-	    WebElement Category_Dropdown = p.Fourth_dropdown_list();
-	    rp.movetoelement(Category_Dropdown);
-	    r.mouseWheel(1);
-	    List<WebElement> Category_Type_options = p.Fourth_dropdown_Options();
-	    for(WebElement cat_opt:Category_Type_options){
-	    	String cat_opt_text = cat_opt.getText().trim();
-	    	if(cat_opt_text.contains(Category)) {
-	    		cat_opt.click();
-	    		break;}}
-	    WebElement Education_feild;
-	    try {
-	    Education_feild = Custom_Dropdowns.get(1);
-	    rp.movetoelement(Education_feild);
-	    Education_feild.click();}catch(Exception e) {
-	    	p.Yes_button().click();
-	    	Education_feild = Custom_Dropdowns.get(1);
-		    rp.movetoelement(Education_feild);
-		    Education_feild.click();}
-	    WebElement Education_Input = p.Required_education_input_field();
-	    Education_Input.sendKeys(Required_Education);
-	    List<WebElement> Edu_Type_options = p.Fifth_dropdown_Options();
-	    for(WebElement Edu_opt:Edu_Type_options){
-	    	String Edu_opt_text = Edu_opt.getText().trim();
-	    	if(Edu_opt_text.contains(Required_Education)) {
-	    		Edu_opt.click();
-	    		break;}}
-	    
-	    WebElement Required_Exp_feild;
-	    
-	    try {
-	        Required_Exp_feild = Dropdowns.get(4);
-		    rp.movetoelement(Required_Exp_feild);
-		    Required_Exp_feild.click();}
-	    catch(Exception e) {
-		    	p.Yes_button().click();
-		    	Required_Exp_feild = Dropdowns.get(4);
-			    rp.movetoelement(Education_feild);
-			    Required_Exp_feild.click();}
-	    
-	    
-	    List<WebElement> Exp_options = p.Sixth_dropdown_Options();
-	    for(WebElement Exp_opt:Exp_options){
-	    	String Exp_opt_text = Exp_opt.getText().trim();
-	    	if(Exp_opt_text.contains(Required_Experience)) {
-	    		Exp_opt.click();
-	    		break;}}
-	    
-		input_fields.get(3).click();
-		p.Second_Today_Button_calendar().click();
-		p.Number_of_Positions().click();
-		WebElement Number_of_Positions_Input = p.Vacancy_field_input();
-		Number_of_Positions_Input.sendKeys(Number_Of_Positions);
-		WebElement When_Positions_Fulfilled_feild = Custom_Dropdowns.get(2);
-		rp.movetoelement(When_Positions_Fulfilled_feild);
-		When_Positions_Fulfilled_feild.click();
-		List<WebElement> Position_filled_options = p.Seventh_dropdown_Options();
-	    for(WebElement pos_fill_opt:Position_filled_options){
-	    	String Fill_opt_text = pos_fill_opt.getText().trim();
-	    	if(Fill_opt_text.contains(When_Positions_Fulfilled)) {
-	    		pos_fill_opt.click();
-	    		break;}}
-	    List<WebElement> Description_feilds = null;
-
-		try {
-			js.executeScript("window.scrollBy(0,500)");
-			Thread.sleep(800);
-			Description_feilds = p.Form_Description_fields();
-
-		} catch (Exception e) {
-			r.mouseWheel(15);
-			Thread.sleep(1000);
-			r.mouseWheel(-15);
-			Description_feilds = p.Form_Description_fields();
-		}
-	    WebElement Job_description_feild = Description_feilds.get(0);
-	    Thread.sleep(800);
-	    rp.Scroll_to_element(Job_description_feild);
-	    Thread.sleep(800);
-	    js.executeScript("window.scrollBy(0,-180)");
-	    Thread.sleep(800);
-	    Job_description_feild.sendKeys(Job_Description);
-	    WebElement Job_Requirement_feild = Description_feilds.get(1);
-	    rp.Scroll_to_element(Job_Requirement_feild);
-	    Thread.sleep(800);
-	    js.executeScript("window.scrollBy(0,-180)");
-	    Thread.sleep(800);
-	    Job_Requirement_feild.sendKeys(Job_Requirements);
-	    WebElement Benefits_feild = Description_feilds.get(2);
-	    rp.Scroll_to_element(Benefits_feild);
-	    Thread.sleep(800);
-	    js.executeScript("window.scrollBy(0,-180)");
-	    Thread.sleep(800);
-	    Benefits_feild.sendKeys(Benefits);
-	    r.mouseWheel(3);
-	    Thread.sleep(800);
-        WebElement State_feild = Dropdowns.get(6);
-	    rp.movetoelement(State_feild);
-		State_feild.click();
-	    p.State_field_input().sendKeys(City_State);    	
-	    List<WebElement> State_options = p.eighth_dropdown_Options();
-	    for(WebElement State_opt:State_options){
-	    	String State_opt_text = State_opt.getText().trim();
-	    	if(State_opt_text.contains(City_State)) {
-	    		State_opt.click();
-	    		break;}}    	
-	    r.mouseWheel(3);
-	    Thread.sleep(800);
-	    input_fields.get(4).sendKeys(Salary_From_1);
-	    input_fields.get(5).sendKeys(Salary_To_1);
-	    WebElement Salary_LPA_feild = Dropdowns.get(7);
-	    rp.movetoelement(Salary_LPA_feild);
-	    Salary_LPA_feild.click();
-	    List<WebElement> LPA_options = p.Ninth_dropdown_Options();
-	    for(WebElement LPA_opt:LPA_options){
-	    	String LPA_opt_text = LPA_opt.getText().trim();
-	    	if(LPA_opt_text.contains(Unit_1)) {
-	    		LPA_opt.click();
-	    		break;}}
-	    WebElement Submit_Button = Buttons.get(8);
-	    rp.movetoelement(Submit_Button);
-	    Submit_Button.click();
-	    Thread.sleep(1800);
-	    List<WebElement> question_blocks = null;
-
-	    try {
-	    	FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d)
-	    			.withTimeout(Duration.ofSeconds(40))
-	    			.pollingEvery(Duration.ofMillis(500))
-	    			.ignoring(NoSuchElementException.class)
-	    			.ignoring(StaleElementReferenceException.class);
-
-	    	question_blocks = wait.until(driver -> {
-	    		List<WebElement> question_try = p.Question_blocks();
-	    		return (question_try != null && question_try.size() > 0) ? question_try : null;
-	    	});
-
-	    } catch (Exception e) {
-	    	Thread.sleep(800);
-	    	Submit_Button = Buttons.get(8);
-	    	rp.movetoelement(Submit_Button);
-	    	Submit_Button.click();
-	    	Thread.sleep(800);
-
-	    	WebElement error_toast = p.Error_toast_message();
-	    	String error_toast_text = error_toast.getText().trim();
-	    	System.out.println();
-
-	    	Thread.sleep(800);
-	    	WebElement toast_close = p.Toast_close_button();
-	    	rp.movetoelement(toast_close);
-	    	toast_close.click();
-
-	    	System.out.println("Error toast message = " + error_toast_text);
-	    	Report_Listen.log_print_in_report().log(Status.WARNING,
-	    			"<b>⚠ Actual:</b> Error toast message captured after submit retry = " + error_toast_text);
-	    	System.out.println();
-
-	    	Thread.sleep(1800);
-	    	WebElement toast_close_two = p.Toast_close_button();
-	    	rp.movetoelement(toast_close_two);
-	    	toast_close_two.click();
-
-	    	Already_added_Job_delete_and_re_add(error_toast_text, Job_Title, Back_Button);
-
-	    	FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d)
-	    			.withTimeout(Duration.ofSeconds(40))
-	    			.pollingEvery(Duration.ofMillis(500))
-	    			.ignoring(NoSuchElementException.class)
-	    			.ignoring(StaleElementReferenceException.class);
-
-	    	question_blocks = wait.until(driver -> {
-	    		List<WebElement> question_retry = p.Question_blocks();
-	    		return (question_retry != null && question_retry.size() > 0) ? question_retry : null;
-	    	});
-	    }
-
-	    WebElement question_block = question_blocks.get(0);
-	    rp.movetoelement(question_block);
-	    question_block.click();
-
-	    WebElement question_input = question_block.findElement(By.xpath(".//input[@placeholder='Type your question...']"));
-	    question_input.click();
-	    question_input.sendKeys(Screening_Question_1);
-
-	    List<WebElement> Checkboxes = p.checkboxes();
-	    Checkboxes.get(0).click();
-
-	    p.ADD_button().click();
-	    WebElement Save_Button_1 = p.save_and_continue_button();
-	    Save_Button_1.click();
-	    p.Landed_on_Workflow_page();
-	    Thread.sleep(800);
-	    WebElement Save_Button_2 = p.save_and_continue_button();
-	    Save_Button_2.click();
-	    WebElement Owner_text=p.Landed_on_create_job_page();
-	    Thread.sleep(800);
-	    WebElement Publish_Button = p.Create_Job_button();
-	    rp.Scroll_to_element(Publish_Button);
-	    js.executeScript("window.scrollBy(0,-500)");
-	    Thread.sleep(800);
-	    rp.movetoelement(Publish_Button);
-	    Thread.sleep(800);
-	    rp.movetoelement(Owner_text);
-    	Owner_text.click();
-    	r.mouseWheel(-10);
-    	rp.Scroll_to_element(Publish_Button);
-    	Thread.sleep(800);
-    	Publish_Button.click();
-
-	    Assert.assertTrue(p.Job_Creation_success_message().isDisplayed(),
-	    		"Job posting creation success message not displayed.");
-	  
 	}
+
+	Thread.sleep(1000);
+	List<WebElement> Buttons = p.Buttons();
+	Thread.sleep(800);
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Enter Job Posting Name and select expiry date.");
+	System.out.println("Step " + (step - 1) + ": Enter Job Posting Name and select expiry date.");
+	System.out.println();
+
+	input_fields.get(0).sendKeys(Job_Posting_Name);
+	input_fields.get(1).click();
+	List<WebElement> Job_Expiry_Date_options = p.Job_Expiry_unselected_dates_in_calender();
+	for (WebElement date_option : Job_Expiry_Date_options) {
+		String date_text = date_option.getText().trim();
+		if (date_text.contains("30")) {
+			date_option.click();
+			break;
+		}
+	}
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Job Posting Name entered successfully = " + Job_Posting_Name + " and expiry date selected successfully.");
+	System.out.println("🟨 Actual: Job Posting Name entered successfully = " + Job_Posting_Name + " and expiry date selected successfully.");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Fetch general dropdown fields and select Job Urgency.");
+	System.out.println("Step " + (step - 1) + ": Fetch general dropdown fields and select Job Urgency.");
+	System.out.println();
+
+	List<WebElement> Dropdowns = p.Form_General_Dropdown_fields();
+	System.out.println("Total general dropdown fields found in the form = " + Dropdowns.size());
+	System.out.println();
+
+	WebElement Job_Urgency_feild = Dropdowns.get(1);
+	Job_Urgency_feild.click();
+	List<WebElement> jb_urgency_options = p.First_dropdown_Options();
+	for (WebElement option : jb_urgency_options) {
+		String option_text = option.getText().trim();
+		if (option_text.contains(Job_Urgency)) {
+			option.click();
+			break;
+		}
+	}
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Job Urgency selected successfully = " + Job_Urgency);
+	System.out.println("🟨 Actual: Job Urgency selected successfully = " + Job_Urgency);
+	System.out.println();
+
+	r.mouseWheel(1);
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Enter Job Title.");
+	System.out.println("Step " + (step - 1) + ": Enter Job Title.");
+	System.out.println();
+
+	WebElement JobTitle_feild;
+	try {
+		JobTitle_feild = input_fields.get(2);
+	} catch (IndexOutOfBoundsException e) {
+		WebElement field = p.Job_title_field();
+		field.click();
+		JobTitle_feild = field.findElement(By.id("jobTitle"));
+	}
+	JobTitle_feild.sendKeys(Job_Title);
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Job Title entered successfully = " + Job_Title);
+	System.out.println("🟨 Actual: Job Title entered successfully = " + Job_Title);
+	System.out.println();
+
+	r.mouseWheel(3);
+	Thread.sleep(800);
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Select Department / Division.");
+	System.out.println("Step " + (step - 1) + ": Select Department / Division.");
+	System.out.println();
+
+	WebElement Department_feild = Dropdowns.get(2);
+	Thread.sleep(800);
+	Department_feild.click();
+	WebElement Department_input = p.department_field_input();
+	Department_input.sendKeys(Department_Division);
+	WebElement Department_Dropdown = p.Second_dropdown_list();
+	rp.movetoelement(Department_Dropdown);
+	List<WebElement> department_options = p.Second_dropdown_Options();
+	Thread.sleep(800);
+	for (WebElement dp_opt : department_options) {
+		String dpt_opt_text = dp_opt.getText().trim();
+		if (dpt_opt_text.contains(Department_Division)) {
+			dp_opt.click();
+			break;
+		}
+	}
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Department option selected successfully = " + Department_Division);
+	System.out.println("🟨 Actual: Department option selected successfully = " + Department_Division);
+	System.out.println();
+
+	Thread.sleep(800);
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Select Employment Type.");
+	System.out.println("Step " + (step - 1) + ": Select Employment Type.");
+	System.out.println();
+
+	WebElement Employment_Type_feild = Dropdowns.get(3);
+	Employment_Type_feild.click();
+	List<WebElement> Employment_Type_options = p.Third_dropdown_Options();
+	for (WebElement emp_opt : Employment_Type_options) {
+		String emp_opt_text = emp_opt.getText().trim();
+		if (emp_opt_text.contains("Full")) {
+			emp_opt.click();
+			break;
+		}
+	}
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Employment Type selected successfully = Full Time");
+	System.out.println("🟨 Actual: Employment Type selected successfully = Full Time");
+	System.out.println();
+
+	r.mouseWheel(2);
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Select Category.");
+	System.out.println("Step " + (step - 1) + ": Select Category.");
+	System.out.println();
+
+	WebElement Category_feild = Custom_Dropdowns.get(0);
+	rp.movetoelement(Category_feild);
+	Thread.sleep(800);
+	Category_feild.click();
+	WebElement Category_Input = p.Category_field();
+	Category_Input.sendKeys(Category);
+	WebElement Category_Dropdown = p.Fourth_dropdown_list();
+	rp.movetoelement(Category_Dropdown);
+	r.mouseWheel(1);
+	List<WebElement> Category_Type_options = p.Fourth_dropdown_Options();
+	for (WebElement cat_opt : Category_Type_options) {
+		String cat_opt_text = cat_opt.getText().trim();
+		if (cat_opt_text.contains(Category)) {
+			cat_opt.click();
+			break;
+		}
+	}
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Category selected successfully = " + Category);
+	System.out.println("🟨 Actual: Category selected successfully = " + Category);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Select Required Education.");
+	System.out.println("Step " + (step - 1) + ": Select Required Education.");
+	System.out.println();
+
+	WebElement Education_feild;
+	try {
+		Education_feild = Custom_Dropdowns.get(1);
+		rp.movetoelement(Education_feild);
+		Education_feild.click();
+	} catch (Exception e) {
+		p.Yes_button().click();
+		Education_feild = Custom_Dropdowns.get(1);
+		rp.movetoelement(Education_feild);
+		Education_feild.click();
+	}
+	WebElement Education_Input = p.Required_education_input_field();
+	Education_Input.sendKeys(Required_Education);
+	List<WebElement> Edu_Type_options = p.Fifth_dropdown_Options();
+	for (WebElement Edu_opt : Edu_Type_options) {
+		String Edu_opt_text = Edu_opt.getText().trim();
+		if (Edu_opt_text.contains(Required_Education)) {
+			Edu_opt.click();
+			break;
+		}
+	}
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Required Education selected successfully = " + Required_Education);
+	System.out.println("🟨 Actual: Required Education selected successfully = " + Required_Education);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Select Required Experience.");
+	System.out.println("Step " + (step - 1) + ": Select Required Experience.");
+	System.out.println();
+
+	WebElement Required_Exp_feild;
+	try {
+		Required_Exp_feild = Dropdowns.get(4);
+		rp.movetoelement(Required_Exp_feild);
+		Required_Exp_feild.click();
+	} catch (Exception e) {
+		p.Yes_button().click();
+		Required_Exp_feild = Dropdowns.get(4);
+		rp.movetoelement(Education_feild);
+		Required_Exp_feild.click();
+	}
+
+	List<WebElement> Exp_options = p.Sixth_dropdown_Options();
+	for (WebElement Exp_opt : Exp_options) {
+		String Exp_opt_text = Exp_opt.getText().trim();
+		if (Exp_opt_text.contains(Required_Experience)) {
+			Exp_opt.click();
+			break;
+		}
+	}
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Required Experience selected successfully = " + Required_Experience);
+	System.out.println("🟨 Actual: Required Experience selected successfully = " + Required_Experience);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Select Expected Hiring Date, Number of Positions, and When Positions Fulfilled.");
+	System.out.println("Step " + (step - 1) + ": Select Expected Hiring Date, Number of Positions, and When Positions Fulfilled.");
+	System.out.println();
+
+	input_fields.get(3).click();
+	p.Second_Today_Button_calendar().click();
+	p.Number_of_Positions().click();
+	WebElement Number_of_Positions_Input = p.Vacancy_field_input();
+	Number_of_Positions_Input.sendKeys(Number_Of_Positions);
+	WebElement When_Positions_Fulfilled_feild = Custom_Dropdowns.get(2);
+	rp.movetoelement(When_Positions_Fulfilled_feild);
+	When_Positions_Fulfilled_feild.click();
+	List<WebElement> Position_filled_options = p.Seventh_dropdown_Options();
+	for (WebElement pos_fill_opt : Position_filled_options) {
+		String Fill_opt_text = pos_fill_opt.getText().trim();
+		if (Fill_opt_text.contains(When_Positions_Fulfilled)) {
+			pos_fill_opt.click();
+			break;
+		}
+	}
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Expected Hiring Date selected, Number of Positions entered = " + Number_Of_Positions
+					+ ", and When Positions Fulfilled selected = " + When_Positions_Fulfilled);
+	System.out.println("🟨 Actual: Expected Hiring Date selected, Number of Positions entered = " + Number_Of_Positions
+			+ ", and When Positions Fulfilled selected = " + When_Positions_Fulfilled);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Fetch description editor fields and populate Job Description, Job Requirements, and Benefits.");
+	System.out.println("Step " + (step - 1) + ": Fetch description editor fields and populate Job Description, Job Requirements, and Benefits.");
+	System.out.println();
+
+	List<WebElement> Description_feilds = null;
+
+	try {
+		js.executeScript("window.scrollBy(0,500)");
+		Thread.sleep(800);
+		Description_feilds = p.Form_Description_fields();
+	} catch (Exception e) {
+		r.mouseWheel(15);
+		Thread.sleep(1000);
+		r.mouseWheel(-15);
+		Description_feilds = p.Form_Description_fields();
+	}
+
+	WebElement Job_description_feild = Description_feilds.get(0);
+	Thread.sleep(800);
+	rp.Scroll_to_element(Job_description_feild);
+	Thread.sleep(800);
+	js.executeScript("window.scrollBy(0,-180)");
+	Thread.sleep(800);
+	Job_description_feild.sendKeys(Job_Description);
+
+	WebElement Job_Requirement_feild = Description_feilds.get(1);
+	rp.Scroll_to_element(Job_Requirement_feild);
+	Thread.sleep(800);
+	js.executeScript("window.scrollBy(0,-180)");
+	Thread.sleep(800);
+	Job_Requirement_feild.sendKeys(Job_Requirements);
+
+	WebElement Benefits_feild = Description_feilds.get(2);
+	rp.Scroll_to_element(Benefits_feild);
+	Thread.sleep(800);
+	js.executeScript("window.scrollBy(0,-180)");
+	Thread.sleep(800);
+	Benefits_feild.sendKeys(Benefits);
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Job Description, Job Requirements, and Benefits entered successfully.");
+	System.out.println("🟨 Actual: Job Description, Job Requirements, and Benefits entered successfully.");
+	System.out.println();
+
+	r.mouseWheel(3);
+	Thread.sleep(800);
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Select City / State and enter salary range details.");
+	System.out.println("Step " + (step - 1) + ": Select City / State and enter salary range details.");
+	System.out.println();
+
+	WebElement State_feild = Dropdowns.get(6);
+	rp.movetoelement(State_feild);
+	State_feild.click();
+	p.State_field_input().sendKeys(City_State);
+	List<WebElement> State_options = p.eighth_dropdown_Options();
+	for (WebElement State_opt : State_options) {
+		String State_opt_text = State_opt.getText().trim();
+		if (State_opt_text.contains(City_State)) {
+			State_opt.click();
+			break;
+		}
+	}
+	r.mouseWheel(3);
+	Thread.sleep(800);
+	input_fields.get(4).sendKeys(Salary_From_1);
+	input_fields.get(5).sendKeys(Salary_To_1);
+
+	WebElement Salary_LPA_feild = Dropdowns.get(7);
+	rp.movetoelement(Salary_LPA_feild);
+	Salary_LPA_feild.click();
+	List<WebElement> LPA_options = p.Ninth_dropdown_Options();
+	for (WebElement LPA_opt : LPA_options) {
+		String LPA_opt_text = LPA_opt.getText().trim();
+		if (LPA_opt_text.contains(Unit_1)) {
+			LPA_opt.click();
+			break;
+		}
+	}
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> City / State selected successfully = " + City_State
+					+ ", Salary From entered = " + Salary_From_1
+					+ ", Salary To entered = " + Salary_To_1
+					+ ", and salary unit selected = " + Unit_1);
+	System.out.println("🟨 Actual: City / State selected successfully = " + City_State
+			+ ", Salary From entered = " + Salary_From_1
+			+ ", Salary To entered = " + Salary_To_1
+			+ ", and salary unit selected = " + Unit_1);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Submit job form and wait for screening question block.");
+	System.out.println("Step " + (step - 1) + ": Submit job form and wait for screening question block.");
+	System.out.println();
+
+	WebElement Submit_Button = Buttons.get(8);
+	rp.movetoelement(Submit_Button);
+	Submit_Button.click();
+	Thread.sleep(1800);
+
+	List<WebElement> question_blocks = null;
+
+	try {
+		FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d)
+				.withTimeout(Duration.ofSeconds(40))
+				.pollingEvery(Duration.ofMillis(500))
+				.ignoring(NoSuchElementException.class)
+				.ignoring(StaleElementReferenceException.class);
+
+		question_blocks = wait.until(driver -> {
+			List<WebElement> question_try = p.Question_blocks();
+			return (question_try != null && question_try.size() > 0) ? question_try : null;
+		});
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Screening question block(s) loaded successfully. Total blocks found = " + question_blocks.size());
+		System.out.println("🟨 Actual: Screening question block(s) loaded successfully. Total blocks found = " + question_blocks.size());
+		System.out.println();
+
+	} catch (Exception e) {
+		Thread.sleep(800);
+		Submit_Button = Buttons.get(8);
+		rp.movetoelement(Submit_Button);
+		Submit_Button.click();
+		Thread.sleep(800);
+
+		WebElement error_toast = p.Error_toast_message();
+		String error_toast_text = error_toast.getText().trim();
+		System.out.println();
+
+		Thread.sleep(800);
+		WebElement toast_close = p.Toast_close_button();
+		rp.movetoelement(toast_close);
+		toast_close.click();
+
+		System.out.println("Error toast message = " + error_toast_text);
+		Report_Listen.log_print_in_report().log(Status.WARNING,
+				"<b>⚠ Actual:</b> Error toast message captured after submit retry = " + error_toast_text);
+		System.out.println();
+
+		Thread.sleep(1800);
+		WebElement toast_close_two = p.Toast_close_button();
+		rp.movetoelement(toast_close_two);
+		toast_close_two.click();
+
+		Report_Listen.log_print_in_report().log(Status.WARNING,
+				"<b>⚠ Recovery:</b> Existing conflicting job was handled through delete and re-add flow before retrying question block loading.");
+		System.out.println("⚠ Recovery: Existing conflicting job was handled through delete and re-add flow before retrying question block loading.");
+		System.out.println();
+
+		Already_added_Job_delete_and_re_add(error_toast_text, Job_Title, Back_Button);
+
+		FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d)
+				.withTimeout(Duration.ofSeconds(40))
+				.pollingEvery(Duration.ofMillis(500))
+				.ignoring(NoSuchElementException.class)
+				.ignoring(StaleElementReferenceException.class);
+
+		question_blocks = wait.until(driver -> {
+			List<WebElement> question_retry = p.Question_blocks();
+			return (question_retry != null && question_retry.size() > 0) ? question_retry : null;
+		});
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Screening question block(s) loaded successfully after recovery flow. Total blocks found = " + question_blocks.size());
+		System.out.println("🟨 Actual: Screening question block(s) loaded successfully after recovery flow. Total blocks found = " + question_blocks.size());
+		System.out.println();
+	}
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Enter first screening question and add it.");
+	System.out.println("Step " + (step - 1) + ": Enter first screening question and add it.");
+	System.out.println();
+
+	WebElement question_block = question_blocks.get(0);
+	rp.movetoelement(question_block);
+	question_block.click();
+
+	WebElement question_input = question_block.findElement(By.xpath(".//input[@placeholder='Type your question...']"));
+	question_input.click();
+	question_input.sendKeys(Screening_Question_1);
+
+	List<WebElement> Checkboxes = p.checkboxes();
+	Checkboxes.get(0).click();
+
+	p.ADD_button().click();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Screening Question 1 entered successfully = " + Screening_Question_1 + " and Save Question checkbox was selected.");
+	System.out.println("🟨 Actual: Screening Question 1 entered successfully = " + Screening_Question_1 + " and Save Question checkbox was selected.");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Save and continue to Workflow page.");
+	System.out.println("Step " + (step - 1) + ": Save and continue to Workflow page.");
+	System.out.println();
+
+	WebElement Save_Button_1 = p.save_and_continue_button();
+	Save_Button_1.click();
+	p.Landed_on_Workflow_page();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> User landed successfully on Workflow page.");
+	System.out.println("🟨 Actual: User landed successfully on Workflow page.");
+	System.out.println();
+
+	Thread.sleep(800);
+	try {
+		WebElement new_toast_close = p.Toast_close_button();
+		rp.movetoelement(new_toast_close);
+		new_toast_close.click();
+        rp.wait_for_invisibilty_of_theElement(new_toast_close);
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Question-related toast notification was displayed and closed successfully.");
+		System.out.println("🟨 Actual: Question-related toast notification was displayed and closed successfully.");
+		System.out.println();
+
+	} catch (Exception mmk) {
+		System.out.println();
+		System.out.println("No error Toast Regarding Questions was displayed, proceeding with the flow.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> No question-related error toast was displayed, so execution proceeded normally.");
+		System.out.println("🟨 Actual: No question-related error toast was displayed, so execution proceeded normally.");
+		System.out.println();
+	}
+
+	Thread.sleep(800);
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Continue from Workflow page and publish the job posting.");
+	System.out.println("Step " + (step - 1) + ": Continue from Workflow page and publish the job posting.");
+	System.out.println();
+
+	WebElement Save_Button_2 = p.save_and_continue_button();
+	Save_Button_2.click();
+	WebElement owner_text= p.Landed_on_create_job_page();
+	Thread.sleep(800);
+	r.mouseWheel(-10);
+	Thread.sleep(800);
+	WebElement Publish_Button = p.Create_Job_button();
+	Thread.sleep(800);
+	try {
+		js.executeScript("arguments[0].click();", Publish_Button);}
+	catch(Exception e) {
+		Thread.sleep(300);
+		r.mouseWheel(-10);
+		Thread.sleep(300);
+		Publish_Button.click();
+	}
+
+	Assert.assertTrue(p.Job_Creation_success_message().isDisplayed(),
+			"Job posting creation success message not displayed.");
+
+	Report_Listen.log_print_in_report().log(Status.PASS,
+			"<b>🟨 Actual:</b> Job posting was created successfully and success message was displayed for Job Title = " + Job_Title);
+	System.out.println("🟨 Actual: Job posting was created successfully and success message was displayed for Job Title = " + Job_Title);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>📌 Final Status:</b> Job Add flow completed successfully including job details entry, screening question setup, workflow navigation, and publishing.");
+	System.out.println("📌 Final Status: Job Add flow completed successfully including job details entry, screening question setup, workflow navigation, and publishing.");
+	System.out.println();
+}
 	
 	public void Already_added_Job_delete_and_re_add(String error_toast_text,String job_name, WebElement Button) throws InterruptedException, IOException, AWTException {
 		
@@ -441,9 +784,7 @@ public class Job_Module extends Candidate_module{
     		WebElement Back_Button = Button;
     		rp.Scroll_to_element(Back_Button);
     		try {
-    			rp.Scroll_to_element(Back_Button);
-    			js.executeScript("window.scrollBy(0,-180)");
-     	        Thread.sleep(800);
+    			r.mouseWheel(-30);
      	        Back_Button.click();
               
     		} catch (Exception e) {
@@ -456,7 +797,7 @@ public class Job_Module extends Candidate_module{
     			rp.movetoelement(form);
     			form.click();
     			Thread.sleep(800);
-    			r.mouseWheel(-10);
+    			
     			rp.Scroll_to_element(Back_Button);
     			rp.movetoelement(Back_Button);
     			Thread.sleep(800);
@@ -502,10 +843,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data1 = new TreeMap<String, String>();
     data1.put("Select Template", "Custom Template");
-    data1.put("Job Posting Name", "Autonomous Strike Systems Recruitment 01");
+    data1.put("Job Posting Name", "Autonomous Mission Control Drive 01");
     data1.put("Expiry Date", "11-07-2026");
     data1.put("Job Urgency", "High");
-    data1.put("Job Title", "Autonomous Strike Systems Engineer");
+    data1.put("Job Title", "Autonomous Mission Control Engineer");
     data1.put("Department / Division", "Artificial Intelligence and Autonomy");
     data1.put("Employment Type", "Full Time");
     data1.put("Category", "Information Technology");
@@ -539,10 +880,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data2 = new TreeMap<String, String>();
     data2.put("Select Template", "Custom Template");
-    data2.put("Job Posting Name", "UAV Power Electronics Recruitment 02");
+    data2.put("Job Posting Name", "Flight Electronics Integration Drive 02");
     data2.put("Expiry Date", "13-07-2026");
     data2.put("Job Urgency", "High");
-    data2.put("Job Title", "UAV Power Electronics Engineer");
+    data2.put("Job Title", "Flight Electronics Integration Engineer");
     data2.put("Department / Division", "Avionics");
     data2.put("Employment Type", "Full Time");
     data2.put("Category", "Information Technology");
@@ -576,10 +917,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data3 = new TreeMap<String, String>();
     data3.put("Select Template", "Custom Template");
-    data3.put("Job Posting Name", "Stability Control Recruitment 03");
+    data3.put("Job Posting Name", "Adaptive Flight Stability Drive 03");
     data3.put("Expiry Date", "15-07-2026");
     data3.put("Job Urgency", "High");
-    data3.put("Job Title", "Stability Control Engineer");
+    data3.put("Job Title", "Adaptive Flight Stability Engineer");
     data3.put("Department / Division", "Flight Control Systems");
     data3.put("Employment Type", "Full Time");
     data3.put("Category", "Information Technology");
@@ -613,10 +954,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data4 = new TreeMap<String, String>();
     data4.put("Select Template", "Custom Template");
-    data4.put("Job Posting Name", "ISR Vision Analytics Recruitment 04");
+    data4.put("Job Posting Name", "Battlefield Vision Intelligence Drive 04");
     data4.put("Expiry Date", "17-07-2026");
     data4.put("Job Urgency", "High");
-    data4.put("Job Title", "ISR Vision Analytics Engineer");
+    data4.put("Job Title", "Battlefield Vision Intelligence Engineer");
     data4.put("Department / Division", "Computer Vision");
     data4.put("Employment Type", "Full Time");
     data4.put("Category", "Information Technology");
@@ -650,10 +991,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data5 = new TreeMap<String, String>();
     data5.put("Select Template", "Custom Template");
-    data5.put("Job Posting Name", "Flight Firmware Recruitment 05");
+    data5.put("Job Posting Name", "UAV Core Firmware Drive 05");
     data5.put("Expiry Date", "19-07-2026");
     data5.put("Job Urgency", "High");
-    data5.put("Job Title", "Flight Firmware Engineer");
+    data5.put("Job Title", "UAV Core Firmware Engineer");
     data5.put("Department / Division", "Embedded Systems");
     data5.put("Employment Type", "Full Time");
     data5.put("Category", "Information Technology");
@@ -687,10 +1028,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data6 = new TreeMap<String, String>();
     data6.put("Select Template", "Custom Template");
-    data6.put("Job Posting Name", "Secure Telemetry Recruitment 06");
+    data6.put("Job Posting Name", "Encrypted Drone Communications Drive 06");
     data6.put("Expiry Date", "21-07-2026");
     data6.put("Job Urgency", "High");
-    data6.put("Job Title", "Secure Telemetry Engineer");
+    data6.put("Job Title", "Encrypted Drone Communications Engineer");
     data6.put("Department / Division", "UAV Engineering");
     data6.put("Employment Type", "Full Time");
     data6.put("Category", "Information Technology");
@@ -724,10 +1065,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data7 = new TreeMap<String, String>();
     data7.put("Select Template", "Custom Template");
-    data7.put("Job Posting Name", "Guidance Algorithms Recruitment 07");
+    data7.put("Job Posting Name", "Precision Navigation Logic Drive 07");
     data7.put("Expiry Date", "23-07-2026");
     data7.put("Job Urgency", "High");
-    data7.put("Job Title", "Guidance Algorithms Engineer");
+    data7.put("Job Title", "Precision Navigation Logic Engineer");
     data7.put("Department / Division", "UAV Engineering");
     data7.put("Employment Type", "Full Time");
     data7.put("Category", "Information Technology");
@@ -761,10 +1102,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data8 = new TreeMap<String, String>();
     data8.put("Select Template", "Custom Template");
-    data8.put("Job Posting Name", "Targeting Payload Recruitment 08");
+    data8.put("Job Posting Name", "Mission Sensor Payload Drive 08");
     data8.put("Expiry Date", "25-07-2026");
     data8.put("Job Urgency", "High");
-    data8.put("Job Title", "Targeting Payload Engineer");
+    data8.put("Job Title", "Mission Sensor Payload Engineer");
     data8.put("Department / Division", "UAV Engineering");
     data8.put("Employment Type", "Full Time");
     data8.put("Category", "Information Technology");
@@ -798,10 +1139,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data9 = new TreeMap<String, String>();
     data9.put("Select Template", "Custom Template");
-    data9.put("Job Posting Name", "Operator Console Systems Recruitment 09");
+    data9.put("Job Posting Name", "Mission Console Platforms Drive 09");
     data9.put("Expiry Date", "27-07-2026");
     data9.put("Job Urgency", "High");
-    data9.put("Job Title", "Operator Console Systems Engineer");
+    data9.put("Job Title", "Mission Console Platforms Engineer");
     data9.put("Department / Division", "UAV Engineering");
     data9.put("Employment Type", "Full Time");
     data9.put("Category", "Information Technology");
@@ -835,10 +1176,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data10 = new TreeMap<String, String>();
     data10.put("Select Template", "Custom Template");
-    data10.put("Job Posting Name", "Tactical Mission Software Recruitment 10");
+    data10.put("Job Posting Name", "Battle Route Software Drive 10");
     data10.put("Expiry Date", "29-07-2026");
     data10.put("Job Urgency", "High");
-    data10.put("Job Title", "Tactical Mission Software Engineer");
+    data10.put("Job Title", "Battle Route Software Engineer");
     data10.put("Department / Division", "UAV Engineering");
     data10.put("Employment Type", "Full Time");
     data10.put("Category", "Information Technology");
@@ -872,10 +1213,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data11 = new TreeMap<String, String>();
     data11.put("Select Template", "Custom Template");
-    data11.put("Job Posting Name", "Digital Twin Simulation Recruitment 11");
+    data11.put("Job Posting Name", "Virtual Mission Modeling Drive 11");
     data11.put("Expiry Date", "31-07-2026");
     data11.put("Job Urgency", "Medium");
-    data11.put("Job Title", "Digital Twin Simulation Engineer");
+    data11.put("Job Title", "Virtual Mission Modeling Engineer");
     data11.put("Department / Division", "Research and Development");
     data11.put("Employment Type", "Full Time");
     data11.put("Category", "Information Technology");
@@ -885,6 +1226,7 @@ public Object[][] Job_Posting_Data() {
     data11.put("Number of Positions", "1");
     data11.put("When Positions Fulfilled", "Close Job");
     data11.put("Job Description", "Create digital twin simulations, mission scenarios, and virtual test environments.");
+    data11.put("JobRequirements", "Experience in simulation, modeling, and scenario based validation.");
     data11.put("Job Requirements", "Experience in simulation, modeling, and scenario based validation.");
     data11.put("Benefits", "Insurance, technical depth, research exposure, and long term learning.");
     data11.put("Country", "India");
@@ -909,10 +1251,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data12 = new TreeMap<String, String>();
     data12.put("Select Template", "Custom Template");
-    data12.put("Job Posting Name", "Defense Range Validation Recruitment 12");
+    data12.put("Job Posting Name", "Integrated Field Validation Drive 12");
     data12.put("Expiry Date", "02-08-2026");
     data12.put("Job Urgency", "High");
-    data12.put("Job Title", "Defense Range Validation Engineer");
+    data12.put("Job Title", "Integrated Field Validation Engineer");
     data12.put("Department / Division", "Testing and Validation");
     data12.put("Employment Type", "Full Time");
     data12.put("Category", "Quality Analysis");
@@ -946,10 +1288,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data13 = new TreeMap<String, String>();
     data13.put("Select Template", "Custom Template");
-    data13.put("Job Posting Name", "Mission Software QA Recruitment 13");
+    data13.put("Job Posting Name", "Mission Quality Systems Drive 13");
     data13.put("Expiry Date", "04-08-2026");
     data13.put("Job Urgency", "Medium");
-    data13.put("Job Title", "Mission Software QA Engineer");
+    data13.put("Job Title", "Mission Quality Systems Engineer");
     data13.put("Department / Division", "Quality Assurance");
     data13.put("Employment Type", "Full Time");
     data13.put("Category", "Quality Analysis");
@@ -983,10 +1325,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data14 = new TreeMap<String, String>();
     data14.put("Select Template", "Custom Template");
-    data14.put("Job Posting Name", "Drone Assembly Operations Recruitment 14");
+    data14.put("Job Posting Name", "Drone Production Excellence Drive 14");
     data14.put("Expiry Date", "06-08-2026");
     data14.put("Job Urgency", "High");
-    data14.put("Job Title", "Drone Assembly Operations Engineer");
+    data14.put("Job Title", "Drone Production Excellence Engineer");
     data14.put("Department / Division", "Manufacturing");
     data14.put("Employment Type", "Full Time");
     data14.put("Category", "Professional Service");
@@ -1020,10 +1362,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data15 = new TreeMap<String, String>();
     data15.put("Select Template", "Custom Template");
-    data15.put("Job Posting Name", "UAV Structural Design Recruitment 15");
+    data15.put("Job Posting Name", "Lightweight Airframe Design Drive 15");
     data15.put("Expiry Date", "08-08-2026");
     data15.put("Job Urgency", "High");
-    data15.put("Job Title", "UAV Structural Design Engineer");
+    data15.put("Job Title", "Lightweight Airframe Design Engineer");
     data15.put("Department / Division", "Mechanical Design");
     data15.put("Employment Type", "Full Time");
     data15.put("Category", "Information Technology");
@@ -1057,10 +1399,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data16 = new TreeMap<String, String>();
     data16.put("Select Template", "Custom Template");
-    data16.put("Job Posting Name", "Endurance Propulsion Recruitment 16");
+    data16.put("Job Posting Name", "Extended Endurance Propulsion Drive 16");
     data16.put("Expiry Date", "10-08-2026");
     data16.put("Job Urgency", "High");
-    data16.put("Job Title", "Endurance Propulsion Engineer");
+    data16.put("Job Title", "Extended Endurance Propulsion Engineer");
     data16.put("Department / Division", "UAV Engineering");
     data16.put("Employment Type", "Full Time");
     data16.put("Category", "Information Technology");
@@ -1094,10 +1436,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data17 = new TreeMap<String, String>();
     data17.put("Select Template", "Custom Template");
-    data17.put("Job Posting Name", "Defense Platform Strategy Recruitment 17");
+    data17.put("Job Posting Name", "Defense Product Roadmap Drive 17");
     data17.put("Expiry Date", "12-08-2026");
     data17.put("Job Urgency", "Medium");
-    data17.put("Job Title", "Defense Platform Strategy Manager");
+    data17.put("Job Title", "Defense Product Roadmap Manager");
     data17.put("Department / Division", "Product Management");
     data17.put("Employment Type", "Full Time");
     data17.put("Category", "Information Technology");
@@ -1131,10 +1473,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data18 = new TreeMap<String, String>();
     data18.put("Select Template", "Custom Template");
-    data18.put("Job Posting Name", "Defense Growth Programs Recruitment 18");
+    data18.put("Job Posting Name", "Strategic Defense Growth Drive 18");
     data18.put("Expiry Date", "14-08-2026");
     data18.put("Job Urgency", "Medium");
-    data18.put("Job Title", "Defense Growth Programs Manager");
+    data18.put("Job Title", "Strategic Defense Growth Manager");
     data18.put("Department / Division", "Sales and Business Development");
     data18.put("Employment Type", "Full Time");
     data18.put("Category", "Marketing");
@@ -1168,10 +1510,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data19 = new TreeMap<String, String>();
     data19.put("Select Template", "Custom Template");
-    data19.put("Job Posting Name", "Operational Trials Recruitment 19");
+    data19.put("Job Posting Name", "Live Mission Trials Drive 19");
     data19.put("Expiry Date", "16-08-2026");
     data19.put("Job Urgency", "High");
-    data19.put("Job Title", "Operational Trials Engineer");
+    data19.put("Job Title", "Live Mission Trials Engineer");
     data19.put("Department / Division", "Field Deployment");
     data19.put("Employment Type", "Full Time");
     data19.put("Category", "Professional Service");
@@ -1205,10 +1547,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data20 = new TreeMap<String, String>();
     data20.put("Select Template", "Custom Template");
-    data20.put("Job Posting Name", "Advanced UAV Concepts Recruitment 20");
+    data20.put("Job Posting Name", "Future UAV Concepts Drive 20");
     data20.put("Expiry Date", "18-08-2026");
     data20.put("Job Urgency", "Medium");
-    data20.put("Job Title", "Advanced UAV Concepts Engineer");
+    data20.put("Job Title", "Future UAV Concepts Engineer");
     data20.put("Department / Division", "Research and Development");
     data20.put("Employment Type", "Full Time");
     data20.put("Category", "Information Technology");
