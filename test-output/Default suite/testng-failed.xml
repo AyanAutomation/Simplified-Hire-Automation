@@ -6,7 +6,7 @@
       <class name="Product_Codeclouds.Project.Simplified.Candidate_module">
         <methods>
           <include name="setup"/>
-          <include name="Add_Candidate"/>
+          <include name="Add_Candidate" invocation-numbers="0"/>
           <include name="Kill"/>
         </methods>
       </class> <!-- Product_Codeclouds.Project.Simplified.Candidate_module -->

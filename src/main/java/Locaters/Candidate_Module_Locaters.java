@@ -27,31 +27,34 @@ public class Candidate_Module_Locaters extends Repeat{
 	@FindBy(xpath="//div[contains(@class,'ant-modal-body')]")
 	private WebElement  Pop_up_form;
 	@FindBy(xpath="//div[contains(@class,'ant-modal-content')]//button[contains(@class,'ant-btn-primary')]")
-	private WebElement Modal_Save_Button; /*
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
+	private WebElement Modal_Save_Button; 
+	@FindBy(id="job")
+	private WebElement Assign_job_input;
+	private By form_scroll = By.xpath("(//*[contains(@class,'overflow-scroll overflow-x-scroll-hidden custom-scrollbar')])[1]");
+	@FindBy(id="owner")
+	private WebElement Owner_input;
+	@FindBy(id="recruiter")
+	private WebElement recruiter_input;
+	@FindBy(xpath="(//*[contains(@class,'rc-virtual-list-holder')])[1]")
+	private WebElement Owner_Dropdown;
+	@FindBy(xpath="(//*[contains(@class,'rc-virtual-list-holder')])[3]")
+	private WebElement Owner_Dropdown_backup;
+	@FindBy(xpath="(//*[contains(@class,'rc-virtual-list-holder')])[4]")
+	private WebElement recruiter_Dropdown;
+	@FindBy(xpath="(//*[contains(@class,'rc-virtual-list-holder')])[5]")
+	private WebElement recruiter_Dropdown_backup;
+	@FindBy(xpath="//div[contains(@class,'ant-notification-notice') and contains(@class,'ant-notification-notice-success')]")
+	private WebElement Success_Toast_Message;
+	@FindBy(xpath="(//div[contains(@class,'ant-modal-body')]//div[contains(@class,'ant-select-show-search')])[9]")
+	private WebElement Ownerfield;
+	@FindBy(xpath="(//div[contains(@class,'ant-modal-body')]//div[contains(@class,'ant-select-show-search')])[10]")
+	private WebElement recruiterfield;
+	@FindBy(xpath="(//*[contains(@class,'rc-virtual-list-holder')])[5]")
+	private WebElement state_Dropdown;
+	@FindBy(xpath="(//div[contains(@class,'ant-modal-body')]//div[contains(@class,'ant-select-show-search')])[5]")
+	private WebElement State_field;
+	@FindBy(xpath="//*[contains(@class,'ant-select-selector')]//input[@id='state' and @type='search']")
+	private WebElement State_input;/*
 	@FindBy(xpath="")
 	private WebElement  ;
 	@FindBy(xpath="")
@@ -181,8 +184,7 @@ public class Candidate_Module_Locaters extends Repeat{
 	wait_for_theElement(Landed_in_CV_Upload_form);
 	return Landed_in_CV_Upload_form;}
 	public WebElement Upload_Field() {
-		return wait_for_presence_of_theElement(Upload_Field);
-	}
+	return wait_for_presence_of_theElement(Upload_Field);}
 	public WebElement Parsing_cv(){
 	wait_for_theElement(Parsing_cv);
 	return Parsing_cv;} 
@@ -197,56 +199,62 @@ public class Candidate_Module_Locaters extends Repeat{
 	wait_for_theElement(Pop_Up_Form_Custom_Dropdown_fields);
 	return Pop_Up_Form_Custom_Dropdown_fields;}
 	public List<WebElement> name_ph_email_input_fieldsBox(){
-	List<WebElement> name_ph_email_input_fieldsBox = Pop_up_form().findElements(By.xpath(".//input[@id='email' or @id='phoneNumber' or @id='firstName' or @id='lastName' or @id='relevantExperience' or @id='totalExperience' or @id='noticePeriod']/../.."));
-	wait_for_theElement(name_ph_email_input_fieldsBox);
-	return name_ph_email_input_fieldsBox;}
+	return wait_for_nested( Pop_up_form(), By.xpath(".//input[@id='email' or @id='phoneNumber' or @id='firstName' or @id='lastName' or @id='relevantExperience' or @id='totalExperience' or @id='noticePeriod']/../.."));}
 	public WebElement Modal_Save_Button(){
 	wait_for_theElement(Modal_Save_Button);
 	return Modal_Save_Button;} 
 	public List<WebElement> name_ph_email_input_fields(){
-	List<WebElement> name_ph_email_input_fields = Pop_up_form().findElements(By.xpath(".//input[@id='email' or @id='phoneNumber' or @id='firstName' or @id='lastName' or @id='relevantExperience' or @id='totalExperience' or @id='noticePeriod']"));
-	wait_for_theElement(name_ph_email_input_fields);
-	return name_ph_email_input_fields;}/*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return wait_for_nested( Pop_up_form(), By.xpath(".//input[@id='email' or @id='phoneNumber' or @id='firstName' or @id='lastName' or @id='relevantExperience' or @id='totalExperience' or @id='noticePeriod']"));}
+	public WebElement Assign_job_input(){
+	wait_for_theElement(Assign_job_input);
+	return Assign_job_input;}
+	public WebElement form_scroll(){
+	return 	wait_for_presence_of_theElement(form_scroll);} 
+	public WebElement Owner_input(){
+	wait_for_theElement(Owner_input);
+	return Owner_input;}
+	public WebElement recruiter_input(){
+	wait_for_theElement(recruiter_input);
+	return recruiter_input;} 
+	public WebElement Owner_Dropdown(){
+	try{wait_for_theElement(Owner_Dropdown_backup);
+	return Owner_Dropdown_backup;}catch(Exception e){
+	wait_for_theElement(Owner_Dropdown);
+	return Owner_Dropdown;}}
+	public WebElement recruiter_Dropdown(){try{
+	wait_for_theElement(recruiter_Dropdown_backup);
+	return recruiter_Dropdown_backup;}
+	catch(Exception ejo){
+	wait_for_theElement(recruiter_Dropdown);
+	return	recruiter_Dropdown;}}
+	public List<WebElement> OwnerOptions(){
+	List<WebElement> OwnerOptions = Owner_Dropdown().findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+	wait_for_theElement(OwnerOptions);
+	return OwnerOptions;}
+	public List<WebElement> RecruiterOptions(){
+	List<WebElement> RecruiterOptions = recruiter_Dropdown().findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+	wait_for_theElement(RecruiterOptions);
+	return RecruiterOptions;}
+	public WebElement Success_Toast_Message(){
+	wait_for_theElement(Success_Toast_Message);
+	return Success_Toast_Message;}
+	public WebElement Ownerfield(){
+	wait_for_theElement(Ownerfield);
+	return Ownerfield;}
+	public WebElement recruiterfield(){
+	wait_for_theElement(recruiterfield);
+	return recruiterfield;} 
+	public WebElement state_Dropdown(){
+	wait_for_theElement(state_Dropdown);
+	return state_Dropdown;}
+	public List<WebElement> state_Dropdown_options(){
+	return wait_for_nested(Owner_Dropdown(),By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));} 
+	public WebElement State_field(){
+	wait_for_theElement(State_field);
+	return State_field;} 
+	public WebElement State_input(){
+	wait_for_theElement(State_input);
+	return State_input;}/*
 	public WebElement (){
 	wait_for_theElement();
 	return ;}

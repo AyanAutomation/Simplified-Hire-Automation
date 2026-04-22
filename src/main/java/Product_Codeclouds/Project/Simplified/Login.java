@@ -167,6 +167,40 @@ public void login() throws IOException {
     System.out.println();
 
     try {
+
+        Report_Listen.log_print_in_report().log(Status.INFO,
+                "<b>Step " + (step++) + ":</b> Validate whether the user was directly redirected inside the company portal.");
+        System.out.println("Step " + (step - 1) + ": Validate whether the user was directly redirected inside the company portal.");
+        System.out.println();
+        FluentWait<WebDriver> wit = new FluentWait<WebDriver>(d)
+                .withTimeout(Duration.ofSeconds(120))
+                .pollingEvery(Duration.ofMillis(500))
+                .ignoring(NoSuchElementException.class)
+                .ignoring(StaleElementReferenceException.class);
+        wit.until(driver -> {
+        	lg.login_confirmation_inside_company_portal();
+            return true;
+        });
+   
+        
+
+        Report_Listen.log_print_in_report().log(Status.PASS,
+                "<b>🟨 Actual:</b> User was directly redirected and entered successfully inside the company portal without needing company selection.");
+        System.out.println("🟨 Actual: User was directly redirected and entered successfully inside the company portal without needing company selection.");
+        System.out.println();
+
+    } catch (Exception e) {
+
+        Report_Listen.log_print_in_report().log(Status.WARNING,
+                "<b>⚠ Fallback:</b> Direct company portal landing was not detected. Proceeding with company selection flow.");
+        System.out.println("⚠ Fallback: Direct company portal landing was not detected. Proceeding with company selection flow.");
+        System.out.println();
+
+        Report_Listen.log_print_in_report().log(Status.INFO,
+                "<b>Step " + (step++) + ":</b> Validate initial login confirmation and confirm that company selection flow is available.");
+        System.out.println("Step " + (step - 1) + ": Validate initial login confirmation and confirm that company selection flow is available.");
+        System.out.println();
+
         lg.login_confirmation();
 
         Report_Listen.log_print_in_report().log(Status.INFO,
@@ -222,25 +256,6 @@ public void login() throws IOException {
         Report_Listen.log_print_in_report().log(Status.PASS,
                 "<b>🟨 Actual:</b> User entered successfully inside the company portal through company selection flow and login confirmation was validated.");
         System.out.println("🟨 Actual: User entered successfully inside the company portal through company selection flow and login confirmation was validated.");
-        System.out.println();
-
-    } catch (Exception e) {
-
-        Report_Listen.log_print_in_report().log(Status.WARNING,
-                "<b>⚠ Fallback:</b> Company selection flow was not displayed or not completed. Verifying whether the user was directly redirected into the company portal.");
-        System.out.println("⚠ Fallback: Company selection flow was not displayed or not completed. Verifying whether the user was directly redirected into the company portal.");
-        System.out.println();
-
-        Report_Listen.log_print_in_report().log(Status.INFO,
-                "<b>Step " + (step++) + ":</b> Validate direct landing inside the company portal.");
-        System.out.println("Step " + (step - 1) + ": Validate direct landing inside the company portal.");
-        System.out.println();
-
-        lg.login_confirmation_inside_company_portal();
-
-        Report_Listen.log_print_in_report().log(Status.PASS,
-                "<b>🟨 Actual:</b> User was directly redirected and entered successfully inside the company portal without needing company selection.");
-        System.out.println("🟨 Actual: User was directly redirected and entered successfully inside the company portal without needing company selection.");
         System.out.println();
     }
 

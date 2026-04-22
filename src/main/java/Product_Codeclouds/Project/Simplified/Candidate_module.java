@@ -1,11 +1,15 @@
 package Product_Codeclouds.Project.Simplified;
 
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.io.IOException;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -14,6 +18,7 @@ import com.aventstack.extentreports.Status;
 
 import Listerners.Report_Listen;
 import Locaters.Candidate_Module_Locaters;
+import Locaters.Job_Module_locaters;
 import Repeatative_codes.Repeat;
 
 public class Candidate_module extends Side_menu_Handler {
@@ -41,8 +46,8 @@ public class Candidate_module extends Side_menu_Handler {
 		return Import;
 	}
 	
-	@Test(dataProvider = "combinedData")
-	public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String, String> job_data) throws IOException, InterruptedException{
+	@Test(dataProvider = "Combined_Candidate_Job_Data")
+	public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String, String> job_data) throws IOException, InterruptedException, AWTException{
 		
 		String Job_Assign = job_data.get("Job Posting Name");
 		String Email = candidate_data.get("Email");
@@ -85,19 +90,113 @@ public class Candidate_module extends Side_menu_Handler {
 		
 		Candidate_Module_Locaters p = new Candidate_Module_Locaters(d);
 		Repeat rp = new Repeat(d);
+		Job_Module_locaters jp = new Job_Module_locaters(d);
+		Robot r = new Robot();
+		JavascriptExecutor js = (JavascriptExecutor)d;
 		
 		Candidate_List_Accesor();
 		p.Add_Button().click();
 		WebElement Pop_up_body=p.Pop_up_form();
 		rp.movetoelement(Pop_up_body);
-		Set<WebElement> inputs_boxes = new LinkedHashSet<WebElement>(p.name_ph_email_input_fieldsBox());
-		LinkedHashSet<WebElement> dropdowns = new LinkedHashSet<WebElement>(p.Pop_Up_Form_Custom_Dropdown_fields());
-		Set<WebElement> inputs = new LinkedHashSet<WebElement>(p.name_ph_email_input_fields());
+		List<WebElement> inputs_boxes = p.name_ph_email_input_fieldsBox();
+		List<WebElement> dropdowns = p.Pop_Up_Form_Custom_Dropdown_fields();
 		
-		
-		
-		
-		
+		WebElement Assign_Job_Dropdown = dropdowns.get(0);
+		Assign_Job_Dropdown.click();
+		p.Assign_job_input().sendKeys(Job_Assign);
+		Thread.sleep(800);
+	    WebElement dropdown_list=jp.First_dropdown_list();
+	    rp.movetoelement(dropdown_list);
+	    Thread.sleep(800);
+	    List<WebElement> job_options=jp.First_dropdown_Options();
+		for(WebElement jbopt: job_options) {
+			String option_text = jbopt.getText().trim();
+			rp.Scroll_to_element(jbopt);
+			if(option_text.equalsIgnoreCase(Job_Assign)) {
+				jbopt.click();
+				break;}}
+		 p.form_scroll().click();
+		 r.mouseWheel(6);
+		 List<WebElement> inputs = p.name_ph_email_input_fields();
+		 inputs.get(0).sendKeys(Email);
+		 inputs.get(1).sendKeys(Phone_Number);
+		 inputs.get(2).sendKeys(First_Name);
+		 inputs.get(3).sendKeys(Last_Name);
+		 r.mouseWheel(1);
+		 Thread.sleep(800);
+		 WebElement State_field=p.State_field();
+		 r.mouseWheel(1);
+		 rp.movetoelement(State_field);
+		 State_field.click();
+		 Thread.sleep(800);
+		 WebElement state =p.State_input();
+		 state.sendKeys(State);
+		 WebElement list=p.Owner_Dropdown(); 
+		 rp.movetoelement(list);
+		 Thread.sleep(800);
+		 for(int m=0;m<2;m++){
+		 r.mouseWheel(10);
+		 Thread.sleep(500);
+		 rp.movetoelement(list);
+		 Thread.sleep(500);}
+		 List<WebElement> state_options = p.state_Dropdown_options();
+		 for(WebElement stopt: state_options) {
+			 String option_text = stopt.getText().trim();
+				if(option_text.equalsIgnoreCase(State)) {try {
+					stopt.click();
+					break;}
+				catch(Exception mml){
+					js.executeScript("arguments[0].click();", stopt);
+					break;}}} 
+		 WebElement RelevantExperience =inputs.get(4);
+		 rp.Scroll_to_element(RelevantExperience);
+		 RelevantExperience.sendKeys(Relevant_Experience);
+		 WebElement TotalExperience =inputs.get(5);
+		 TotalExperience.sendKeys(Total_Experience);
+		 inputs_boxes.get(6).click();
+		 WebElement NoticePeriod =inputs.get(6);
+		 NoticePeriod.sendKeys(Notice_Period);
+		 WebElement Owner_field =p.Ownerfield();
+		 rp.Scroll_to_element(Owner_field);
+		 rp.movetoelement(Owner_field);
+		 Thread.sleep(800);
+		 Owner_field.click();
+		 Thread.sleep(800);
+		 WebElement Owner_dropdown_list=p.Owner_Dropdown();
+		 p.Owner_input().sendKeys(Owner);
+		 Thread.sleep(800);
+         rp.movetoelement(Owner_dropdown_list);
+		 Thread.sleep(800);
+		 List<WebElement> Owner_options = p.OwnerOptions();
+		 for(WebElement owneropt: Owner_options) {
+			 String option_text = owneropt.getText().trim();
+				if(option_text.equalsIgnoreCase(Owner)) {
+					owneropt.click();
+					break;}}
+		 p.form_scroll().click();
+		 WebElement Recruiter_field =p.recruiterfield();
+		 Recruiter_field.click();
+		 p.recruiter_input().sendKeys(Recruiter);
+		 WebElement Recruiter_dropdown_list=p.recruiter_Dropdown();
+		 rp.movetoelement(Recruiter_dropdown_list);
+		 Thread.sleep(800);
+		 List<WebElement> Recruiter_options = p.RecruiterOptions();
+	     for(WebElement recruiteropt: Recruiter_options) {
+	    	  String option_text = recruiteropt.getText().trim();
+	    	 if(option_text.equalsIgnoreCase(Recruiter)) {
+	    		 recruiteropt.click();
+	    		 break;}}
+	     Thread.sleep(800);
+	     p.form_scroll().click();
+	     WebElement Save =p.Modal_Save_Button();
+	     rp.Scroll_to_element(Save);
+	     rp.movetoelement(Save);
+	     Thread.sleep(800);
+	     Save.click();
+	     rp.wait_for_invisibilty_of_theElement(Pop_up_body);
+	     WebElement Success_toast = p.Success_Toast_Message();
+	     System.out.println("Toast message appeared: " + Success_toast.getText());
+	     System.out.println(); 
 	}
 	
 	@DataProvider
@@ -729,7 +828,7 @@ public class Candidate_module extends Side_menu_Handler {
 	    data20.put("Recruiter", "Admin Ayan Sengupta");
 
 	    return new Object[][] {
-	            { data1 },/*
+	            { data1 },
 	            { data2 },
 	            { data3 },
 	            { data4 },
@@ -748,7 +847,7 @@ public class Candidate_module extends Side_menu_Handler {
 	            { data17 },
 	            { data18 },
 	            { data19 },
-	            { data20 } */
+	            { data20 } 
 	    };
 	}
 	
