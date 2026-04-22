@@ -2,31 +2,31 @@
 <testng-results ignored="2" total="3" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-04-21T17:41:29 IST" name="Default suite" finished-at="2026-04-21T17:43:06 IST" duration-ms="97344">
+  <suite started-at="2026-04-22T12:06:39 IST" name="Default suite" finished-at="2026-04-22T12:07:23 IST" duration-ms="43585">
     <groups>
     </groups>
-    <test started-at="2026-04-21T17:41:29 IST" name="Default test" finished-at="2026-04-21T17:43:06 IST" duration-ms="97344">
-      <class name="Product_Codeclouds.Project.Simplified.Job_Module">
-        <test-method is-config="true" signature="setup()[pri:0, instance:Product_Codeclouds.Project.Simplified.Job_Module@2362f559]" started-at="2026-04-21T17:41:29 IST" name="setup" finished-at="2026-04-21T17:41:31 IST" duration-ms="2096" status="PASS">
+    <test started-at="2026-04-22T12:06:39 IST" name="Default test" finished-at="2026-04-22T12:07:23 IST" duration-ms="43585">
+      <class name="Product_Codeclouds.Project.Simplified.Candidate_module">
+        <test-method is-config="true" signature="setup()[pri:0, instance:Product_Codeclouds.Project.Simplified.Candidate_module@6ad82709]" started-at="2026-04-22T12:06:39 IST" name="setup" finished-at="2026-04-22T12:06:41 IST" duration-ms="2300" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="Job_Add(java.util.TreeMap)[pri:0, instance:Product_Codeclouds.Project.Simplified.Job_Module@2362f559]" started-at="2026-04-21T17:41:31 IST" name="Job_Add" data-provider="Job_Posting_Data" finished-at="2026-04-21T17:43:06 IST" duration-ms="94743" status="PASS">
+        <test-method signature="Add_Candidate(java.util.TreeMap)[pri:0, instance:Product_Codeclouds.Project.Simplified.Candidate_module@6ad82709]" started-at="2026-04-22T12:06:41 IST" name="Add_Candidate" data-provider="Candidate_Add_Data" finished-at="2026-04-22T12:07:22 IST" duration-ms="40808" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[{Benefits=Insurance, defense R&D exposure, innovation work, and long term technical growth., Category=Information Technology, City / State=Karnataka, Country=India, Currency 1=INR(₹), Currency 2=INR(₹), Currency 3=INR(₹), Department / Division=Artificial Intelligence and Autonomy, Employment Type=Full Time, Expected Hiring Date=21-08-2026, Expiry Date=11-07-2026, Job Description=Develop autonomous strike logic, mission behavior, and smart decision systems for UAV platforms., Job Posting Name=Autonomous Mission Control Drive 01, Job Requirements=Experience in autonomy logic, AI systems, mission workflows, and intelligent control., Job Title=Autonomous Mission Control Engineer, Job Urgency=High, Number of Positions=1, Remote=Yes, Required Education=M.Tech, Required Experience=Senior, Salary From 1=1900000, Salary From 2=2500001, Salary From 3=3300001, Salary To 1=2500000, Salary To 2=3300000, Salary To 3=4100000, Save As Job Posting Template=No, Screening Question 1=Do you have autonomy or intelligent control experience in UAV or robotics systems?, Screening Question 2=Have you worked on mission logic, automated response, or autonomous behaviors?, Screening Question 3=Which AI or autonomy frameworks have you used?, Select Template=Custom Template, Unit 1=Per Annum, Unit 2=Per Annum, Unit 3=Per Annum, When Positions Fulfilled=Enable Waitlist}]]>
+                <![CDATA[{CV/Resume=, Country=India, Cover Letter=, Current Salary=1200000, Current Salary Currency=INR(₹), Current Salary Duration=Yearly, Education=, Email=arjun.nair01@yopmail.com, Expected Salary=1500000, Expected Salary Currency=INR(₹), Expected Salary Duration=Yearly, First Name=Arjun, Last Name=Nair, Notice Period=30, Notice Period Unit=Day(s), Owner=Admin Ayan Sengupta, Phone Code=+91, Phone Number=9876543210, Professional Profile Link=https://www.linkedin.com/in/arjunnair01, Recruiter=Admin Ayan Sengupta, Relevant Experience=4, Relevant Experience Unit=Year(s), Skills=, Source=Candidate Portal, State=, Total Experience=5, Total Experience Unit=Year(s), Work Experience=}]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- Job_Add -->
-        <test-method is-config="true" signature="Kill()[pri:0, instance:Product_Codeclouds.Project.Simplified.Job_Module@2362f559]" started-at="2026-04-21T17:43:06 IST" name="Kill" finished-at="2026-04-21T17:43:06 IST" duration-ms="438" status="PASS">
+        </test-method> <!-- Add_Candidate -->
+        <test-method is-config="true" signature="Kill()[pri:0, instance:Product_Codeclouds.Project.Simplified.Candidate_module@6ad82709]" started-at="2026-04-22T12:07:22 IST" name="Kill" finished-at="2026-04-22T12:07:22 IST" duration-ms="407" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Kill -->
-      </class> <!-- Product_Codeclouds.Project.Simplified.Job_Module -->
+      </class> <!-- Product_Codeclouds.Project.Simplified.Candidate_module -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
