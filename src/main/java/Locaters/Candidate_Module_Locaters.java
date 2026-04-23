@@ -54,11 +54,9 @@ public class Candidate_Module_Locaters extends Repeat{
 	@FindBy(xpath="(//div[contains(@class,'ant-modal-body')]//div[contains(@class,'ant-select-show-search')])[5]")
 	private WebElement State_field;
 	@FindBy(xpath="//*[contains(@class,'ant-select-selector')]//input[@id='state' and @type='search']")
-	private WebElement State_input;/*
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
+	private WebElement State_input;
+	private By List_scroll_bar = By.xpath("//div[contains(@class,'rc-virtual-list-scrollbar-thumb')]");
+	private By List_scroller = By.xpath("//div[contains(@class,'rc-virtual-list-scrollbar-vertical')]"); /*
 	@FindBy(xpath="")
 	private WebElement  ;
 	@FindBy(xpath="")
@@ -248,21 +246,25 @@ public class Candidate_Module_Locaters extends Repeat{
 	wait_for_theElement(state_Dropdown);
 	return state_Dropdown;}
 	public List<WebElement> state_Dropdown_options(){
-	return wait_for_nested(Owner_Dropdown(),By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));} 
+	List<WebElement> stateOptions = Owner_Dropdown().findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+	wait_for_theElement(stateOptions);
+	return stateOptions;} 
 	public WebElement State_field(){
 	wait_for_theElement(State_field);
 	return State_field;} 
 	public WebElement State_input(){
 	wait_for_theElement(State_input);
-	return State_input;}/*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return State_input;}
+	public WebElement List_scroll_bar(){
+	WebElement scroll_bar = wait_for_presence_of_theElement(List_scroll_bar);
+	movetoelement(scroll_bar);
+	return scroll_bar;}
+	public WebElement List_scroller(){
+	return wait_for_presence_of_theElement(List_scroller);} 
+	public WebElement Selected_option(){
+	WebElement Selected_option= State_field().findElement(By.xpath(".//span[@class='ant-select-selection-item']"));
+	wait_for_theElement(Selected_option);
+	return Selected_option;}/*
 	public WebElement (){
 	wait_for_theElement();
 	return ;}
