@@ -56,17 +56,17 @@ public class Candidate_Module_Locaters extends Repeat{
 	@FindBy(xpath="//*[contains(@class,'ant-select-selector')]//input[@id='state' and @type='search']")
 	private WebElement State_input;
 	private By List_scroll_bar = By.xpath("//div[contains(@class,'rc-virtual-list-scrollbar-thumb')]");
-	private By List_scroller = By.xpath("//div[contains(@class,'rc-virtual-list-scrollbar-vertical')]"); /*
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
+	private By List_scroller = By.xpath("//div[contains(@class,'rc-virtual-list-scrollbar-vertical')]"); 
+	@FindBy(xpath="//*[text()='Rows per page:']/..//div[contains(@class,'ant-select-selector')]")
+	private WebElement pagination_box; 
+	@FindBy(xpath="(//*[contains(@title,'Click to fetch exact count')])")
+	private WebElement Exact_count_icon; 
+	@FindBy(xpath="//button[contains(@class,'advance-search-btn')]")
+	private WebElement Advance_search_button;
+	@FindBy(xpath="//div[contains(@class,'talentpool-table-header')]//div[contains(@class,'ant-select-selector')]")
+	private List<WebElement> Candidate_List_Filter_Dropdowns;
+	@FindBy(xpath="//div[contains(@class,'ant-select-dropdown-placement-bottomLeft')]")
+	private WebElement stages_Dropdown;/*
 	@FindBy(xpath="")
 	private WebElement  ;
 	@FindBy(xpath="")
@@ -264,21 +264,23 @@ public class Candidate_Module_Locaters extends Repeat{
 	public WebElement Selected_option(){
 	WebElement Selected_option= State_field().findElement(By.xpath(".//span[@class='ant-select-selection-item']"));
 	wait_for_theElement(Selected_option);
-	return Selected_option;}/*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
+	return Selected_option;}
+	public WebElement pagination_box(){
+	wait_for_theElement(pagination_box);
+	return pagination_box;}
+	public WebElement Exact_count_icon(){
+	wait_for_theElement(Exact_count_icon);
+	return Exact_count_icon;}
+	public List<WebElement>  Candidate_List_Filter_Dropdowns(){
+	wait_for_theElement(Candidate_List_Filter_Dropdowns);
+	return Candidate_List_Filter_Dropdowns;}
+	public WebElement Advance_search_button(){
+	wait_for_theElement(Advance_search_button);
+	return Advance_search_button;}
+	public WebElement stages_Dropdown(){
+	wait_for_theElement(stages_Dropdown);
+	return stages_Dropdown;}
+	/*public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){

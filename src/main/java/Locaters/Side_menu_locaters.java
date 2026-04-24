@@ -14,9 +14,9 @@ public class Side_menu_locaters extends Repeat{
 	
 	
 	@FindBy(xpath="//*[@role='menu' and contains(@class,'ant-menu-light menu-height')]")
-	private WebElement Side_menu;/*
-	@FindBy(xpath="")
-	private WebElement  ;
+	private WebElement Side_menu;
+	@FindBy(xpath="//ul//button")
+	private WebElement Menu_Expander;/*
 	@FindBy(xpath="")
 	private WebElement  ;
 	@FindBy(xpath="")
@@ -41,10 +41,11 @@ public class Side_menu_locaters extends Repeat{
 	public List<WebElement> options(){
 	List<WebElement> options = Side_menu().findElements(By.xpath(".//li[contains(@class,'ant-menu-item')]"));
 	wait_for_theElement(options);
-	return options;} /*
+	return options;} 
+	public WebElement Menu_Expander(){
+	wait_for_theElement(Menu_Expander);
+	return Menu_Expander;}/*
 	public WebElement (){
-	wait_for_theElement();
-	return ;}public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){

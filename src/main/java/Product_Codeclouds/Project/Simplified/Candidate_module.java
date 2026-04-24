@@ -401,6 +401,32 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
 	System.out.println();
 }
 	
+	
+   public void pagination_changer(String count) throws InterruptedException{
+		
+	   Candidate_Module_Locaters p = new Candidate_Module_Locaters(d);
+	   Repeat rp = new Repeat(d);
+	   
+	   WebElement pagination_box = p.pagination_box();
+	   rp.Scroll_to_element(pagination_box);
+	   Thread.sleep(800);
+	   pagination_box.click();
+	   WebElement pagination_list = p.Owner_Dropdown();
+	   List<WebElement> pagination_options = pagination_list.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+	   for(WebElement pageopt : pagination_options) {
+		   String option_text = pageopt.getText().trim();
+		   if(option_text.equalsIgnoreCase(count)) {
+			   pageopt.click();
+			   break;
+		   }
+	   }
+   
+   
+   
+   }
+	
+	
+	
 	@DataProvider
 	public Object[][] Combined_Candidate_Job_Data() {
 

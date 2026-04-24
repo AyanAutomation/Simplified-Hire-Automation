@@ -17,9 +17,10 @@ public class Report_Module_Locaters extends Repeat{
 	
 	@FindBy(xpath="//*[contains(@class,'ant-col filter_select_wrapper')]")
 	private WebElement Filter_button;
-	@FindBy(xpath="//*[text()='Import CV/Resume']")
-	private WebElement Landed_in_CV_Upload_form;
-	private By Upload_Field = By.xpath("//span[contains(@class,'add_candidate_cv')]//input[@type='file']");
+	@FindBy(xpath="//h2[@class='value']")
+	private List<WebElement> Values;
+	@FindBy(xpath="//p[@class='label']")
+	private List<WebElement> Labels;
 	@FindBy(xpath="//div[contains(@class,'ant-row imported_cv_row')]")
 	private WebElement Parsing_cv;
     @FindBy(xpath="//*[contains(@class,'justify-content-between')]//button[1]")
@@ -178,14 +179,12 @@ public class Report_Module_Locaters extends Repeat{
 	public WebElement Filter_button(){
 	wait_for_theElement(Filter_button);
 	return Filter_button;}
-	public WebElement Landed_in_CV_Upload_form(){
-	wait_for_theElement(Landed_in_CV_Upload_form);
-	return Landed_in_CV_Upload_form;}
-	public WebElement Upload_Field() {
-	return wait_for_presence_of_theElement(Upload_Field);}
-	public WebElement Parsing_cv(){
-	wait_for_theElement(Parsing_cv);
-	return Parsing_cv;} 
+	public List<WebElement> Labels(){
+	wait_for_theElement(Labels);
+	return Labels;}
+	public List<WebElement> Values(){
+	wait_for_theElement(Values);
+	return Values;} 
 	public WebElement Add_Button(){
 	wait_for_theElement(Add_Button);
 	return Add_Button;}

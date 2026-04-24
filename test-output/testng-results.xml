@@ -2,20 +2,20 @@
 <testng-results ignored="3" total="4" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-04-24T12:29:38 IST" name="Default suite" finished-at="2026-04-24T12:30:52 IST" duration-ms="74066">
+  <suite started-at="2026-04-24T22:33:22 IST" name="Default suite" finished-at="2026-04-24T22:34:28 IST" duration-ms="65395">
     <groups>
     </groups>
-    <test started-at="2026-04-24T12:29:38 IST" name="Default test" finished-at="2026-04-24T12:30:52 IST" duration-ms="74066">
+    <test started-at="2026-04-24T22:33:22 IST" name="Default test" finished-at="2026-04-24T22:34:28 IST" duration-ms="65395">
       <class name="Product_Codeclouds.Project.Simplified.Reports_Module">
-        <test-method is-config="true" signature="setup()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@544fa968]" started-at="2026-04-24T12:29:38 IST" name="setup" finished-at="2026-04-24T12:29:41 IST" duration-ms="2084" status="PASS">
+        <test-method is-config="true" signature="setup()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@d35dea7]" started-at="2026-04-24T22:33:22 IST" name="setup" finished-at="2026-04-24T22:33:24 IST" duration-ms="1990" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="overview_section_Data_Consistency_checking()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@544fa968]" started-at="2026-04-24T12:29:41 IST" name="overview_section_Data_Consistency_checking" finished-at="2026-04-24T12:30:52 IST" duration-ms="71913" status="PASS">
+        <test-method signature="overview_section_Data_Consistency_checking()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@d35dea7]" started-at="2026-04-24T22:33:24 IST" name="overview_section_Data_Consistency_checking" finished-at="2026-04-24T22:34:27 IST" duration-ms="62975" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- overview_section_Data_Consistency_checking -->
-        <test-method is-config="true" signature="Kill()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@544fa968]" started-at="2026-04-24T12:30:52 IST" name="Kill" finished-at="2026-04-24T12:30:52 IST" duration-ms="2" status="PASS">
+        <test-method is-config="true" signature="Kill()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@d35dea7]" started-at="2026-04-24T22:34:27 IST" name="Kill" finished-at="2026-04-24T22:34:28 IST" duration-ms="376" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Kill -->

@@ -40,9 +40,11 @@ public class Side_menu_Handler extends Simplified_hire_login {
 		Report_Listen.log_print_in_report().log(Status.INFO,
 				"<b>Step 1:</b> Access Simplified Hire dashboard before working with side menu.");
 		System.out.println("Step 1: Access Simplified Hire dashboard before working with side menu.");
-		System.out.println();
-
+		System.out.println();try {
+		p.Side_menu();}
+		catch(Exception mm){
 		Simplified_Hire_Accessor();
+		p.Side_menu();}
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
 				"<b>🟨 Actual:</b> Simplified Hire dashboard accessed successfully.");
@@ -54,7 +56,7 @@ public class Side_menu_Handler extends Simplified_hire_login {
 		System.out.println("Step 2: Open side menu and fetch all available menu options.");
 		System.out.println();
 
-		p.Side_menu();
+		
 		List<WebElement> menu_options = p.options();
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
@@ -91,4 +93,17 @@ public class Side_menu_Handler extends Simplified_hire_login {
 			System.out.println();
 		}
 	}
+
+
+   public void side_menu_expander() throws IOException, InterruptedException{
+	   
+	   
+	Side_menu_locaters p = new Side_menu_locaters(d); 
+	   
+	WebElement Menu_expand=p.Menu_Expander();
+	Menu_expand.click();
+	p.Side_menu();
+   }
+
+
 }

@@ -39,13 +39,14 @@ public class Base {
 		d.manage().window().maximize();}}
 	
 	
-	
+	  
 	@AfterMethod
 	public void Kill(){
 		
 		if(d!=null){
 			
-//  	d.quit();
+       d.quit();
+			
 			}
 		
 		
