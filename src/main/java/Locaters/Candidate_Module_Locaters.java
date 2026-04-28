@@ -35,21 +35,25 @@ public class Candidate_Module_Locaters extends Repeat{
 	private WebElement Owner_input;
 	@FindBy(id="recruiter")
 	private WebElement recruiter_input;
+	@FindBy(id="source")
+	private WebElement source_input;
 	@FindBy(xpath="(//*[contains(@class,'rc-virtual-list-holder')])[1]")
 	private WebElement Owner_Dropdown;
-	@FindBy(xpath="(//*[contains(@class,'rc-virtual-list-holder')])[3]")
+	@FindBy(xpath="(//*[contains(@class,'rc-virtual-list-holder')])[5]")
 	private WebElement Owner_Dropdown_backup;
 	@FindBy(xpath="(//*[contains(@class,'rc-virtual-list-holder')])[4]")
 	private WebElement recruiter_Dropdown;
-	@FindBy(xpath="(//*[contains(@class,'rc-virtual-list-holder')])[5]")
+	@FindBy(xpath="(//*[contains(@class,'rc-virtual-list-holder')])[7]")
 	private WebElement recruiter_Dropdown_backup;
 	@FindBy(xpath="//div[contains(@class,'ant-notification-notice') and contains(@class,'ant-notification-notice-success')]")
 	private WebElement Success_Toast_Message;
 	@FindBy(xpath="(//div[contains(@class,'ant-modal-body')]//div[contains(@class,'ant-select-show-search')])[9]")
 	private WebElement Ownerfield;
+	@FindBy(xpath="(//div[contains(@class,'ant-modal-body')]//div[contains(@class,'ant-select-show-search')])[3]")
+	private WebElement Sourcefield;
 	@FindBy(xpath="(//div[contains(@class,'ant-modal-body')]//div[contains(@class,'ant-select-show-search')])[10]")
 	private WebElement recruiterfield;
-	@FindBy(xpath="(//*[contains(@class,'rc-virtual-list-holder')])[5]")
+	@FindBy(xpath="(//*[contains(@class,'rc-virtual-list-holder')])[3]")
 	private WebElement state_Dropdown;
 	@FindBy(xpath="(//div[contains(@class,'ant-modal-body')]//div[contains(@class,'ant-select-show-search')])[5]")
 	private WebElement State_field;
@@ -66,11 +70,11 @@ public class Candidate_Module_Locaters extends Repeat{
 	@FindBy(xpath="//div[contains(@class,'talentpool-table-header')]//div[contains(@class,'ant-select-selector')]")
 	private List<WebElement> Candidate_List_Filter_Dropdowns;
 	@FindBy(xpath="//div[contains(@class,'ant-select-dropdown-placement-bottomLeft')]")
-	private WebElement stages_Dropdown;/*
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
+	private WebElement stages_Dropdown;
+	@FindBy(xpath="//tbody")
+	private WebElement table_body;
+	@FindBy(xpath="//*[contains(@class,'pagination-right')]//span")
+	private List<WebElement> pagination_count_text;/*
 	@FindBy(xpath="")
 	private WebElement  ;
 	@FindBy(xpath="")
@@ -216,7 +220,8 @@ public class Candidate_Module_Locaters extends Repeat{
 	return recruiter_input;} 
 	public WebElement Owner_Dropdown(){
 	try{wait_for_theElement(Owner_Dropdown_backup);
-	return Owner_Dropdown_backup;}catch(Exception e){
+	return Owner_Dropdown_backup;}
+	catch(Exception e){
 	wait_for_theElement(Owner_Dropdown);
 	return Owner_Dropdown;}}
 	public WebElement recruiter_Dropdown(){try{
@@ -271,7 +276,7 @@ public class Candidate_Module_Locaters extends Repeat{
 	public WebElement Exact_count_icon(){
 	wait_for_theElement(Exact_count_icon);
 	return Exact_count_icon;}
-	public List<WebElement>  Candidate_List_Filter_Dropdowns(){
+	public List<WebElement> Candidate_List_Filter_Dropdowns(){
 	wait_for_theElement(Candidate_List_Filter_Dropdowns);
 	return Candidate_List_Filter_Dropdowns;}
 	public WebElement Advance_search_button(){
@@ -280,20 +285,21 @@ public class Candidate_Module_Locaters extends Repeat{
 	public WebElement stages_Dropdown(){
 	wait_for_theElement(stages_Dropdown);
 	return stages_Dropdown;}
-	/*public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
+	public WebElement table_body(){
+	wait_for_theElement(table_body);
+	return table_body;}
+	public List<WebElement> pagination_count_text(){
+	wait_for_theElement(pagination_count_text);
+	return pagination_count_text;}
+	public WebElement Sourcefield(){
+	wait_for_theElement(Sourcefield);
+	return Sourcefield;}
+	public WebElement source_input(){
+	wait_for_theElement(source_input);
+	return source_input;} 
+	public WebElement Source_Dropdown(){
+	wait_for_theElement(Owner_Dropdown);
+	return Owner_Dropdown;}/*
 	public WebElement (){
 	wait_for_theElement();
 	return ;} public WebElement (){

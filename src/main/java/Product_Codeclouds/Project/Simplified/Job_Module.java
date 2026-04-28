@@ -151,6 +151,8 @@ public class Job_Module extends Candidate_module{
 	System.out.println();
 
 	try {
+		WebElement JobButton = p.Add_Job();
+		JobButton.click();
 		WebElement Forms = p.Form();
 		Report_Listen.log_print_in_report().log(Status.INFO,
 				"<b>🟨 Actual:</b> Job Add form was already available.");
@@ -630,7 +632,7 @@ public class Job_Module extends Candidate_module{
 		Submit_Button = Buttons.get(8);
 		rp.movetoelement(Submit_Button);
 		Submit_Button.click();
-		Thread.sleep(800);
+		//Thread.sleep(800);
 
 		WebElement error_toast = p.Error_toast_message();
 		String error_toast_text = error_toast.getText().trim();
@@ -640,13 +642,13 @@ public class Job_Module extends Candidate_module{
 		WebElement toast_close = p.Toast_close_button();
 		rp.movetoelement(toast_close);
 		toast_close.click();
-
+/*
 		System.out.println("Error toast message = " + error_toast_text);
 		Report_Listen.log_print_in_report().log(Status.WARNING,
 				"<b>⚠ Actual:</b> Error toast message captured after submit retry = " + error_toast_text);
 		System.out.println();
 
-		Thread.sleep(1800);
+		Thread.sleep(800);
 		WebElement toast_close_two = p.Toast_close_button();
 		rp.movetoelement(toast_close_two);
 		toast_close_two.click();
@@ -654,17 +656,17 @@ public class Job_Module extends Candidate_module{
 		Report_Listen.log_print_in_report().log(Status.WARNING,
 				"<b>⚠ Recovery:</b> Existing conflicting job was handled through delete and re-add flow before retrying question block loading.");
 		System.out.println("⚠ Recovery: Existing conflicting job was handled through delete and re-add flow before retrying question block loading.");
-		System.out.println();
+		System.out.println();*/
 
-		Already_added_Job_delete_and_re_add(error_toast_text, Job_Title, Back_Button);
+		Already_added_Job_delete_and_re_add(error_toast_text, Job_Posting_Name, Back_Button,job_data);
 
-		FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d)
+		FluentWait<WebDriver> wat = new FluentWait<WebDriver>(d)
 				.withTimeout(Duration.ofSeconds(40))
 				.pollingEvery(Duration.ofMillis(500))
 				.ignoring(NoSuchElementException.class)
 				.ignoring(StaleElementReferenceException.class);
 
-		question_blocks = wait.until(driver -> {
+		question_blocks = wat.until(driver -> {
 			List<WebElement> question_retry = p.Question_blocks();
 			return (question_retry != null && question_retry.size() > 0) ? question_retry : null;
 		});
@@ -673,7 +675,7 @@ public class Job_Module extends Candidate_module{
 				"<b>🟨 Actual:</b> Screening question block(s) loaded successfully after recovery flow. Total blocks found = " + question_blocks.size());
 		System.out.println("🟨 Actual: Screening question block(s) loaded successfully after recovery flow. Total blocks found = " + question_blocks.size());
 		System.out.println();
-	}
+}
 
 	Report_Listen.log_print_in_report().log(Status.INFO,
 			"<b>Step " + (step++) + ":</b> Enter first screening question and add it.");
@@ -772,7 +774,7 @@ public class Job_Module extends Candidate_module{
 	System.out.println();
 }
 	
-	public void Already_added_Job_delete_and_re_add(String error_toast_text,String job_name, WebElement Button) throws InterruptedException, IOException, AWTException {
+	public void Already_added_Job_delete_and_re_add(String error_toast_text,String job_name, WebElement Button,TreeMap<String, String> data) throws InterruptedException, IOException, AWTException {
 		
 		Job_Module_locaters p = new Job_Module_locaters(d);
 		JavascriptExecutor js = (JavascriptExecutor) d;
@@ -785,23 +787,21 @@ public class Job_Module extends Candidate_module{
     		rp.Scroll_to_element(Back_Button);
     		try {
     			r.mouseWheel(-30);
+    			Thread.sleep(800);
      	        Back_Button.click();
               
     		} catch (Exception e) {
-    			Thread.sleep(800);
-    		   
-    	        Thread.sleep(800);
-    			WebElement Top = p.top_row_of_the_page();
+    			
+    		    WebElement Top = p.top_row_of_the_page();
     			rp.Scroll_to_element(Top);
     			WebElement form = p.Form();
     			rp.movetoelement(form);
     			form.click();
     			Thread.sleep(800);
     			
-    			rp.Scroll_to_element(Back_Button);
-    			rp.movetoelement(Back_Button);
+    			r.mouseWheel(-30);
     			Thread.sleep(800);
-    			Back_Button.click();
+    			js.executeScript("arguments[0].click();", Back_Button);
     		}
     		
     	 
@@ -829,7 +829,7 @@ public class Job_Module extends Candidate_module{
 		  String Delete_text= p.Bold_text_in_popup().getText().trim();
 		  p.Delete_input().sendKeys(Delete_text);
 		  p.pop_up_delete_button().click();
-		  
+		  Job_Add(data);
 		}
 		
 		
@@ -843,10 +843,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data1 = new TreeMap<String, String>();
     data1.put("Select Template", "Custom Template");
-    data1.put("Job Posting Name", "Autonomous Mission Control Drive 01");
+    data1.put("Job Posting Name", "Autonomous Swarm Orchestration Drive 01");
     data1.put("Expiry Date", "11-07-2026");
     data1.put("Job Urgency", "High");
-    data1.put("Job Title", "Autonomous Mission Control Engineer");
+    data1.put("Job Title", "Autonomous Swarm Orchestration Engineer");
     data1.put("Department / Division", "Artificial Intelligence and Autonomy");
     data1.put("Employment Type", "Full Time");
     data1.put("Category", "Information Technology");
@@ -880,10 +880,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data2 = new TreeMap<String, String>();
     data2.put("Select Template", "Custom Template");
-    data2.put("Job Posting Name", "Flight Electronics Integration Drive 02");
+    data2.put("Job Posting Name", "Avionics Power Distribution Drive 02");
     data2.put("Expiry Date", "13-07-2026");
     data2.put("Job Urgency", "High");
-    data2.put("Job Title", "Flight Electronics Integration Engineer");
+    data2.put("Job Title", "Avionics Power Distribution Engineer");
     data2.put("Department / Division", "Avionics");
     data2.put("Employment Type", "Full Time");
     data2.put("Category", "Information Technology");
@@ -917,10 +917,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data3 = new TreeMap<String, String>();
     data3.put("Select Template", "Custom Template");
-    data3.put("Job Posting Name", "Adaptive Flight Stability Drive 03");
+    data3.put("Job Posting Name", "Flight Envelope Control Drive 03");
     data3.put("Expiry Date", "15-07-2026");
     data3.put("Job Urgency", "High");
-    data3.put("Job Title", "Adaptive Flight Stability Engineer");
+    data3.put("Job Title", "Flight Envelope Control Engineer");
     data3.put("Department / Division", "Flight Control Systems");
     data3.put("Employment Type", "Full Time");
     data3.put("Category", "Information Technology");
@@ -954,10 +954,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data4 = new TreeMap<String, String>();
     data4.put("Select Template", "Custom Template");
-    data4.put("Job Posting Name", "Battlefield Vision Intelligence Drive 04");
+    data4.put("Job Posting Name", "Tactical Perception Fusion Drive 04");
     data4.put("Expiry Date", "17-07-2026");
     data4.put("Job Urgency", "High");
-    data4.put("Job Title", "Battlefield Vision Intelligence Engineer");
+    data4.put("Job Title", "Tactical Perception Fusion Engineer");
     data4.put("Department / Division", "Computer Vision");
     data4.put("Employment Type", "Full Time");
     data4.put("Category", "Information Technology");
@@ -991,10 +991,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data5 = new TreeMap<String, String>();
     data5.put("Select Template", "Custom Template");
-    data5.put("Job Posting Name", "UAV Core Firmware Drive 05");
+    data5.put("Job Posting Name", "Real-Time Flight Stack Drive 05");
     data5.put("Expiry Date", "19-07-2026");
     data5.put("Job Urgency", "High");
-    data5.put("Job Title", "UAV Core Firmware Engineer");
+    data5.put("Job Title", "Real-Time Flight Stack Engineer");
     data5.put("Department / Division", "Embedded Systems");
     data5.put("Employment Type", "Full Time");
     data5.put("Category", "Information Technology");
@@ -1028,10 +1028,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data6 = new TreeMap<String, String>();
     data6.put("Select Template", "Custom Template");
-    data6.put("Job Posting Name", "Encrypted Drone Communications Drive 06");
+    data6.put("Job Posting Name", "Secure Airborne Data Links Drive 06");
     data6.put("Expiry Date", "21-07-2026");
     data6.put("Job Urgency", "High");
-    data6.put("Job Title", "Encrypted Drone Communications Engineer");
+    data6.put("Job Title", "Secure Airborne Data Links Engineer");
     data6.put("Department / Division", "UAV Engineering");
     data6.put("Employment Type", "Full Time");
     data6.put("Category", "Information Technology");
@@ -1065,10 +1065,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data7 = new TreeMap<String, String>();
     data7.put("Select Template", "Custom Template");
-    data7.put("Job Posting Name", "Precision Navigation Logic Drive 07");
+    data7.put("Job Posting Name", "Inertial Navigation Fusion Drive 07");
     data7.put("Expiry Date", "23-07-2026");
     data7.put("Job Urgency", "High");
-    data7.put("Job Title", "Precision Navigation Logic Engineer");
+    data7.put("Job Title", "Inertial Navigation Fusion Engineer");
     data7.put("Department / Division", "UAV Engineering");
     data7.put("Employment Type", "Full Time");
     data7.put("Category", "Information Technology");
@@ -1102,10 +1102,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data8 = new TreeMap<String, String>();
     data8.put("Select Template", "Custom Template");
-    data8.put("Job Posting Name", "Mission Sensor Payload Drive 08");
+    data8.put("Job Posting Name", "EO-IR Mission Payload Drive 08");
     data8.put("Expiry Date", "25-07-2026");
     data8.put("Job Urgency", "High");
-    data8.put("Job Title", "Mission Sensor Payload Engineer");
+    data8.put("Job Title", "EO-IR Mission Payload Engineer");
     data8.put("Department / Division", "UAV Engineering");
     data8.put("Employment Type", "Full Time");
     data8.put("Category", "Information Technology");
@@ -1139,10 +1139,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data9 = new TreeMap<String, String>();
     data9.put("Select Template", "Custom Template");
-    data9.put("Job Posting Name", "Mission Console Platforms Drive 09");
+    data9.put("Job Posting Name", "Ground Command Interface Drive 09");
     data9.put("Expiry Date", "27-07-2026");
     data9.put("Job Urgency", "High");
-    data9.put("Job Title", "Mission Console Platforms Engineer");
+    data9.put("Job Title", "Ground Command Interface Engineer");
     data9.put("Department / Division", "UAV Engineering");
     data9.put("Employment Type", "Full Time");
     data9.put("Category", "Information Technology");
@@ -1176,10 +1176,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data10 = new TreeMap<String, String>();
     data10.put("Select Template", "Custom Template");
-    data10.put("Job Posting Name", "Battle Route Software Drive 10");
+    data10.put("Job Posting Name", "Combat Mission Planning Drive 10");
     data10.put("Expiry Date", "29-07-2026");
     data10.put("Job Urgency", "High");
-    data10.put("Job Title", "Battle Route Software Engineer");
+    data10.put("Job Title", "Combat Mission Planning Engineer");
     data10.put("Department / Division", "UAV Engineering");
     data10.put("Employment Type", "Full Time");
     data10.put("Category", "Information Technology");
@@ -1213,10 +1213,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data11 = new TreeMap<String, String>();
     data11.put("Select Template", "Custom Template");
-    data11.put("Job Posting Name", "Virtual Mission Modeling Drive 11");
+    data11.put("Job Posting Name", "Synthetic Battlespace Modeling Drive 11");
     data11.put("Expiry Date", "31-07-2026");
     data11.put("Job Urgency", "Medium");
-    data11.put("Job Title", "Virtual Mission Modeling Engineer");
+    data11.put("Job Title", "Synthetic Battlespace Modeling Engineer");
     data11.put("Department / Division", "Research and Development");
     data11.put("Employment Type", "Full Time");
     data11.put("Category", "Information Technology");
@@ -1251,10 +1251,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data12 = new TreeMap<String, String>();
     data12.put("Select Template", "Custom Template");
-    data12.put("Job Posting Name", "Integrated Field Validation Drive 12");
+    data12.put("Job Posting Name", "UAV Test Range Assurance Drive 12");
     data12.put("Expiry Date", "02-08-2026");
     data12.put("Job Urgency", "High");
-    data12.put("Job Title", "Integrated Field Validation Engineer");
+    data12.put("Job Title", "UAV Test Range Assurance Engineer");
     data12.put("Department / Division", "Testing and Validation");
     data12.put("Employment Type", "Full Time");
     data12.put("Category", "Quality Analysis");
@@ -1288,10 +1288,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data13 = new TreeMap<String, String>();
     data13.put("Select Template", "Custom Template");
-    data13.put("Job Posting Name", "Mission Quality Systems Drive 13");
+    data13.put("Job Posting Name", "Defense Software Reliability Drive 13");
     data13.put("Expiry Date", "04-08-2026");
     data13.put("Job Urgency", "Medium");
-    data13.put("Job Title", "Mission Quality Systems Engineer");
+    data13.put("Job Title", "Defense Software Reliability Engineer");
     data13.put("Department / Division", "Quality Assurance");
     data13.put("Employment Type", "Full Time");
     data13.put("Category", "Quality Analysis");
@@ -1325,10 +1325,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data14 = new TreeMap<String, String>();
     data14.put("Select Template", "Custom Template");
-    data14.put("Job Posting Name", "Drone Production Excellence Drive 14");
+    data14.put("Job Posting Name", "Drone Assembly Process Excellence Drive 14");
     data14.put("Expiry Date", "06-08-2026");
     data14.put("Job Urgency", "High");
-    data14.put("Job Title", "Drone Production Excellence Engineer");
+    data14.put("Job Title", "Drone Assembly Process Excellence Engineer");
     data14.put("Department / Division", "Manufacturing");
     data14.put("Employment Type", "Full Time");
     data14.put("Category", "Professional Service");
@@ -1362,10 +1362,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data15 = new TreeMap<String, String>();
     data15.put("Select Template", "Custom Template");
-    data15.put("Job Posting Name", "Lightweight Airframe Design Drive 15");
+    data15.put("Job Posting Name", "Composite Airframe Architecture Drive 15");
     data15.put("Expiry Date", "08-08-2026");
     data15.put("Job Urgency", "High");
-    data15.put("Job Title", "Lightweight Airframe Design Engineer");
+    data15.put("Job Title", "Composite Airframe Architecture Engineer");
     data15.put("Department / Division", "Mechanical Design");
     data15.put("Employment Type", "Full Time");
     data15.put("Category", "Information Technology");
@@ -1399,10 +1399,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data16 = new TreeMap<String, String>();
     data16.put("Select Template", "Custom Template");
-    data16.put("Job Posting Name", "Extended Endurance Propulsion Drive 16");
+    data16.put("Job Posting Name", "High-Endurance Powertrain Drive 16");
     data16.put("Expiry Date", "10-08-2026");
     data16.put("Job Urgency", "High");
-    data16.put("Job Title", "Extended Endurance Propulsion Engineer");
+    data16.put("Job Title", "High-Endurance Powertrain Engineer");
     data16.put("Department / Division", "UAV Engineering");
     data16.put("Employment Type", "Full Time");
     data16.put("Category", "Information Technology");
@@ -1436,10 +1436,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data17 = new TreeMap<String, String>();
     data17.put("Select Template", "Custom Template");
-    data17.put("Job Posting Name", "Defense Product Roadmap Drive 17");
+    data17.put("Job Posting Name", "UAV Capability Portfolio Drive 17");
     data17.put("Expiry Date", "12-08-2026");
     data17.put("Job Urgency", "Medium");
-    data17.put("Job Title", "Defense Product Roadmap Manager");
+    data17.put("Job Title", "UAV Capability Portfolio Manager");
     data17.put("Department / Division", "Product Management");
     data17.put("Employment Type", "Full Time");
     data17.put("Category", "Information Technology");
@@ -1473,10 +1473,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data18 = new TreeMap<String, String>();
     data18.put("Select Template", "Custom Template");
-    data18.put("Job Posting Name", "Strategic Defense Growth Drive 18");
+    data18.put("Job Posting Name", "Defense Program Growth Strategy Drive 18");
     data18.put("Expiry Date", "14-08-2026");
     data18.put("Job Urgency", "Medium");
-    data18.put("Job Title", "Strategic Defense Growth Manager");
+    data18.put("Job Title", "Defense Program Growth Strategy Manager");
     data18.put("Department / Division", "Sales and Business Development");
     data18.put("Employment Type", "Full Time");
     data18.put("Category", "Marketing");
@@ -1510,10 +1510,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data19 = new TreeMap<String, String>();
     data19.put("Select Template", "Custom Template");
-    data19.put("Job Posting Name", "Live Mission Trials Drive 19");
+    data19.put("Job Posting Name", "Deployed Flight Operations Drive 19");
     data19.put("Expiry Date", "16-08-2026");
     data19.put("Job Urgency", "High");
-    data19.put("Job Title", "Live Mission Trials Engineer");
+    data19.put("Job Title", "Deployed Flight Operations Engineer");
     data19.put("Department / Division", "Field Deployment");
     data19.put("Employment Type", "Full Time");
     data19.put("Category", "Professional Service");
@@ -1547,10 +1547,10 @@ public Object[][] Job_Posting_Data() {
 
     TreeMap<String, String> data20 = new TreeMap<String, String>();
     data20.put("Select Template", "Custom Template");
-    data20.put("Job Posting Name", "Future UAV Concepts Drive 20");
+    data20.put("Job Posting Name", "Experimental Air Systems Drive 20");
     data20.put("Expiry Date", "18-08-2026");
     data20.put("Job Urgency", "Medium");
-    data20.put("Job Title", "Future UAV Concepts Engineer");
+    data20.put("Job Title", "Experimental Air Systems Engineer");
     data20.put("Department / Division", "Research and Development");
     data20.put("Employment Type", "Full Time");
     data20.put("Category", "Information Technology");

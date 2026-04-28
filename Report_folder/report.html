@@ -35,7 +35,7 @@
 <a href="#"><span class="badge badge-primary">Dummy Project</span></a>
 </li>
 <li class="m-r-10">
-<a href="#"><span class="badge badge-primary">Apr 24, 2026 10:33:22 PM</span></a>
+<a href="#"><span class="badge badge-primary">Apr 28, 2026 05:41:37 PM</span></a>
 </li>
 </ul>
 </div>
@@ -66,7 +66,7 @@
 <li class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-exclamation-circle"></i></a>
 <ul id="status-toggle" class="dropdown-menu dropdown-md p-v-0">
-<a class="dropdown-item" status="warning" href="#"><span>Warning</span><span class="status warning"></span></a>
+<a class="dropdown-item" status="pass" href="#"><span>Pass</span><span class="status success"></span></a>
 <div class="dropdown-divider"></div>
 <a status="clear" class="dropdown-item" href="#"><span>Clear</span><span class="pull-right"><i class="fa fa-close"></i></span></a>
 </ul>
@@ -74,25 +74,25 @@
 </ul>
 </div>    <div class="test-list-wrapper scrollable">
       <ul class="test-list-item">
-        <li class="test-item"  status="warning" test-id="1"
+        <li class="test-item"  status="pass" test-id="1"
           author=""
           tag=""
           device="">
           <div class="test-detail">
-            <p class="name">overview_section_Data_Consistency_checking</p>
+            <p class="name">Add_Candidate</p>
             <p class="text-sm">
-              <span>10:33:24 PM</span> / <span>00:01:02:976</span>
-              <span class="badge warning-bg log float-right">Warning</span>
+              <span>5:41:40 PM</span> / <span>00:00:52:644</span>
+              <span class="badge pass-bg log float-right">Pass</span>
             </p>
           </div>
           <div class="test-contents d-none">
 <div class="detail-head">
 <div class="p-v-10">
 <div class="info">
-<h5 class="test-status text-warning">overview_section_Data_Consistency_checking</h5>
-<span class='badge badge-success'>04.24.2026 10:33:24 PM</span>
-<span class='badge badge-danger'>04.24.2026 10:34:27 PM</span>
-<span class='badge badge-default'>00:01:02:976</span>
+<h5 class="test-status text-pass">Add_Candidate</h5>
+<span class='badge badge-success'>04.28.2026 5:41:40 PM</span>
+<span class='badge badge-danger'>04.28.2026 5:42:32 PM</span>
+<span class='badge badge-default'>00:00:52:644</span>
 &middot; <span class='uri-anchor badge badge-default'>#test-id=1</span>
 <span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
 <span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
@@ -105,560 +105,1098 @@
   <tbody>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:24 PM</td>
+        <td>5:41:40 PM</td>
         <td>
-          <b>🔹 Scenario Title:</b> Capture overview section card data for consistency checking
+          <b>🔹 Scenario Title:</b> Add Candidate from Candidate module and assign candidate to a job
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:24 PM</td>
+        <td>5:41:40 PM</td>
         <td>
-          <b>📘 Description:</b> Apply the required report filter, fetch all overview section card labels and values, and store them into the overview data map for downstream consistency validation.
+          <b>📘 Description:</b> Access the Candidate list, open the Add Candidate popup, assign the required job, enter candidate details, select state, owner, and recruiter, save the candidate, and validate the success toast message.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:24 PM</td>
+        <td>5:41:40 PM</td>
         <td>
-          <b>📥 Input:</b> Filter Option = This Month
+          <b>📥 Input:</b> Job Assign = Autonomous Swarm Orchestration Drive 01 | Email = sagnikesh.dutta2026ca@yopmail.com | Phone Code = +91 | Phone Number = 9123403029 | First Name = Sagnikesh | Last Name = Dutta | State = Chhattisgarh | Relevant Experience = 4 Year(s) | Total Experience = 5 Year(s) | Notice Period = 70 Day(s) | Owner = Nikolai Sidorov | Recruiter = Rahul Chatterjee
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:24 PM</td>
+        <td>5:41:40 PM</td>
         <td>
-          <b>✅ Expected:</b> Overview card data should be refreshed for the selected filter, all visible labels and values should be fetched successfully, and the data map should be populated with correct label-value pairs.
+          <b>✅ Expected:</b> Candidate Add popup should open successfully, required job and candidate details should be entered correctly, state/owner/recruiter should be selected successfully, candidate should be saved, popup should close, and success toast should appear.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:24 PM</td>
+        <td>5:41:40 PM</td>
         <td>
-          <b>Step 1:</b> Clear previously stored overview card data.
+          <b>Step 1:</b> Access Candidate list page.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:24 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Previously stored overview card data cleared successfully.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:24 PM</td>
-        <td>
-          <b>Step 2:</b> Apply report filter option = This Month.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:24 PM</td>
-        <td>
-          <b>🔹 Scenario Title:</b> Select required side menu option in Simplified Hire
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:24 PM</td>
-        <td>
-          <b>📘 Description:</b> Access the Simplified Hire dashboard, open the side menu, fetch all available menu options, search for the required option, and click on it.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:24 PM</td>
-        <td>
-          <b>📥 Input:</b> Required Side Menu Option = Reports
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:24 PM</td>
-        <td>
-          <b>✅ Expected:</b> User should be able to access the Simplified Hire dashboard, fetch all visible side menu options successfully, and click the required side menu option.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:24 PM</td>
-        <td>
-          <b>Step 1:</b> Access Simplified Hire dashboard before working with side menu.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:34 PM</td>
-        <td>
-          <b>🔹 Scenario Title:</b> Access Simplified Hire internal application from portal
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:34 PM</td>
-        <td>
-          <b>📘 Description:</b> Validate access to the Simplified Hire application either through the standard login and internal app selection flow, or through direct dashboard redirection when the account is mapped to only one organization and one application.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:34 PM</td>
-        <td>
-          <b>✅ Expected:</b> User should either complete the normal login and internal application selection flow and land on the Simplified Hire dashboard, or be directly redirected to the Simplified Hire dashboard if only one mapped organization and one mapped application are available.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:34 PM</td>
-        <td>
-          <b>Step 1:</b> Perform login into the application.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:34 PM</td>
-        <td>
-          <b>🔹 Scenario Title:</b> Login with valid configured credentials and enter company portal
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:34 PM</td>
-        <td>
-          <b>📘 Description:</b> Open the application URL, wait until login page is loaded, enter configured credentials, verify password visibility interaction, click Login button, and validate successful entry into the company portal either through company selection flow or direct landing flow.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:34 PM</td>
-        <td>
-          <b>📥 Input:</b> Target URL = https://accounts.dev.besimplified.net/home | Login ID = ayansimplified@yopmail.com | Password = Password@123
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:34 PM</td>
-        <td>
-          <b>✅ Expected:</b> Application should open successfully, login page should load properly, credentials should be accepted, password eye icon should be clickable, login should succeed, and user should enter the company portal either through company selection or direct landing.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:34 PM</td>
-        <td>
-          <b>Step 1:</b> Open target application URL and wait until login page is loaded.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:45 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Application URL opened successfully and login page loaded = https://accounts.dev.besimplified.net/home
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:45 PM</td>
-        <td>
-          <b>Step 2:</b> Enter Login ID into the login field.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log warning-bg">Warning</span></td>
-        <td>10:33:45 PM</td>
-        <td>
-          <b>⚠ Retry:</b> Login ID field became stale. Refetching the element and retrying the operation.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:46 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Login ID entered successfully = ayansimplified@yopmail.com
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:46 PM</td>
-        <td>
-          <b>Step 3:</b> Enter Password into the password field.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:46 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Password entered successfully.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:46 PM</td>
-        <td>
-          <b>Step 4:</b> Click password eye icon to verify password visibility functionality.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:46 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Password eye icon clicked successfully.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:46 PM</td>
-        <td>
-          <b>Step 5:</b> Click on Login button.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:46 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Login button clicked successfully.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:46 PM</td>
-        <td>
-          <b>Step 6:</b> Validate post-login flow and enter the company portal.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:46 PM</td>
-        <td>
-          <b>Step 7:</b> Validate whether the user was directly redirected inside the company portal.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log pass-bg">Pass</span></td>
-        <td>10:33:49 PM</td>
-        <td>
-          <b>🟨 Actual:</b> User was directly redirected and entered successfully inside the company portal without needing company selection.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:49 PM</td>
-        <td>
-          <b>📌 Final Status:</b> Login flow completed successfully for URL = https://accounts.dev.besimplified.net/home
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:49 PM</td>
-        <td>
-          <b>🔗 URL:</b> https://accounts.dev.besimplified.net/home
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log pass-bg">Pass</span></td>
-        <td>10:33:49 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Login flow executed successfully and user entered the company portal.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:49 PM</td>
-        <td>
-          <b>Step 2:</b> Wait for portal loader to disappear after login.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:49 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Portal loader disappeared successfully.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:50 PM</td>
-        <td>
-          <b>Step 3:</b> Fetch the list of available internal applications from the portal.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:50 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Internal applications fetched successfully. Total apps found = 3
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:50 PM</td>
-        <td>
-          <b>Step 4:</b> Identify the Simplified Hire application from the internal applications list.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:50 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Simplified Hire application identified successfully from the internal applications list.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:50 PM</td>
-        <td>
-          <b>Step 5:</b> Click on the Simplified Hire application.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:50 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Simplified Hire application clicked successfully.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:50 PM</td>
-        <td>
-          <b>Step 6:</b> Validate landing on the Simplified Hire dashboard through the standard flow.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log pass-bg">Pass</span></td>
-        <td>10:33:59 PM</td>
-        <td>
-          <b>🟨 Actual:</b> User landed successfully on the Simplified Hire dashboard through the standard portal flow.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:33:59 PM</td>
-        <td>
-          <b>📌 Final Status:</b> Simplified Hire application access flow completed successfully.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:01 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Simplified Hire dashboard accessed successfully.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:01 PM</td>
-        <td>
-          <b>Step 2:</b> Open side menu and fetch all available menu options.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:01 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Side menu options fetched successfully. Total menu options found = 7
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:01 PM</td>
-        <td>
-          <b>Step 3:</b> Search for side menu option = Reports and click on it.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log pass-bg">Pass</span></td>
-        <td>10:34:01 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Side menu option clicked successfully = Reports
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:14 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Report filter applied successfully = This Month.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:14 PM</td>
-        <td>
-          <b>Step 3:</b> Fetch overview section labels and values.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:14 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Overview labels fetched = 8 | Overview values fetched = 8
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:14 PM</td>
-        <td>
-          <b>Step 4:</b> Store overview label-value pairs into the overview data map.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:14 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Overview card stored successfully = Open Jobs -> 24
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:14 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Overview card stored successfully = Total Applications -> 57
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:15 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Overview card stored successfully = Active Candidates -> 54
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:15 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Overview card stored successfully = Rejected Candidates -> 2
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:15 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Overview card stored successfully = Upcoming Interviews -> 0
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:15 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Overview card stored successfully = Interviews Completed -> 5
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:15 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Overview card stored successfully = Avg. Time to First Action -> 6.6 h
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:15 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Overview card stored successfully = Avg. Offer Acceptance Rate -> 75.00%
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log pass-bg">Pass</span></td>
-        <td>10:34:15 PM</td>
-        <td>
-          <b>📌 Final Status:</b> Overview section data captured successfully for filter = This Month. Total entries stored = 8
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:15 PM</td>
+        <td>5:41:40 PM</td>
         <td>
           <b>Step:</b> Navigate to Candidates module from side menu.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:15 PM</td>
+        <td>5:41:40 PM</td>
         <td>
           <b>🔹 Scenario Title:</b> Select required side menu option in Simplified Hire
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:15 PM</td>
+        <td>5:41:40 PM</td>
         <td>
           <b>📘 Description:</b> Access the Simplified Hire dashboard, open the side menu, fetch all available menu options, search for the required option, and click on it.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:15 PM</td>
+        <td>5:41:40 PM</td>
         <td>
           <b>📥 Input:</b> Required Side Menu Option = Candidates
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:15 PM</td>
+        <td>5:41:40 PM</td>
         <td>
           <b>✅ Expected:</b> User should be able to access the Simplified Hire dashboard, fetch all visible side menu options successfully, and click the required side menu option.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:15 PM</td>
+        <td>5:41:40 PM</td>
         <td>
           <b>Step 1:</b> Access Simplified Hire dashboard before working with side menu.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:15 PM</td>
+        <td>5:41:50 PM</td>
+        <td>
+          <b>🔹 Scenario Title:</b> Access Simplified Hire internal application from portal
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:41:50 PM</td>
+        <td>
+          <b>📘 Description:</b> Validate access to the Simplified Hire application either through the standard login and internal app selection flow, or through direct dashboard redirection when the account is mapped to only one organization and one application.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:41:50 PM</td>
+        <td>
+          <b>✅ Expected:</b> User should either complete the normal login and internal application selection flow and land on the Simplified Hire dashboard, or be directly redirected to the Simplified Hire dashboard if only one mapped organization and one mapped application are available.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:41:50 PM</td>
+        <td>
+          <b>Step 1:</b> Perform login into the application.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:41:50 PM</td>
+        <td>
+          <b>🔹 Scenario Title:</b> Login with valid configured credentials and enter company portal
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:41:50 PM</td>
+        <td>
+          <b>📘 Description:</b> Open the application URL, wait until login page is loaded, enter configured credentials, verify password visibility interaction, click Login button, and validate successful entry into the company portal either through company selection flow or direct landing flow.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:41:50 PM</td>
+        <td>
+          <b>📥 Input:</b> Target URL = https://accounts.dev.besimplified.net/home | Login ID = ayansimplified@yopmail.com | Password = Password@123
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:41:50 PM</td>
+        <td>
+          <b>✅ Expected:</b> Application should open successfully, login page should load properly, credentials should be accepted, password eye icon should be clickable, login should succeed, and user should enter the company portal either through company selection or direct landing.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:41:50 PM</td>
+        <td>
+          <b>Step 1:</b> Open target application URL and wait until login page is loaded.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:04 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Application URL opened successfully and login page loaded = https://accounts.dev.besimplified.net/home
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:04 PM</td>
+        <td>
+          <b>Step 2:</b> Enter Login ID into the login field.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:04 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Login ID entered successfully = ayansimplified@yopmail.com
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:04 PM</td>
+        <td>
+          <b>Step 3:</b> Enter Password into the password field.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:04 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Password entered successfully.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:04 PM</td>
+        <td>
+          <b>Step 4:</b> Click password eye icon to verify password visibility functionality.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:04 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Password eye icon clicked successfully.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:04 PM</td>
+        <td>
+          <b>Step 5:</b> Click on Login button.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:04 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Login button clicked successfully.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:04 PM</td>
+        <td>
+          <b>Step 6:</b> Validate post-login flow and enter the company portal.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:04 PM</td>
+        <td>
+          <b>Step 7:</b> Validate whether the user was directly redirected inside the company portal.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:42:06 PM</td>
+        <td>
+          <b>🟨 Actual:</b> User was directly redirected and entered successfully inside the company portal without needing company selection.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:06 PM</td>
+        <td>
+          <b>📌 Final Status:</b> Login flow completed successfully for URL = https://accounts.dev.besimplified.net/home
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:06 PM</td>
+        <td>
+          <b>🔗 URL:</b> https://accounts.dev.besimplified.net/home
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:42:06 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Login flow executed successfully and user entered the company portal.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:06 PM</td>
+        <td>
+          <b>Step 2:</b> Wait for portal loader to disappear after login.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:07 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Portal loader disappeared successfully.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:08 PM</td>
+        <td>
+          <b>Step 3:</b> Fetch the list of available internal applications from the portal.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:08 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Internal applications fetched successfully. Total apps found = 3
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:08 PM</td>
+        <td>
+          <b>Step 4:</b> Identify the Simplified Hire application from the internal applications list.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:08 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Simplified Hire application identified successfully from the internal applications list.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:08 PM</td>
+        <td>
+          <b>Step 5:</b> Click on the Simplified Hire application.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:08 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Simplified Hire application clicked successfully.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:08 PM</td>
+        <td>
+          <b>Step 6:</b> Validate landing on the Simplified Hire dashboard through the standard flow.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:42:13 PM</td>
+        <td>
+          <b>🟨 Actual:</b> User landed successfully on the Simplified Hire dashboard through the standard portal flow.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:13 PM</td>
+        <td>
+          <b>📌 Final Status:</b> Simplified Hire application access flow completed successfully.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:15 PM</td>
         <td>
           <b>🟨 Actual:</b> Simplified Hire dashboard accessed successfully.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:15 PM</td>
+        <td>5:42:15 PM</td>
         <td>
           <b>Step 2:</b> Open side menu and fetch all available menu options.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:15 PM</td>
+        <td>5:42:15 PM</td>
         <td>
           <b>🟨 Actual:</b> Side menu options fetched successfully. Total menu options found = 7
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:15 PM</td>
+        <td>5:42:15 PM</td>
         <td>
           <b>Step 3:</b> Search for side menu option = Candidates and click on it.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>10:34:15 PM</td>
+        <td>5:42:15 PM</td>
         <td>
           <b>🟨 Actual:</b> Side menu option clicked successfully = Candidates
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>10:34:15 PM</td>
+        <td>5:42:15 PM</td>
         <td>
           <b>Step:</b> Validate landing in Candidate list by identifying the Import CV button.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>10:34:16 PM</td>
+        <td>5:42:16 PM</td>
         <td>
           <b>🟨 Actual:</b> Candidate list opened successfully and Import CV button was identified.
         </td>
       </tr>
       <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:16 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Candidate list page accessed successfully.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:16 PM</td>
+        <td>
+          <b>Step 2:</b> Click Add Candidate button to open the candidate popup.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:17 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Add Candidate button clicked successfully.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:17 PM</td>
+        <td>
+          <b>Step 3:</b> Move to the candidate popup form and fetch visible field groups.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:18 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Candidate popup form located successfully. Input box groups found = 7 | Custom dropdown fields found = 15
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:18 PM</td>
+        <td>
+          <b>Step 4:</b> Open Assign Job dropdown and select the required job.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:20 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Required job selected successfully from Assign Job dropdown = Autonomous Swarm Orchestration Drive 01
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:20 PM</td>
+        <td>
+          <b>Step 5:</b> Fetch candidate input fields and enter basic candidate details.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:21 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Candidate basic details entered successfully. Email = sagnikesh.dutta2026ca@yopmail.com | Phone Number = 9123403029 | First Name = Sagnikesh | Last Name = Dutta
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:23 PM</td>
+        <td>
+          <b>Step 6:</b> Select the required state from the State dropdown.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:24 PM</td>
+        <td>
+          <b>🟨 Actual:</b> State selected successfully = Chhattisgarh
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:24 PM</td>
+        <td>
+          <b>Step 7:</b> Enter candidate experience and notice period details.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:24 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Relevant Experience entered = 4 | Total Experience entered = 5 | Notice Period entered = 70
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:24 PM</td>
+        <td>
+          <b>Step 8:</b> Select Owner from Owner dropdown.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:28 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Owner selected successfully = Nikolai Sidorov
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:28 PM</td>
+        <td>
+          <b>Step 9:</b> Select Recruiter from Recruiter dropdown.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:29 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Recruiter selected successfully = Rahul Chatterjee
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:30 PM</td>
+        <td>
+          <b>Step 10:</b> Click Save on the candidate popup.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:31 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Candidate popup Save button clicked successfully.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:31 PM</td>
+        <td>
+          <b>Step 11:</b> Wait for candidate popup to close and validate success toast.
+        </td>
+      </tr>
+      <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>10:34:27 PM</td>
+        <td>5:42:32 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Candidate was added successfully and success toast appeared = Candidate has been successfully created.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:32 PM</td>
+        <td>
+          <b>📌 Final Status:</b> Candidate Add flow completed successfully.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:42:32 PM</td>
+        <td>
+          Test passed
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="2"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Add_Candidate</p>
+            <p class="text-sm">
+              <span>5:42:34 PM</span> / <span>00:01:01:002</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Add_Candidate</h5>
+<span class='badge badge-success'>04.28.2026 5:42:34 PM</span>
+<span class='badge badge-danger'>04.28.2026 5:43:35 PM</span>
+<span class='badge badge-default'>00:01:01:002</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=2</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+</div>
+</div><div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:34 PM</td>
+        <td>
+          <b>🔹 Scenario Title:</b> Add Candidate from Candidate module and assign candidate to a job
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:34 PM</td>
+        <td>
+          <b>📘 Description:</b> Access the Candidate list, open the Add Candidate popup, assign the required job, enter candidate details, select state, owner, and recruiter, save the candidate, and validate the success toast message.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:34 PM</td>
+        <td>
+          <b>📥 Input:</b> Job Assign = Avionics Power Distribution Drive 02 | Email = platon.rybakov2026cb@yopmail.com | Phone Code = +91 | Phone Number = 9123403030 | First Name = Platon | Last Name = Rybakov | State = Goa | Relevant Experience = 8 Year(s) | Total Experience = 9 Year(s) | Notice Period = 76 Day(s) | Owner = Owner Mikhail Volkov | Recruiter = Admin Ayan Sengupta
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:34 PM</td>
+        <td>
+          <b>✅ Expected:</b> Candidate Add popup should open successfully, required job and candidate details should be entered correctly, state/owner/recruiter should be selected successfully, candidate should be saved, popup should close, and success toast should appear.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:34 PM</td>
+        <td>
+          <b>Step 1:</b> Access Candidate list page.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:34 PM</td>
+        <td>
+          <b>Step:</b> Navigate to Candidates module from side menu.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:34 PM</td>
+        <td>
+          <b>🔹 Scenario Title:</b> Select required side menu option in Simplified Hire
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:34 PM</td>
+        <td>
+          <b>📘 Description:</b> Access the Simplified Hire dashboard, open the side menu, fetch all available menu options, search for the required option, and click on it.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:34 PM</td>
+        <td>
+          <b>📥 Input:</b> Required Side Menu Option = Candidates
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:34 PM</td>
+        <td>
+          <b>✅ Expected:</b> User should be able to access the Simplified Hire dashboard, fetch all visible side menu options successfully, and click the required side menu option.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:34 PM</td>
+        <td>
+          <b>Step 1:</b> Access Simplified Hire dashboard before working with side menu.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:44 PM</td>
+        <td>
+          <b>🔹 Scenario Title:</b> Access Simplified Hire internal application from portal
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:44 PM</td>
+        <td>
+          <b>📘 Description:</b> Validate access to the Simplified Hire application either through the standard login and internal app selection flow, or through direct dashboard redirection when the account is mapped to only one organization and one application.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:44 PM</td>
+        <td>
+          <b>✅ Expected:</b> User should either complete the normal login and internal application selection flow and land on the Simplified Hire dashboard, or be directly redirected to the Simplified Hire dashboard if only one mapped organization and one mapped application are available.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:44 PM</td>
+        <td>
+          <b>Step 1:</b> Perform login into the application.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:44 PM</td>
+        <td>
+          <b>🔹 Scenario Title:</b> Login with valid configured credentials and enter company portal
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:44 PM</td>
+        <td>
+          <b>📘 Description:</b> Open the application URL, wait until login page is loaded, enter configured credentials, verify password visibility interaction, click Login button, and validate successful entry into the company portal either through company selection flow or direct landing flow.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:44 PM</td>
+        <td>
+          <b>📥 Input:</b> Target URL = https://accounts.dev.besimplified.net/home | Login ID = ayansimplified@yopmail.com | Password = Password@123
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:44 PM</td>
+        <td>
+          <b>✅ Expected:</b> Application should open successfully, login page should load properly, credentials should be accepted, password eye icon should be clickable, login should succeed, and user should enter the company portal either through company selection or direct landing.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:42:44 PM</td>
+        <td>
+          <b>Step 1:</b> Open target application URL and wait until login page is loaded.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:00 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Application URL opened successfully and login page loaded = https://accounts.dev.besimplified.net/home
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:00 PM</td>
+        <td>
+          <b>Step 2:</b> Enter Login ID into the login field.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:00 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Login ID entered successfully = ayansimplified@yopmail.com
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:00 PM</td>
+        <td>
+          <b>Step 3:</b> Enter Password into the password field.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:00 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Password entered successfully.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:00 PM</td>
+        <td>
+          <b>Step 4:</b> Click password eye icon to verify password visibility functionality.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:00 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Password eye icon clicked successfully.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:00 PM</td>
+        <td>
+          <b>Step 5:</b> Click on Login button.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:01 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Login button clicked successfully.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:01 PM</td>
+        <td>
+          <b>Step 6:</b> Validate post-login flow and enter the company portal.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:01 PM</td>
+        <td>
+          <b>Step 7:</b> Validate whether the user was directly redirected inside the company portal.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:43:03 PM</td>
+        <td>
+          <b>🟨 Actual:</b> User was directly redirected and entered successfully inside the company portal without needing company selection.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:03 PM</td>
+        <td>
+          <b>📌 Final Status:</b> Login flow completed successfully for URL = https://accounts.dev.besimplified.net/home
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:03 PM</td>
+        <td>
+          <b>🔗 URL:</b> https://accounts.dev.besimplified.net/home
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:43:03 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Login flow executed successfully and user entered the company portal.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:03 PM</td>
+        <td>
+          <b>Step 2:</b> Wait for portal loader to disappear after login.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:04 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Portal loader disappeared successfully.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:05 PM</td>
+        <td>
+          <b>Step 3:</b> Fetch the list of available internal applications from the portal.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:05 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Internal applications fetched successfully. Total apps found = 3
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:05 PM</td>
+        <td>
+          <b>Step 4:</b> Identify the Simplified Hire application from the internal applications list.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:05 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Simplified Hire application identified successfully from the internal applications list.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:05 PM</td>
+        <td>
+          <b>Step 5:</b> Click on the Simplified Hire application.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:05 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Simplified Hire application clicked successfully.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:05 PM</td>
+        <td>
+          <b>Step 6:</b> Validate landing on the Simplified Hire dashboard through the standard flow.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:43:14 PM</td>
+        <td>
+          <b>🟨 Actual:</b> User landed successfully on the Simplified Hire dashboard through the standard portal flow.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:14 PM</td>
+        <td>
+          <b>📌 Final Status:</b> Simplified Hire application access flow completed successfully.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:16 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Simplified Hire dashboard accessed successfully.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:16 PM</td>
+        <td>
+          <b>Step 2:</b> Open side menu and fetch all available menu options.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:16 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Side menu options fetched successfully. Total menu options found = 7
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:16 PM</td>
+        <td>
+          <b>Step 3:</b> Search for side menu option = Candidates and click on it.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:43:16 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Side menu option clicked successfully = Candidates
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:16 PM</td>
+        <td>
+          <b>Step:</b> Validate landing in Candidate list by identifying the Import CV button.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:43:18 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Candidate list opened successfully and Import CV button was identified.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:18 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Candidate list page accessed successfully.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:18 PM</td>
+        <td>
+          <b>Step 2:</b> Click Add Candidate button to open the candidate popup.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:18 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Add Candidate button clicked successfully.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:18 PM</td>
+        <td>
+          <b>Step 3:</b> Move to the candidate popup form and fetch visible field groups.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:19 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Candidate popup form located successfully. Input box groups found = 7 | Custom dropdown fields found = 15
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:19 PM</td>
+        <td>
+          <b>Step 4:</b> Open Assign Job dropdown and select the required job.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:22 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Required job selected successfully from Assign Job dropdown = Avionics Power Distribution Drive 02
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:22 PM</td>
+        <td>
+          <b>Step 5:</b> Fetch candidate input fields and enter basic candidate details.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:23 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Candidate basic details entered successfully. Email = platon.rybakov2026cb@yopmail.com | Phone Number = 9123403030 | First Name = Platon | Last Name = Rybakov
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:25 PM</td>
+        <td>
+          <b>Step 6:</b> Select the required state from the State dropdown.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:26 PM</td>
+        <td>
+          <b>🟨 Actual:</b> State selected successfully = Goa
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:26 PM</td>
+        <td>
+          <b>Step 7:</b> Enter candidate experience and notice period details.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:27 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Relevant Experience entered = 8 | Total Experience entered = 9 | Notice Period entered = 76
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:27 PM</td>
+        <td>
+          <b>Step 8:</b> Select Owner from Owner dropdown.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:30 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Owner selected successfully = Owner Mikhail Volkov
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:30 PM</td>
+        <td>
+          <b>Step 9:</b> Select Recruiter from Recruiter dropdown.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:32 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Recruiter selected successfully = Admin Ayan Sengupta
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:32 PM</td>
+        <td>
+          <b>Step 10:</b> Click Save on the candidate popup.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:33 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Candidate popup Save button clicked successfully.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:33 PM</td>
+        <td>
+          <b>Step 11:</b> Wait for candidate popup to close and validate success toast.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:43:35 PM</td>
+        <td>
+          <b>🟨 Actual:</b> Candidate was added successfully and success toast appeared = Candidate has been successfully created.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>5:43:35 PM</td>
+        <td>
+          <b>📌 Final Status:</b> Candidate Add flow completed successfully.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>5:43:35 PM</td>
         <td>
           Test passed
         </td>
@@ -682,19 +1220,19 @@
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Started</p>
-<h3>Apr 24, 2026 10:33:22 PM</h3>
+<h3>Apr 28, 2026 05:41:37 PM</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Ended</p>
-<h3>Apr 24, 2026 10:34:28 PM</h3>
+<h3>Apr 28, 2026 05:43:35 PM</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0 text-pass">Tests Passed</p>
-<h3>0</h3>
+<h3>2</h3>
 </div></div>
 </div>
 <div class="col-md-3">
@@ -716,13 +1254,13 @@
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='0%'>
-<b>0</b> tests passed
+<div><small data-tooltip='100%'>
+<b>2</b> tests passed
 </small>
 </div>
 <div>
 <small data-tooltip='0%'><b>0</b> tests failed,
-<b>0</b> skipped, <b data-tooltip='100%'>1</b> others
+<b>0</b> skipped, <b data-tooltip='0%'>0</b> others
 </small>
 </div>
 </div>
@@ -739,10 +1277,10 @@
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='10%'><b>8</b> events passed</small></div>
+<div><small data-tooltip='9%'><b>14</b> events passed</small></div>
 <div>
 <small data-tooltip='0%'><b>0</b> events failed,
-<b data-tooltip='%'>72</b> others
+<b data-tooltip='%'>138</b> others
 </small>
 </div>
 </div>
@@ -758,7 +1296,7 @@
 </div></div>
 <script>
 var timeline = {
-"overview_section_Data_Consistency_checking":62.976
+"Add_Candidate":52.644,"Add_Candidate":61.002
 };
 </script>
 <div class="row">
@@ -797,9 +1335,9 @@ var timeline = {
 <script>
 var statusGroup = {
 parentCount: 5,
-passParent: 0,
+passParent: 2,
 failParent: 0,
-warningParent: 1,
+warningParent: 0,
 skipParent: 0,
 childCount: 5,
 passChild: 0,
@@ -814,11 +1352,11 @@ warningGrandChild: 0,
 skipGrandChild: 0,
 infoGrandChild: 0,
 eventsCount: 5,
-passEvents: 8,
+passEvents: 14,
 failEvents: 0,
-warningEvents: 1,
+warningEvents: 0,
 skipEvents: 0,
-infoEvents: 71
+infoEvents: 138
 };
 </script>        </div>
       </div>

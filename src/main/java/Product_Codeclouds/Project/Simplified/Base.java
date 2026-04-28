@@ -4,7 +4,9 @@ import java.io.IOException;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -17,43 +19,49 @@ public class Base {
 	
 	
 	@BeforeMethod
-	public void setup() throws IOException{
-		
-    Data_Reader f = new Data_Reader();
-		
-	String Browser = System.getProperty("Browsername")!=null ? System.getProperty("Browsername") : f.Data_Fetcher("Browser");	
-	Target_url = System.getProperty("url")!=null ? System.getProperty("url"):f.Data_Fetcher("Url");
-	
-	if(Browser.equalsIgnoreCase("Chrome")){
-		
-		
-		WebDriverManager.chromedriver().setup();
-		d = new ChromeDriver();
-		d.manage().window().maximize();}
-	
-	if(Browser.equalsIgnoreCase("Firefox")){
-		
-		
-		WebDriverManager.firefoxdriver().setup();
-		d = new FirefoxDriver();
-		d.manage().window().maximize();}}
-	
-	
-	  
-	@AfterMethod
-	public void Kill(){
-		
-		if(d!=null){
-			
-       d.quit();
-			
-			}
-		
-		
-		
-		
-	}
-	
-	
+	public void setup() throws IOException {
 
-}
+		Data_Reader f = new Data_Reader();
+
+		String Browser = System.getProperty("Browsername") != null
+				? System.getProperty("Browsername")
+				: f.Data_Fetcher("Browser");
+
+		Target_url = System.getProperty("url") != null
+				? System.getProperty("url")
+				: f.Data_Fetcher("Url");
+
+		if (Browser.toLowerCase().contains("chrome")) {
+
+			ChromeOptions options = new ChromeOptions();
+			WebDriverManager.chromedriver().setup();
+
+			if (Browser.toLowerCase().contains("headless")) {
+				options.addArguments("headless");
+			}
+
+			d = new ChromeDriver(options);
+			d.manage().window().maximize();
+		}
+
+		else if (Browser.toLowerCase().contains("firefox")) {
+
+			FirefoxOptions options = new FirefoxOptions();
+			WebDriverManager.firefoxdriver().setup();
+
+			if (Browser.toLowerCase().contains("headless")) {
+				options.addArguments("headless");
+			}
+
+			d = new FirefoxDriver(options);
+			d.manage().window().maximize();
+		}
+	}
+
+	@AfterMethod
+	public void Kill() {
+
+		if (d != null) {
+		d.quit();
+		}
+	}}

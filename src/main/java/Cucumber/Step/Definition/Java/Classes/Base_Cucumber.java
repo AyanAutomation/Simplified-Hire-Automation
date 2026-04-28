@@ -48,7 +48,7 @@ public class Base_Cucumber {
 			D.set(local_d);
 		}
 
-		if (Browser.equalsIgnoreCase("Firefox")) {
+		if (Browser.contains("Firefox")) {
 			FirefoxOptions options = new FirefoxOptions();
 			WebDriverManager.firefoxdriver().setup();
 			if (Browser.contains("headless")) {
