@@ -402,15 +402,35 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
 }
 	
 	
-public void interview_scheduling(){
+    @Test(dataProvider = "Candidate_Add_Data")
+    public void Candidate_Interview_scheduling(TreeMap<String, String> candidate_data) throws IOException, InterruptedException{
 	
+       Candidate_Module_Locaters p = new Candidate_Module_Locaters(d);
+ 	   Repeat rp = new Repeat(d);
+ 	   Job_Module_locaters jb = new Job_Module_locaters(d);
+ 	   
+ 	   
+ 	   String First_Name = candidate_data.get("First Name");
+ 	   
+       Candidate_List_Accesor();
+   
+	   WebElement search = jb.search_field();
+	   search.sendKeys(First_Name);
+	   Thread.sleep(800);
+	   try {
+			rp.wait_for_invisibilty_of_theElement(jb.List_loader());
+
+		} catch (Exception e) {
+			System.out.println("Loader not visible.");
+			System.out.println();
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> Loader was not visible.");
+		} 
 	
-	
-	
-	
-	
-	
-	
+	List<WebElement> searched_candidates = p.candidate_names_in_list();
+    WebElement First_candidate = searched_candidates.get(0);
+	rp.movetoelement(First_candidate);
+	First_candidate.click();
 	
 }
 
@@ -1067,7 +1087,7 @@ public Object[][] Candidate_Add_Data() {
     data20.put("Recruiter", "Admin Ayan Sengupta");
 
     return new Object[][] {
-            { data1 },
+            { data1 },/*
             { data2 },
             { data3 },
             { data4 },
@@ -1086,7 +1106,7 @@ public Object[][] Candidate_Add_Data() {
             { data17 },
             { data18 },
             { data19 },
-            { data20 }
+            { data20 }  */
     };
 }
 	

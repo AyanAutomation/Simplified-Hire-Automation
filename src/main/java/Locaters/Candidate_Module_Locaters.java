@@ -74,9 +74,9 @@ public class Candidate_Module_Locaters extends Repeat{
 	@FindBy(xpath="//tbody")
 	private WebElement table_body;
 	@FindBy(xpath="//*[contains(@class,'pagination-right')]//span")
-	private List<WebElement> pagination_count_text;/*
-	@FindBy(xpath="")
-	private WebElement  ;
+	private List<WebElement> pagination_count_text;
+	@FindBy(xpath="//tbody//tr[contains(@class,'ant-table-row ant-table-row-level-0')]//td[@class='ant-table-cell'][1]")
+	private List<WebElement> candidate_names_in_list;/*
 	@FindBy(xpath="")
 	private WebElement  ;
 	@FindBy(xpath="")
@@ -299,10 +299,14 @@ public class Candidate_Module_Locaters extends Repeat{
 	return source_input;} 
 	public WebElement Source_Dropdown(){
 	wait_for_theElement(Owner_Dropdown);
-	return Owner_Dropdown;}/*
+	return Owner_Dropdown;}
+	public List<WebElement> candidate_names_in_list(){
+	wait_for_theElement(candidate_names_in_list);
+	return candidate_names_in_list;} /*
 	public WebElement (){
 	wait_for_theElement();
-	return ;} public WebElement (){
+	return ;}
+	public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){
@@ -310,7 +314,11 @@ public class Candidate_Module_Locaters extends Repeat{
 	return ;}
 	public WebElement (){
 	wait_for_theElement();
-	return ;} public WebElement (){
+	return ;}
+	public WebElement (){
+	wait_for_theElement();
+	return ;}
+	public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){
@@ -318,15 +326,11 @@ public class Candidate_Module_Locaters extends Repeat{
 	return ;}
 	public WebElement (){
 	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
 	return ;}
 	public WebElement (){
 	wait_for_theElement();
-	return ;}
+	return ;} 
 	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){
