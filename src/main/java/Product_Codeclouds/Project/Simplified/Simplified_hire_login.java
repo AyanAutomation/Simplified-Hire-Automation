@@ -96,7 +96,7 @@ public void Simplified_Hire_Accessor() throws IOException, InterruptedException 
 		System.out.println("Step " + (step - 1) + ": Identify the Simplified Hire application from the internal applications list.");
 		System.out.println();
 
-		WebElement Simplified_Hire = internal_apps.get(0);
+		WebElement Simplified_Hire = internal_apps.get(1);
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
 				"<b>🟨 Actual:</b> Simplified Hire application identified successfully from the internal applications list.");

@@ -49,7 +49,7 @@ public class Candidate_module extends Side_menu_Handler {
 		return Add;
 	}
 	
-	@Test(dataProvider = "Combined_Candidate_Job_Data")
+@Test(dataProvider = "Combined_Candidate_Job_Data")
 public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String, String> job_data)
 		throws IOException, InterruptedException, AWTException {
 
@@ -99,7 +99,6 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
 	Job_Module_locaters jp = new Job_Module_locaters(d);
 	Robot r = new Robot();
 
-
 	Report_Listen.log_print_in_report().log(Status.INFO,
 			"<b>🔹 Scenario Title:</b> Add Candidate from Candidate module and assign candidate to a job");
 	System.out.println();
@@ -107,9 +106,9 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
 	System.out.println();
 
 	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>📘 Description:</b> Access the Candidate list, open the Add Candidate popup, assign the required job, enter candidate details, select state, owner, and recruiter, save the candidate, and validate the success toast message.");
+			"<b>📘 Description:</b> Access the Candidate list, open the Add Candidate popup, assign the required job, enter candidate basic details, select source and state, enter experience details, select owner and recruiter, save the candidate, and validate the success toast message.");
 	System.out.println(
-			"📘 Description: Access the Candidate list, open the Add Candidate popup, assign the required job, enter candidate details, select state, owner, and recruiter, save the candidate, and validate the success toast message.");
+			"📘 Description: Access the Candidate list, open the Add Candidate popup, assign the required job, enter candidate basic details, select source and state, enter experience details, select owner and recruiter, save the candidate, and validate the success toast message.");
 	System.out.println();
 
 	Report_Listen.log_print_in_report().log(Status.INFO,
@@ -119,6 +118,7 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
 					+ " | Phone Number = " + Phone_Number
 					+ " | First Name = " + First_Name
 					+ " | Last Name = " + Last_Name
+					+ " | Source = " + Source
 					+ " | State = " + State
 					+ " | Relevant Experience = " + Relevant_Experience + " " + Relevant_Experience_Unit
 					+ " | Total Experience = " + Total_Experience + " " + Total_Experience_Unit
@@ -131,6 +131,7 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
 			+ " | Phone Number = " + Phone_Number
 			+ " | First Name = " + First_Name
 			+ " | Last Name = " + Last_Name
+			+ " | Source = " + Source
 			+ " | State = " + State
 			+ " | Relevant Experience = " + Relevant_Experience + " " + Relevant_Experience_Unit
 			+ " | Total Experience = " + Total_Experience + " " + Total_Experience_Unit
@@ -140,9 +141,9 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
 	System.out.println();
 
 	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>✅ Expected:</b> Candidate Add popup should open successfully, required job and candidate details should be entered correctly, state/owner/recruiter should be selected successfully, candidate should be saved, popup should close, and success toast should appear.");
+			"<b>✅ Expected:</b> Candidate Add popup should open successfully, required job and candidate details should be entered correctly, source/state/owner/recruiter should be selected successfully, candidate should be saved, popup should close, and success toast should appear.");
 	System.out.println(
-			"✅ Expected: Candidate Add popup should open successfully, required job and candidate details should be entered correctly, state/owner/recruiter should be selected successfully, candidate should be saved, popup should close, and success toast should appear.");
+			"✅ Expected: Candidate Add popup should open successfully, required job and candidate details should be entered correctly, source/state/owner/recruiter should be selected successfully, candidate should be saved, popup should close, and success toast should appear.");
 	System.out.println();
 
 	Report_Listen.log_print_in_report().log(Status.INFO,
@@ -202,8 +203,8 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
 	Thread.sleep(800);
 
 	jp.First_dropdown_Options().stream().peek(rp::Scroll_to_element)
-	.filter(jbopt -> jbopt.getText().trim().equalsIgnoreCase(Job_Assign)).findFirst()
-	.ifPresent(WebElement::click);
+			.filter(jbopt -> jbopt.getText().trim().equalsIgnoreCase(Job_Assign)).findFirst()
+			.ifPresent(WebElement::click);
 
 	Report_Listen.log_print_in_report().log(Status.INFO,
 			"<b>🟨 Actual:</b> Required job selected successfully from Assign Job dropdown = " + Job_Assign);
@@ -235,17 +236,28 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
 			+ " | Last Name = " + Last_Name);
 	System.out.println();
 
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Select Source from Source dropdown.");
+	System.out.println("Step " + (step - 1) + ": Select Source from Source dropdown.");
+	System.out.println();
+
 	r.mouseWheel(1);
 	Thread.sleep(800);
 	WebElement Source_field = p.Sourcefield();
 	Source_field.click();
 	p.source_input().sendKeys(Source);
 	WebElement Source_dropdown_list = p.Source_Dropdown();
-    Thread.sleep(500);
-    Source_dropdown_list
-	.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]")).stream()
-	.filter(recruiteropt -> recruiteropt.getText().trim().equalsIgnoreCase(Source)).findFirst()
-	.ifPresent(WebElement::click);
+	Thread.sleep(500);
+	Source_dropdown_list
+			.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]")).stream()
+			.filter(sourceopt -> sourceopt.getText().trim().equalsIgnoreCase(Source)).findFirst()
+			.ifPresent(WebElement::click);
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Source selected successfully = " + Source);
+	System.out.println("🟨 Actual: Source selected successfully = " + Source);
+	System.out.println();
+
 	Report_Listen.log_print_in_report().log(Status.INFO,
 			"<b>Step " + (step++) + ":</b> Select the required state from the State dropdown.");
 	System.out.println("Step " + (step - 1) + ": Select the required state from the State dropdown.");
@@ -259,10 +271,10 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
 	WebElement state_input = p.State_input();
 	state_input.sendKeys(State);
 	Thread.sleep(500);
-     WebElement state_dropdown_list = p.state_Dropdown();
-     state_dropdown_list.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"))
-		.stream().filter(stopt -> stopt.getText().trim().equalsIgnoreCase(State)).findFirst()
-		.ifPresent(WebElement::click);
+	WebElement state_dropdown_list = p.state_Dropdown();
+	state_dropdown_list.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"))
+			.stream().filter(stopt -> stopt.getText().trim().equalsIgnoreCase(State)).findFirst()
+			.ifPresent(WebElement::click);
 
 	WebElement state_option_selected = p.Selected_option();
 	String options_text = state_option_selected.getText().trim();
@@ -317,8 +329,8 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
 	rp.movetoelement(Owner_dropdown_list);
 
 	Owner_dropdown_list.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"))
-	.stream().filter(owneropt -> owneropt.getText().trim().equalsIgnoreCase(Owner)).findFirst()
-	.ifPresent(WebElement::click);
+			.stream().filter(owneropt -> owneropt.getText().trim().equalsIgnoreCase(Owner)).findFirst()
+			.ifPresent(WebElement::click);
 
 	Report_Listen.log_print_in_report().log(Status.INFO,
 			"<b>🟨 Actual:</b> Owner selected successfully = " + Owner);
@@ -335,20 +347,19 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
 	WebElement Recruiter_field = p.recruiterfield();
 	Recruiter_field.click();
 	p.recruiter_input().sendKeys(Recruiter);
-    Thread.sleep(500);
+	Thread.sleep(500);
 	WebElement Recruiter_dropdown_list = p.recruiter_Dropdown();
 	Thread.sleep(500);
 	rp.movetoelement(Recruiter_dropdown_list);
 	Recruiter_dropdown_list
-	.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]")).stream()
-	.filter(recruiteropt -> recruiteropt.getText().trim().equalsIgnoreCase(Recruiter)).findFirst()
-	.ifPresent(WebElement::click);
-
+			.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]")).stream()
+			.filter(recruiteropt -> recruiteropt.getText().trim().equalsIgnoreCase(Recruiter)).findFirst()
+			.ifPresent(WebElement::click);
 
 	Report_Listen.log_print_in_report().log(Status.INFO,
 			"<b>🟨 Actual:</b> Recruiter selected successfully = " + Recruiter);
 	System.out.println("🟨 Actual: Recruiter selected successfully = " + Recruiter);
-	System.out.println(); 
+	System.out.println();
 
 	Thread.sleep(500);
 	p.form_scroll().click();
@@ -385,12 +396,26 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
 	System.out.println();
 
 	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>📌 Final Status:</b> Candidate Add flow completed successfully.");
-	System.out.println("📌 Final Status: Candidate Add flow completed successfully.");
+			"<b>📌 Final Status:</b> Candidate Add flow completed successfully including source, state, owner, and recruiter selection.");
+	System.out.println("📌 Final Status: Candidate Add flow completed successfully including source, state, owner, and recruiter selection.");
 	System.out.println();
 }
 	
 	
+public void interview_scheduling(){
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
+
+
+
    public void pagination_changer(String count) throws InterruptedException{
 		
 	   Candidate_Module_Locaters p = new Candidate_Module_Locaters(d);
@@ -442,12 +467,12 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
 public Object[][] Candidate_Add_Data() {
 
     TreeMap<String, String> data1 = new TreeMap<String, String>();
-    data1.put("Email", "adrij.banik2026bi@yopmail.com");
+    data1.put("Email", "ishaan.dey2026cc@yopmail.com");
     data1.put("Phone Code", "+91");
-    data1.put("Phone Number", "9123403011");
-    data1.put("First Name", "Adrij");
-    data1.put("Last Name", "Banik");
-    data1.put("Professional Profile Link", "https://www.linkedin.com/in/adrij-banik-2026-bi");
+    data1.put("Phone Number", "9123404011");
+    data1.put("First Name", "Ishaan");
+    data1.put("Last Name", "Dey");
+    data1.put("Professional Profile Link", "https://www.linkedin.com/in/ishaan-dey-2026-cc");
     data1.put("Source", "Candidate Portal");
     data1.put("Country", "India");
     data1.put("State", "Karnataka");
@@ -472,12 +497,12 @@ public Object[][] Candidate_Add_Data() {
     data1.put("Recruiter", "Admin Ayan Sengupta");
 
     TreeMap<String, String> data2 = new TreeMap<String, String>();
-    data2.put("Email", "makar.yeltsin2026bj@yopmail.com");
+    data2.put("Email", "lev.zaitsev2026cd@yopmail.com");
     data2.put("Phone Code", "+91");
-    data2.put("Phone Number", "9123403012");
-    data2.put("First Name", "Makar");
-    data2.put("Last Name", "Yeltsin");
-    data2.put("Professional Profile Link", "https://www.linkedin.com/in/makar-yeltsin-2026-bj");
+    data2.put("Phone Number", "9123404012");
+    data2.put("First Name", "Lev");
+    data2.put("Last Name", "Zaitsev");
+    data2.put("Professional Profile Link", "https://www.linkedin.com/in/lev-zaitsev-2026-cd");
     data2.put("Source", "Consultancy");
     data2.put("Country", "India");
     data2.put("State", "Maharashtra");
@@ -502,12 +527,12 @@ public Object[][] Candidate_Add_Data() {
     data2.put("Recruiter", "Alexei Morozov");
 
     TreeMap<String, String> data3 = new TreeMap<String, String>();
-    data3.put("Email", "eshan.naskar2026bk@yopmail.com");
+    data3.put("Email", "rwitoban.saha2026ce@yopmail.com");
     data3.put("Phone Code", "+91");
-    data3.put("Phone Number", "9123403013");
-    data3.put("First Name", "Eshan");
-    data3.put("Last Name", "Naskar");
-    data3.put("Professional Profile Link", "https://www.linkedin.com/in/eshan-naskar-2026-bk");
+    data3.put("Phone Number", "9123404013");
+    data3.put("First Name", "Rwitoban");
+    data3.put("Last Name", "Saha");
+    data3.put("Professional Profile Link", "https://www.linkedin.com/in/rwitoban-saha-2026-ce");
     data3.put("Source", "Email");
     data3.put("Country", "India");
     data3.put("State", "Delhi");
@@ -532,12 +557,12 @@ public Object[][] Candidate_Add_Data() {
     data3.put("Recruiter", "Guest Alexei Sokolov");
 
     TreeMap<String, String> data4 = new TreeMap<String, String>();
-    data4.put("Email", "viktor.semyonov2026bl@yopmail.com");
+    data4.put("Email", "arkady.melnikov2026cf@yopmail.com");
     data4.put("Phone Code", "+91");
-    data4.put("Phone Number", "9123403014");
-    data4.put("First Name", "Viktor");
-    data4.put("Last Name", "Semyonov");
-    data4.put("Professional Profile Link", "https://www.linkedin.com/in/viktor-semyonov-2026-bl");
+    data4.put("Phone Number", "9123404014");
+    data4.put("First Name", "Arkady");
+    data4.put("Last Name", "Melnikov");
+    data4.put("Professional Profile Link", "https://www.linkedin.com/in/arkady-melnikov-2026-cf");
     data4.put("Source", "Import");
     data4.put("Country", "India");
     data4.put("State", "West Bengal");
@@ -562,12 +587,12 @@ public Object[][] Candidate_Add_Data() {
     data4.put("Recruiter", "Interviewer Ivan Orlov");
 
     TreeMap<String, String> data5 = new TreeMap<String, String>();
-    data5.put("Email", "abeer.majumdar2026bm@yopmail.com");
+    data5.put("Email", "avirup.datta2026cg@yopmail.com");
     data5.put("Phone Code", "+91");
-    data5.put("Phone Number", "9123403015");
-    data5.put("First Name", "Abeer");
-    data5.put("Last Name", "Majumdar");
-    data5.put("Professional Profile Link", "https://www.linkedin.com/in/abeer-majumdar-2026-bm");
+    data5.put("Phone Number", "9123404015");
+    data5.put("First Name", "Avirup");
+    data5.put("Last Name", "Datta");
+    data5.put("Professional Profile Link", "https://www.linkedin.com/in/avirup-datta-2026-cg");
     data5.put("Source", "Indeed");
     data5.put("Country", "India");
     data5.put("State", "Tamil Nadu");
@@ -592,12 +617,12 @@ public Object[][] Candidate_Add_Data() {
     data5.put("Recruiter", "Nikolai Sidorov");
 
     TreeMap<String, String> data6 = new TreeMap<String, String>();
-    data6.put("Email", "grigory.anikin2026bn@yopmail.com");
+    data6.put("Email", "daniil.kruglov2026ch@yopmail.com");
     data6.put("Phone Code", "+91");
-    data6.put("Phone Number", "9123403016");
-    data6.put("First Name", "Grigory");
-    data6.put("Last Name", "Anikin");
-    data6.put("Professional Profile Link", "https://www.linkedin.com/in/grigory-anikin-2026-bn");
+    data6.put("Phone Number", "9123404016");
+    data6.put("First Name", "Daniil");
+    data6.put("Last Name", "Kruglov");
+    data6.put("Professional Profile Link", "https://www.linkedin.com/in/daniil-kruglov-2026-ch");
     data6.put("Source", "LinkedIn");
     data6.put("Country", "India");
     data6.put("State", "Telangana");
@@ -622,12 +647,12 @@ public Object[][] Candidate_Add_Data() {
     data6.put("Recruiter", "Owner Mikhail Volkov");
 
     TreeMap<String, String> data7 = new TreeMap<String, String>();
-    data7.put("Email", "riddhiman.kar2026bo@yopmail.com");
+    data7.put("Email", "samyak.bhunia2026ci@yopmail.com");
     data7.put("Phone Code", "+91");
-    data7.put("Phone Number", "9123403017");
-    data7.put("First Name", "Riddhiman");
-    data7.put("Last Name", "Kar");
-    data7.put("Professional Profile Link", "https://www.linkedin.com/in/riddhiman-kar-2026-bo");
+    data7.put("Phone Number", "9123404017");
+    data7.put("First Name", "Samyak");
+    data7.put("Last Name", "Bhunia");
+    data7.put("Professional Profile Link", "https://www.linkedin.com/in/samyak-bhunia-2026-ci");
     data7.put("Source", "Naukri");
     data7.put("Country", "India");
     data7.put("State", "Gujarat");
@@ -652,12 +677,12 @@ public Object[][] Candidate_Add_Data() {
     data7.put("Recruiter", "Rahul Chatterjee");
 
     TreeMap<String, String> data8 = new TreeMap<String, String>();
-    data8.put("Email", "orest.belkin2026bp@yopmail.com");
+    data8.put("Email", "boris.yemelin2026cj@yopmail.com");
     data8.put("Phone Code", "+91");
-    data8.put("Phone Number", "9123403018");
-    data8.put("First Name", "Orest");
-    data8.put("Last Name", "Belkin");
-    data8.put("Professional Profile Link", "https://www.linkedin.com/in/orest-belkin-2026-bp");
+    data8.put("Phone Number", "9123404018");
+    data8.put("First Name", "Boris");
+    data8.put("Last Name", "Yemelin");
+    data8.put("Professional Profile Link", "https://www.linkedin.com/in/boris-yemelin-2026-cj");
     data8.put("Source", "Candidate Portal");
     data8.put("Country", "India");
     data8.put("State", "Uttar Pradesh");
@@ -682,12 +707,12 @@ public Object[][] Candidate_Add_Data() {
     data8.put("Recruiter", "Alexei Morozov");
 
     TreeMap<String, String> data9 = new TreeMap<String, String>();
-    data9.put("Email", "srijon.basumallick2026bq@yopmail.com");
+    data9.put("Email", "devansh.koley2026ck@yopmail.com");
     data9.put("Phone Code", "+91");
-    data9.put("Phone Number", "9123403019");
-    data9.put("First Name", "Srijon");
-    data9.put("Last Name", "Basumallick");
-    data9.put("Professional Profile Link", "https://www.linkedin.com/in/srijon-basumallick-2026-bq");
+    data9.put("Phone Number", "9123404019");
+    data9.put("First Name", "Devansh");
+    data9.put("Last Name", "Koley");
+    data9.put("Professional Profile Link", "https://www.linkedin.com/in/devansh-koley-2026-ck");
     data9.put("Source", "Consultancy");
     data9.put("Country", "India");
     data9.put("State", "Rajasthan");
@@ -712,12 +737,12 @@ public Object[][] Candidate_Add_Data() {
     data9.put("Recruiter", "Guest Alexei Sokolov");
 
     TreeMap<String, String> data10 = new TreeMap<String, String>();
-    data10.put("Email", "timon.saveliev2026br@yopmail.com");
+    data10.put("Email", "nikolay.gromov2026cl@yopmail.com");
     data10.put("Phone Code", "+91");
-    data10.put("Phone Number", "9123403020");
-    data10.put("First Name", "Timon");
-    data10.put("Last Name", "Saveliev");
-    data10.put("Professional Profile Link", "https://www.linkedin.com/in/timon-saveliev-2026-br");
+    data10.put("Phone Number", "9123404020");
+    data10.put("First Name", "Nikolay");
+    data10.put("Last Name", "Gromov");
+    data10.put("Professional Profile Link", "https://www.linkedin.com/in/nikolay-gromov-2026-cl");
     data10.put("Source", "Email");
     data10.put("Country", "India");
     data10.put("State", "Madhya Pradesh");
@@ -742,12 +767,12 @@ public Object[][] Candidate_Add_Data() {
     data10.put("Recruiter", "Interviewer Ivan Orlov");
 
     TreeMap<String, String> data11 = new TreeMap<String, String>();
-    data11.put("Email", "ahan.mitra2026bs@yopmail.com");
+    data11.put("Email", "tathagata.paul2026cm@yopmail.com");
     data11.put("Phone Code", "+91");
-    data11.put("Phone Number", "9123403021");
-    data11.put("First Name", "Ahan");
-    data11.put("Last Name", "Mitra");
-    data11.put("Professional Profile Link", "https://www.linkedin.com/in/ahan-mitra-2026-bs");
+    data11.put("Phone Number", "9123404021");
+    data11.put("First Name", "Tathagata");
+    data11.put("Last Name", "Paul");
+    data11.put("Professional Profile Link", "https://www.linkedin.com/in/tathagata-paul-2026-cm");
     data11.put("Source", "Import");
     data11.put("Country", "India");
     data11.put("State", "Haryana");
@@ -772,12 +797,12 @@ public Object[][] Candidate_Add_Data() {
     data11.put("Recruiter", "Nikolai Sidorov");
 
     TreeMap<String, String> data12 = new TreeMap<String, String>();
-    data12.put("Email", "kir.yanovski2026bt@yopmail.com");
+    data12.put("Email", "fedor.laptev2026cn@yopmail.com");
     data12.put("Phone Code", "+91");
-    data12.put("Phone Number", "9123403022");
-    data12.put("First Name", "Kir");
-    data12.put("Last Name", "Yanovski");
-    data12.put("Professional Profile Link", "https://www.linkedin.com/in/kir-yanovski-2026-bt");
+    data12.put("Phone Number", "9123404022");
+    data12.put("First Name", "Fedor");
+    data12.put("Last Name", "Laptev");
+    data12.put("Professional Profile Link", "https://www.linkedin.com/in/fedor-laptev-2026-cn");
     data12.put("Source", "Indeed");
     data12.put("Country", "India");
     data12.put("State", "Punjab");
@@ -802,12 +827,12 @@ public Object[][] Candidate_Add_Data() {
     data12.put("Recruiter", "Owner Mikhail Volkov");
 
     TreeMap<String, String> data13 = new TreeMap<String, String>();
-    data13.put("Email", "debopriyo.bera2026bu@yopmail.com");
+    data13.put("Email", "advay.dhar2026co@yopmail.com");
     data13.put("Phone Code", "+91");
-    data13.put("Phone Number", "9123403023");
-    data13.put("First Name", "Debopriyo");
-    data13.put("Last Name", "Bera");
-    data13.put("Professional Profile Link", "https://www.linkedin.com/in/debopriyo-bera-2026-bu");
+    data13.put("Phone Number", "9123404023");
+    data13.put("First Name", "Advay");
+    data13.put("Last Name", "Dhar");
+    data13.put("Professional Profile Link", "https://www.linkedin.com/in/advay-dhar-2026-co");
     data13.put("Source", "LinkedIn");
     data13.put("Country", "India");
     data13.put("State", "Odisha");
@@ -832,12 +857,12 @@ public Object[][] Candidate_Add_Data() {
     data13.put("Recruiter", "Rahul Chatterjee");
 
     TreeMap<String, String> data14 = new TreeMap<String, String>();
-    data14.put("Email", "rostik.merenkov2026bv@yopmail.com");
+    data14.put("Email", "igor.terekhov2026cp@yopmail.com");
     data14.put("Phone Code", "+91");
-    data14.put("Phone Number", "9123403024");
-    data14.put("First Name", "Rostik");
-    data14.put("Last Name", "Merenkov");
-    data14.put("Professional Profile Link", "https://www.linkedin.com/in/rostik-merenkov-2026-bv");
+    data14.put("Phone Number", "9123404024");
+    data14.put("First Name", "Igor");
+    data14.put("Last Name", "Terekhov");
+    data14.put("Professional Profile Link", "https://www.linkedin.com/in/igor-terekhov-2026-cp");
     data14.put("Source", "Naukri");
     data14.put("Country", "India");
     data14.put("State", "Bihar");
@@ -862,12 +887,12 @@ public Object[][] Candidate_Add_Data() {
     data14.put("Recruiter", "Admin Ayan Sengupta");
 
     TreeMap<String, String> data15 = new TreeMap<String, String>();
-    data15.put("Email", "oishik.samanta2026bw@yopmail.com");
+    data15.put("Email", "ronav.nandi2026cq@yopmail.com");
     data15.put("Phone Code", "+91");
-    data15.put("Phone Number", "9123403025");
-    data15.put("First Name", "Oishik");
-    data15.put("Last Name", "Samanta");
-    data15.put("Professional Profile Link", "https://www.linkedin.com/in/oishik-samanta-2026-bw");
+    data15.put("Phone Number", "9123404025");
+    data15.put("First Name", "Ronav");
+    data15.put("Last Name", "Nandi");
+    data15.put("Professional Profile Link", "https://www.linkedin.com/in/ronav-nandi-2026-cq");
     data15.put("Source", "Candidate Portal");
     data15.put("Country", "India");
     data15.put("State", "Kerala");
@@ -892,12 +917,12 @@ public Object[][] Candidate_Add_Data() {
     data15.put("Recruiter", "Guest Alexei Sokolov");
 
     TreeMap<String, String> data16 = new TreeMap<String, String>();
-    data16.put("Email", "gleb.dorokhov2026bx@yopmail.com");
+    data16.put("Email", "yaromir.bessonov2026cr@yopmail.com");
     data16.put("Phone Code", "+91");
-    data16.put("Phone Number", "9123403026");
-    data16.put("First Name", "Gleb");
-    data16.put("Last Name", "Dorokhov");
-    data16.put("Professional Profile Link", "https://www.linkedin.com/in/gleb-dorokhov-2026-bx");
+    data16.put("Phone Number", "9123404026");
+    data16.put("First Name", "Yaromir");
+    data16.put("Last Name", "Bessonov");
+    data16.put("Professional Profile Link", "https://www.linkedin.com/in/yaromir-bessonov-2026-cr");
     data16.put("Source", "Consultancy");
     data16.put("Country", "India");
     data16.put("State", "Andhra Pradesh");
@@ -922,12 +947,12 @@ public Object[][] Candidate_Add_Data() {
     data16.put("Recruiter", "Interviewer Ivan Orlov");
 
     TreeMap<String, String> data17 = new TreeMap<String, String>();
-    data17.put("Email", "aritvik.golder2026by@yopmail.com");
+    data17.put("Email", "pranay.ghosh2026cs@yopmail.com");
     data17.put("Phone Code", "+91");
-    data17.put("Phone Number", "9123403027");
-    data17.put("First Name", "Aritvik");
-    data17.put("Last Name", "Golder");
-    data17.put("Professional Profile Link", "https://www.linkedin.com/in/aritvik-golder-2026-by");
+    data17.put("Phone Number", "9123404027");
+    data17.put("First Name", "Pranay");
+    data17.put("Last Name", "Ghosh");
+    data17.put("Professional Profile Link", "https://www.linkedin.com/in/pranay-ghosh-2026-cs");
     data17.put("Source", "Email");
     data17.put("Country", "India");
     data17.put("State", "Jharkhand");
@@ -952,12 +977,12 @@ public Object[][] Candidate_Add_Data() {
     data17.put("Recruiter", "Nikolai Sidorov");
 
     TreeMap<String, String> data18 = new TreeMap<String, String>();
-    data18.put("Email", "yegor.malenkov2026bz@yopmail.com");
+    data18.put("Email", "vaslav.koryagin2026ct@yopmail.com");
     data18.put("Phone Code", "+91");
-    data18.put("Phone Number", "9123403028");
-    data18.put("First Name", "Yegor");
-    data18.put("Last Name", "Malenkov");
-    data18.put("Professional Profile Link", "https://www.linkedin.com/in/yegor-malenkov-2026-bz");
+    data18.put("Phone Number", "9123404028");
+    data18.put("First Name", "Vaslav");
+    data18.put("Last Name", "Koryagin");
+    data18.put("Professional Profile Link", "https://www.linkedin.com/in/vaslav-koryagin-2026-ct");
     data18.put("Source", "Import");
     data18.put("Country", "India");
     data18.put("State", "Assam");
@@ -982,12 +1007,12 @@ public Object[][] Candidate_Add_Data() {
     data18.put("Recruiter", "Owner Mikhail Volkov");
 
     TreeMap<String, String> data19 = new TreeMap<String, String>();
-    data19.put("Email", "sagnikesh.dutta2026ca@yopmail.com");
+    data19.put("Email", "aniket.basu2026cu@yopmail.com");
     data19.put("Phone Code", "+91");
-    data19.put("Phone Number", "9123403029");
-    data19.put("First Name", "Sagnikesh");
-    data19.put("Last Name", "Dutta");
-    data19.put("Professional Profile Link", "https://www.linkedin.com/in/sagnikesh-dutta-2026-ca");
+    data19.put("Phone Number", "9123404029");
+    data19.put("First Name", "Aniket");
+    data19.put("Last Name", "Basu");
+    data19.put("Professional Profile Link", "https://www.linkedin.com/in/aniket-basu-2026-cu");
     data19.put("Source", "Indeed");
     data19.put("Country", "India");
     data19.put("State", "Chhattisgarh");
@@ -1012,12 +1037,12 @@ public Object[][] Candidate_Add_Data() {
     data19.put("Recruiter", "Rahul Chatterjee");
 
     TreeMap<String, String> data20 = new TreeMap<String, String>();
-    data20.put("Email", "platon.rybakov2026cb@yopmail.com");
+    data20.put("Email", "yevsei.markovin2026cv@yopmail.com");
     data20.put("Phone Code", "+91");
-    data20.put("Phone Number", "9123403030");
-    data20.put("First Name", "Platon");
-    data20.put("Last Name", "Rybakov");
-    data20.put("Professional Profile Link", "https://www.linkedin.com/in/platon-rybakov-2026-cb");
+    data20.put("Phone Number", "9123404030");
+    data20.put("First Name", "Yevsei");
+    data20.put("Last Name", "Markovin");
+    data20.put("Professional Profile Link", "https://www.linkedin.com/in/yevsei-markovin-2026-cv");
     data20.put("Source", "LinkedIn");
     data20.put("Country", "India");
     data20.put("State", "Goa");
@@ -1041,7 +1066,7 @@ public Object[][] Candidate_Add_Data() {
     data20.put("Owner", "Owner Mikhail Volkov");
     data20.put("Recruiter", "Admin Ayan Sengupta");
 
-    return new Object[][] {/*
+    return new Object[][] {
             { data1 },
             { data2 },
             { data3 },
@@ -1059,9 +1084,9 @@ public Object[][] Candidate_Add_Data() {
             { data15 },
             { data16 },
             { data17 },
-            { data18 }, */
+            { data18 },
             { data19 },
-            { data20 } 
+            { data20 }
     };
 }
 	
