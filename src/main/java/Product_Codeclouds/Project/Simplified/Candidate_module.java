@@ -408,7 +408,7 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
        Candidate_Module_Locaters p = new Candidate_Module_Locaters(d);
  	   Repeat rp = new Repeat(d);
  	   Job_Module_locaters jb = new Job_Module_locaters(d);
- 	   
+ 	  JavascriptExecutor js = (JavascriptExecutor)d;
  	   
  	   String First_Name = candidate_data.get("First Name");
  	   
@@ -430,7 +430,9 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
 	List<WebElement> searched_candidates = p.candidate_names_in_list();
     WebElement First_candidate = searched_candidates.get(0);
 	rp.movetoelement(First_candidate);
-	First_candidate.click();
+	WebElement Candidate_name_click = First_candidate.findElement(By.xpath(".//a"));
+	Candidate_name_click.click();
+	
 	
 }
 

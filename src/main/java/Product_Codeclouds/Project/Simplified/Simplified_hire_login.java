@@ -11,13 +11,14 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 
 import Listerners.Report_Listen;
+import Locaters.Candidate_Module_Locaters;
 import Locaters.Simplified_portal_locaters;
 import Repeatative_codes.Repeat;
 
 public class Simplified_hire_login extends Login{
 	
 	
-	@Test
+@Test
 public void Simplified_Hire_Accessor() throws IOException, InterruptedException {
 
 	int step = 1;
@@ -49,7 +50,7 @@ public void Simplified_Hire_Accessor() throws IOException, InterruptedException 
 		System.out.println();
 
 		login();
-
+		check_for_payment_pop_up();
 		Report_Listen.log_print_in_report().log(Status.PASS,
 				"<b>🟨 Actual:</b> Login flow executed successfully and user entered the company portal.");
 		System.out.println("🟨 Actual: Login flow executed successfully and user entered the company portal.");
@@ -153,4 +154,14 @@ public void Simplified_Hire_Accessor() throws IOException, InterruptedException 
 	System.out.println();
 }
 
-}
+
+public void check_for_payment_pop_up(){
+	
+	Candidate_Module_Locaters p = new Candidate_Module_Locaters(d);
+	
+	try{
+	Thread.sleep(800);
+	WebElement pop_up_close = p.Pop_Up_close_Button();
+	pop_up_close.click();}catch(Exception mm){}
+	System.out.println("Checked for payment pop up and it was not displayed.");
+	System.out.println();}}

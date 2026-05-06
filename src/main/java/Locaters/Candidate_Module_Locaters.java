@@ -28,6 +28,8 @@ public class Candidate_Module_Locaters extends Repeat{
 	private WebElement  Pop_up_form;
 	@FindBy(xpath="//div[contains(@class,'ant-modal-content')]//button[contains(@class,'ant-btn-primary')]")
 	private WebElement Modal_Save_Button; 
+	@FindBy(xpath="//div[contains(@class,'ant-modal-content')]//button[contains(@class,'ant-modal-close')]")
+	private WebElement Popup_Close_Button; 
 	@FindBy(id="job")
 	private WebElement Assign_job_input;
 	private By form_scroll = By.xpath("(//*[contains(@class,'overflow-scroll overflow-x-scroll-hidden custom-scrollbar')])[1]");
@@ -210,6 +212,10 @@ public class Candidate_Module_Locaters extends Repeat{
 	public WebElement Assign_job_input(){
 	wait_for_theElement(Assign_job_input);
 	return Assign_job_input;}
+	public WebElement Pop_Up_close_Button(){
+	wait_for_theElement(Popup_Close_Button);
+	movetoelement(Popup_Close_Button);
+	return Popup_Close_Button;}
 	public WebElement form_scroll(){
 	return 	wait_for_presence_of_theElement(form_scroll);} 
 	public WebElement Owner_input(){
