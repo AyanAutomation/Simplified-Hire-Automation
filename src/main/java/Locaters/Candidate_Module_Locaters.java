@@ -78,23 +78,23 @@ public class Candidate_Module_Locaters extends Repeat{
 	@FindBy(xpath="//*[contains(@class,'pagination-right')]//span")
 	private List<WebElement> pagination_count_text;
 	@FindBy(xpath="//tbody//tr[contains(@class,'ant-table-row ant-table-row-level-0')]//td[@class='ant-table-cell'][1]")
-	private List<WebElement> candidate_names_in_list;/*
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
+	private List<WebElement> candidate_names_in_list;
+	@FindBy(xpath="//div[@class='ant-tabs-nav-list']")
+	private WebElement Tabs_list;
+	@FindBy(xpath="//div[contains(@class,' custom-select select_aslink')]//div")
+	private WebElement Application_status_Dropdown;
+	@FindBy(xpath="(//*[text()='Schedule Interview']/..)[1]")
+	private WebElement schedule_interview_button;
+	@FindBy(id="endTime")
+	private WebElement endTime_input;
+	@FindBy(xpath="//*[contains(@class,'ant-radio-wrapper')]")
+	private List<WebElement> radio_options;
+	@FindBy(id="link")
+	private WebElement link_input;
+	@FindBy(xpath="(//div[contains(@class,'ant-modal-body')]//div[@class='ant-form-item-control-input'])[8]")
+	private WebElement Meeting_link_dropdown_Field;
+	@FindBy(id="interviewHost")
+	private WebElement interviewHost_input;/*
 	@FindBy(xpath="")
 	private WebElement  ;
 	@FindBy(xpath="")
@@ -208,7 +208,7 @@ public class Candidate_Module_Locaters extends Repeat{
 	wait_for_theElement(Modal_Save_Button);
 	return Modal_Save_Button;} 
 	public List<WebElement> name_ph_email_input_fields(){
-	return wait_for_nested( Pop_up_form(), By.xpath(".//input[@id='email' or @id='phoneNumber' or @id='firstName' or @id='lastName' or @id='relevantExperience' or @id='totalExperience' or @id='noticePeriod']"));}
+	return wait_for_nested(Pop_up_form(), By.xpath(".//input[@id='email' or @id='phoneNumber' or @id='firstName' or @id='lastName' or @id='relevantExperience' or @id='totalExperience' or @id='noticePeriod']"));}
 	public WebElement Assign_job_input(){
 	wait_for_theElement(Assign_job_input);
 	return Assign_job_input;}
@@ -224,12 +224,18 @@ public class Candidate_Module_Locaters extends Repeat{
 	public WebElement recruiter_input(){
 	wait_for_theElement(recruiter_input);
 	return recruiter_input;} 
+	public WebElement Owner_Dropdown_backup(){
+	wait_for_theElement(Owner_Dropdown_backup);
+	return Owner_Dropdown_backup;}
 	public WebElement Owner_Dropdown(){
 	try{wait_for_theElement(Owner_Dropdown_backup);
 	return Owner_Dropdown_backup;}
 	catch(Exception e){
 	wait_for_theElement(Owner_Dropdown);
 	return Owner_Dropdown;}}
+	public WebElement recruiter_Dropdown_backup(){
+	wait_for_theElement(recruiter_Dropdown_backup);
+	return recruiter_Dropdown_backup;}
 	public WebElement recruiter_Dropdown(){try{
 	wait_for_theElement(recruiter_Dropdown_backup);
 	return recruiter_Dropdown_backup;}
@@ -308,34 +314,35 @@ public class Candidate_Module_Locaters extends Repeat{
 	return Owner_Dropdown;}
 	public List<WebElement> candidate_names_in_list(){
 	wait_for_theElement(candidate_names_in_list);
-	return candidate_names_in_list;} /*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} 
+	return candidate_names_in_list;} 
+	public WebElement Tabs_list(){
+	wait_for_theElement(Tabs_list);
+	return Tabs_list;}
+	public List<WebElement> Tab_Buttons(){
+	List<WebElement> Tab_Buttons = Tabs_list().findElements(By.xpath(".//div//div"));
+	wait_for_theElement(Tab_Buttons);
+	return Tab_Buttons;}
+	public WebElement Application_status_Dropdown(){
+	wait_for_theElement(Application_status_Dropdown);
+	return Application_status_Dropdown;}
+	public WebElement schedule_interview_button(){
+	wait_for_theElement(schedule_interview_button);
+	return schedule_interview_button;}
+	public WebElement endTime_input(){
+	wait_for_theElement(endTime_input);
+	return endTime_input;}
+	public List<WebElement> radio_options(){
+	wait_for_theElement(radio_options);
+	return radio_options;}
+	public WebElement link_input(){
+	wait_for_theElement(link_input);
+	return link_input;}
+	public WebElement Meeting_link_dropdown_Field(){
+	wait_for_theElement(Meeting_link_dropdown_Field);
+	return Meeting_link_dropdown_Field;}
+	public WebElement interviewHost_input(){
+	wait_for_theElement(interviewHost_input);
+	return interviewHost_input;} /*
 	public WebElement (){
 	wait_for_theElement();
 	return ;}

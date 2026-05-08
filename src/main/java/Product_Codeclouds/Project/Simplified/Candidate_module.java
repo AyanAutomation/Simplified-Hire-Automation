@@ -432,10 +432,67 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
 	rp.movetoelement(First_candidate);
 	WebElement Candidate_name_click = First_candidate.findElement(By.xpath(".//a"));
 	Candidate_name_click.click();
+	List<WebElement> Candidate_tabs = p.Tab_Buttons();
+	WebElement Event_Tab = Candidate_tabs.get(2);
+	Event_Tab.click();
+	p.schedule_interview_button().click();
+	p.Pop_up_form();
+	List<WebElement> interview_inputs = p.Pop_Up_Form_Custom_Dropdown_fields();
+	WebElement To_time= interview_inputs.get(3);
+	To_time.click();
+	WebElement End_time = p.endTime_input();
+	End_time.clear();
+	End_time.sendKeys("7:00 PM");
+	WebElement Time_Dropdown=p.Owner_Dropdown();
+	List<WebElement> time_options = Time_Dropdown.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+	time_options.stream().filter(timeopt -> timeopt.getText().trim().equalsIgnoreCase("7:00 PM")).findFirst()
+		.ifPresent(WebElement::click);
+	List<WebElement> Radio_Options = p.radio_options();
+	for(WebElement option:Radio_Options) {
+		String option_text = option.getText().trim();
+		if(option_text.equalsIgnoreCase("Organization")) {
+			js.executeScript("arguments[0].click();", option);
+			break;}}
+	WebElement Interview_platform=p.Meeting_link_dropdown_Field();
+	Interview_platform.click();
+	WebElement Meet_Dropdown=p.state_Dropdown();
+	List<WebElement> Meet_options = Meet_Dropdown.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+	Meet_options.stream().filter(meetopt -> meetopt.getText().trim().equalsIgnoreCase("Google Meet")).findFirst()
+		.ifPresent(WebElement::click);
+	WebElement Host= interview_inputs.get(4);
+	Host.click();
+	p.interviewHost_input().sendKeys("Admin Ayan Sengupta");
+	p.Owner_Dropdown_backup().findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"))
+		.stream().filter(hostopt -> hostopt.getText().trim().equalsIgnoreCase("Admin Ayan Sengupta")).findFirst()
+		.ifPresent(WebElement::click);
 	
-	
+	WebElement Recruiter= interview_inputs.get(5);
+	rp.Scroll_to_element(Recruiter);
+	Recruiter.click();
+	p.recruiter_Dropdown_backup().findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"))
+		.stream().filter(recruiteroption -> recruiteroption.getText().trim().equalsIgnoreCase("Admin Ayan Sengupta")).findFirst()
+		.ifPresent(WebElement::click);
+	Recruiter.click();
+	WebElement Save = p.Modal_Save_Button();
+	rp.Scroll_to_element(Save);
 }
 
+    public void Candidate_job_status_change(String Status_value) throws IOException, InterruptedException { 
+    	
+    	Candidate_Module_Locaters p = new Candidate_Module_Locaters(d);
+    	Repeat rp = new Repeat(d);
+    	
+    	
+    	List<WebElement> Candidate_tabs = p.Tab_Buttons();
+    	WebElement Job_Applied_Tab = Candidate_tabs.get(1);
+    	rp.movetoelement(Job_Applied_Tab);
+    	Job_Applied_Tab.click();
+    	p.Application_status_Dropdown().click();
+		WebElement Status_dropdown_list = p.Owner_Dropdown();
+		Status_dropdown_list.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"))
+				.stream().filter(statusopt -> statusopt.getText().trim().equalsIgnoreCase(Status_value)).findFirst()
+				.ifPresent(WebElement::click);
+	}
 
 
    public void pagination_changer(String count) throws InterruptedException{

@@ -2,16 +2,16 @@
 <testng-results ignored="3" total="4" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-05-06T18:51:58 IST" name="Default suite" finished-at="2026-05-06T18:53:05 IST" duration-ms="66537">
+  <suite started-at="2026-05-08T13:53:41 IST" name="Default suite" finished-at="2026-05-08T13:54:49 IST" duration-ms="68048">
     <groups>
     </groups>
-    <test started-at="2026-05-06T18:51:58 IST" name="Default test" finished-at="2026-05-06T18:53:05 IST" duration-ms="66537">
+    <test started-at="2026-05-08T13:53:41 IST" name="Default test" finished-at="2026-05-08T13:54:49 IST" duration-ms="68048">
       <class name="Product_Codeclouds.Project.Simplified.Candidate_module">
-        <test-method is-config="true" signature="setup()[pri:0, instance:Product_Codeclouds.Project.Simplified.Candidate_module@b2c9a9c]" started-at="2026-05-06T18:51:58 IST" name="setup" finished-at="2026-05-06T18:52:01 IST" duration-ms="2349" status="PASS">
+        <test-method is-config="true" signature="setup()[pri:0, instance:Product_Codeclouds.Project.Simplified.Candidate_module@4c178a76]" started-at="2026-05-08T13:53:41 IST" name="setup" finished-at="2026-05-08T13:53:43 IST" duration-ms="2148" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="Candidate_Interview_scheduling(java.util.TreeMap)[pri:0, instance:Product_Codeclouds.Project.Simplified.Candidate_module@b2c9a9c]" started-at="2026-05-06T18:52:01 IST" name="Candidate_Interview_scheduling" data-provider="Candidate_Add_Data" finished-at="2026-05-06T18:53:05 IST" duration-ms="64110" status="PASS">
+        <test-method signature="Candidate_Interview_scheduling(java.util.TreeMap)[pri:0, instance:Product_Codeclouds.Project.Simplified.Candidate_module@4c178a76]" started-at="2026-05-08T13:53:43 IST" name="Candidate_Interview_scheduling" data-provider="Candidate_Add_Data" finished-at="2026-05-08T13:54:49 IST" duration-ms="65828" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -22,7 +22,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Candidate_Interview_scheduling -->
-        <test-method is-config="true" signature="Kill()[pri:0, instance:Product_Codeclouds.Project.Simplified.Candidate_module@b2c9a9c]" started-at="2026-05-06T18:53:05 IST" name="Kill" finished-at="2026-05-06T18:53:05 IST" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="Kill()[pri:0, instance:Product_Codeclouds.Project.Simplified.Candidate_module@4c178a76]" started-at="2026-05-08T13:54:49 IST" name="Kill" finished-at="2026-05-08T13:54:49 IST" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Kill -->
