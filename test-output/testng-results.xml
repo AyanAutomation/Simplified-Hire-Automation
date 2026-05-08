@@ -1,32 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="3" total="4" passed="1" failed="0" skipped="0">
+<testng-results ignored="4" total="5" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-05-08T13:53:41 IST" name="Default suite" finished-at="2026-05-08T13:54:49 IST" duration-ms="68048">
+  <suite started-at="2026-05-08T18:29:15 IST" name="Default suite" finished-at="2026-05-08T18:30:20 IST" duration-ms="64857">
     <groups>
     </groups>
-    <test started-at="2026-05-08T13:53:41 IST" name="Default test" finished-at="2026-05-08T13:54:49 IST" duration-ms="68048">
-      <class name="Product_Codeclouds.Project.Simplified.Candidate_module">
-        <test-method is-config="true" signature="setup()[pri:0, instance:Product_Codeclouds.Project.Simplified.Candidate_module@4c178a76]" started-at="2026-05-08T13:53:41 IST" name="setup" finished-at="2026-05-08T13:53:43 IST" duration-ms="2148" status="PASS">
+    <test started-at="2026-05-08T18:29:15 IST" name="Default test" finished-at="2026-05-08T18:30:20 IST" duration-ms="64857">
+      <class name="Product_Codeclouds.Project.Simplified.Member_Module">
+        <test-method is-config="true" signature="setup()[pri:0, instance:Product_Codeclouds.Project.Simplified.Member_Module@544fa968]" started-at="2026-05-08T18:29:15 IST" name="setup" finished-at="2026-05-08T18:29:17 IST" duration-ms="2091" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="Candidate_Interview_scheduling(java.util.TreeMap)[pri:0, instance:Product_Codeclouds.Project.Simplified.Candidate_module@4c178a76]" started-at="2026-05-08T13:53:43 IST" name="Candidate_Interview_scheduling" data-provider="Candidate_Add_Data" finished-at="2026-05-08T13:54:49 IST" duration-ms="65828" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[{CV/Resume=, Country=India, Cover Letter=, Current Salary=1064000, Current Salary Currency=INR(₹), Current Salary Duration=Yearly, Education=, Email=ishaan.dey2026cc@yopmail.com, Expected Salary=1349000, Expected Salary Currency=INR(₹), Expected Salary Duration=Yearly, First Name=Ishaan, Last Name=Dey, Notice Period=16, Notice Period Unit=Day(s), Owner=Admin Ayan Sengupta, Phone Code=+91, Phone Number=9123404011, Professional Profile Link=https://www.linkedin.com/in/ishaan-dey-2026-cc, Recruiter=Admin Ayan Sengupta, Relevant Experience=3, Relevant Experience Unit=Year(s), Skills=, Source=Candidate Portal, State=Karnataka, Total Experience=4, Total Experience Unit=Year(s), Work Experience=}]]>
-              </value>
-            </param>
-          </params>
+        <test-method signature="Member_List_Data_Collector()[pri:0, instance:Product_Codeclouds.Project.Simplified.Member_Module@544fa968]" started-at="2026-05-08T18:29:17 IST" name="Member_List_Data_Collector" finished-at="2026-05-08T18:30:20 IST" duration-ms="62302" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- Candidate_Interview_scheduling -->
-        <test-method is-config="true" signature="Kill()[pri:0, instance:Product_Codeclouds.Project.Simplified.Candidate_module@4c178a76]" started-at="2026-05-08T13:54:49 IST" name="Kill" finished-at="2026-05-08T13:54:49 IST" duration-ms="0" status="PASS">
+        </test-method> <!-- Member_List_Data_Collector -->
+        <test-method is-config="true" signature="Kill()[pri:0, instance:Product_Codeclouds.Project.Simplified.Member_Module@544fa968]" started-at="2026-05-08T18:30:20 IST" name="Kill" finished-at="2026-05-08T18:30:20 IST" duration-ms="413" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Kill -->
-      </class> <!-- Product_Codeclouds.Project.Simplified.Candidate_module -->
+      </class> <!-- Product_Codeclouds.Project.Simplified.Member_Module -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
