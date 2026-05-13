@@ -30,7 +30,9 @@ public class Base {
 		Target_url = System.getProperty("url") != null
 				? System.getProperty("url")
 				: f.Data_Fetcher("Url");
-
+     
+		System.out.println("Target URL: " + Target_url);
+		
 		if (Browser.toLowerCase().contains("chrome")) {
 
 			ChromeOptions options = new ChromeOptions();

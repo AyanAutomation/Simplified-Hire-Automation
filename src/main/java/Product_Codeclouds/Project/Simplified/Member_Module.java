@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.TreeSet;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
@@ -18,7 +19,7 @@ import Repeatative_codes.Repeat;
 
 public class Member_Module extends Candidate_module{
 
-	TreeSet<String> Member_Names=new TreeSet<String>();
+public TreeSet<String> Member_Names=new TreeSet<String>();
 	
 	
 	public WebElement Member_List_Accesor() throws IOException, InterruptedException {
@@ -38,7 +39,7 @@ public class Member_Module extends Candidate_module{
 		return Member_AddButton;
 	}
 	
-	@Test
+
 	public void Member_List_Data_Collector() throws IOException, InterruptedException{
 		
 		Candidate_Module_Locaters p = new Candidate_Module_Locaters(d);
@@ -66,8 +67,8 @@ public class Member_Module extends Candidate_module{
 			System.out.println();
 		}
 		
-		
-		
+		d.navigate().to("https://ayan-steel-hire.dev.besimplified.net/candidates");
+
 		
 		
 	}

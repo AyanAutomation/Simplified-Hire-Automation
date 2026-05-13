@@ -94,9 +94,9 @@ public class Candidate_Module_Locaters extends Repeat{
 	@FindBy(xpath="(//div[contains(@class,'ant-modal-body')]//div[@class='ant-form-item-control-input'])[8]")
 	private WebElement Meeting_link_dropdown_Field;
 	@FindBy(id="interviewHost")
-	private WebElement interviewHost_input;/*
-	@FindBy(xpath="")
-	private WebElement  ;
+	private WebElement interviewHost_input;
+	@FindBy(xpath="//*[text()=' Notify ']/..")
+	private WebElement notify_button;/*
 	@FindBy(xpath="")
 	private WebElement  ;
 	@FindBy(xpath="")
@@ -342,10 +342,10 @@ public class Candidate_Module_Locaters extends Repeat{
 	return Meeting_link_dropdown_Field;}
 	public WebElement interviewHost_input(){
 	wait_for_theElement(interviewHost_input);
-	return interviewHost_input;} /*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return interviewHost_input;} 
+	public WebElement notify_button(){
+	wait_for_theElement(notify_button);
+	return notify_button;}/*
 	public WebElement (){
 	wait_for_theElement();
 	return ;}
