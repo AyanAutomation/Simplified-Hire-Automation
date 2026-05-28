@@ -12,6 +12,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import com.aventstack.extentreports.Status;
 
@@ -20,7 +21,7 @@ import Locaters.Candidate_Module_Locaters;
 import Locaters.Report_Module_Locaters;
 import Repeatative_codes.Repeat;
 
-public class Reports_Module extends Candidate_module{
+public class Reports_Module extends Job_Module{
 	
 	
 	
@@ -48,33 +49,33 @@ public class Reports_Module extends Candidate_module{
 	
 	
 	
-	    @Test
-		public void overview_section_Data_Consistency_checking() throws IOException, InterruptedException, AWTException {
+	@Test
+	public void overview_section_Data_Consistency_checking() throws IOException, InterruptedException, AWTException {
 
 		Report_Module_Locaters p = new Report_Module_Locaters(d);
-		
+		SoftAssert softAssert = new SoftAssert();
 
 		int step = 1;
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>🔹 Scenario Title:</b> Capture overview section card data and verify candidate count flow");
+				"<b>🔹 Scenario Title:</b> Validate Reports overview Open Jobs count against Jobs module Active Jobs count");
 		System.out.println();
-		System.out.println("🔹 Scenario Title: Capture overview section card data and verify candidate count flow");
-		System.out.println();
-
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>📘 Description:</b> Open the Reports module, apply the required report filter, capture all overview section labels and values into the overview data map, then navigate to Candidate list, select All Stages, change pagination, and print the exact candidate count confirmation values.");
-		System.out.println("📘 Description: Open the Reports module, apply the required report filter, capture all overview section labels and values into the overview data map, then navigate to Candidate list, select All Stages, change pagination, and print the exact candidate count confirmation values.");
+		System.out.println("🔹 Scenario Title: Validate Reports overview Open Jobs count against Jobs module Active Jobs count");
 		System.out.println();
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>📥 Input:</b> Report Filter = This Month | Candidate Stage Filter = All Stages | Pagination = 100");
-		System.out.println("📥 Input: Report Filter = This Month | Candidate Stage Filter = All Stages | Pagination = 100");
+				"<b>📘 Description:</b> Open the Reports module, apply the required report filter, clear previously stored overview data, capture all overview section labels and values into the overview data map, fetch Active Jobs count from the Jobs module, and softly compare the Jobs module count with the Reports overview Open Jobs count.");
+		System.out.println("📘 Description: Open the Reports module, apply the required report filter, clear previously stored overview data, capture all overview section labels and values into the overview data map, fetch Active Jobs count from the Jobs module, and softly compare the Jobs module count with the Reports overview Open Jobs count.");
 		System.out.println();
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>✅ Expected:</b> Overview card data should be captured successfully for the selected report filter, Candidate list should open successfully, All Stages should be selected, pagination should change to 100, and exact candidate count text should be available.");
-		System.out.println("✅ Expected: Overview card data should be captured successfully for the selected report filter, Candidate list should open successfully, All Stages should be selected, pagination should change to 100, and exact candidate count text should be available.");
+				"<b>📥 Input:</b> Report Filter = This Month | Reports Overview Key = Open Jobs | Job Status Filter = Active | Pagination Value in Jobs Module = 50");
+		System.out.println("📥 Input: Report Filter = This Month | Reports Overview Key = Open Jobs | Job Status Filter = Active | Pagination Value in Jobs Module = 50");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>✅ Expected:</b> Reports overview data should be captured freshly, Open Jobs count should be available in the overview data map, Active Jobs count should be fetched from the Jobs module, and both counts should match.");
+		System.out.println("✅ Expected: Reports overview data should be captured freshly, Open Jobs count should be available in the overview data map, Active Jobs count should be fetched from the Jobs module, and both counts should match.");
 		System.out.println();
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
@@ -82,7 +83,7 @@ public class Reports_Module extends Candidate_module{
 		System.out.println("Step " + (step - 1) + ": Clear previously stored overview card data.");
 		System.out.println();
 
-		
+		Overview_Cards_Data.clear();
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
 				"<b>🟨 Actual:</b> Previously stored overview card data cleared successfully.");
@@ -102,8 +103,8 @@ public class Reports_Module extends Candidate_module{
 		System.out.println();
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>Step " + (step++) + ":</b> Fetch overview section labels and values.");
-		System.out.println("Step " + (step - 1) + ": Fetch overview section labels and values.");
+				"<b>Step " + (step++) + ":</b> Fetch overview section labels and values from Reports module.");
+		System.out.println("Step " + (step - 1) + ": Fetch overview section labels and values from Reports module.");
 		System.out.println();
 
 		List<WebElement> overview_section_Labels = p.Labels();
@@ -117,6 +118,7 @@ public class Reports_Module extends Candidate_module{
 		System.out.println();
 
 		if (overview_section_Labels.size() != overview_section_values.size()) {
+
 			Report_Listen.log_print_in_report().log(Status.FAIL,
 					"<b>❌ Actual:</b> Overview labels count and values count do not match. Labels = "
 							+ overview_section_Labels.size() + " | Values = " + overview_section_values.size());
@@ -134,6 +136,7 @@ public class Reports_Module extends Candidate_module{
 		System.out.println();
 
 		IntStream.range(0, overview_section_Labels.size()).forEach(i -> {
+
 			String label = overview_section_Labels.get(i).getText().trim();
 			String value = overview_section_values.get(i).getText().trim();
 
@@ -145,11 +148,89 @@ public class Reports_Module extends Candidate_module{
 		});
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>Step " + (step++) + ":</b> Expand side menu and open Candidate list page.");
-		System.out.println("Step " + (step - 1) + ": Expand side menu and open Candidate list page.");
+				"<b>🟨 Actual:</b> Overview data map populated successfully. Total entries stored = "
+						+ Overview_Cards_Data.size());
+		System.out.println("🟨 Actual: Overview data map populated successfully. Total entries stored = "
+				+ Overview_Cards_Data.size());
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Expand side menu before switching from Reports module to Jobs module.");
+		System.out.println("Step " + (step - 1) + ": Expand side menu before switching from Reports module to Jobs module.");
 		System.out.println();
 
 		side_menu_expander();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Side menu expanded successfully.");
+		System.out.println("🟨 Actual: Side menu expanded successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Fetch Active Jobs count from Jobs module.");
+		System.out.println("Step " + (step - 1) + ": Fetch Active Jobs count from Jobs module.");
+		System.out.println();
+
+		String Job_count_From_Job_List = Active_Job_count_fetcher();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Active Jobs count fetched successfully from Jobs module = "
+						+ Job_count_From_Job_List);
+		System.out.println("🟨 Actual: Active Jobs count fetched successfully from Jobs module = "
+				+ Job_count_From_Job_List);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Compare Reports overview Open Jobs count with Jobs module Active Jobs count using soft assertion.");
+		System.out.println("Step " + (step - 1) + ": Compare Reports overview Open Jobs count with Jobs module Active Jobs count using soft assertion.");
+		System.out.println();
+
+		String Open_Jobs_Count_From_Overview = Overview_Cards_Data.get("Open Jobs").trim();
+		String Active_Jobs_Count_From_Job_List = Job_count_From_Job_List.trim();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Reports overview Open Jobs count = " + Open_Jobs_Count_From_Overview
+						+ " | Jobs module Active Jobs count = " + Active_Jobs_Count_From_Job_List);
+		System.out.println("🟨 Actual: Reports overview Open Jobs count = " + Open_Jobs_Count_From_Overview
+				+ " | Jobs module Active Jobs count = " + Active_Jobs_Count_From_Job_List);
+		System.out.println();
+
+		if (Open_Jobs_Count_From_Overview.equals(Active_Jobs_Count_From_Job_List)) {
+
+			Report_Listen.log_print_in_report().log(Status.PASS,
+					"<b>✅ Matched:</b> Reports overview Open Jobs count is matching with Jobs module Active Jobs count. Count = "
+							+ Open_Jobs_Count_From_Overview);
+			System.out.println("✅ Matched: Reports overview Open Jobs count is matching with Jobs module Active Jobs count. Count = "
+					+ Open_Jobs_Count_From_Overview);
+			System.out.println();
+
+		} else {
+
+			Report_Listen.log_print_in_report().log(Status.FAIL,
+					"<b>❌ Mismatch:</b> Reports overview Open Jobs count is not matching with Jobs module Active Jobs count. Reports Overview Open Jobs = "
+							+ Open_Jobs_Count_From_Overview
+							+ " | Jobs Module Active Jobs = "
+							+ Active_Jobs_Count_From_Job_List);
+			System.out.println("❌ Mismatch: Reports overview Open Jobs count is not matching with Jobs module Active Jobs count.");
+			System.out.println("Reports Overview Open Jobs = " + Open_Jobs_Count_From_Overview);
+			System.out.println("Jobs Module Active Jobs = " + Active_Jobs_Count_From_Job_List);
+			System.out.println();
+		}
+
+		softAssert.assertEquals(
+				Active_Jobs_Count_From_Job_List,
+				Open_Jobs_Count_From_Overview,
+				"Open Jobs count mismatch. Reports overview Open Jobs = "
+						+ Open_Jobs_Count_From_Overview
+						+ " but Jobs module Active Jobs = "
+						+ Active_Jobs_Count_From_Job_List);
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>📌 Final Status:</b> Reports overview Open Jobs count validation completed against Jobs module Active Jobs count. Soft assertion result will be reported at the end.");
+		System.out.println("📌 Final Status: Reports overview Open Jobs count validation completed against Jobs module Active Jobs count. Soft assertion result will be reported at the end.");
+		System.out.println();
+
+		softAssert.assertAll();
 	}
 	
 	

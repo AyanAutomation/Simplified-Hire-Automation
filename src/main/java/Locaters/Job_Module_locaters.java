@@ -102,9 +102,9 @@ public class Job_Module_locaters extends Repeat{
 	@FindBy(xpath="//*[text()='Owner']") 
 	private WebElement Landed_on_create_job_page; 
 	@FindBy(xpath="//div[contains(@class,'filter-block')]//form")
-	private WebElement job_filter_section;/*
-	@FindBy(xpath="")
-	private WebElement  ;
+	private WebElement job_filter_section;
+	@FindBy(xpath="//div[contains(@class,'ant-select-dropdown-placement-bottomRight')]")
+	private WebElement status_dropdown_list;/*
 	@FindBy(xpath="")
 	private WebElement  ;
 	@FindBy(xpath="")
@@ -378,10 +378,10 @@ public class Job_Module_locaters extends Repeat{
 	public List<WebElement> All_filters(){
 	List<WebElement> All_filters = job_filter_section().findElements(By.xpath(".//div[contains(@class,'ant-select-in-form-item')]"));
 	wait_for_theElement(All_filters);
-	return All_filters;}/*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return All_filters;}
+	public WebElement status_dropdown_list(){
+	wait_for_theElement(status_dropdown_list);
+	return status_dropdown_list;}/*
 	public WebElement (){
 	wait_for_theElement();
 	return ;} 

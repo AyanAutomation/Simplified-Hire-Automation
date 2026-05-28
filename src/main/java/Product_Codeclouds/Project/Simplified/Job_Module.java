@@ -22,6 +22,7 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 
 import Listerners.Report_Listen;
+import Locaters.Candidate_Module_Locaters;
 import Locaters.Job_Module_locaters;
 import Repeatative_codes.Repeat;
 
@@ -55,16 +56,135 @@ public class Job_Module extends Candidate_module{
 	return Job_Button;
 }
 	
-	@Test
-	public void Active_Job_count_fetcher() throws IOException, InterruptedException{
-		
-		
+
+	public String Active_Job_count_fetcher() throws IOException, InterruptedException {
+
+		int step = 1;
+
 		Job_Module_locaters p = new Job_Module_locaters(d);
-		
+		Candidate_Module_Locaters cp = new Candidate_Module_Locaters(d);
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🔹 Scenario Title:</b> Fetch total Active Jobs count from Jobs module");
+		System.out.println();
+		System.out.println("🔹 Scenario Title: Fetch total Active Jobs count from Jobs module");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>📘 Description:</b> Open the Jobs module, apply the Status filter with Active option, validate the filter selection confirmation, change pagination to 50, open the exact count section, and fetch the total active jobs count from pagination text.");
+		System.out.println("📘 Description: Open the Jobs module, apply the Status filter with Active option, validate the filter selection confirmation, change pagination to 50, open the exact count section, and fetch the total active jobs count from pagination text.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>📥 Input:</b> Status Filter Value = Active | Pagination Value = 50");
+		System.out.println("📥 Input: Status Filter Value = Active | Pagination Value = 50");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>✅ Expected:</b> Jobs module should open successfully, Active status filter should be applied with visible confirmation, pagination should change to 50, exact count view should open successfully, and the total active jobs count should be fetched and returned.");
+		System.out.println("✅ Expected: Jobs module should open successfully, Active status filter should be applied with visible confirmation, pagination should change to 50, exact count view should open successfully, and the total active jobs count should be fetched and returned.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Open the Jobs module list page.");
+		System.out.println("Step " + (step - 1) + ": Open the Jobs module list page.");
+		System.out.println();
+
 		Access_Job_Module_List();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Jobs module list page opened successfully.");
+		System.out.println("🟨 Actual: Jobs module list page opened successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Fetch all available filters and open the Status filter.");
+		System.out.println("Step " + (step - 1) + ": Fetch all available filters and open the Status filter.");
+		System.out.println();
+
 		List<WebElement> Filters = p.All_filters();
-		
-		
+		WebElement Status_Filter = Filters.get(4);
+		Status_Filter.click();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> All filters fetched successfully. Total filters found = " + Filters.size()
+						+ " | Status filter clicked successfully.");
+		System.out.println("🟨 Actual: All filters fetched successfully. Total filters found = " + Filters.size()
+				+ " | Status filter clicked successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Select Active option from the Status filter dropdown.");
+		System.out.println("Step " + (step - 1) + ": Select Active option from the Status filter dropdown.");
+		System.out.println();
+
+		WebElement all_Status_filter_dropdown = p.status_dropdown_list();
+		all_Status_filter_dropdown.findElements(
+				By.xpath(".//div[contains(@class,'ant-select-item') and contains(@class,'ant-select-item-option')]"))
+				.stream()
+				.filter(stage -> stage.getText().trim().contains("Active"))
+				.findFirst()
+				.orElseThrow(() -> new NoSuchElementException("Active option not found"))
+				.findElement(By.xpath(".//div[contains(@class,'ant-select-item-option-content')]"))
+				.click();
+
+		Status_Filter.click();
+		Thread.sleep(800);
+
+		WebElement all_filter_selected_confirmation = Status_Filter
+				.findElement(By.xpath(".//span[contains(@title,'1 Selected')]"));
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Active option selected successfully and confirmation was displayed = "
+						+ all_filter_selected_confirmation.getText().trim());
+		System.out.println("🟨 Actual: Active option selected successfully and confirmation was displayed = "
+				+ all_filter_selected_confirmation.getText().trim());
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Change pagination value to 50.");
+		System.out.println("Step " + (step - 1) + ": Change pagination value to 50.");
+		System.out.println();
+
+		pagination_changer("50");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Pagination changed successfully to 50.");
+		System.out.println("🟨 Actual: Pagination changed successfully to 50.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Open the exact count section for filtered jobs.");
+		System.out.println("Step " + (step - 1) + ": Open the exact count section for filtered jobs.");
+		System.out.println();
+
+		cp.Exact_count_icon().click();
+		Thread.sleep(800);
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Exact count section opened successfully.");
+		System.out.println("🟨 Actual: Exact count section opened successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Fetch the total active jobs count from pagination count text.");
+		System.out.println("Step " + (step - 1) + ": Fetch the total active jobs count from pagination count text.");
+		System.out.println();
+
+		List<WebElement> Job_count = cp.pagination_count_text();
+		String Job_count_text = Job_count.get(1).getText().trim();
+
+		Report_Listen.log_print_in_report().log(Status.PASS,
+				"<b>🟨 Actual:</b> Total Active Jobs count fetched successfully from pagination = " + Job_count_text);
+		System.out.println("🟨 Actual: Total Active Jobs count fetched successfully from pagination = " + Job_count_text);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>📌 Final Status:</b> Active Jobs count fetch flow completed successfully.");
+		System.out.println("📌 Final Status: Active Jobs count fetch flow completed successfully.");
+		System.out.println();
+
+		return Job_count_text;
 	}
 	
 	@Test(dataProvider = "Job_Posting_Data")
