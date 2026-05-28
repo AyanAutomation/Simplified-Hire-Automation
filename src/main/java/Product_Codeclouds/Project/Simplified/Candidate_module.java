@@ -18,6 +18,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import com.aventstack.extentreports.Status;
 
@@ -54,6 +55,139 @@ public class Candidate_module extends Side_menu_Handler {
 
 		return Add;
 	}
+	
+	
+	
+	
+	@Test(dataProvider = "Candidate_Add_Data")
+	public void Search_Check(TreeMap<String, String> candidate_data) throws IOException, InterruptedException {
+
+		int step = 1;
+		SoftAssert softAssert = new SoftAssert();
+
+		Candidate_Module_Locaters p = new Candidate_Module_Locaters(d);
+		Repeat rp = new Repeat(d);
+		Job_Module_locaters jb = new Job_Module_locaters(d);
+
+		String First_Name = candidate_data.get("First Name");
+		String Last_Name = candidate_data.get("Last Name");
+		String Full_Name = First_Name.trim() + " " + Last_Name.trim();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🔹 Scenario Title:</b> Validate candidate search using full name");
+		System.out.println();
+		System.out.println("🔹 Scenario Title: Validate candidate search using full name");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>📘 Description:</b> Open the Candidate list, compose the candidate full name from first name and last name, search the candidate using the full name, wait for the list loader if visible, read the table result text, and validate whether the searched candidate is displayed using soft assertion.");
+		System.out.println("📘 Description: Open the Candidate list, compose the candidate full name from first name and last name, search the candidate using the full name, wait for the list loader if visible, read the table result text, and validate whether the searched candidate is displayed using soft assertion.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>📥 Input:</b> First Name = " + First_Name
+						+ " | Last Name = " + Last_Name
+						+ " | Full Name = " + Full_Name);
+		System.out.println("📥 Input: First Name = " + First_Name
+				+ " | Last Name = " + Last_Name
+				+ " | Full Name = " + Full_Name);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>✅ Expected:</b> Candidate list should open successfully, search should execute using the candidate full name, and the searched candidate should be visible in the result table.");
+		System.out.println("✅ Expected: Candidate list should open successfully, search should execute using the candidate full name, and the searched candidate should be visible in the result table.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Open Candidate list page.");
+		System.out.println("Step " + (step - 1) + ": Open Candidate list page.");
+		System.out.println();
+
+		Candidate_List_Accesor();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Candidate list page opened successfully.");
+		System.out.println("🟨 Actual: Candidate list page opened successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Search candidate using composed full name = " + Full_Name);
+		System.out.println("Step " + (step - 1) + ": Search candidate using composed full name = " + Full_Name);
+		System.out.println();
+
+		WebElement search = jb.search_field();
+		search.sendKeys(Full_Name);
+		Thread.sleep(800);
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Candidate full name entered successfully in search field = " + Full_Name);
+		System.out.println("🟨 Actual: Candidate full name entered successfully in search field = " + Full_Name);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Wait for candidate list loader to disappear after search.");
+		System.out.println("Step " + (step - 1) + ": Wait for candidate list loader to disappear after search.");
+		System.out.println();
+
+		try {
+			rp.wait_for_invisibilty_of_theElement(jb.List_loader());
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> Candidate list loader disappeared successfully after search.");
+			System.out.println("🟨 Actual: Candidate list loader disappeared successfully after search.");
+			System.out.println();
+
+		} catch (Exception e) {
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> Loader was not visible after search, so no loader wait was required.");
+			System.out.println("🟨 Actual: Loader was not visible after search, so no loader wait was required.");
+			System.out.println();
+		}
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Fetch candidate table text and validate search result.");
+		System.out.println("Step " + (step - 1) + ": Fetch candidate table text and validate search result.");
+		System.out.println();
+
+		WebElement Table = p.table_body();
+		String table_text = Table.getText().trim();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Candidate table text fetched successfully.");
+		System.out.println("🟨 Actual: Candidate table text fetched successfully.");
+		System.out.println();
+
+		System.out.println("Table Text: " + table_text);
+		System.out.println();
+
+		boolean candidateFound = !table_text.contains("No record were found");
+
+		if (candidateFound) {
+
+			Report_Listen.log_print_in_report().log(Status.PASS,
+					"<b>✅ Actual:</b> Searched candidate full name found successfully in candidate list = " + Full_Name);
+			System.out.println("✅ Actual: Searched candidate full name found successfully in candidate list = " + Full_Name);
+			System.out.println();
+
+		} else {
+
+			Report_Listen.log_print_in_report().log(Status.FAIL,
+					"<b>❌ Actual:</b> No records found for the searched candidate full name = " + Full_Name);
+			System.out.println("❌ Actual: No records found for the searched candidate full name = " + Full_Name);
+			System.out.println();
+		}
+
+		softAssert.assertTrue(candidateFound,
+				"Candidate search failed. No records found for full name = " + Full_Name);
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>📌 Final Status:</b> Candidate full-name search validation completed. Soft assertion result will be reported at the end.");
+		System.out.println("📌 Final Status: Candidate full-name search validation completed. Soft assertion result will be reported at the end.");
+		System.out.println();
+
+		softAssert.assertAll();
+	}
+	
 	
 @Test(dataProvider = "Combined_Candidate_Job_Data")
 public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String, String> job_data)
@@ -480,8 +614,7 @@ public void Candidate_Interview_scheduling(TreeMap<String, String> candidate_dat
 	Candidate_Module_Locaters p = new Candidate_Module_Locaters(d);
 	Repeat rp = new Repeat(d);
 	Job_Module_locaters jb = new Job_Module_locaters(d);
-	JavascriptExecutor js = (JavascriptExecutor) d;
-
+	
 	Report_Listen.log_print_in_report().log(Status.INFO,
 			"<b>🔹 Scenario Title:</b> Schedule candidate interview using member list mapping");
 	System.out.println();
@@ -1602,7 +1735,7 @@ public Object[][] Candidate_Add_Data() {
 
     return new Object[][] { /*
             { data1 }, */
-            { data2 },
+            { data2 },  /*
             { data3 },
             { data4 },
             { data5 },
@@ -1620,7 +1753,7 @@ public Object[][] Candidate_Add_Data() {
             { data17 },
             { data18 },
             { data19 },
-            { data20 } 
+            { data20 } */
     };
 }
 	

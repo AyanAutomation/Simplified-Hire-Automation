@@ -102,9 +102,9 @@ public class Candidate_Module_Locaters extends Repeat{
 	@FindBy(xpath="//*[text()=' Notify ']/..")
 	private WebElement notify_button;
 	@FindBy(xpath="//div[contains(@class,'ant-modal-body')]//*[contains(@class,'ant-picker-outlined')]/../../..")
-	private WebElement Date_picker_field;/*
-	@FindBy(xpath="")
-	private WebElement  ;
+	private WebElement Date_picker_field;
+	@FindBy(xpath="//tbody//tr//td")
+	private WebElement List_Table_Body;/*
 	@FindBy(xpath="")
 	private WebElement  ;
 	@FindBy(xpath="")
@@ -358,10 +358,10 @@ public class Candidate_Module_Locaters extends Repeat{
 	return Interview_Type_Dropdown;} 
 	public WebElement Dial_in_number_input(){
 	wait_for_theElement(Dial_in_number_input);
-	return Dial_in_number_input;}/*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return Dial_in_number_input;}
+	public WebElement List_Table_Body(){
+	wait_for_theElement(List_Table_Body);
+	return List_Table_Body;}/*
 	public WebElement (){
 	wait_for_theElement();
 	return ;} public WebElement (){
