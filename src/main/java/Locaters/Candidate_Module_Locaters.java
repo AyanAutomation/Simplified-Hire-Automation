@@ -25,7 +25,7 @@ public class Candidate_Module_Locaters extends Repeat{
     @FindBy(xpath="//*[contains(@class,'justify-content-between')]//button[1]")
 	private WebElement Add_Button; 
 	@FindBy(xpath="//div[contains(@class,'ant-modal-body')]")
-	private WebElement  Pop_up_form;
+	private WebElement Pop_up_form;
 	@FindBy(xpath="//div[contains(@class,'ant-modal-content')]//button[contains(@class,'ant-btn-primary')]")
 	private WebElement Modal_Save_Button; 
 	@FindBy(xpath="//div[contains(@class,'ant-modal-content')]//button[contains(@class,'ant-modal-close')]")
@@ -41,6 +41,8 @@ public class Candidate_Module_Locaters extends Repeat{
 	private WebElement source_input;
 	@FindBy(xpath="(//*[contains(@class,'rc-virtual-list-holder')])[1]")
 	private WebElement Owner_Dropdown;
+	@FindBy(xpath="(//*[contains(@class,'rc-virtual-list-holder')])[2]")
+	private WebElement Interview_Type_Dropdown;
 	@FindBy(xpath="(//*[contains(@class,'rc-virtual-list-holder')])[5]")
 	private WebElement Owner_Dropdown_backup;
 	@FindBy(xpath="(//*[contains(@class,'rc-virtual-list-holder')])[4]")
@@ -95,10 +97,12 @@ public class Candidate_Module_Locaters extends Repeat{
 	private WebElement Meeting_link_dropdown_Field;
 	@FindBy(id="interviewHost")
 	private WebElement interviewHost_input;
+	@FindBy(id="dialInNumber")
+	private WebElement Dial_in_number_input;
 	@FindBy(xpath="//*[text()=' Notify ']/..")
-	private WebElement notify_button;/*
-	@FindBy(xpath="")
-	private WebElement  ;
+	private WebElement notify_button;
+	@FindBy(xpath="//div[contains(@class,'ant-modal-body')]//*[contains(@class,'ant-picker-outlined')]/../../..")
+	private WebElement Date_picker_field;/*
 	@FindBy(xpath="")
 	private WebElement  ;
 	@FindBy(xpath="")
@@ -345,15 +349,16 @@ public class Candidate_Module_Locaters extends Repeat{
 	return interviewHost_input;} 
 	public WebElement notify_button(){
 	wait_for_theElement(notify_button);
-	return notify_button;}/*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return notify_button;}
+	public WebElement Date_picker_field(){
+	wait_for_theElement(Date_picker_field);
+	return Date_picker_field;}
+	public WebElement Interview_Type_Dropdown(){
+	wait_for_theElement(Interview_Type_Dropdown);
+	return Interview_Type_Dropdown;} 
+	public WebElement Dial_in_number_input(){
+	wait_for_theElement(Dial_in_number_input);
+	return Dial_in_number_input;}/*
 	public WebElement (){
 	wait_for_theElement();
 	return ;}

@@ -55,6 +55,18 @@ public class Job_Module extends Candidate_module{
 	return Job_Button;
 }
 	
+	@Test
+	public void Active_Job_count_fetcher() throws IOException, InterruptedException{
+		
+		
+		Job_Module_locaters p = new Job_Module_locaters(d);
+		
+		Access_Job_Module_List();
+		List<WebElement> Filters = p.All_filters();
+		
+		
+	}
+	
 	@Test(dataProvider = "Job_Posting_Data")
     public void Job_Add(TreeMap<String, String> job_data) throws IOException, InterruptedException, AWTException {
 

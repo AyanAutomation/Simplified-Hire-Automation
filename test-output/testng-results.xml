@@ -1,35 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="3" total="4" passed="0" failed="1" skipped="0">
+<testng-results ignored="5" total="6" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-05-13T17:51:20 IST" name="Default suite" finished-at="2026-05-13T17:53:56 IST" duration-ms="155838">
+  <suite started-at="2026-05-28T12:22:34 IST" name="Default suite" finished-at="2026-05-28T12:24:11 IST" duration-ms="97534">
     <groups>
     </groups>
-    <test started-at="2026-05-13T17:51:20 IST" name="Default test" finished-at="2026-05-13T17:53:56 IST" duration-ms="155838">
-      <class name="Product_Codeclouds.Project.Simplified.Candidate_module">
-        <test-method is-config="true" signature="setup()[pri:0, instance:Product_Codeclouds.Project.Simplified.Candidate_module@544fa968]" started-at="2026-05-13T17:51:20 IST" name="setup" finished-at="2026-05-13T17:51:22 IST" duration-ms="2031" status="PASS">
+    <test started-at="2026-05-28T12:22:34 IST" name="Default test" finished-at="2026-05-28T12:24:11 IST" duration-ms="97534">
+      <class name="Product_Codeclouds.Project.Simplified.Job_Module">
+        <test-method is-config="true" signature="setup()[pri:0, instance:Product_Codeclouds.Project.Simplified.Job_Module@7d20d0b]" started-at="2026-05-28T12:22:34 IST" name="setup" finished-at="2026-05-28T12:22:36 IST" duration-ms="1972" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="Candidate_Interview_scheduling(java.util.TreeMap)[pri:0, instance:Product_Codeclouds.Project.Simplified.Candidate_module@544fa968]" started-at="2026-05-13T17:51:22 IST" name="Candidate_Interview_scheduling" data-provider="Candidate_Add_Data" finished-at="2026-05-13T17:53:55 IST" duration-ms="153254" status="FAIL">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[{CV/Resume=, Country=India, Cover Letter=, Current Salary=1064000, Current Salary Currency=INR(₹), Current Salary Duration=Yearly, Education=, Email=reyaan.bhattacharjee2026cw@yopmail.com, Expected Salary=1349000, Expected Salary Currency=INR(₹), Expected Salary Duration=Yearly, First Name=Reyaan, Index=0, Last Name=Bhattacharjee, Notice Period=16, Notice Period Unit=Day(s), Owner=Admin Ayan Sengupta, Phone Code=+91, Phone Number=9123405011, Professional Profile Link=https://www.linkedin.com/in/reyaan-bhattacharjee-2026-cw, Recruiter=Admin Ayan Sengupta, Relevant Experience=3, Relevant Experience Unit=Year(s), Skills=, Source=Candidate Portal, State=Karnataka, Total Experience=4, Total Experience Unit=Year(s), Work Experience=}]]>
-              </value>
-            </param>
-          </params>
+        <test-method signature="Active_Job_count_fetcher()[pri:0, instance:Product_Codeclouds.Project.Simplified.Job_Module@7d20d0b]" started-at="2026-05-28T12:22:36 IST" name="Active_Job_count_fetcher" finished-at="2026-05-28T12:24:11 IST" duration-ms="95496" status="FAIL">
           <exception class="org.openqa.selenium.TimeoutException">
             <message>
-              <![CDATA[Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator 'By.xpath: //div[contains(@class,'ant-notification-notice') and contains(@class,'ant-notification-notice-success')]' (tried for 10 second(s) with 500 milliseconds interval)]]>
+              <![CDATA[Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator 'By.xpath: //*[contains(@class,'title-row')]//*[text()='Dashboard']' (tried for 10 second(s) with 500 milliseconds interval)]]>
             </message>
             <full-stacktrace>
-              <![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator 'By.xpath: //div[contains(@class,'ant-notification-notice') and contains(@class,'ant-notification-notice-success')]' (tried for 10 second(s) with 500 milliseconds interval)
+              <![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator 'By.xpath: //*[contains(@class,'title-row')]//*[text()='Dashboard']' (tried for 10 second(s) with 500 milliseconds interval)
 at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
 at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
 at Repeatative_codes.Repeat.wait_for_theElement(Repeat.java:31)
-at Locaters.Candidate_Module_Locaters.Success_Toast_Message(Candidate_Module_Locaters.java:254)
-at Product_Codeclouds.Project.Simplified.Candidate_module.Candidate_Interview_scheduling(Candidate_module.java:529)
+at Locaters.Simplified_portal_locaters.Landed_in_Dashboard(Simplified_portal_locaters.java:34)
+at Product_Codeclouds.Project.Simplified.Simplified_hire_login.Simplified_Hire_Accessor(Simplified_hire_login.java:143)
+at Product_Codeclouds.Project.Simplified.Side_menu_Handler.Menu_option_selector(Side_menu_Handler.java:49)
+at Product_Codeclouds.Project.Simplified.Job_Module.Access_Job_Module_List(Job_Module.java:46)
+at Product_Codeclouds.Project.Simplified.Job_Module.Active_Job_count_fetcher(Job_Module.java:64)
 at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
@@ -56,15 +52,15 @@ at org.testng.TestNG.run(TestNG.java:1079)
 at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
 at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
 at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
-Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//div[contains(@class,'ant-notification-notice') and contains(@class,'ant-notification-notice-success')]"}
-  (Session info: chrome=148.0.7778.97)
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//*[contains(@class,'title-row')]//*[text()='Dashboard']"}
+  (Session info: chrome=148.0.7778.179)
 For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
 Build info: version: '4.33.0', revision: '2c6aaad03a'
 System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.9'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [46a2a4951357ec1d801457b54f97ac80, findElement {using=xpath, value=//div[contains(@class,'ant-notification-notice') and contains(@class,'ant-notification-notice-success')]}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 148.0.7778.97, chrome: {chromedriverVersion: 148.0.7778.167 (65db666ac2c..., userDataDir: C:\Users\CODECL~1\AppData\L...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:63206}, goog:processID: 16608, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:63206/devtoo..., se:cdpVersion: 148.0.7778.97, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: 46a2a4951357ec1d801457b54f97ac80
+Command: [f0a152002ba9e4588f8e39684712d647, findElement {using=xpath, value=//*[contains(@class,'title-row')]//*[text()='Dashboard']}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 148.0.7778.179, chrome: {chromedriverVersion: 148.0.7778.178 (d096af1c9e9..., userDataDir: C:\Users\CODECL~1\AppData\L...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:50955}, goog:processID: 9976, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:50955/devtoo..., se:cdpVersion: 148.0.7778.179, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: f0a152002ba9e4588f8e39684712d647
 at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
 at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
 at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
@@ -86,18 +82,18 @@ at org.openqa.selenium.support.ui.ExpectedConditions.elementIfVisible(ExpectedCo
 at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:290)
 at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:287)
 at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
-... 29 more
+... 32 more
 ]]>
             </full-stacktrace>
           </exception> <!-- org.openqa.selenium.TimeoutException -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- Candidate_Interview_scheduling -->
-        <test-method is-config="true" signature="Kill()[pri:0, instance:Product_Codeclouds.Project.Simplified.Candidate_module@544fa968]" started-at="2026-05-13T17:53:55 IST" name="Kill" finished-at="2026-05-13T17:53:56 IST" duration-ms="473" status="PASS">
+        </test-method> <!-- Active_Job_count_fetcher -->
+        <test-method is-config="true" signature="Kill()[pri:0, instance:Product_Codeclouds.Project.Simplified.Job_Module@7d20d0b]" started-at="2026-05-28T12:24:11 IST" name="Kill" finished-at="2026-05-28T12:24:11 IST" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Kill -->
-      </class> <!-- Product_Codeclouds.Project.Simplified.Candidate_module -->
+      </class> <!-- Product_Codeclouds.Project.Simplified.Job_Module -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

@@ -50,7 +50,7 @@ public void Simplified_Hire_Accessor() throws IOException, InterruptedException 
 		System.out.println();
 
 		login();
-		check_for_payment_pop_up();
+	//	check_for_payment_pop_up();
 		Report_Listen.log_print_in_report().log(Status.PASS,
 				"<b>🟨 Actual:</b> Login flow executed successfully and user entered the company portal.");
 		System.out.println("🟨 Actual: Login flow executed successfully and user entered the company portal.");

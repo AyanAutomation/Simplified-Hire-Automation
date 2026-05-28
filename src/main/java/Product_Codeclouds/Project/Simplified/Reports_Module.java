@@ -22,7 +22,7 @@ import Repeatative_codes.Repeat;
 
 public class Reports_Module extends Candidate_module{
 	
-	TreeMap<String, String> Overview_Cards_Data = new TreeMap<String, String>();
+	
 	
 	public WebElement reports_module_Accessor() throws IOException, InterruptedException {
 
@@ -48,13 +48,11 @@ public class Reports_Module extends Candidate_module{
 	
 	
 	
-	@Test
+	    @Test
 		public void overview_section_Data_Consistency_checking() throws IOException, InterruptedException, AWTException {
 
 		Report_Module_Locaters p = new Report_Module_Locaters(d);
-		Candidate_Module_Locaters cp = new Candidate_Module_Locaters(d);
-		Repeat rp = new Repeat(d);
-		Robot r = new Robot();
+		
 
 		int step = 1;
 
@@ -84,7 +82,7 @@ public class Reports_Module extends Candidate_module{
 		System.out.println("Step " + (step - 1) + ": Clear previously stored overview card data.");
 		System.out.println();
 
-		Overview_Cards_Data.clear();
+		
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
 				"<b>🟨 Actual:</b> Previously stored overview card data cleared successfully.");
@@ -152,82 +150,6 @@ public class Reports_Module extends Candidate_module{
 		System.out.println();
 
 		side_menu_expander();
-		Candidate_List_Accesor();
-
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>🟨 Actual:</b> Candidate list page accessed successfully after overview data capture.");
-		System.out.println("🟨 Actual: Candidate list page accessed successfully after overview data capture.");
-		System.out.println();
-
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>Step " + (step++) + ":</b> Open All Stage filter and select All Stages option.");
-		System.out.println("Step " + (step - 1) + ": Open All Stage filter and select All Stages option.");
-		System.out.println();
-
-		List<WebElement> candidate_Filters = cp.Candidate_List_Filter_Dropdowns();
-		WebElement all_stage_filter = candidate_Filters.get(3);
-
-		r.mouseWheel(-25);
-		rp.movetoelement(all_stage_filter);
-		all_stage_filter.click();
-
-		WebElement all_stage_filter_dropdown = cp.stages_Dropdown();
-		all_stage_filter_dropdown.findElements(
-				By.xpath(".//div[contains(@class,'ant-select-item') and contains(@class,'ant-select-item-option')]"))
-				.stream()
-				.filter(stage -> stage.getAttribute("title").trim().contains("All Stages"))
-				.findFirst()
-				.orElseThrow(() -> new NoSuchElementException("All Stages option not found"))
-				.findElement(By.xpath(".//div[contains(@class,'ant-select-item-option-content')]"))
-				.click();
-
-		all_stage_filter.click();
-		Thread.sleep(800);
-
-		WebElement all_filter_selected_confirmation = all_stage_filter
-				.findElement(By.xpath(".//span[contains(@title,'5 Selected')]"));
-
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>🟨 Actual:</b> All Stages option selected successfully and multi-selection confirmation was displayed = "
-						+ all_filter_selected_confirmation.getText().trim());
-		System.out.println("🟨 Actual: All Stages option selected successfully and multi-selection confirmation was displayed = "
-				+ all_filter_selected_confirmation.getText().trim());
-		System.out.println();
-
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>Step " + (step++) + ":</b> Change candidate list pagination to 100 and open exact count details.");
-		System.out.println("Step " + (step - 1) + ": Change candidate list pagination to 100 and open exact count details.");
-		System.out.println();
-
-		pagination_changer("100");
-		cp.Exact_count_icon().click();
-		Thread.sleep(800);
-
-		List<WebElement> candidates_count = cp.pagination_count_text();
-
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>🟨 Actual:</b> Candidate exact count values fetched successfully. Total count text elements found = "
-						+ candidates_count.size());
-		System.out.println("🟨 Actual: Candidate exact count values fetched successfully. Total count text elements found = "
-				+ candidates_count.size());
-		System.out.println();
-
-		candidates_count.stream()
-				.map(count -> count.getText().trim())
-				.forEach(countText -> {
-					Report_Listen.log_print_in_report().log(Status.INFO,
-							"<b>🟨 Actual:</b> Candidate count confirmation text = " + countText);
-					System.out.println("Candidates count confirmation text: " + countText);
-				});
-
-		Report_Listen.log_print_in_report().log(Status.PASS,
-				"<b>📌 Final Status:</b> Overview section data captured successfully and candidate count verification flow completed. Total overview entries stored = "
-						+ Overview_Cards_Data.size());
-		System.out.println();
-		System.out.println(
-				"📌 Final Status: Overview section data captured successfully and candidate count verification flow completed. Total overview entries stored = "
-						+ Overview_Cards_Data.size());
-		System.out.println();
 	}
 	
 	

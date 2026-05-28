@@ -100,9 +100,9 @@ public class Job_Module_locaters extends Repeat{
 	private WebElement Result_card_heading;
     private By questionfields = By.xpath("//div[@class='border rounded p-20 pl-24 pr-24 accordion-bg']"); 
 	@FindBy(xpath="//*[text()='Owner']") 
-	private WebElement Landed_on_create_job_page; /*
-	@FindBy(xpath="")
-	private WebElement  ;
+	private WebElement Landed_on_create_job_page; 
+	@FindBy(xpath="//div[contains(@class,'filter-block')]//form")
+	private WebElement job_filter_section;/*
 	@FindBy(xpath="")
 	private WebElement  ;
 	@FindBy(xpath="")
@@ -371,26 +371,21 @@ public class Job_Module_locaters extends Repeat{
 	return Result_card_heading;}
 	public WebElement Landed_on_create_job_page(){
 	wait_for_theElement(Landed_on_create_job_page);
-	return Landed_on_create_job_page;} /*
-	public WebElement (){ 
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return Landed_on_create_job_page;} 
+	public WebElement job_filter_section(){ 
+	wait_for_theElement(job_filter_section);
+	return job_filter_section;} 
+	public List<WebElement> All_filters(){
+	List<WebElement> All_filters = job_filter_section().findElements(By.xpath(".//div[contains(@class,'ant-select-in-form-item')]"));
+	wait_for_theElement(All_filters);
+	return All_filters;}/*
 	public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){
 	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return ;} 
 	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){
@@ -398,15 +393,8 @@ public class Job_Module_locaters extends Repeat{
 	return ;}
 	public WebElement (){
 	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return ;} 
 	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){
@@ -414,15 +402,8 @@ public class Job_Module_locaters extends Repeat{
 	return ;}
 	public WebElement (){
 	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return ;} 
 	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){
@@ -430,15 +411,26 @@ public class Job_Module_locaters extends Repeat{
 	return ;}
 	public WebElement (){
 	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return ;} 
 	public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){
 	wait_for_theElement();
-	return ;} public WebElement (){
+	return ;}
+	public WebElement (){
+	wait_for_theElement();
+	return ;} 
+	public WebElement (){
+	wait_for_theElement();
+	return ;}
+	public WebElement (){
+	wait_for_theElement();
+	return ;}
+	public WebElement (){
+	wait_for_theElement();
+	return ;} 
+	public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){
@@ -471,6 +463,23 @@ public class Job_Module_locaters extends Repeat{
 	public WebElement (){
 	wait_for_theElement();
 	return ;} public WebElement (){
+	wait_for_theElement();
+	return ;}
+	public WebElement (){
+	wait_for_theElement();
+	return ;}
+	public WebElement (){
+	wait_for_theElement();
+	return ;} public WebElement (){
+	wait_for_theElement();
+	return ;}
+	public WebElement (){
+	wait_for_theElement();
+	return ;}
+	public WebElement (){
+	wait_for_theElement();
+	return ;} 
+	public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){
