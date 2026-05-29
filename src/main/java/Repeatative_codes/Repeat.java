@@ -85,6 +85,9 @@ public class Repeat {
 			 JavascriptExecutor js = (JavascriptExecutor)d;
 			 js.executeScript("arguments[0].scrollIntoView(true);", element);}
 	
-	
+    public void Java_script_executor_CLICK(WebElement element){
+		 
+		 JavascriptExecutor js = (JavascriptExecutor)d;
+		 js.executeScript("arguments[0].click();", element);}
 	
 }

@@ -17,6 +17,7 @@ import org.testng.asserts.SoftAssert;
 import com.aventstack.extentreports.Status;
 
 import Listerners.Report_Listen;
+import Locaters.Calender_Module_Locaters;
 import Locaters.Candidate_Module_Locaters;
 import Locaters.Report_Module_Locaters;
 import Repeatative_codes.Repeat;
@@ -48,15 +49,12 @@ public class Reports_Module extends Job_Module{
 	}
 	
 	
-	
-	@Test
-	public void overview_section_Data_Consistency_checking() throws IOException, InterruptedException, AWTException {
-
+	public TreeMap<String,String> Overview_Tab_Data_collector(String Filter_Value,int step) throws IOException, InterruptedException {
+		
+		
+		
 		Report_Module_Locaters p = new Report_Module_Locaters(d);
-		SoftAssert softAssert = new SoftAssert();
-
-		int step = 1;
-
+		
 		Report_Listen.log_print_in_report().log(Status.INFO,
 				"<b>🔹 Scenario Title:</b> Validate Reports overview Open Jobs count against Jobs module Active Jobs count");
 		System.out.println();
@@ -95,7 +93,7 @@ public class Reports_Module extends Job_Module{
 		System.out.println("Step " + (step - 1) + ": Apply report filter option = This Month.");
 		System.out.println();
 
-		filter_option_selector("This Month");
+		filter_option_selector(Filter_Value);
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
 				"<b>🟨 Actual:</b> Report filter applied successfully = This Month.");
@@ -153,7 +151,23 @@ public class Reports_Module extends Job_Module{
 		System.out.println("🟨 Actual: Overview data map populated successfully. Total entries stored = "
 				+ Overview_Cards_Data.size());
 		System.out.println();
+		
+		return Overview_Cards_Data;
+		
+	}
+	
+	
+	
+	@Test
+	public void Open_Job_Count_of_Report_Check() throws IOException, InterruptedException, AWTException {
 
+		Report_Module_Locaters p = new Report_Module_Locaters(d);
+		SoftAssert softAssert = new SoftAssert();
+
+		int step = 1;
+
+
+        TreeMap<String,String> Report_job_Data=Overview_Tab_Data_collector("This Month", step);
 		Report_Listen.log_print_in_report().log(Status.INFO,
 				"<b>Step " + (step++) + ":</b> Expand side menu before switching from Reports module to Jobs module.");
 		System.out.println("Step " + (step - 1) + ": Expand side menu before switching from Reports module to Jobs module.");
@@ -185,7 +199,7 @@ public class Reports_Module extends Job_Module{
 		System.out.println("Step " + (step - 1) + ": Compare Reports overview Open Jobs count with Jobs module Active Jobs count using soft assertion.");
 		System.out.println();
 
-		String Open_Jobs_Count_From_Overview = Overview_Cards_Data.get("Open Jobs").trim();
+		String Open_Jobs_Count_From_Overview = Report_job_Data.get("Open Jobs").trim();
 		String Active_Jobs_Count_From_Job_List = Job_count_From_Job_List.trim();
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
@@ -234,6 +248,34 @@ public class Reports_Module extends Job_Module{
 	}
 	
 	
+	
+	
+	@Test
+	public void upcoming_interview_count_check() throws IOException, InterruptedException{
+		
+		
+		Calender_Module_Locaters p = new Calender_Module_Locaters(d);
+		Repeat rp = new Repeat(d);
+		
+		TreeMap<String,String> Reports_job_Data=Overview_Tab_Data_collector("This Month", 1);
+		
+		side_menu_expander();
+		Menu_option_selector("Calendar");
+		p.Landed_in_calender_module();
+		WebElement Filter_box =p.Calender_filter();
+	
+		rp.Java_script_executor_CLICK(Filter_box);
+		//Filter_box.click();
+		WebElement filter_dropdown = p.First_Dropdown_List();
+		filter_dropdown.findElements(
+				By.xpath(".//div[contains(@class,'ant-select-item') and contains(@class,'ant-select-item-option')]"))
+				.stream()
+				.filter(e -> e.getText().trim().equals("All Interviewers"))
+				.findFirst()
+				.orElseThrow(() -> new NoSuchElementException("Filter option not found: This Month"))
+				.click();
+		
+	}
 	
 	public void filter_option_selector(String option) throws IOException, InterruptedException {
 
