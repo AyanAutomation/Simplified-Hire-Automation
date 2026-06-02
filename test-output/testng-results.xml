@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="7" total="8" passed="0" failed="1" skipped="0">
+<testng-results ignored="6" total="8" passed="1" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-05-29T13:14:13 IST" name="Default suite" finished-at="2026-05-29T13:15:17 IST" duration-ms="64327">
+  <suite started-at="2026-06-02T11:58:59 IST" name="Reports Suite" finished-at="2026-06-02T12:00:21 IST" duration-ms="82152">
     <groups>
     </groups>
-    <test started-at="2026-05-29T13:14:13 IST" name="Default test" finished-at="2026-05-29T13:15:17 IST" duration-ms="64327">
+    <test started-at="2026-06-02T11:58:59 IST" name="Reports Overview Validation Test" finished-at="2026-06-02T12:00:21 IST" duration-ms="82152">
       <class name="Product_Codeclouds.Project.Simplified.Reports_Module">
-        <test-method is-config="true" signature="setup()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@37ceb1df]" started-at="2026-05-29T13:14:13 IST" name="setup" finished-at="2026-05-29T13:14:15 IST" duration-ms="2065" status="PASS">
+        <test-method is-config="true" signature="setup()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@37ceb1df]" started-at="2026-06-02T11:58:59 IST" name="setup" finished-at="2026-06-02T11:59:01 IST" duration-ms="2058" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="upcoming_interview_count_check()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@37ceb1df]" started-at="2026-05-29T13:14:15 IST" name="upcoming_interview_count_check" finished-at="2026-05-29T13:15:17 IST" duration-ms="62192" status="FAIL">
-          <exception class="org.openqa.selenium.TimeoutException">
+        <test-method signature="Open_Job_Count_of_Report_Check()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@37ceb1df]" started-at="2026-06-02T11:59:01 IST" name="Open_Job_Count_of_Report_Check" finished-at="2026-06-02T11:59:38 IST" duration-ms="37170" status="FAIL">
+          <exception class="java.lang.AssertionError">
             <message>
-              <![CDATA[Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator 'By.xpath: (//*[contains(@class,'rc-virtual-list')])[1]' (tried for 10 second(s) with 500 milliseconds interval)]]>
+              <![CDATA[The following asserts failed:
+Open Jobs count mismatch. Reports overview Open Jobs = 19 but Jobs module Active Jobs = 2 expected [19] but found [2]]]>
             </message>
             <full-stacktrace>
-              <![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator 'By.xpath: (//*[contains(@class,'rc-virtual-list')])[1]' (tried for 10 second(s) with 500 milliseconds interval)
-at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
-at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
-at Repeatative_codes.Repeat.wait_for_theElement(Repeat.java:31)
-at Locaters.Calender_Module_Locaters.First_Dropdown_List(Calender_Module_Locaters.java:139)
-at Product_Codeclouds.Project.Simplified.Reports_Module.upcoming_interview_count_check(Reports_Module.java:269)
+              <![CDATA[java.lang.AssertionError: The following asserts failed:
+Open Jobs count mismatch. Reports overview Open Jobs = 19 but Jobs module Active Jobs = 2 expected [19] but found [2]
+at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:46)
+at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:30)
+at Product_Codeclouds.Project.Simplified.Reports_Module.Open_Job_Count_of_Report_Check(Reports_Module.java:251)
 at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
@@ -49,48 +49,29 @@ at org.testng.TestNG.run(TestNG.java:1079)
 at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
 at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
 at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
-Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"(//*[contains(@class,'rc-virtual-list')])[1]"}
-  (Session info: chrome=148.0.7778.181)
-For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
-Build info: version: '4.33.0', revision: '2c6aaad03a'
-System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.9'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [dfddb3d6fc196915ddf665a24846f37d, findElement {using=xpath, value=(//*[contains(@class,'rc-virtual-list')])[1]}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 148.0.7778.181, chrome: {chromedriverVersion: 148.0.7778.178 (d096af1c9e9..., userDataDir: C:\Users\CODECL~1\AppData\L...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:60495}, goog:processID: 2616, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:60495/devtoo..., se:cdpVersion: 148.0.7778.181, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: dfddb3d6fc196915ddf665a24846f37d
-at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
-at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
-at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
-at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
-at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
-at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215)
-at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
-at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
-at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:544)
-at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:165)
-at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
-at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:367)
-at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:361)
-at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:68)
-at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
-at jdk.proxy2/jdk.proxy2.$Proxy17.isDisplayed(Unknown Source)
-at org.openqa.selenium.support.ui.ExpectedConditions.elementIfVisible(ExpectedConditions.java:304)
-at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:290)
-at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:287)
-at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
-... 29 more
 ]]>
             </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.TimeoutException -->
+          </exception> <!-- java.lang.AssertionError -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Open_Job_Count_of_Report_Check -->
+        <test-method is-config="true" signature="Kill()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@37ceb1df]" started-at="2026-06-02T11:59:39 IST" name="Kill" finished-at="2026-06-02T11:59:39 IST" duration-ms="421" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Kill -->
+        <test-method is-config="true" signature="setup()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@37ceb1df]" started-at="2026-06-02T11:59:39 IST" name="setup" finished-at="2026-06-02T11:59:40 IST" duration-ms="870" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="upcoming_interview_count_check()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@37ceb1df]" started-at="2026-06-02T11:59:40 IST" name="upcoming_interview_count_check" finished-at="2026-06-02T12:00:21 IST" duration-ms="40970" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- upcoming_interview_count_check -->
-        <test-method is-config="true" signature="Kill()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@37ceb1df]" started-at="2026-05-29T13:15:17 IST" name="Kill" finished-at="2026-05-29T13:15:17 IST" duration-ms="0" status="PASS">
+        <test-method is-config="true" signature="Kill()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@37ceb1df]" started-at="2026-06-02T12:00:21 IST" name="Kill" finished-at="2026-06-02T12:00:21 IST" duration-ms="429" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Kill -->
       </class> <!-- Product_Codeclouds.Project.Simplified.Reports_Module -->
-    </test> <!-- Default test -->
-  </suite> <!-- Default suite -->
+    </test> <!-- Reports Overview Validation Test -->
+  </suite> <!-- Reports Suite -->
 </testng-results>

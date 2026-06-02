@@ -89,5 +89,27 @@ public class Repeat {
 		 
 		 JavascriptExecutor js = (JavascriptExecutor)d;
 		 js.executeScript("arguments[0].click();", element);}
+    
+    public WebElement wait_for_element_to_be_clickable(WebElement element) {
+
+    	WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(10));
+    	return w.until(ExpectedConditions.elementToBeClickable(element));
+    }
 	
+    
+    
+    public void bring_target_above_blocking_element_and_click(WebElement Blocking_element, WebElement target_element) {
+
+    	JavascriptExecutor js = (JavascriptExecutor) d;
+
+    	js.executeScript("arguments[0].style.position='relative'; arguments[0].style.zIndex='1';", Blocking_element);
+
+    	js.executeScript("arguments[0].style.position='relative'; arguments[0].style.zIndex='999999';", target_element);
+
+    	movetoelement(target_element);
+
+    	wait_for_element_to_be_clickable(target_element);
+
+    	target_element.click();
+    }
 }

@@ -3,11 +3,15 @@ package Product_Codeclouds.Project.Simplified;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.TreeMap;
 import java.util.stream.IntStream;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -250,32 +254,200 @@ public class Reports_Module extends Job_Module{
 	
 	
 	
-	@Test
-	public void upcoming_interview_count_check() throws IOException, InterruptedException{
-		
-		
-		Calender_Module_Locaters p = new Calender_Module_Locaters(d);
-		Repeat rp = new Repeat(d);
-		
-		TreeMap<String,String> Reports_job_Data=Overview_Tab_Data_collector("This Month", 1);
-		
-		side_menu_expander();
-		Menu_option_selector("Calendar");
-		p.Landed_in_calender_module();
-		WebElement Filter_box =p.Calender_filter();
-	
-		rp.Java_script_executor_CLICK(Filter_box);
-		//Filter_box.click();
-		WebElement filter_dropdown = p.First_Dropdown_List();
-		filter_dropdown.findElements(
-				By.xpath(".//div[contains(@class,'ant-select-item') and contains(@class,'ant-select-item-option')]"))
-				.stream()
-				.filter(e -> e.getText().trim().equals("All Interviewers"))
-				.findFirst()
-				.orElseThrow(() -> new NoSuchElementException("Filter option not found: This Month"))
-				.click();
-		
+@Test
+public void upcoming_interview_count_check() throws IOException, InterruptedException {
+
+	int step = 1;
+
+	Calender_Module_Locaters p = new Calender_Module_Locaters(d);
+	Repeat rp = new Repeat(d);
+
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd h:mm a", Locale.ENGLISH);
+	LocalDateTime Current_Date_Time = LocalDateTime.now();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🔹 Scenario Title:</b> Validate Reports Upcoming Interviews count with Calendar upcoming events");
+	System.out.println();
+	System.out.println("🔹 Scenario Title: Validate Reports Upcoming Interviews count with Calendar upcoming events");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>📘 Description:</b> Capture Reports overview data, open Calendar, apply All Interviewers filter, count only future Calendar interview events, and compare it with Reports Upcoming Interviews count.");
+	System.out.println("📘 Description: Capture Reports overview data, open Calendar, apply All Interviewers filter, count only future Calendar interview events, and compare it with Reports Upcoming Interviews count.");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Capture Reports overview data for filter = This Month.");
+	System.out.println("Step " + (step - 1) + ": Capture Reports overview data for filter = This Month.");
+	System.out.println();
+
+	TreeMap<String, String> Reports_job_Data = Overview_Tab_Data_collector("This Month", 1);
+
+	String Upcoming_Interviews_Count_From_Reports = Reports_job_Data.get("Upcoming Interviews").trim();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Reports Upcoming Interviews count captured = "
+					+ Upcoming_Interviews_Count_From_Reports);
+	System.out.println("🟨 Actual: Reports Upcoming Interviews count captured = "
+			+ Upcoming_Interviews_Count_From_Reports);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Navigate to Calendar module.");
+	System.out.println("Step " + (step - 1) + ": Navigate to Calendar module.");
+	System.out.println();
+
+	side_menu_expander();
+	Menu_option_selector("Calendar");
+	p.Landed_in_calender_module();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Calendar module opened successfully.");
+	System.out.println("🟨 Actual: Calendar module opened successfully.");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Open Calendar interviewer filter and select All Interviewers.");
+	System.out.println("Step " + (step - 1) + ": Open Calendar interviewer filter and select All Interviewers.");
+	System.out.println();
+
+	WebElement Filter_box = p.Calender_filter();
+	WebElement Blocking_element = p.Intercepting_Element();
+
+	rp.bring_target_above_blocking_element_and_click(Blocking_element, Filter_box);
+	Thread.sleep(800);
+
+	WebElement filter_dropdown = p.First_Dropdown_List();
+
+	filter_dropdown.findElements(
+			By.xpath(".//div[contains(@class,'ant-select-item') and contains(@class,'ant-select-item-option')]"))
+			.stream()
+			.filter(e -> e.getText().trim().equals("All Interviewers"))
+			.findFirst()
+			.orElseThrow(() -> new NoSuchElementException("Filter option not found: All Interviewers"))
+			.click();
+
+	rp.wait_for_invisibilty_of_theElement(filter_dropdown);
+	Thread.sleep(500);
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Calendar filter option selected successfully = All Interviewers.");
+	System.out.println("🟨 Actual: Calendar filter option selected successfully = All Interviewers.");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Fetch Calendar event cards and count only future interviews.");
+	System.out.println("Step " + (step - 1) + ": Fetch Calendar event cards and count only future interviews.");
+	System.out.println();
+
+	List<WebElement> Calender_Event_Cards = p.Calender_event_card();
+
+	long Upcoming_Calendar_Interview_Count = Calender_Event_Cards.stream().filter(card -> {
+
+		String card_text = card.getText().trim();
+
+		try {
+
+			rp.movetoelement(card);
+
+			WebElement Popup = p.Popover();
+
+			String Date_Time_Text = Popup.findElements(
+					By.xpath(".//div[contains(@class,'ant-col ant-col-12 mb-20')]"))
+					.stream()
+					.map(e -> e.getText().trim())
+					.filter(text -> text.contains("Date / Time"))
+					.findFirst()
+					.orElse("");
+
+			if (Date_Time_Text.isEmpty()) {
+
+				Report_Listen.log_print_in_report().log(Status.WARNING,
+						"<b>⚠ Skipped:</b> Date / Time not found for Calendar event = " + card_text);
+				System.out.println("⚠ Skipped: Date / Time not found for Calendar event = " + card_text);
+				System.out.println();
+
+				return false;
+			}
+
+			String[] date_time_lines = Date_Time_Text.split("\\R");
+
+			String interview_date = date_time_lines[1].trim();
+			String interview_start_time = date_time_lines[2].split("-")[0].trim().toUpperCase(Locale.ENGLISH);
+
+			LocalDateTime Interview_Date_Time = LocalDateTime.parse(
+					interview_date + " " + interview_start_time,
+					formatter);
+
+			boolean isUpcoming = Interview_Date_Time.isAfter(Current_Date_Time);
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					(isUpcoming ? "<b>✅ Counted:</b> " : "<b>⏭ Skipped:</b> ")
+							+ card_text + " | Interview Date/Time = " + Interview_Date_Time);
+
+			System.out.println((isUpcoming ? "✅ Counted: " : "⏭ Skipped: ")
+					+ card_text + " | Interview Date/Time = " + Interview_Date_Time);
+			System.out.println();
+
+			return isUpcoming;
+
+		} catch (Exception e) {
+
+			Report_Listen.log_print_in_report().log(Status.WARNING,
+					"<b>⚠ Skipped:</b> Unable to parse Calendar event date/time for card = "
+							+ card_text + " | Reason = " + e.getMessage());
+			System.out.println("⚠ Skipped: Unable to parse Calendar event date/time for card = "
+					+ card_text + " | Reason = " + e.getMessage());
+			System.out.println();
+
+			return false;
+		}
+
+	}).count();
+
+	String Upcoming_Interviews_Count_From_Calendar = String.valueOf(Upcoming_Calendar_Interview_Count);
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Compare Reports Upcoming Interviews count with Calendar upcoming interview count.");
+	System.out.println("Step " + (step - 1) + ": Compare Reports Upcoming Interviews count with Calendar upcoming interview count.");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Reports Upcoming Interviews = "
+					+ Upcoming_Interviews_Count_From_Reports
+					+ " | Calendar Upcoming Interviews = "
+					+ Upcoming_Interviews_Count_From_Calendar);
+	System.out.println("🟨 Actual: Reports Upcoming Interviews = "
+			+ Upcoming_Interviews_Count_From_Reports
+			+ " | Calendar Upcoming Interviews = "
+			+ Upcoming_Interviews_Count_From_Calendar);
+	System.out.println();
+
+	if (Upcoming_Interviews_Count_From_Reports.equals(Upcoming_Interviews_Count_From_Calendar)) {
+
+		Report_Listen.log_print_in_report().log(Status.PASS,
+				"<b>✅ Matched:</b> Reports Upcoming Interviews count matched with Calendar upcoming interview count.");
+		System.out.println("✅ Matched: Reports Upcoming Interviews count matched with Calendar upcoming interview count.");
+		System.out.println();
+
+	} else {
+
+		Report_Listen.log_print_in_report().log(Status.FAIL,
+				"<b>❌ Mismatch:</b> Reports Upcoming Interviews count did not match with Calendar upcoming interview count. Reports = "
+						+ Upcoming_Interviews_Count_From_Reports
+						+ " | Calendar = "
+						+ Upcoming_Interviews_Count_From_Calendar);
+		System.out.println("❌ Mismatch: Reports Upcoming Interviews count did not match with Calendar upcoming interview count.");
+		System.out.println("Reports = " + Upcoming_Interviews_Count_From_Reports);
+		System.out.println("Calendar = " + Upcoming_Interviews_Count_From_Calendar);
+		System.out.println();
 	}
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>📌 Final Status:</b> Upcoming Interviews validation completed and result logged in ExtentReport.");
+	System.out.println("📌 Final Status: Upcoming Interviews validation completed and result logged in ExtentReport.");
+	System.out.println();
+}
 	
 	public void filter_option_selector(String option) throws IOException, InterruptedException {
 

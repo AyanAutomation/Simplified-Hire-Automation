@@ -1,5 +1,13 @@
 package Listerners;
 
+import java.io.File;
+import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -54,6 +62,50 @@ public class Report_Listen extends Reports implements ITestListener {
 	public void onTestFailure(ITestResult result) {
 
 		log_report.get().log(Status.FAIL, result.getThrowable());
+
+		try {
+
+			Object testClassObject = result.getInstance();
+			Class<?> testClass = testClassObject.getClass();
+
+			Field driverField = null;
+
+			while (testClass != null) {
+
+				try {
+					driverField = testClass.getDeclaredField("d");
+					break;
+				} catch (NoSuchFieldException e) {
+					testClass = testClass.getSuperclass();
+				}
+			}
+
+			driverField.setAccessible(true);
+			WebDriver d = (WebDriver) driverField.get(testClassObject);
+
+			String timestamp = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(new Date());
+			String screenshotFolder = System.getProperty("user.dir") + File.separator + "Screenshot";
+
+			File folder = new File(screenshotFolder);
+
+			if (!folder.exists()) {
+				folder.mkdirs();
+			}
+
+			String screenshotPath = screenshotFolder + File.separator
+					+ result.getMethod().getMethodName() + "_" + timestamp + ".png";
+
+			File source = ((TakesScreenshot) d).getScreenshotAs(OutputType.FILE);
+			File destination = new File(screenshotPath);
+
+			source.renameTo(destination);
+
+			log_report.get().addScreenCaptureFromPath(screenshotPath);
+
+		} catch (Exception e) {
+
+			log_report.get().log(Status.WARNING, "Screenshot capture failed: " + e.getMessage());
+		}
 	}
 
 	@Override
