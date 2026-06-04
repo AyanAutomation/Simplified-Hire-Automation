@@ -266,14 +266,9 @@ public void upcoming_interview_count_check() throws IOException, InterruptedExce
 	LocalDateTime Current_Date_Time = LocalDateTime.now();
 
 	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🔹 Scenario Title:</b> Validate Reports Upcoming Interviews count with Calendar upcoming events");
+			"<b>🔹 Scenario Title:</b> Validate Reports Upcoming Interviews count with Calendar event cards");
 	System.out.println();
-	System.out.println("🔹 Scenario Title: Validate Reports Upcoming Interviews count with Calendar upcoming events");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>📘 Description:</b> Capture Reports overview data, open Calendar, apply All Interviewers filter, count only future Calendar interview events, and compare it with Reports Upcoming Interviews count.");
-	System.out.println("📘 Description: Capture Reports overview data, open Calendar, apply All Interviewers filter, count only future Calendar interview events, and compare it with Reports Upcoming Interviews count.");
+	System.out.println("🔹 Scenario Title: Validate Reports Upcoming Interviews count with Calendar event cards");
 	System.out.println();
 
 	Report_Listen.log_print_in_report().log(Status.INFO,
@@ -282,7 +277,6 @@ public void upcoming_interview_count_check() throws IOException, InterruptedExce
 	System.out.println();
 
 	TreeMap<String, String> Reports_job_Data = Overview_Tab_Data_collector("This Month", 1);
-
 	String Upcoming_Interviews_Count_From_Reports = Reports_job_Data.get("Upcoming Interviews").trim();
 
 	Report_Listen.log_print_in_report().log(Status.INFO,
@@ -293,26 +287,38 @@ public void upcoming_interview_count_check() throws IOException, InterruptedExce
 	System.out.println();
 
 	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Navigate to Calendar module.");
-	System.out.println("Step " + (step - 1) + ": Navigate to Calendar module.");
+			"<b>Step " + (step++) + ":</b> Navigate to Calendar module and apply All Interviewers filter.");
+	System.out.println("Step " + (step - 1) + ": Navigate to Calendar module and apply All Interviewers filter.");
 	System.out.println();
 
 	side_menu_expander();
 	Menu_option_selector("Calendar");
-	p.Landed_in_calender_module();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Calendar module opened successfully.");
-	System.out.println("🟨 Actual: Calendar module opened successfully.");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Open Calendar interviewer filter and select All Interviewers.");
-	System.out.println("Step " + (step - 1) + ": Open Calendar interviewer filter and select All Interviewers.");
-	System.out.println();
+    WebElement landing_confirmation_text=p.Landed_in_calender_module();
 
 	WebElement Filter_box = p.Calender_filter();
-	WebElement Blocking_element = p.Intercepting_Element();
+	WebElement Blocking_element;
+
+	try {
+
+		Blocking_element = p.Intercepting_Element();
+
+	} catch (Exception e){
+		
+		Report_Listen.log_print_in_report().log(Status.WARNING,
+				"<b>⚠ Retry:</b> Blocking/intercepting element was not fetched in first attempt. Refetching the Calendar locator object and trying again.");
+		System.out.println("⚠ Retry: Blocking/intercepting element was not fetched in first attempt. Refetching and trying again.");
+		System.out.println();
+
+		Thread.sleep(800);
+		
+		Blocking_element = p.Intercepting_Element();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Blocking/intercepting element fetched successfully after retry.");
+		System.out.println("🟨 Actual: Blocking/intercepting element fetched successfully after retry.");
+		System.out.println();
+		
+	}
 
 	rp.bring_target_above_blocking_element_and_click(Blocking_element, Filter_box);
 	Thread.sleep(800);
@@ -328,82 +334,94 @@ public void upcoming_interview_count_check() throws IOException, InterruptedExce
 			.click();
 
 	rp.wait_for_invisibilty_of_theElement(filter_dropdown);
-	Thread.sleep(500);
+	Thread.sleep(800);
 
 	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Calendar filter option selected successfully = All Interviewers.");
-	System.out.println("🟨 Actual: Calendar filter option selected successfully = All Interviewers.");
+			"<b>🟨 Actual:</b> Calendar module opened and All Interviewers filter selected successfully.");
+	System.out.println("🟨 Actual: Calendar module opened and All Interviewers filter selected successfully.");
 	System.out.println();
 
 	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Fetch Calendar event cards and count only future interviews.");
-	System.out.println("Step " + (step - 1) + ": Fetch Calendar event cards and count only future interviews.");
+			"<b>Step " + (step++) + ":</b> Fetch all visible Calendar event cards.");
+	System.out.println("Step " + (step - 1) + ": Fetch all visible Calendar event cards.");
 	System.out.println();
 
 	List<WebElement> Calender_Event_Cards = p.Calender_event_card();
 
-	long Upcoming_Calendar_Interview_Count = Calender_Event_Cards.stream().filter(card -> {
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Calendar event cards fetched successfully. Total visible cards found = "
+					+ Calender_Event_Cards.size());
+	System.out.println("🟨 Actual: Calendar event cards fetched successfully. Total visible cards found = "
+			+ Calender_Event_Cards.size());
+	System.out.println();
+
+	int Upcoming_Calendar_Interview_Count = 0;
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Visit each Calendar card, fetch popover Date / Time, and count only future interviews.");
+	System.out.println("Step " + (step - 1) + ": Visit each Calendar card, fetch popover Date / Time, and count only future interviews.");
+	System.out.println();
+
+	for (WebElement card : Calender_Event_Cards) {
 
 		String card_text = card.getText().trim();
 
-		try {
+		rp.movetoelement(card);
+		Thread.sleep(600);
 
-			rp.movetoelement(card);
+		WebElement Popup = p.Popover();
 
-			WebElement Popup = p.Popover();
+		String Date_Time_Text = Popup.findElements(
+				By.xpath(".//div[contains(@class,'ant-col ant-col-12 mb-20')]"))
+				.stream()
+				.map(e -> e.getText().trim())
+				.filter(text -> text.contains("Date / Time"))
+				.findFirst()
+				.orElse("");
 
-			String Date_Time_Text = Popup.findElements(
-					By.xpath(".//div[contains(@class,'ant-col ant-col-12 mb-20')]"))
-					.stream()
-					.map(e -> e.getText().trim())
-					.filter(text -> text.contains("Date / Time"))
-					.findFirst()
-					.orElse("");
-
-			if (Date_Time_Text.isEmpty()) {
-
-				Report_Listen.log_print_in_report().log(Status.WARNING,
-						"<b>⚠ Skipped:</b> Date / Time not found for Calendar event = " + card_text);
-				System.out.println("⚠ Skipped: Date / Time not found for Calendar event = " + card_text);
-				System.out.println();
-
-				return false;
-			}
-
-			String[] date_time_lines = Date_Time_Text.split("\\R");
-
-			String interview_date = date_time_lines[1].trim();
-			String interview_start_time = date_time_lines[2].split("-")[0].trim().toUpperCase(Locale.ENGLISH);
-
-			LocalDateTime Interview_Date_Time = LocalDateTime.parse(
-					interview_date + " " + interview_start_time,
-					formatter);
-
-			boolean isUpcoming = Interview_Date_Time.isAfter(Current_Date_Time);
-
-			Report_Listen.log_print_in_report().log(Status.INFO,
-					(isUpcoming ? "<b>✅ Counted:</b> " : "<b>⏭ Skipped:</b> ")
-							+ card_text + " | Interview Date/Time = " + Interview_Date_Time);
-
-			System.out.println((isUpcoming ? "✅ Counted: " : "⏭ Skipped: ")
-					+ card_text + " | Interview Date/Time = " + Interview_Date_Time);
-			System.out.println();
-
-			return isUpcoming;
-
-		} catch (Exception e) {
+		if (Date_Time_Text.equals("")) {
 
 			Report_Listen.log_print_in_report().log(Status.WARNING,
-					"<b>⚠ Skipped:</b> Unable to parse Calendar event date/time for card = "
-							+ card_text + " | Reason = " + e.getMessage());
-			System.out.println("⚠ Skipped: Unable to parse Calendar event date/time for card = "
-					+ card_text + " | Reason = " + e.getMessage());
+					"<b>⚠ Skipped:</b> Date / Time not found for Calendar card = " + card_text);
+			System.out.println("⚠ Skipped: Date / Time not found for Calendar card = " + card_text);
 			System.out.println();
 
-			return false;
+			continue;
 		}
 
-	}).count();
+		String[] date_time_lines = Date_Time_Text.split("\\R");
+
+		String interview_date = date_time_lines[1].trim();
+		String interview_start_time = date_time_lines[2].split("-")[0].trim().toUpperCase(Locale.ENGLISH);
+
+		LocalDateTime Interview_Date_Time = LocalDateTime.parse(
+				interview_date + " " + interview_start_time,
+				formatter);
+
+		if (Interview_Date_Time.isAfter(Current_Date_Time)) {
+
+			Upcoming_Calendar_Interview_Count++;
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>✅ Counted:</b> Upcoming Calendar interview = " + card_text
+							+ " | Date/Time = " + Interview_Date_Time);
+			System.out.println("✅ Counted: Upcoming Calendar interview = " + card_text
+					+ " | Date/Time = " + Interview_Date_Time);
+			System.out.println();
+
+		} else {
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>⏭ Skipped:</b> Past Calendar interview = " + card_text
+							+ " | Date/Time = " + Interview_Date_Time);
+			System.out.println("⏭ Skipped: Past Calendar interview = " + card_text
+					+ " | Date/Time = " + Interview_Date_Time);
+			System.out.println();
+		}
+		
+		rp.movetoelement(landing_confirmation_text);
+		Thread.sleep(400);
+	}
 
 	String Upcoming_Interviews_Count_From_Calendar = String.valueOf(Upcoming_Calendar_Interview_Count);
 

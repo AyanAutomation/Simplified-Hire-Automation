@@ -1729,8 +1729,8 @@ public Object[][] Candidate_Add_Data() {
 
     return new Object[][] { /*
             { data1 }, 
-            { data2 }, */ 
-            { data3 },/*
+            { data2 }, 
+            { data3 },*/ 
             { data4 },
             { data5 },
             { data6 },
@@ -1747,7 +1747,7 @@ public Object[][] Candidate_Add_Data() {
             { data17 },
             { data18 },
             { data19 },
-            { data20 } */
+            { data20 } 
     };
 }
 	
