@@ -5,8 +5,8 @@
     <classes>
       <class name="Product_Codeclouds.Project.Simplified.Reports_Module">
         <methods>
-          <include name="upcoming_interview_count_check"/>
           <include name="setup"/>
+          <include name="Rejected_Candidate_Count_of_Report_Check"/>
           <include name="Kill"/>
         </methods>
       </class> <!-- Product_Codeclouds.Project.Simplified.Reports_Module -->

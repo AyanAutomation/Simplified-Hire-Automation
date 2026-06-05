@@ -56,22 +56,193 @@ public class Candidate_module extends Side_menu_Handler {
 		return Add;
 	}
 	
-	@Test
-	public void Candidate_status_data_fetcher(/*String Time_Range, String Status*/) throws IOException, InterruptedException{
-		
+	
+	public String Candidate_status_data_fetcher(String Time_Range, String status) throws IOException, InterruptedException {
+
+		int step = 1;
+
 		Candidate_Module_Locaters p = new Candidate_Module_Locaters(d);
-		
-		
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Navigate to Candidate list page.");
+		System.out.println("Step " + (step - 1) + ": Navigate to Candidate list page.");
+		System.out.println();
+
 		Candidate_List_Accesor();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Candidate list page opened successfully.");
+		System.out.println("🟨 Actual: Candidate list page opened successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Fetch Candidate module filters.");
+		System.out.println("Step " + (step - 1) + ": Fetch Candidate module filters.");
+		System.out.println();
+
 		List<WebElement> Filters = p.All_filters();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Candidate filters fetched successfully. Total filters found = " + Filters.size());
+		System.out.println("🟨 Actual: Candidate filters fetched successfully. Total filters found = " + Filters.size());
+		System.out.println();
+
+		if (Filters.size() <= 3) {
+
+			Report_Listen.log_print_in_report().log(Status.FAIL,
+					"<b>❌ Actual:</b> Required Candidate filters were not available. Expected at least 4 filters but found = "
+							+ Filters.size());
+			System.out.println("❌ Actual: Required Candidate filters were not available. Expected at least 4 filters but found = "
+					+ Filters.size());
+			System.out.println();
+
+			return "ERROR";
+		}
+
 		WebElement Date_Filter = Filters.get(1);
 		WebElement Status_Filter = Filters.get(3);
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Apply Candidate time range filter = " + Time_Range);
+		System.out.println("Step " + (step - 1) + ": Apply Candidate time range filter = " + Time_Range);
+		System.out.println();
+
 		Date_Filter.click();
+
 		WebElement Date_Filter_Dropdown = p.time_filter_dropdown();
-		Date_Filter.click();
+
+		List<WebElement> date_options = Date_Filter_Dropdown.findElements(
+				By.xpath(".//div[contains(@class,'ant-select-item') and contains(@class,'ant-select-item-option-content')]"));
+
+		boolean date_filter_selected = false;
+
+		for (WebElement date_opt : date_options) {
+
+			String date_opt_text = date_opt.getText().trim();
+
+			if (date_opt_text.contains(Time_Range)) {
+
+				date_opt.click();
+				date_filter_selected = true;
+
+				Report_Listen.log_print_in_report().log(Status.INFO,
+						"<b>🟨 Actual:</b> Candidate time range filter selected successfully = " + date_opt_text);
+				System.out.println("🟨 Actual: Candidate time range filter selected successfully = " + date_opt_text);
+				System.out.println();
+
+				break;
+			}
+		}
+
+		if (!date_filter_selected) {
+
+			Report_Listen.log_print_in_report().log(Status.FAIL,
+					"<b>❌ Actual:</b> Candidate time range filter option was not found = " + Time_Range);
+			System.out.println("❌ Actual: Candidate time range filter option was not found = " + Time_Range);
+			System.out.println();
+
+			return "ERROR";
+		}
+
+		Thread.sleep(500);
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Apply Candidate status filter = " + status);
+		System.out.println("Step " + (step - 1) + ": Apply Candidate status filter = " + status);
+		System.out.println();
+
 		Status_Filter.click();
+
 		WebElement Status_Filter_Dropdown = p.Status_filter_dropdown();
-		Status_Filter.click();
+
+		List<WebElement> stat_options = Status_Filter_Dropdown.findElements(
+				By.xpath(".//div[contains(@class,'ant-select-item') and contains(@class,'ant-select-item-option-content')]"));
+
+		boolean status_filter_selected = false;
+
+		for (WebElement stat_opt : stat_options) {
+
+			String stat_opt_text = stat_opt.getText().trim();
+
+			if (stat_opt_text.contains(status)) {
+
+				stat_opt.click();
+				status_filter_selected = true;
+
+				Report_Listen.log_print_in_report().log(Status.INFO,
+						"<b>🟨 Actual:</b> Candidate status filter selected successfully = " + stat_opt_text);
+				System.out.println("🟨 Actual: Candidate status filter selected successfully = " + stat_opt_text);
+				System.out.println();
+
+				break;
+			}
+		}
+
+		if (!status_filter_selected) {
+
+			Report_Listen.log_print_in_report().log(Status.FAIL,
+					"<b>❌ Actual:</b> Candidate status filter option was not found = " + status);
+			System.out.println("❌ Actual: Candidate status filter option was not found = " + status);
+			System.out.println();
+
+			return "ERROR";
+		}
+
+		Thread.sleep(500);
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Change Candidate list pagination to 100.");
+		System.out.println("Step " + (step - 1) + ": Change Candidate list pagination to 100.");
+		System.out.println();
+
+		pagination_changer("100");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Candidate list pagination changed successfully to 100.");
+		System.out.println("🟨 Actual: Candidate list pagination changed successfully to 100.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Open exact count view and fetch Candidate list count.");
+		System.out.println("Step " + (step - 1) + ": Open exact count view and fetch Candidate list count.");
+		System.out.println();
+
+		p.Exact_count_icon().click();
+
+		Thread.sleep(800);
+
+		List<WebElement> Candidate_count = p.pagination_count_text();
+
+		if (Candidate_count.size() <= 1) {
+
+			Report_Listen.log_print_in_report().log(Status.FAIL,
+					"<b>❌ Actual:</b> Candidate pagination count text was not available properly. Total count elements found = "
+							+ Candidate_count.size());
+			System.out.println("❌ Actual: Candidate pagination count text was not available properly. Total count elements found = "
+					+ Candidate_count.size());
+			System.out.println();
+
+			return "ERROR";
+		}
+
+		String Candidate_count_text = Candidate_count.get(1).getText().trim();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Candidate module count fetched successfully for Time Range = "
+						+ Time_Range
+						+ " | Status = "
+						+ status
+						+ " | Count = "
+						+ Candidate_count_text);
+		System.out.println("🟨 Actual: Candidate module count fetched successfully for Time Range = "
+				+ Time_Range
+				+ " | Status = "
+				+ status
+				+ " | Count = "
+				+ Candidate_count_text);
+		System.out.println();
+
+		return Candidate_count_text;
 	}
 	
 	
@@ -992,7 +1163,16 @@ public void Candidate_Interview_scheduling(TreeMap<String, String> candidate_dat
 	   WebElement pagination_box = p.pagination_box();
 	   rp.Scroll_to_element(pagination_box);
        pagination_box.click();
-	   WebElement pagination_list = p.state_Dropdown();
+	   WebElement pagination_list;
+	
+	   try{
+		   pagination_list =  p.state_Dropdown();
+		   
+	   }catch(Exception e) {
+		   
+		   pagination_list =  p.Owner_Dropdown_backup();
+	   }
+	   
 	   pagination_list.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"))
 		.stream().filter(pageopt -> pageopt.getText().trim().equalsIgnoreCase(count)).findFirst()
 		.ifPresent(WebElement::click);

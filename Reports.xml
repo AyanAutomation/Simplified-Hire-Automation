@@ -8,6 +8,7 @@
 				<methods>
 					<include name="Open_Job_Count_of_Report_Check"/>
 					<include name="upcoming_interview_count_check"/>
+					<include name="Rejected_Candidate_Count_of_Report_Check"/>
 				</methods>
 			</class>
 		</classes>

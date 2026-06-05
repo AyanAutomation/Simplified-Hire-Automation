@@ -165,7 +165,7 @@ public class Reports_Module extends Job_Module{
 	@Test
 	public void Open_Job_Count_of_Report_Check() throws IOException, InterruptedException, AWTException {
 
-		Report_Module_Locaters p = new Report_Module_Locaters(d);
+
 		SoftAssert softAssert = new SoftAssert();
 
 		int step = 1;
@@ -251,21 +251,116 @@ public class Reports_Module extends Job_Module{
 		softAssert.assertAll();
 	}
 	
-	@Test
-	public void Rejected_Candidate_Count_of_Report_Check() throws IOException, InterruptedException, AWTException {
-		
-		Report_Module_Locaters p = new Report_Module_Locaters(d);
-		SoftAssert softAssert = new SoftAssert();
-		
-		
-		int step = 1;
+@Test
+public void Rejected_Candidate_Count_of_Report_Check() throws IOException, InterruptedException, AWTException {
 
+	int step = 1;
 
-        TreeMap<String,String> Reports_Data=Overview_Tab_Data_collector("Last 3 Months", step);
-        String Rejected_Candidates_Count_From_Overview = Reports_Data.get("Rejected Candidates").trim();
-        System.out.println("Rejected Candidates count captured from Reports overview = " + Rejected_Candidates_Count_From_Overview);
-		
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🔹 Scenario Title:</b> Validate Reports Rejected Candidates count against Candidate module Declined count");
+	System.out.println();
+	System.out.println("🔹 Scenario Title: Validate Reports Rejected Candidates count against Candidate module Declined count");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>📘 Description:</b> Capture Rejected Candidates count from Reports overview for Last 3 Months, fetch Declined candidate count from Candidate module using the same time range, and compare both values.");
+	System.out.println("📘 Description: Capture Rejected Candidates count from Reports overview for Last 3 Months, fetch Declined candidate count from Candidate module using the same time range, and compare both values.");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>📥 Input:</b> Reports Filter = Last 3 Months | Candidate Time Range = Last 3 Months | Candidate Status = Declined");
+	System.out.println("📥 Input: Reports Filter = Last 3 Months | Candidate Time Range = Last 3 Months | Candidate Status = Declined");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>✅ Expected:</b> Reports overview Rejected Candidates count should match Candidate module Declined count for the selected time range.");
+	System.out.println("✅ Expected: Reports overview Rejected Candidates count should match Candidate module Declined count for the selected time range.");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Capture Reports overview data using filter = Last 3 Months.");
+	System.out.println("Step " + (step - 1) + ": Capture Reports overview data using filter = Last 3 Months.");
+	System.out.println();
+
+	TreeMap<String, String> Reports_Data = Overview_Tab_Data_collector("Last 3 Months", 1);
+
+	if (!Reports_Data.containsKey("Rejected Candidates")) {
+
+		Report_Listen.log_print_in_report().log(Status.FAIL,
+				"<b>❌ Actual:</b> Rejected Candidates key was not found in Reports overview data.");
+		System.out.println("❌ Actual: Rejected Candidates key was not found in Reports overview data.");
+		System.out.println();
+
+		return;
 	}
+
+	String Rejected_Candidates_Count_From_Overview = Reports_Data.get("Rejected Candidates").trim();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Rejected Candidates count captured from Reports overview = "
+					+ Rejected_Candidates_Count_From_Overview);
+	System.out.println("🟨 Actual: Rejected Candidates count captured from Reports overview = "
+			+ Rejected_Candidates_Count_From_Overview);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Expand side menu before navigating to Candidate module.");
+	System.out.println("Step " + (step - 1) + ": Expand side menu before navigating to Candidate module.");
+	System.out.println();
+
+	side_menu_expander();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Side menu expanded successfully.");
+	System.out.println("🟨 Actual: Side menu expanded successfully.");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Fetch Declined candidate count from Candidate module for Last 3 Months.");
+	System.out.println("Step " + (step - 1) + ": Fetch Declined candidate count from Candidate module for Last 3 Months.");
+	System.out.println();
+
+	String Rejected_Candidate_from_list = Candidate_status_data_fetcher("Last 3 Months", "Declined");
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Declined candidate count fetched from Candidate module = "
+					+ Rejected_Candidate_from_list);
+	System.out.println("🟨 Actual: Declined candidate count fetched from Candidate module = "
+			+ Rejected_Candidate_from_list);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step " + (step++) + ":</b> Compare Reports Rejected Candidates count with Candidate module Declined count.");
+	System.out.println("Step " + (step - 1) + ": Compare Reports Rejected Candidates count with Candidate module Declined count.");
+	System.out.println();
+
+	if (Rejected_Candidates_Count_From_Overview.equals(Rejected_Candidate_from_list)) {
+
+		Report_Listen.log_print_in_report().log(Status.PASS,
+				"<b>✅ Matched:</b> Reports Rejected Candidates count is matching with Candidate module Declined count. Count = "
+						+ Rejected_Candidates_Count_From_Overview);
+		System.out.println("✅ Matched: Reports Rejected Candidates count is matching with Candidate module Declined count. Count = "
+				+ Rejected_Candidates_Count_From_Overview);
+		System.out.println();
+
+	} else {
+
+		Report_Listen.log_print_in_report().log(Status.FAIL,
+				"<b>❌ Mismatch:</b> Reports Rejected Candidates count is not matching with Candidate module Declined count. Reports = "
+						+ Rejected_Candidates_Count_From_Overview
+						+ " | Candidate Module = "
+						+ Rejected_Candidate_from_list);
+		System.out.println("❌ Mismatch: Reports Rejected Candidates count is not matching with Candidate module Declined count.");
+		System.out.println("Reports = " + Rejected_Candidates_Count_From_Overview);
+		System.out.println("Candidate Module = " + Rejected_Candidate_from_list);
+		System.out.println();
+	}
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>📌 Final Status:</b> Rejected Candidates count validation completed and result logged in ExtentReport.");
+	System.out.println("📌 Final Status: Rejected Candidates count validation completed and result logged in ExtentReport.");
+	System.out.println();
+}
 	
 	
 @Test
