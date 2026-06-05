@@ -32,10 +32,10 @@
 </ul>
 <ul class="nav-right">
 <li class="m-r-10">
-<a href="#"><span class="badge badge-primary">Dummy Project</span></a>
+<a href="#"><span class="badge badge-primary">Simplified Automation Report</span></a>
 </li>
 <li class="m-r-10">
-<a href="#"><span class="badge badge-primary">Jun 4, 2026 12:19:05 PM</span></a>
+<a href="#"><span class="badge badge-primary">Jun 5, 2026 02:31:18 PM</span></a>
 </li>
 </ul>
 </div>
@@ -66,7 +66,7 @@
 <li class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-exclamation-circle"></i></a>
 <ul id="status-toggle" class="dropdown-menu dropdown-md p-v-0">
-<a class="dropdown-item" status="fail" href="#"><span>Fail</span><span class="status danger"></span></a>
+<a class="dropdown-item" status="warning" href="#"><span>Warning</span><span class="status warning"></span></a>
 <div class="dropdown-divider"></div>
 <a status="clear" class="dropdown-item" href="#"><span>Clear</span><span class="pull-right"><i class="fa fa-close"></i></span></a>
 </ul>
@@ -74,25 +74,25 @@
 </ul>
 </div>    <div class="test-list-wrapper scrollable">
       <ul class="test-list-item">
-        <li class="test-item"  status="fail" test-id="1"
+        <li class="test-item"  status="warning" test-id="1"
           author=""
           tag=""
           device="">
           <div class="test-detail">
-            <p class="name">upcoming_interview_count_check</p>
+            <p class="name">Candidate_status_data_fetcher</p>
             <p class="text-sm">
-              <span>12:19:08 PM</span> / <span>00:00:41:832</span>
-              <span class="badge fail-bg log float-right">Fail</span>
+              <span>2:31:20 PM</span> / <span>00:00:44:305</span>
+              <span class="badge warning-bg log float-right">Warning</span>
             </p>
           </div>
           <div class="test-contents d-none">
 <div class="detail-head">
 <div class="p-v-10">
 <div class="info">
-<h5 class="test-status text-fail">upcoming_interview_count_check</h5>
-<span class='badge badge-success'>06.04.2026 12:19:08 PM</span>
-<span class='badge badge-danger'>06.04.2026 12:19:50 PM</span>
-<span class='badge badge-default'>00:00:41:832</span>
+<h5 class="test-status text-warning">Candidate_status_data_fetcher</h5>
+<span class='badge badge-success'>06.05.2026 2:31:20 PM</span>
+<span class='badge badge-danger'>06.05.2026 2:32:04 PM</span>
+<span class='badge badge-default'>00:00:44:305</span>
 &middot; <span class='uri-anchor badge badge-default'>#test-id=1</span>
 <span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
 <span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
@@ -105,658 +105,357 @@
   <tbody>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:08 PM</td>
+        <td>2:31:20 PM</td>
         <td>
-          <b>🔹 Scenario Title:</b> Validate Reports Upcoming Interviews count with Calendar event cards
+          <b>Step:</b> Navigate to Candidates module from side menu.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:08 PM</td>
-        <td>
-          <b>Step 1:</b> Capture Reports overview data for filter = This Month.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:08 PM</td>
-        <td>
-          <b>🔹 Scenario Title:</b> Validate Reports overview Open Jobs count against Jobs module Active Jobs count
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:08 PM</td>
-        <td>
-          <b>📘 Description:</b> Open the Reports module, apply the required report filter, clear previously stored overview data, capture all overview section labels and values into the overview data map, fetch Active Jobs count from the Jobs module, and softly compare the Jobs module count with the Reports overview Open Jobs count.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:08 PM</td>
-        <td>
-          <b>📥 Input:</b> Report Filter = This Month | Reports Overview Key = Open Jobs | Job Status Filter = Active | Pagination Value in Jobs Module = 50
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:08 PM</td>
-        <td>
-          <b>✅ Expected:</b> Reports overview data should be captured freshly, Open Jobs count should be available in the overview data map, Active Jobs count should be fetched from the Jobs module, and both counts should match.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:08 PM</td>
-        <td>
-          <b>Step 1:</b> Clear previously stored overview card data.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:08 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Previously stored overview card data cleared successfully.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:08 PM</td>
-        <td>
-          <b>Step 2:</b> Apply report filter option = This Month.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:08 PM</td>
-        <td>
-          <b>Step:</b> Open filter dropdown and select report filter option = This Month
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:08 PM</td>
-        <td>
-          <b>Step:</b> Navigate to Reports module from side menu.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:08 PM</td>
+        <td>2:31:20 PM</td>
         <td>
           <b>🔹 Scenario Title:</b> Select required side menu option in Simplified Hire
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:08 PM</td>
+        <td>2:31:20 PM</td>
         <td>
           <b>📘 Description:</b> Access the Simplified Hire dashboard, open the side menu, fetch all available menu options, search for the required option, and click on it.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:08 PM</td>
+        <td>2:31:20 PM</td>
         <td>
-          <b>📥 Input:</b> Required Side Menu Option = Reports
+          <b>📥 Input:</b> Required Side Menu Option = Candidates
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:08 PM</td>
+        <td>2:31:20 PM</td>
         <td>
           <b>✅ Expected:</b> User should be able to access the Simplified Hire dashboard, fetch all visible side menu options successfully, and click the required side menu option.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:08 PM</td>
+        <td>2:31:20 PM</td>
         <td>
           <b>Step 1:</b> Access Simplified Hire dashboard before working with side menu.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:18 PM</td>
+        <td>2:31:30 PM</td>
         <td>
           <b>🔹 Scenario Title:</b> Access Simplified Hire internal application from portal
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:18 PM</td>
+        <td>2:31:30 PM</td>
         <td>
           <b>📘 Description:</b> Validate access to the Simplified Hire application either through the standard login and internal app selection flow, or through direct dashboard redirection when the account is mapped to only one organization and one application.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:18 PM</td>
+        <td>2:31:30 PM</td>
         <td>
           <b>✅ Expected:</b> User should either complete the normal login and internal application selection flow and land on the Simplified Hire dashboard, or be directly redirected to the Simplified Hire dashboard if only one mapped organization and one mapped application are available.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:18 PM</td>
+        <td>2:31:30 PM</td>
         <td>
           <b>Step 1:</b> Perform login into the application.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:18 PM</td>
+        <td>2:31:30 PM</td>
         <td>
           <b>🔹 Scenario Title:</b> Login with valid configured credentials and enter company portal
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:18 PM</td>
+        <td>2:31:30 PM</td>
         <td>
           <b>📘 Description:</b> Open the application URL, wait until login page is loaded, enter configured credentials, verify password visibility interaction, click Login button, and validate successful entry into the company portal either through company selection flow or direct landing flow.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:18 PM</td>
+        <td>2:31:30 PM</td>
         <td>
           <b>📥 Input:</b> Target URL = https://accounts.dev.besimplified.net/home | Login ID = ayansimplified@yopmail.com | Password = Password@123
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:18 PM</td>
+        <td>2:31:30 PM</td>
         <td>
           <b>✅ Expected:</b> Application should open successfully, login page should load properly, credentials should be accepted, password eye icon should be clickable, login should succeed, and user should enter the company portal either through company selection or direct landing.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:18 PM</td>
+        <td>2:31:30 PM</td>
         <td>
           <b>Step 1:</b> Open target application URL and wait until login page is loaded.
         </td>
       </tr>
       <tr class="event-row">
+        <td><span class="badge log warning-bg">Warning</span></td>
+        <td>2:31:44 PM</td>
+        <td>
+          <b>⚠ Retry:</b> Initial wait for login page load failed. Retrying the same operation again.
+        </td>
+      </tr>
+      <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:26 PM</td>
+        <td>2:31:46 PM</td>
         <td>
           <b>🟨 Actual:</b> Application URL opened successfully and login page loaded = https://accounts.dev.besimplified.net/home
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:26 PM</td>
+        <td>2:31:46 PM</td>
         <td>
           <b>Step 2:</b> Enter Login ID into the login field.
         </td>
       </tr>
       <tr class="event-row">
+        <td><span class="badge log warning-bg">Warning</span></td>
+        <td>2:31:46 PM</td>
+        <td>
+          <b>⚠ Retry:</b> Login ID field became stale. Refetching the element and retrying the operation.
+        </td>
+      </tr>
+      <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:27 PM</td>
+        <td>2:31:46 PM</td>
         <td>
           <b>🟨 Actual:</b> Login ID entered successfully = ayansimplified@yopmail.com
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:27 PM</td>
+        <td>2:31:46 PM</td>
         <td>
           <b>Step 3:</b> Enter Password into the password field.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:27 PM</td>
+        <td>2:31:47 PM</td>
         <td>
           <b>🟨 Actual:</b> Password entered successfully.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:27 PM</td>
+        <td>2:31:47 PM</td>
         <td>
           <b>Step 4:</b> Click password eye icon to verify password visibility functionality.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:27 PM</td>
+        <td>2:31:47 PM</td>
         <td>
           <b>🟨 Actual:</b> Password eye icon clicked successfully.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:27 PM</td>
+        <td>2:31:47 PM</td>
         <td>
           <b>Step 5:</b> Click on Login button.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:27 PM</td>
+        <td>2:31:47 PM</td>
         <td>
           <b>🟨 Actual:</b> Login button clicked successfully.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:27 PM</td>
+        <td>2:31:47 PM</td>
         <td>
           <b>Step 6:</b> Validate post-login flow and enter the company portal.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:27 PM</td>
+        <td>2:31:47 PM</td>
         <td>
           <b>Step 7:</b> Validate whether the user was directly redirected inside the company portal.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>12:19:30 PM</td>
+        <td>2:31:49 PM</td>
         <td>
           <b>🟨 Actual:</b> User was directly redirected and entered successfully inside the company portal without needing company selection.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:30 PM</td>
+        <td>2:31:49 PM</td>
         <td>
           <b>📌 Final Status:</b> Login flow completed successfully for URL = https://accounts.dev.besimplified.net/home
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:30 PM</td>
+        <td>2:31:49 PM</td>
         <td>
           <b>🔗 URL:</b> https://accounts.dev.besimplified.net/home
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>12:19:30 PM</td>
+        <td>2:31:49 PM</td>
         <td>
           <b>🟨 Actual:</b> Login flow executed successfully and user entered the company portal.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:30 PM</td>
+        <td>2:31:49 PM</td>
         <td>
           <b>Step 2:</b> Wait for portal loader to disappear after login.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:31 PM</td>
+        <td>2:31:51 PM</td>
         <td>
           <b>🟨 Actual:</b> Portal loader disappeared successfully.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:31 PM</td>
+        <td>2:31:52 PM</td>
         <td>
           <b>Step 3:</b> Fetch the list of available internal applications from the portal.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:31 PM</td>
+        <td>2:31:52 PM</td>
         <td>
           <b>🟨 Actual:</b> Internal applications fetched successfully. Total apps found = 4
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:31 PM</td>
+        <td>2:31:52 PM</td>
         <td>
           <b>Step 4:</b> Identify the Simplified Hire application from the internal applications list.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:32 PM</td>
+        <td>2:31:52 PM</td>
         <td>
           <b>🟨 Actual:</b> Simplified Hire application identified successfully from the internal applications list.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:32 PM</td>
+        <td>2:31:52 PM</td>
         <td>
           <b>Step 5:</b> Click on the Simplified Hire application.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:32 PM</td>
+        <td>2:31:52 PM</td>
         <td>
           <b>🟨 Actual:</b> Simplified Hire application clicked successfully.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:32 PM</td>
+        <td>2:31:52 PM</td>
         <td>
           <b>Step 6:</b> Validate landing on the Simplified Hire dashboard through the standard flow.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>12:19:38 PM</td>
+        <td>2:31:59 PM</td>
         <td>
           <b>🟨 Actual:</b> User landed successfully on the Simplified Hire dashboard through the standard portal flow.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:38 PM</td>
+        <td>2:31:59 PM</td>
         <td>
           <b>📌 Final Status:</b> Simplified Hire application access flow completed successfully.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:40 PM</td>
+        <td>2:32:01 PM</td>
         <td>
           <b>🟨 Actual:</b> Simplified Hire dashboard accessed successfully.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:40 PM</td>
+        <td>2:32:01 PM</td>
         <td>
           <b>Step 2:</b> Open side menu and fetch all available menu options.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:40 PM</td>
+        <td>2:32:01 PM</td>
         <td>
           <b>🟨 Actual:</b> Side menu options fetched successfully. Total menu options found = 7
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:40 PM</td>
+        <td>2:32:01 PM</td>
         <td>
-          <b>Step 3:</b> Search for side menu option = Reports and click on it.
+          <b>Step 3:</b> Search for side menu option = Candidates and click on it.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>12:19:40 PM</td>
+        <td>2:32:01 PM</td>
         <td>
-          <b>🟨 Actual:</b> Side menu option clicked successfully = Reports
+          <b>🟨 Actual:</b> Side menu option clicked successfully = Candidates
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:41 PM</td>
+        <td>2:32:01 PM</td>
         <td>
-          <b>🟨 Actual:</b> Reports module opened successfully and Filter button was identified.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:42 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Filter option selected successfully = This Month
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:42 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Report filter applied successfully = This Month.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:42 PM</td>
-        <td>
-          <b>Step 3:</b> Fetch overview section labels and values from Reports module.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:42 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Overview labels fetched = 8 | Overview values fetched = 8
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:42 PM</td>
-        <td>
-          <b>Step 4:</b> Store overview label-value pairs into the overview data map.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:42 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Overview card stored successfully = Open Jobs -> 19
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:42 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Overview card stored successfully = Total Applications -> 0
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:42 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Overview card stored successfully = Active Candidates -> 0
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:42 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Overview card stored successfully = Rejected Candidates -> 0
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:42 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Overview card stored successfully = Upcoming Interviews -> 0
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:43 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Overview card stored successfully = Interviews Completed -> 0
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:43 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Overview card stored successfully = Avg. Time to First Action -> 0 h
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:43 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Overview card stored successfully = Avg. Offer Acceptance Rate -> 0%
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:43 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Overview data map populated successfully. Total entries stored = 8
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:43 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Reports Upcoming Interviews count captured = 0
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:43 PM</td>
-        <td>
-          <b>Step 2:</b> Navigate to Calendar module and apply All Interviewers filter.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:43 PM</td>
-        <td>
-          <b>🔹 Scenario Title:</b> Select required side menu option in Simplified Hire
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:43 PM</td>
-        <td>
-          <b>📘 Description:</b> Access the Simplified Hire dashboard, open the side menu, fetch all available menu options, search for the required option, and click on it.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:43 PM</td>
-        <td>
-          <b>📥 Input:</b> Required Side Menu Option = Calendar
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:43 PM</td>
-        <td>
-          <b>✅ Expected:</b> User should be able to access the Simplified Hire dashboard, fetch all visible side menu options successfully, and click the required side menu option.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:43 PM</td>
-        <td>
-          <b>Step 1:</b> Access Simplified Hire dashboard before working with side menu.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:43 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Simplified Hire dashboard accessed successfully.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:43 PM</td>
-        <td>
-          <b>Step 2:</b> Open side menu and fetch all available menu options.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:43 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Side menu options fetched successfully. Total menu options found = 7
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:43 PM</td>
-        <td>
-          <b>Step 3:</b> Search for side menu option = Calendar and click on it.
+          <b>Step:</b> Validate landing in Candidate list by identifying the Import CV button.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>12:19:43 PM</td>
+        <td>2:32:02 PM</td>
         <td>
-          <b>🟨 Actual:</b> Side menu option clicked successfully = Calendar
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:47 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Calendar module opened and All Interviewers filter selected successfully.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:47 PM</td>
-        <td>
-          <b>Step 3:</b> Fetch all visible Calendar event cards.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:47 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Calendar event cards fetched successfully. Total visible cards found = 2
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:47 PM</td>
-        <td>
-          <b>Step 4:</b> Visit each Calendar card, fetch popover Date / Time, and count only future interviews.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:48 PM</td>
-        <td>
-          <b>⏭ Skipped:</b> Past Calendar interview = Phone Interview - Svyatopolk Garin | Date/Time = 2026-06-01T13:45
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:49 PM</td>
-        <td>
-          <b>✅ Counted:</b> Upcoming Calendar interview = Phone Interview - Priyanshu Nath | Date/Time = 2026-06-30T11:00
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:50 PM</td>
-        <td>
-          <b>Step 5:</b> Compare Reports Upcoming Interviews count with Calendar upcoming interview count.
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:50 PM</td>
-        <td>
-          <b>🟨 Actual:</b> Reports Upcoming Interviews = 0 | Calendar Upcoming Interviews = 1
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log fail-bg">Fail</span></td>
-        <td>12:19:50 PM</td>
-        <td>
-          <b>❌ Mismatch:</b> Reports Upcoming Interviews count did not match with Calendar upcoming interview count. Reports = 0 | Calendar = 1
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log info-bg">Info</span></td>
-        <td>12:19:50 PM</td>
-        <td>
-          <b>📌 Final Status:</b> Upcoming Interviews validation completed and result logged in ExtentReport.
+          <b>🟨 Actual:</b> Candidate list opened successfully and Import CV button was identified.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log pass-bg">Pass</span></td>
-        <td>12:19:50 PM</td>
+        <td>2:32:04 PM</td>
         <td>
           Test passed
         </td>
@@ -780,13 +479,13 @@
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Started</p>
-<h3>Jun 4, 2026 12:19:05 PM</h3>
+<h3>Jun 5, 2026 02:31:18 PM</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Ended</p>
-<h3>Jun 4, 2026 12:19:50 PM</h3>
+<h3>Jun 5, 2026 02:32:05 PM</h3>
 </div></div>
 </div>
 <div class="col-md-3">
@@ -798,7 +497,7 @@
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0 text-fail">Tests Failed</p>
-<h3>1</h3>
+<h3>0</h3>
 </div></div>
 </div>
 </div>
@@ -819,8 +518,8 @@
 </small>
 </div>
 <div>
-<small data-tooltip='100%'><b>1</b> tests failed,
-<b>0</b> skipped, <b data-tooltip='0%'>0</b> others
+<small data-tooltip='0%'><b>0</b> tests failed,
+<b>0</b> skipped, <b data-tooltip='100%'>1</b> others
 </small>
 </div>
 </div>
@@ -837,10 +536,10 @@
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='6%'><b>6</b> events passed</small></div>
+<div><small data-tooltip='11%'><b>6</b> events passed</small></div>
 <div>
-<small data-tooltip='1%'><b>1</b> events failed,
-<b data-tooltip='%'>87</b> others
+<small data-tooltip='0%'><b>0</b> events failed,
+<b data-tooltip='%'>45</b> others
 </small>
 </div>
 </div>
@@ -856,7 +555,7 @@
 </div></div>
 <script>
 var timeline = {
-"upcoming_interview_count_check":41.832
+"Candidate_status_data_fetcher":44.305
 };
 </script>
 <div class="row">
@@ -868,15 +567,15 @@ var timeline = {
 <tbody>
 <tr>
 <td>Automated By</td>
-<td>Tester Name</td>
+<td>Ayan Sengupta</td>
 </tr>
 <tr>
 <td>Framework</td>
-<td>Selenium + TestNG</td>
+<td>Selenium + TestNG + Cucumber + ExtentReports</td>
 </tr>
 <tr>
 <td>Report Type</td>
-<td>Extent Spark HTML</td>
+<td>Automation Execution Report</td>
 </tr>
 <tr>
 <td>OS</td>
@@ -896,8 +595,8 @@ var timeline = {
 var statusGroup = {
 parentCount: 5,
 passParent: 0,
-failParent: 1,
-warningParent: 0,
+failParent: 0,
+warningParent: 1,
 skipParent: 0,
 childCount: 5,
 passChild: 0,
@@ -913,10 +612,10 @@ skipGrandChild: 0,
 infoGrandChild: 0,
 eventsCount: 5,
 passEvents: 6,
-failEvents: 1,
-warningEvents: 0,
+failEvents: 0,
+warningEvents: 2,
 skipEvents: 0,
-infoEvents: 87
+infoEvents: 43
 };
 </script>        </div>
       </div>

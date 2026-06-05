@@ -251,7 +251,21 @@ public class Reports_Module extends Job_Module{
 		softAssert.assertAll();
 	}
 	
-	
+	@Test
+	public void Rejected_Candidate_Count_of_Report_Check() throws IOException, InterruptedException, AWTException {
+		
+		Report_Module_Locaters p = new Report_Module_Locaters(d);
+		SoftAssert softAssert = new SoftAssert();
+		
+		
+		int step = 1;
+
+
+        TreeMap<String,String> Reports_Data=Overview_Tab_Data_collector("Last 3 Months", step);
+        String Rejected_Candidates_Count_From_Overview = Reports_Data.get("Rejected Candidates").trim();
+        System.out.println("Rejected Candidates count captured from Reports overview = " + Rejected_Candidates_Count_From_Overview);
+		
+	}
 	
 	
 @Test
@@ -467,19 +481,54 @@ public void upcoming_interview_count_check() throws IOException, InterruptedExce
 	System.out.println();
 }
 	
-	public void filter_option_selector(String option) throws IOException, InterruptedException {
+public void filter_option_selector(String option) throws IOException, InterruptedException {
 
-		Report_Module_Locaters p = new Report_Module_Locaters(d);
+	Report_Module_Locaters p = new Report_Module_Locaters(d);
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>Step:</b> Open Reports module and verify currently selected report filter option.");
+	System.out.println("Step: Open Reports module and verify currently selected report filter option.");
+	System.out.println();
+
+	WebElement filter = reports_module_Accessor();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Reports module opened successfully and filter element was identified.");
+	System.out.println("🟨 Actual: Reports module opened successfully and filter element was identified.");
+	System.out.println();
+
+	WebElement Selected_filter_value_element = filter.findElement(
+			By.xpath(".//span[contains(@class,'ant-select-selection-item')]"));
+
+	String Selected_filter_value_text = Selected_filter_value_element.getAttribute("title").trim();
+
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<b>🟨 Actual:</b> Currently selected report filter option = "
+					+ Selected_filter_value_text
+					+ " | Required filter option = "
+					+ option);
+	System.out.println("🟨 Actual: Currently selected report filter option = "
+			+ Selected_filter_value_text
+			+ " | Required filter option = "
+			+ option);
+	System.out.println();
+
+	if (!option.equals(Selected_filter_value_text)) {
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>Step:</b> Open filter dropdown and select report filter option = " + option);
-		System.out.println("Step: Open filter dropdown and select report filter option = " + option);
+				"<b>Step:</b> Current filter option is different from required option. Opening filter dropdown.");
+		System.out.println("Step: Current filter option is different from required option. Opening filter dropdown.");
 		System.out.println();
 
-		WebElement filter = reports_module_Accessor();
 		filter.click();
 
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Reports filter dropdown opened successfully.");
+		System.out.println("🟨 Actual: Reports filter dropdown opened successfully.");
+		System.out.println();
+
 		WebElement filter_dropdown = p.Owner_Dropdown();
+
 		filter_dropdown.findElements(
 				By.xpath(".//div[contains(@class,'ant-select-item') and contains(@class,'ant-select-item-option')]"))
 				.stream()
@@ -488,9 +537,25 @@ public void upcoming_interview_count_check() throws IOException, InterruptedExce
 				.orElseThrow(() -> new NoSuchElementException("Filter option not found: " + option))
 				.click();
 
+		Report_Listen.log_print_in_report().log(Status.PASS,
+				"<b>🟨 Actual:</b> Report filter option changed successfully from "
+						+ Selected_filter_value_text
+						+ " to "
+						+ option);
+		System.out.println("🟨 Actual: Report filter option changed successfully from "
+				+ Selected_filter_value_text
+				+ " to "
+				+ option);
+		System.out.println();
+
+	} else {
+
 		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>🟨 Actual:</b> Filter option selected successfully = " + option);
-		System.out.println("🟨 Actual: Filter option selected successfully = " + option);
+				"<b>🟨 Actual:</b> Required report filter option is already selected, so dropdown selection was skipped. Selected option = "
+						+ Selected_filter_value_text);
+		System.out.println("🟨 Actual: Required report filter option is already selected, so dropdown selection was skipped. Selected option = "
+				+ Selected_filter_value_text);
 		System.out.println();
 	}
+}
 }

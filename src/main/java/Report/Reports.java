@@ -12,7 +12,7 @@ public ExtentReports Get_reports(){
 		
 		ExtentSparkReporter spark = new ExtentSparkReporter(System.getProperty("user.dir")+"//Report_folder//report.html");
 		
-		spark.config().setReportName("Dummy Project");
+		spark.config().setReportName("Simplified Automation Report");
 		spark.config().setDocumentTitle("Automation Report Document");
 		spark.config().setTheme(Theme.DARK); // Options: STANDARD / DARK
         spark.config().setEncoding("UTF-8");
@@ -21,9 +21,9 @@ public ExtentReports Get_reports(){
 		ExtentReports report = new ExtentReports();
 		
 		report.attachReporter(spark);
-		report.setSystemInfo("Automated By", "Tester Name");
-		report.setSystemInfo("Framework", "Selenium + TestNG");
-		report.setSystemInfo("Report Type", "Extent Spark HTML");
+		report.setSystemInfo("Automated By", "Ayan Sengupta");
+		report.setSystemInfo("Framework", "Selenium + TestNG + Cucumber + ExtentReports");
+		report.setSystemInfo("Report Type", "Automation Execution Report");
 		report.setSystemInfo("OS", System.getProperty("os.name"));
 		report.setSystemInfo("Java Version", System.getProperty("java.version"));
 		return report;

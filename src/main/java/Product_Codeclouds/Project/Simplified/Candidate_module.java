@@ -56,6 +56,23 @@ public class Candidate_module extends Side_menu_Handler {
 		return Add;
 	}
 	
+	@Test
+	public void Candidate_status_data_fetcher(/*String Time_Range, String Status*/) throws IOException, InterruptedException{
+		
+		Candidate_Module_Locaters p = new Candidate_Module_Locaters(d);
+		
+		
+		Candidate_List_Accesor();
+		List<WebElement> Filters = p.All_filters();
+		WebElement Date_Filter = Filters.get(1);
+		WebElement Status_Filter = Filters.get(3);
+		Date_Filter.click();
+		WebElement Date_Filter_Dropdown = p.time_filter_dropdown();
+		Date_Filter.click();
+		Status_Filter.click();
+		WebElement Status_Filter_Dropdown = p.Status_filter_dropdown();
+		Status_Filter.click();
+	}
 	
 	
 	

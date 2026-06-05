@@ -104,13 +104,13 @@ public class Candidate_Module_Locaters extends Repeat{
 	@FindBy(xpath="//div[contains(@class,'ant-modal-body')]//*[contains(@class,'ant-picker-outlined')]/../../..")
 	private WebElement Date_picker_field;
 	@FindBy(xpath="//tbody//tr//td")
-	private WebElement List_Table_Body;/*
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
+	private WebElement List_Table_Body;
+	@FindBy(xpath="//div[contains(@class,'filter-block')]")
+	private WebElement filter_block;
+	@FindBy(xpath="//div[contains(@class,'ant-select-dropdown-placement-bottomRight')]")
+	private WebElement time_filter_dropdown;
+	@FindBy(xpath="//div[contains(@class,'ant-select-dropdown-placement-bottomLeft')]")
+	private WebElement Status_filter_dropdown;/*
 	@FindBy(xpath="")
 	private WebElement  ;
 	@FindBy(xpath="")
@@ -361,18 +361,21 @@ public class Candidate_Module_Locaters extends Repeat{
 	return Dial_in_number_input;}
 	public WebElement List_Table_Body(){
 	wait_for_theElement(List_Table_Body);
-	return List_Table_Body;}/*
+	return List_Table_Body;}
+	public WebElement filter_block(){
+	wait_for_theElement(filter_block);
+	return filter_block;} 
+	public List<WebElement> All_filters(){
+	List<WebElement> All_filters = filter_block().findElements(By.xpath(".//div[contains(@class,'ant-select-outlined')]"));
+	wait_for_theElement(All_filters);
+	return All_filters;}
+	public WebElement time_filter_dropdown(){
+	wait_for_theElement(time_filter_dropdown);
+	return time_filter_dropdown;}
+	public WebElement Status_filter_dropdown(){
+	wait_for_theElement(Status_filter_dropdown);
+	return Status_filter_dropdown;} /*
 	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;} public WebElement (){
 	wait_for_theElement();
 	return ;}
 	public WebElement (){
