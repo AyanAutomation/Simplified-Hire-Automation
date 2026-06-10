@@ -17,6 +17,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -26,7 +27,7 @@ import Listerners.Report_Listen;
 import Locaters.Candidate_Module_Locaters;
 import Locaters.Job_Module_locaters;
 import Repeatative_codes.Repeat;
-
+@Listeners(Listerners.Report_Listen.class)
 public class Candidate_module extends Side_menu_Handler {
 	
 	public List<String> Member_Names_List = new ArrayList<String>();

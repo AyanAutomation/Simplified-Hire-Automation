@@ -1,49 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="6" total="9" passed="3" failed="0" skipped="0">
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-06-05T16:06:26 IST" name="Reports Suite" finished-at="2026-06-05T16:09:07 IST" duration-ms="161166">
+  <suite started-at="2026-06-10T15:20:41 IST" name="Default suite" finished-at="2026-06-10T15:21:09 IST" duration-ms="27933">
     <groups>
     </groups>
-    <test started-at="2026-06-05T16:06:26 IST" name="Reports Overview Validation Test" finished-at="2026-06-05T16:09:07 IST" duration-ms="161166">
-      <class name="Product_Codeclouds.Project.Simplified.Reports_Module">
-        <test-method is-config="true" signature="setup()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@20d525]" started-at="2026-06-05T16:06:26 IST" name="setup" finished-at="2026-06-05T16:06:28 IST" duration-ms="1947" status="PASS">
+    <test started-at="2026-06-10T15:20:41 IST" name="Default test" finished-at="2026-06-10T15:21:09 IST" duration-ms="27933">
+      <class name="Product_Codeclouds.Project.Simplified.Book_A_Demo_form_fillup">
+        <test-method is-config="true" signature="setup()[pri:0, instance:Product_Codeclouds.Project.Simplified.Book_A_Demo_form_fillup@279fedbd]" started-at="2026-06-10T15:20:41 IST" name="setup" finished-at="2026-06-10T15:20:43 IST" duration-ms="2107" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="Open_Job_Count_of_Report_Check()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@20d525]" started-at="2026-06-05T16:06:28 IST" name="Open_Job_Count_of_Report_Check" finished-at="2026-06-05T16:07:21 IST" duration-ms="52908" status="PASS">
+        <test-method signature="book_a_demo_form_fillup(java.util.TreeMap)[pri:0, instance:Product_Codeclouds.Project.Simplified.Book_A_Demo_form_fillup@279fedbd]" started-at="2026-06-10T15:20:43 IST" name="book_a_demo_form_fillup" data-provider="Contact_Form_Data" finished-at="2026-06-10T15:21:09 IST" duration-ms="25753" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[{Company Name=Nordhaven Digital Commerce GmbH, Country Code=+49, Email=alexander.maximilian.schneider.checkout2026@yopmail.com, First Name=Alexander Maximilian, Last Name=Schneider, Message=We are a Germany-based digital commerce company evaluating Simplified Checkout for improving our online payment experience, reducing checkout drop-offs, and managing transaction flow more efficiently across multiple European customer segments., Phone Number=15178423906, Selected Product=Simplified Checkout}]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- Open_Job_Count_of_Report_Check -->
-        <test-method is-config="true" signature="Kill()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@20d525]" started-at="2026-06-05T16:07:21 IST" name="Kill" finished-at="2026-06-05T16:07:21 IST" duration-ms="408" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- Kill -->
-        <test-method is-config="true" signature="setup()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@20d525]" started-at="2026-06-05T16:07:21 IST" name="setup" finished-at="2026-06-05T16:07:22 IST" duration-ms="874" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setup -->
-        <test-method signature="upcoming_interview_count_check()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@20d525]" started-at="2026-06-05T16:07:22 IST" name="upcoming_interview_count_check" finished-at="2026-06-05T16:08:17 IST" duration-ms="54586" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- upcoming_interview_count_check -->
-        <test-method is-config="true" signature="Kill()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@20d525]" started-at="2026-06-05T16:08:17 IST" name="Kill" finished-at="2026-06-05T16:08:17 IST" duration-ms="407" status="PASS">
+        </test-method> <!-- book_a_demo_form_fillup -->
+        <test-method is-config="true" signature="Kill()[pri:0, instance:Product_Codeclouds.Project.Simplified.Book_A_Demo_form_fillup@279fedbd]" started-at="2026-06-10T15:21:09 IST" name="Kill" finished-at="2026-06-10T15:21:09 IST" duration-ms="1" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Kill -->
-        <test-method is-config="true" signature="setup()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@20d525]" started-at="2026-06-05T16:08:17 IST" name="setup" finished-at="2026-06-05T16:08:18 IST" duration-ms="878" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setup -->
-        <test-method signature="Rejected_Candidate_Count_of_Report_Check()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@20d525]" started-at="2026-06-05T16:08:18 IST" name="Rejected_Candidate_Count_of_Report_Check" finished-at="2026-06-05T16:09:06 IST" duration-ms="48677" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- Rejected_Candidate_Count_of_Report_Check -->
-        <test-method is-config="true" signature="Kill()[pri:0, instance:Product_Codeclouds.Project.Simplified.Reports_Module@20d525]" started-at="2026-06-05T16:09:06 IST" name="Kill" finished-at="2026-06-05T16:09:07 IST" duration-ms="426" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- Kill -->
-      </class> <!-- Product_Codeclouds.Project.Simplified.Reports_Module -->
-    </test> <!-- Reports Overview Validation Test -->
-  </suite> <!-- Reports Suite -->
+      </class> <!-- Product_Codeclouds.Project.Simplified.Book_A_Demo_form_fillup -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
 </testng-results>

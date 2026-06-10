@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Product_Codeclouds.Project.Simplified.Reports_Module">
+      <class name="Product_Codeclouds.Project.Simplified.Book_A_Demo_form_fillup">
         <methods>
           <include name="setup"/>
-          <include name="Rejected_Candidate_Count_of_Report_Check"/>
           <include name="Kill"/>
+          <include name="book_a_demo_form_fillup" invocation-numbers="0"/>
         </methods>
-      </class> <!-- Product_Codeclouds.Project.Simplified.Reports_Module -->
+      </class> <!-- Product_Codeclouds.Project.Simplified.Book_A_Demo_form_fillup -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
