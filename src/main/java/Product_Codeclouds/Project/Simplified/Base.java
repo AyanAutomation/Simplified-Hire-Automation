@@ -64,6 +64,6 @@ public class Base {
 	public void Kill() {
 
 		if (d != null) {
-	d.quit();
+// d.quit();
 		}
 	}}

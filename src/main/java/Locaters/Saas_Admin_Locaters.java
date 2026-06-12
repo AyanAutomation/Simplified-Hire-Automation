@@ -23,14 +23,14 @@ public class Saas_Admin_Locaters extends Repeat{
 		private WebElement Form;  
 		@FindBy(xpath="//button[@type='submit']")
 		private WebElement Submit_button; 
-		@FindBy(xpath="//*[contains(@class,'bookADemo_product_grid')]")
-		private WebElement product_grid; 
+		@FindBy(xpath="//h6")
+		private List<WebElement> Labels;; 
 		@FindBy(xpath="//div[@class='dropdown']")
 		private WebElement Country_code_dropdown_field;
 		@FindBy(xpath="//ul[contains(@class,'show phoneflag_drp')]")
 		private WebElement dropdown_options_list; 
-		@FindBy(xpath="//*[contains(@class,'acceptAll_btn')]")
-		private WebElement Accept_cookies_button; 
+		@FindBy(xpath="//p[@class='font-14 text-secondary']")
+		private List<WebElement> Values; 
 		@FindBy(xpath="//*[contains(@class,'ant-dropdown-placement-bottomRight')]")
 		private WebElement Actions_dropdown;
 		@FindBy(xpath="//h2//*[text()='Leads']")
@@ -44,13 +44,13 @@ public class Saas_Admin_Locaters extends Repeat{
 		@FindBy(xpath="//*[local-name()='rect' and @role='presentation']")
 		private WebElement Loader_element; 
 		@FindBy(xpath="//*[text()='Approve ']/..")
-		private WebElement  Leads_Approve_button; /*
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
+		private WebElement  Leads_Approve_button; 
+		@FindBy(xpath="//*[@role='tooltip']")
+		private WebElement ToolTip; 
+		@FindBy(xpath="(//iframe[@title='reCAPTCHA'])[1]")
+		private WebElement iframe;
+		@FindBy(xpath="//div[@id='rc-anchor-container']")
+		private WebElement Captcha_checkbox; /*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -368,22 +368,21 @@ public class Saas_Admin_Locaters extends Repeat{
 		public WebElement Submit_button(){
 		wait_for_theElement(Submit_button);
 		return Submit_button;}
-		public WebElement product_grid(){
-		wait_for_theElement(product_grid);
-		return product_grid;} 
-		public List<WebElement> Product_cards(){
-		List<WebElement> Product_cards = product_grid().findElements(By.xpath(".//label"));
-		wait_for_theElement(Product_cards);
-		return Product_cards;} 
+		public List<WebElement> Labels(){
+		wait_for_theElement(Labels);
+		return Labels;} 
+		public List<WebElement> values(){
+		wait_for_theElement(Values);
+		return Values;} 
 		public WebElement Country_code_dropdown_field(){
 		wait_for_theElement(Country_code_dropdown_field);
 		return Country_code_dropdown_field;} 
 		public WebElement dropdown_options_list(){
 		wait_for_theElement(dropdown_options_list);
 		return dropdown_options_list;} 
-		public WebElement Accept_cookies_button(){
-		wait_for_theElement(Accept_cookies_button);
-		return Accept_cookies_button;} 
+		public WebElement ToolTip(){
+		wait_for_theElement(ToolTip);
+		return ToolTip;} 
 		public WebElement Actions_dropdown(){
 		wait_for_theElement(Actions_dropdown);
 		return Actions_dropdown;} 
@@ -405,13 +404,13 @@ public class Saas_Admin_Locaters extends Repeat{
 		return Action_menu_options;}
 		public WebElement Leads_Approve_button(){
 		wait_for_theElement(Leads_Approve_button);
-		return Leads_Approve_button;}/*
-		public WebElement (){ 
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Leads_Approve_button;}
+		public WebElement iframe(){ 
+		wait_for_theElement(iframe);
+		return iframe;}
+		public WebElement Captcha_checkbox(){
+		wait_for_theElement(Captcha_checkbox);
+		return Captcha_checkbox;}/*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}
