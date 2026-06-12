@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.TreeMap;
 
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -259,4 +260,75 @@ public class Saas_Admin_Module extends Base{
 		p.Landed_in_Leads_page_confirmation();
 		
 		
+}
+	
+	
+	
+	
+	public void list_threedot_dropdown_option_selector(String option) throws InterruptedException {
+
+		Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+		Repeat rp = new Repeat(d);
+		
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step:</b> Click on 3 dot button of the first lead in the list to view dropdown options.");
+		System.out.println("Step: Click on 3 dot button of the first lead in the list to view dropdown options.");
+		System.out.println();
+		List<WebElement> Three_dot_Button= p.List_threedots_button();
+		Three_dot_Button.get(0).click();
+		List<WebElement> Dropdown_Options = p.Action_menu_options();
+		for (WebElement ele : Dropdown_Options) {
+
+			String text = ele.getText().trim();
+
+			System.out.println("Dropdown option found = " + text);
+
+			if (text.equalsIgnoreCase(option)) {
+
+				rp.movetoelement(ele);
+				ele.click();
+
+				Report_Listen.log_print_in_report().log(Status.INFO,
+						"<b>🟨 Actual:</b> Dropdown option selected successfully = " + text);
+				System.out.println("🟨 Actual: Dropdown option selected successfully = " + text);
+				System.out.println();
+
+				break;}}
+
+
+	}
+
+
+public TreeMap<String, String> Leads_Details_fetcher() throws IOException, InterruptedException {
+	
+	Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+	
+	
+	TreeMap<String, String> lead_details = new TreeMap<>();
+	
+   WebElement Approve_button;
+  try {
+	  Approve_button=  p.Leads_Approve_button();
+	  
+  } catch (Exception e) {
+	  
+	  Saas_Admin_Menu_navigation("Leads");
+      list_threedot_dropdown_option_selector("View Lead");
+      Approve_button=p.Leads_Approve_button();
+  }
+List<WebElement> Labels = p.Labels();
+List<WebElement> Values = p.values(); 
+
+for(int i=0;i<Math.min(Labels.size(), Values.size());i++) {
+	
+	String label = Labels.get(i).getText().trim();
+	String value = Values.get(i).getText().trim();
+	
+	lead_details.put(label, value);
+	System.out.println();
+    System.out.println(label + " : " + value);
+    System.out.println();
+
+}
+return lead_details;
 }}
