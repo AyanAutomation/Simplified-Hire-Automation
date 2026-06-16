@@ -298,6 +298,30 @@ public class Saas_Admin_Module extends Base{
 
 	}
 
+	
+	public void Account_Create() throws IOException{
+		
+		
+		Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+		
+		
+		Saas_Admin_Login();
+		WebElement Create_Button = p.Create_Account_button();
+		Create_Button.click();
+		List<WebElement> input = p.Customer_form_inputs();
+		List<WebElement> dropdowns = p.Customer_form_dropdowns();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	
 
 public TreeMap<String, String> Leads_Details_fetcher() throws IOException, InterruptedException {
 	

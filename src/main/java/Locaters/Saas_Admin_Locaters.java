@@ -63,11 +63,11 @@ public class Saas_Admin_Locaters extends Repeat{
         @FindBy(xpath="//iframe[@title='reCAPTCHA' and contains(@src,'size=normal')]")
         private List<WebElement> captcha_normal_iframe_list;
         @FindBy(xpath="//form//p[2]")
-		private WebElement Section_below_submit_button; /*
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
+		private WebElement Section_below_submit_button; 
+		@FindBy(xpath="//*[text()='Create Account']/..")
+		private WebElement Create_Account_button; 
+		@FindBy(xpath="//*[text()='Customer Information']/..")
+		private WebElement Customer_Add_form;/*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -432,19 +432,21 @@ public class Saas_Admin_Locaters extends Repeat{
         } 
 		public WebElement Section_below_submit_button(){
 		wait_for_theElement(Section_below_submit_button);
-		return Section_below_submit_button;} /*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Section_below_submit_button;} 
+		public WebElement Create_Account_button(){
+		wait_for_theElement(Create_Account_button);
+		return Create_Account_button;}
+		public WebElement Customer_Add_form(){
+		wait_for_theElement(Customer_Add_form);
+		return Customer_Add_form;}
+		public List<WebElement> Customer_form_inputs(){
+		List<WebElement> Customer_form_inputs = Customer_Add_form().findElements(By.xpath(".//input[@type='text']"));
+		wait_for_theElement(Customer_form_inputs);
+		return Customer_form_inputs;}
+		public List<WebElement> Customer_form_dropdowns(){
+		List<WebElement> Customer_form_dropdowns = Customer_Add_form().findElements(By.xpath(".//input[@type='text']"));
+		wait_for_theElement(Customer_form_dropdowns);
+		return Customer_form_dropdowns;}/*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}
