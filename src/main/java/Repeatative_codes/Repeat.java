@@ -51,6 +51,17 @@ public class Repeat {
 		return allElements;
 	}
 	
+   public List<WebElement> wait_for_optional_list(By by, int seconds) {
+		try {
+			WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(seconds));
+			return w.until(driver -> {
+				List<WebElement> elements = driver.findElements(by);
+				return elements.size() > 0 ? elements : null;
+			});
+		} catch (Exception e) {
+			return d.findElements(by);
+		}
+	}
 	
 	public void wait_for_theElement(List <WebElement> element){
 		 

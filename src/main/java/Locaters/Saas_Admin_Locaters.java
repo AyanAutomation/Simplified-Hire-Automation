@@ -46,21 +46,24 @@ public class Saas_Admin_Locaters extends Repeat{
 		@FindBy(xpath="//*[text()='Approve ']/..")
 		private WebElement  Leads_Approve_button; 
 		@FindBy(xpath="//*[@role='tooltip']")
-		private WebElement ToolTip; 
+		private WebElement ToolTip;
 		@FindBy(xpath="(//iframe[@title='reCAPTCHA'])[1]")
 		private WebElement iframe;
-		@FindBy(xpath="//div[@id='rc-anchor-container']")
-		private WebElement Captcha_checkbox; /*
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
+        @FindBy(xpath="(//iframe[@title='reCAPTCHA'])[1]")
+		private List<WebElement> iframe_list;
+        @FindBy(xpath="//span[@id='recaptcha-anchor' and @role='checkbox']")
+        private List<WebElement> Captcha_checkbox_list;
+        @FindBy(xpath="//span[@id='recaptcha-anchor']//div[contains(@class,'recaptcha-checkbox-border')]")
+        private List<WebElement> Captcha_checkbox_border_list;
+		@FindBy(xpath="//*[contains(text(),'Form submitted successfully')]")
+        private List<WebElement> success_message_list;
+        @FindBy(xpath="//*[contains(@id,'error_message')]")
+        private List<WebElement> error_message_list; 
+        By captcha_normal_iframe_by = By.xpath("//iframe[@title='reCAPTCHA' and contains(@src,'size=normal')]");
+        @FindBy(xpath="//iframe[@title='reCAPTCHA' and contains(@src,'size=normal')]")
+        private List<WebElement> captcha_normal_iframe_list;
+        @FindBy(xpath="//form//p[2]")
+		private WebElement Section_below_submit_button; /*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -408,24 +411,28 @@ public class Saas_Admin_Locaters extends Repeat{
 		public WebElement iframe(){ 
 		wait_for_theElement(iframe);
 		return iframe;}
-		public WebElement Captcha_checkbox(){
-		wait_for_theElement(Captcha_checkbox);
-		return Captcha_checkbox;}/*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+        public List<WebElement> iframe_list(){ 
+		return iframe_list;}
+		public List<WebElement> Captcha_checkbox_list(){
+		wait_for_theElement(Captcha_checkbox_list);
+		//wait_for_element_to_be_clickable(Captcha_checkbox);
+		return Captcha_checkbox_list;}
+		public List<WebElement> Captcha_checkbox_border_list() {
+	    wait_for_theElement(Captcha_checkbox_border_list);
+		//wait_for_element_to_be_clickable(Captcha_checkbox_border);
+	    return Captcha_checkbox_border_list;}
+		public List<WebElement> success_message_list(){
+		wait_for_theElement(success_message_list);
+	    return success_message_list;}
+        public List<WebElement> error_message_list(){
+        wait_for_theElement(error_message_list);
+	    return error_message_list;}
+        public List<WebElement> captcha_normal_iframe_list(){
+        return wait_for_optional_list(captcha_normal_iframe_by, 3);
+        } 
+		public WebElement Section_below_submit_button(){
+		wait_for_theElement(Section_below_submit_button);
+		return Section_below_submit_button;} /*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}
