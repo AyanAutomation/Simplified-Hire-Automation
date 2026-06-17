@@ -24,7 +24,7 @@ import Repeatative_codes.Repeat;
 public class Saas_Admin_Module extends Base{
 
 
-	public void Saas_Admin_Login() throws IOException {
+	public void Saas_Admin_Login() throws IOException, InterruptedException {
 		
 		int step = 1;
 		
@@ -109,6 +109,7 @@ public class Saas_Admin_Module extends Base{
 	        WebElement id_field_initial = lg.id_field();
 	        rp.movetoelement(id_field_initial);
 	        id_field_initial.click();
+	        Thread.sleep(800);
 	        id_field_initial.sendKeys(f.Data_Fetcher("Admin_Login_id"));
 
 	    } catch (StaleElementReferenceException e) {
@@ -218,7 +219,7 @@ public class Saas_Admin_Module extends Base{
 	        System.out.println();}}
 	
 	
-	public void Saas_Admin_Menu_navigation(String opt_text) throws IOException {
+	public void Saas_Admin_Menu_navigation(String opt_text) throws IOException, InterruptedException {
 
 	    
 		Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
@@ -252,7 +253,7 @@ public class Saas_Admin_Module extends Base{
 	}
 	
 	
-	public void Lead_Module_Accessor() throws IOException {
+	public void Lead_Module_Accessor() throws IOException, InterruptedException {
 
 		Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
 		
@@ -298,8 +299,8 @@ public class Saas_Admin_Module extends Base{
 
 	}
 
-	
-	public void Account_Create() throws IOException{
+	@Test
+	public void Account_Create() throws IOException, InterruptedException{
 		
 		
 		Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
