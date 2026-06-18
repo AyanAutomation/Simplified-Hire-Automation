@@ -67,23 +67,23 @@ public class Saas_Admin_Locaters extends Repeat{
 		@FindBy(xpath="//*[text()='Create Account']/..")
 		private WebElement Create_Account_button; 
 		@FindBy(xpath="//*[text()='Customer Information']/..")
-		private WebElement Customer_Add_form;/*
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
+		private WebElement Customer_Add_form;
+		@FindBy(xpath="//*[@class='app-plan-tab']")
+		private WebElement Plan_Tab; 
+		@FindBy(id="select_plan_hr")
+		private WebElement Hr_Plan_Input_feild; 
+		@FindBy(id="hr_number_of_users")
+		private WebElement hr_number_of_users_input_field; 
+		@FindBy(xpath="(//*[text()='Save as Draft']/..)[2]")
+		private WebElement Save_Draft_Button; 
+		@FindBy(id="company_country")
+		private WebElement Country_input;
+		@FindBy(xpath="//*[contains(@class,'ant-select-dropdown-placement-bottomLeft')]")
+		private WebElement Country_dropdown; 
+		@FindBy(xpath="//*[contains(@class,'ant-notification-notice notify-box')]")
+		private WebElement Toast_message; 
+		@FindBy(xpath="//*[contains(@class,'ant-notification-notice-close-x')]")
+		private WebElement Toast_close_Button;/*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -444,39 +444,41 @@ public class Saas_Admin_Locaters extends Repeat{
 		wait_for_theElement(Customer_form_inputs);
 		return Customer_form_inputs;}
 		public List<WebElement> Customer_form_dropdowns(){
-		List<WebElement> Customer_form_dropdowns = Customer_Add_form().findElements(By.xpath(".//input[@type='text']"));
+		List<WebElement> Customer_form_dropdowns = Customer_Add_form().findElements(By.xpath(".//*[@class='ant-form-item-control-input']"));
 		wait_for_theElement(Customer_form_dropdowns);
-		return Customer_form_dropdowns;}/*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Customer_form_dropdowns;}
+		public WebElement Plan_Tab(){
+		wait_for_theElement(Plan_Tab);
+		return Plan_Tab;}
+		public List<WebElement> Plan_toggle_Buttons(){
+		List<WebElement> Plan_toggle_Buttons = Plan_Tab().findElements(By.xpath(".//button"));
+		wait_for_theElement(Plan_toggle_Buttons);
+		return Plan_toggle_Buttons;}
+		public List<WebElement> Plan_select_dropdowm(){
+		List<WebElement> Plan_select_dropdowm = Plan_Tab().findElements(By.xpath(".//*[@class='ant-form-item-control-input']"));
+		wait_for_theElement(Plan_select_dropdowm);
+		return Plan_select_dropdowm;}
+		public WebElement Hr_Plan_Input_feild(){
+		wait_for_theElement(Hr_Plan_Input_feild);
+		return Hr_Plan_Input_feild;} 
+		public WebElement hr_number_of_users_input_field(){
+		wait_for_theElement(hr_number_of_users_input_field);
+		return hr_number_of_users_input_field;} 
+		public WebElement Save_Draft_Button(){
+		wait_for_theElement(Save_Draft_Button);
+		return Save_Draft_Button;}
+		public WebElement Country_input(){
+		wait_for_theElement(Country_input);
+		return Country_input;} 
+		public WebElement Country_dropdown(){
+		wait_for_theElement(Country_dropdown);
+		return Country_dropdown;}
+		public WebElement Toast_message(){
+		wait_for_theElement(Toast_message);
+		return Toast_message;} 
+		public WebElement Toast_close_Button(){
+		wait_for_theElement(Toast_close_Button);
+		return Toast_close_Button;}  /*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}
