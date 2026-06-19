@@ -303,157 +303,20 @@ public class Saas_Admin_Module extends Base{
 
 	}
 
-	@Test(dataProvider="Account_Create_Data")
+@Test(dataProvider="Account_Create_Data")
 public void Account_Create(TreeMap<String, String> account_data) throws IOException, InterruptedException{
 
-	String First_Name = account_data.get("First Name");
-	String Middle_Name = account_data.get("Middle Name");
-	String Last_Name = account_data.get("Last Name");
-	String Company_Name = account_data.get("Company Name");
-	String Country = account_data.get("Country");
-	String Email = account_data.get("Email");
-	String Subscribe_News = account_data.get("Subscribe News");
-	String Country_Code = account_data.get("Country Code");
-	String Phone_Number = account_data.get("Phone Number");
+		
+		String Company_Name = account_data.get("Company Name");
+		String Plan_Name = account_data.get("Plan Name");
+		String Users = account_data.get("Users");
+		
+		Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+		Repeat rp = new Repeat(d);
+			
 
-	String App_Name = account_data.get("App Name");
-	String App_Enabled = account_data.get("App Enabled");
-	String Plan_Name = account_data.get("Plan Name");
-	String Users = account_data.get("Users");
-
-	String Group = account_data.get("Group");
-	String Account_Manager = account_data.get("Account Manager");
-
-	String Staff_Notes = account_data.get("Staff Notes");
-
-	boolean Subscribe_News_Status = Subscribe_News.equalsIgnoreCase("Yes");
-	boolean App_Enabled_Status = App_Enabled.equalsIgnoreCase("Yes");
-
-	Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
-	Repeat rp = new Repeat(d);
-	JavascriptExecutor js = (JavascriptExecutor) d;
-	Candidate_Module_Locaters ca = new Candidate_Module_Locaters(d);
-
-	int step = 1;
-
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Validate SaaS Admin Account creation with HR plan assignment.");
-	System.out.println("🔹 Scenario Title: Validate SaaS Admin Account creation with HR plan assignment.");
-
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Login into SaaS Admin, open Create Account form, enter account holder details, select country, fill contact information, enable HR plan, select HR plan, enter number of users, save as draft, and validate toast message.");
-	System.out.println("📘 Description: Login into SaaS Admin, open Create Account form, enter account holder details, select country, fill contact information, enable HR plan, select HR plan, enter number of users, save as draft, and validate toast message.");
-
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Name = " + First_Name + " " + Middle_Name + " " + Last_Name + " | Company = " + Company_Name + " | Country = " + Country + " | Email = " + Email + " | Country Code = " + Country_Code + " | Phone Number = " + Phone_Number + " | App Name = " + App_Name + " | App Enabled = " + App_Enabled + " | Plan Name = " + Plan_Name + " | Users = " + Users + " | Group = " + Group + " | Account Manager = " + Account_Manager);
-	System.out.println("📥 Input: Name = " + First_Name + " " + Middle_Name + " " + Last_Name + " | Company = " + Company_Name + " | Country = " + Country + " | Email = " + Email + " | Country Code = " + Country_Code + " | Phone Number = " + Phone_Number + " | App Name = " + App_Name + " | App Enabled = " + App_Enabled + " | Plan Name = " + Plan_Name + " | Users = " + Users + " | Group = " + Group + " | Account Manager = " + Account_Manager);
-
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> Admin should be able to create/save the account draft successfully with selected HR plan and entered user count. Proper confirmation toast should be displayed.");
-	System.out.println("✅ Expected: Admin should be able to create/save the account draft successfully with selected HR plan and entered user count. Proper confirmation toast should be displayed.");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Login into SaaS Admin portal.");
-	System.out.println("Step " + (step - 1) + ": Login into SaaS Admin portal.");
-	Saas_Admin_Login();
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> SaaS Admin login completed successfully.");
-	System.out.println("🟨 Actual: SaaS Admin login completed successfully.");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Click Create Account button.");
-	System.out.println("Step " + (step - 1) + ": Click Create Account button.");
-	WebElement Create_Button = p.Create_Account_button();
-	Create_Button.click();
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Create Account button clicked successfully.");
-	System.out.println("🟨 Actual: Create Account button clicked successfully.");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Fetch account form input fields and dropdown fields.");
-	System.out.println("Step " + (step - 1) + ": Fetch account form input fields and dropdown fields.");
-	List<WebElement> input = p.Customer_form_inputs();
-	List<WebElement> dropdowns = p.Customer_form_dropdowns();
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Account form fields fetched successfully. Input count = " + input.size() + " | Dropdown count = " + dropdowns.size());
-	System.out.println("🟨 Actual: Account form fields fetched successfully. Input count = " + input.size() + " | Dropdown count = " + dropdowns.size());
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Fill account holder name and company details.");
-	System.out.println("Step " + (step - 1) + ": Fill account holder name and company details.");
-	input.get(0).sendKeys(First_Name);
-	input.get(1).sendKeys(Middle_Name);
-	input.get(2).sendKeys(Last_Name);
-	input.get(3).sendKeys(Company_Name);
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Name and company details entered successfully. Name = " + First_Name + " " + Middle_Name + " " + Last_Name + " | Company = " + Company_Name);
-	System.out.println("🟨 Actual: Name and company details entered successfully. Name = " + First_Name + " " + Middle_Name + " " + Last_Name + " | Company = " + Company_Name);
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Select country from country dropdown. Country = " + Country);
-	System.out.println("Step " + (step - 1) + ": Select country from country dropdown. Country = " + Country);
-	WebElement Country_dropdown_field=dropdowns.get(4);
-	Country_dropdown_field.click();
-	p.Country_input().sendKeys(Country);
-	WebElement country_list=p.Country_dropdown();
-	List<WebElement> country_options = country_list.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> Country dropdown option count = " + country_options.size());
-	System.out.println("🟨 Debug: Country dropdown option count = " + country_options.size());
-	country_options.get(0).click();
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Country selected successfully = " + Country);
-	System.out.println("🟨 Actual: Country selected successfully = " + Country);
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Fill email and phone number details.");
-	System.out.println("Step " + (step - 1) + ": Fill email and phone number details.");
-	input.get(4).sendKeys(Email);
-	input.get(5).sendKeys(Phone_Number);
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Contact details entered successfully. Email = " + Email + " | Phone Number = " + Phone_Number);
-	System.out.println("🟨 Actual: Contact details entered successfully. Email = " + Email + " | Phone Number = " + Phone_Number);
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Navigate to Plan section.");
-	System.out.println("Step " + (step - 1) + ": Navigate to Plan section.");
-	WebElement Plan_Tab = p.Plan_Tab();
-	rp.Scroll_to_element(Plan_Tab);
-	js.executeScript("window.scrollBy(0, -180);");
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Plan section reached successfully.");
-	System.out.println("🟨 Actual: Plan section reached successfully.");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Enable HR plan toggle.");
-	System.out.println("Step " + (step - 1) + ": Enable HR plan toggle.");
-	List<WebElement> Plan_Toggles = p.Plan_toggle_Buttons();
-	WebElement HR_swicth = Plan_Toggles.get(0);
-	HR_swicth.click();
-	Thread.sleep(800);
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> HR plan toggle clicked successfully. App Enabled data = " + App_Enabled + " | Boolean Status = " + App_Enabled_Status);
-	System.out.println("🟨 Actual: HR plan toggle clicked successfully. App Enabled data = " + App_Enabled + " | Boolean Status = " + App_Enabled_Status);
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Open HR plan dropdown and search plan. Plan Name = " + Plan_Name);
-	System.out.println("Step " + (step - 1) + ": Open HR plan dropdown and search plan. Plan Name = " + Plan_Name);
-	List<WebElement> Plan_Select = p.Plan_select_dropdowm();
-	WebElement Hr_Plan_select_field = Plan_Select.get(0);
-	rp.movetoelement(Hr_Plan_select_field);
-	Hr_Plan_select_field.click();
-	p.Hr_Plan_Input_feild().sendKeys(Plan_Name);
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> HR plan name entered in plan search field = " + Plan_Name);
-	System.out.println("🟨 Actual: HR plan name entered in plan search field = " + Plan_Name);
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Select searched HR plan from dropdown list.");
-	System.out.println("Step " + (step - 1) + ": Select searched HR plan from dropdown list.");
-	WebElement Owner_dropdown_list = d.findElement(By.xpath("(//*[contains(@class,'rc-virtual-list-holder')])[3]"));
-	rp.wait_for_theElement(Owner_dropdown_list);
-	Thread.sleep(800);
-	rp.movetoelement(Owner_dropdown_list);
-	List<WebElement> hr_plan_options= Owner_dropdown_list.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));;
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> HR plan option count after search = " + hr_plan_options.size());
-	System.out.println("🟨 Debug: HR plan option count after search = " + hr_plan_options.size());
-	hr_plan_options.get(0).click();
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> HR plan selected successfully = " + Plan_Name);
-	System.out.println("🟨 Actual: HR plan selected successfully = " + Plan_Name);
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Enter number of users for selected HR plan. Users = " + Users);
-	System.out.println("Step " + (step - 1) + ": Enter number of users for selected HR plan. Users = " + Users);
-	p.hr_number_of_users_input_field().sendKeys(Users);
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Number of users entered successfully = " + Users);
-	System.out.println("🟨 Actual: Number of users entered successfully = " + Users);
-	System.out.println();
+	int Start_step = 1;
+	 int step = Form_Filler(account_data,Start_step);
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Click Save Draft button.");
 	System.out.println("Step " + (step - 1) + ": Click Save Draft button.");
@@ -480,6 +343,166 @@ public void Account_Create(TreeMap<String, String> account_data) throws IOExcept
 	System.out.println("✅ Final Result: Account creation draft flow completed successfully for company = " + Company_Name + " | Plan = " + Plan_Name + " | Users = " + Users);
 	System.out.println();
 }
+	
+	
+   public int Form_Filler(TreeMap<String, String> Form_Data, int step) throws InterruptedException, IOException{
+	
+	
+	    String First_Name = Form_Data.get("First Name");
+		String Middle_Name = Form_Data.get("Middle Name");
+		String Last_Name = Form_Data.get("Last Name");
+		String Company_Name = Form_Data.get("Company Name");
+		String Country = Form_Data.get("Country");
+		String Email = Form_Data.get("Email");
+		String Subscribe_News = Form_Data.get("Subscribe News");
+		String Country_Code = Form_Data.get("Country Code");
+		String Phone_Number = Form_Data.get("Phone Number");
+
+		String App_Name = Form_Data.get("App Name");
+		String App_Enabled = Form_Data.get("App Enabled");
+		String Plan_Name = Form_Data.get("Plan Name");
+		String Users = Form_Data.get("Users");
+
+		String Group = Form_Data.get("Group");
+		String Account_Manager = Form_Data.get("Account Manager");
+
+		String Staff_Notes = Form_Data.get("Staff Notes");
+
+		boolean Subscribe_News_Status = Subscribe_News.equalsIgnoreCase("Yes");
+		boolean App_Enabled_Status = App_Enabled.equalsIgnoreCase("Yes");
+
+		Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+		Repeat rp = new Repeat(d);
+		JavascriptExecutor js = (JavascriptExecutor) d;
+		Candidate_Module_Locaters ca = new Candidate_Module_Locaters(d);
+
+		
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Validate SaaS Admin Account creation with HR plan assignment.");
+		System.out.println("🔹 Scenario Title: Validate SaaS Admin Account creation with HR plan assignment.");
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Login into SaaS Admin, open Create Account form, enter account holder details, select country, fill contact information, enable HR plan, select HR plan, enter number of users, save as draft, and validate toast message.");
+		System.out.println("📘 Description: Login into SaaS Admin, open Create Account form, enter account holder details, select country, fill contact information, enable HR plan, select HR plan, enter number of users, save as draft, and validate toast message.");
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Name = " + First_Name + " " + Middle_Name + " " + Last_Name + " | Company = " + Company_Name + " | Country = " + Country + " | Email = " + Email + " | Country Code = " + Country_Code + " | Phone Number = " + Phone_Number + " | App Name = " + App_Name + " | App Enabled = " + App_Enabled + " | Plan Name = " + Plan_Name + " | Users = " + Users + " | Group = " + Group + " | Account Manager = " + Account_Manager);
+		System.out.println("📥 Input: Name = " + First_Name + " " + Middle_Name + " " + Last_Name + " | Company = " + Company_Name + " | Country = " + Country + " | Email = " + Email + " | Country Code = " + Country_Code + " | Phone Number = " + Phone_Number + " | App Name = " + App_Name + " | App Enabled = " + App_Enabled + " | Plan Name = " + Plan_Name + " | Users = " + Users + " | Group = " + Group + " | Account Manager = " + Account_Manager);
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> Admin should be able to create/save the account draft successfully with selected HR plan and entered user count. Proper confirmation toast should be displayed.");
+		System.out.println("✅ Expected: Admin should be able to create/save the account draft successfully with selected HR plan and entered user count. Proper confirmation toast should be displayed.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Login into SaaS Admin portal.");
+		System.out.println("Step " + (step - 1) + ": Login into SaaS Admin portal.");
+		Saas_Admin_Login();
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> SaaS Admin login completed successfully.");
+		System.out.println("🟨 Actual: SaaS Admin login completed successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Click Create Account button.");
+		System.out.println("Step " + (step - 1) + ": Click Create Account button.");
+		WebElement Create_Button = p.Create_Account_button();
+		Create_Button.click();
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Create Account button clicked successfully.");
+		System.out.println("🟨 Actual: Create Account button clicked successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Fetch account form input fields and dropdown fields.");
+		System.out.println("Step " + (step - 1) + ": Fetch account form input fields and dropdown fields.");
+		List<WebElement> input = p.Customer_form_inputs();
+		List<WebElement> dropdowns = p.Customer_form_dropdowns();
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Account form fields fetched successfully. Input count = " + input.size() + " | Dropdown count = " + dropdowns.size());
+		System.out.println("🟨 Actual: Account form fields fetched successfully. Input count = " + input.size() + " | Dropdown count = " + dropdowns.size());
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Fill account holder name and company details.");
+		System.out.println("Step " + (step - 1) + ": Fill account holder name and company details.");
+		input.get(0).sendKeys(First_Name);
+		input.get(1).sendKeys(Middle_Name);
+		input.get(2).sendKeys(Last_Name);
+		input.get(3).sendKeys(Company_Name);
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Name and company details entered successfully. Name = " + First_Name + " " + Middle_Name + " " + Last_Name + " | Company = " + Company_Name);
+		System.out.println("🟨 Actual: Name and company details entered successfully. Name = " + First_Name + " " + Middle_Name + " " + Last_Name + " | Company = " + Company_Name);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Select country from country dropdown. Country = " + Country);
+		System.out.println("Step " + (step - 1) + ": Select country from country dropdown. Country = " + Country);
+		WebElement Country_dropdown_field=dropdowns.get(4);
+		Country_dropdown_field.click();
+		p.Country_input().sendKeys(Country);
+		WebElement country_list=p.Country_dropdown();
+		List<WebElement> country_options = country_list.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> Country dropdown option count = " + country_options.size());
+		System.out.println("🟨 Debug: Country dropdown option count = " + country_options.size());
+		country_options.get(0).click();
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Country selected successfully = " + Country);
+		System.out.println("🟨 Actual: Country selected successfully = " + Country);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Fill email and phone number details.");
+		System.out.println("Step " + (step - 1) + ": Fill email and phone number details.");
+		input.get(4).sendKeys(Email);
+		input.get(5).sendKeys(Phone_Number);
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Contact details entered successfully. Email = " + Email + " | Phone Number = " + Phone_Number);
+		System.out.println("🟨 Actual: Contact details entered successfully. Email = " + Email + " | Phone Number = " + Phone_Number);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Navigate to Plan section.");
+		System.out.println("Step " + (step - 1) + ": Navigate to Plan section.");
+		WebElement Plan_Tab = p.Plan_Tab();
+		rp.Scroll_to_element(Plan_Tab);
+		js.executeScript("window.scrollBy(0, -180);");
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Plan section reached successfully.");
+		System.out.println("🟨 Actual: Plan section reached successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Enable HR plan toggle.");
+		System.out.println("Step " + (step - 1) + ": Enable HR plan toggle.");
+		List<WebElement> Plan_Toggles = p.Plan_toggle_Buttons();
+		WebElement HR_swicth = Plan_Toggles.get(0);
+		HR_swicth.click();
+		Thread.sleep(800);
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> HR plan toggle clicked successfully. App Enabled data = " + App_Enabled + " | Boolean Status = " + App_Enabled_Status);
+		System.out.println("🟨 Actual: HR plan toggle clicked successfully. App Enabled data = " + App_Enabled + " | Boolean Status = " + App_Enabled_Status);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Open HR plan dropdown and search plan. Plan Name = " + Plan_Name);
+		System.out.println("Step " + (step - 1) + ": Open HR plan dropdown and search plan. Plan Name = " + Plan_Name);
+		List<WebElement> Plan_Select = p.Plan_select_dropdowm();
+		WebElement Hr_Plan_select_field = Plan_Select.get(0);
+		rp.movetoelement(Hr_Plan_select_field);
+		Hr_Plan_select_field.click();
+		p.Hr_Plan_Input_feild().sendKeys(Plan_Name);
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> HR plan name entered in plan search field = " + Plan_Name);
+		System.out.println("🟨 Actual: HR plan name entered in plan search field = " + Plan_Name);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Select searched HR plan from dropdown list.");
+		System.out.println("Step " + (step - 1) + ": Select searched HR plan from dropdown list.");
+		WebElement Owner_dropdown_list = d.findElement(By.xpath("(//*[contains(@class,'rc-virtual-list-holder')])[3]"));
+		rp.wait_for_theElement(Owner_dropdown_list);
+		Thread.sleep(800);
+		rp.movetoelement(Owner_dropdown_list);
+		List<WebElement> hr_plan_options= Owner_dropdown_list.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));;
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> HR plan option count after search = " + hr_plan_options.size());
+		System.out.println("🟨 Debug: HR plan option count after search = " + hr_plan_options.size());
+		hr_plan_options.get(0).click();
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> HR plan selected successfully = " + Plan_Name);
+		System.out.println("🟨 Actual: HR plan selected successfully = " + Plan_Name);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Enter number of users for selected HR plan. Users = " + Users);
+		System.out.println("Step " + (step - 1) + ": Enter number of users for selected HR plan. Users = " + Users);
+		p.hr_number_of_users_input_field().sendKeys(Users);
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Number of users entered successfully = " + Users);
+		System.out.println("🟨 Actual: Number of users entered successfully = " + Users);
+		System.out.println();
+	
+	return step;
+	
+	
+}	
+	
+	
 	
 @DataProvider
 public Object[][] Account_Create_Data() {
