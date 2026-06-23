@@ -76,6 +76,8 @@ public class Saas_Admin_Locaters extends Repeat{
 		private WebElement hr_number_of_users_input_field; 
 		@FindBy(xpath="(//*[text()='Save as Draft']/..)[2]")
 		private WebElement Save_Draft_Button; 
+		@FindBy(xpath="(//*[text()='Save & Invite']/..)[2]")
+		private WebElement Save_Invite_Button; 
 		@FindBy(id="company_country")
 		private WebElement Country_input;
 		@FindBy(xpath="//*[contains(@class,'ant-select-dropdown-placement-bottomLeft')]")
@@ -83,11 +85,11 @@ public class Saas_Admin_Locaters extends Repeat{
 		@FindBy(xpath="//*[contains(@class,'ant-notification-notice notify-box')]")
 		private WebElement Toast_message; 
 		@FindBy(xpath="//*[contains(@class,'ant-notification-notice-close-x')]")
-		private WebElement Toast_close_Button;/*
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
+		private WebElement Toast_close_Button;
+		@FindBy(xpath="//div[@class='text-truncate']")
+		private List<WebElement> Truncated_data_in_list; 
+		@FindBy(xpath="//tbody[contains(@class,'ant-table-tbody')]//tr[contains(@class,'ant-table-placeholder')]//*[local-name()='svg' and @role='img']")
+		private List<WebElement> Loader; /*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -478,19 +480,18 @@ public class Saas_Admin_Locaters extends Repeat{
 		return Toast_message;} 
 		public WebElement Toast_close_Button(){
 		wait_for_theElement(Toast_close_Button);
-		return Toast_close_Button;}  /*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Toast_close_Button;}  
+		public WebElement Save_Invite_Button(){
+		wait_for_theElement(Save_Invite_Button);
+		return Save_Invite_Button;}
+		public List<WebElement> Truncated_data_in_list(){
+		
+		wait_for_theElement(Truncated_data_in_list);
+		return Truncated_data_in_list;} 
+		public List<WebElement> Loader(){
+		wait_for_theElement(Loader);
+		return Loader;} 
+		/*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}
