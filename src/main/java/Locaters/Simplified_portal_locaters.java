@@ -18,9 +18,9 @@ public class Simplified_portal_locaters extends Repeat{
 		@FindBy(xpath="//*[contains(@class,'title-row')]//*[text()='Dashboard']")
 		private WebElement Landed_in_Dashboard; 
 		@FindBy(css="svg[role='img'] rect[role='presentation']")
-		private WebElement Loader; /*
-		@FindBy(xpath="")
-		private WebElement  ; */
+		private WebElement Loader; 
+		@FindBy(xpath="//h2[text()='Control Center']")
+		private WebElement Simplified_HR_Dashboard; 
 		
 		public Simplified_portal_locaters(WebDriver d){
 		super(d);	
@@ -36,5 +36,8 @@ public class Simplified_portal_locaters extends Repeat{
 		public WebElement Loader(){
 		wait_for_theElement(Loader);
 		return Loader;} 
+		public WebElement Simplified_HR_Dashboard(){
+		wait_for_theElement(Simplified_HR_Dashboard);
+		return Simplified_HR_Dashboard;}
 
 }

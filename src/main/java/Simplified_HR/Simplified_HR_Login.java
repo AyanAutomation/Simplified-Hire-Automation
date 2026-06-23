@@ -1,20 +1,38 @@
-package Product_Codeclouds.Project.Simplified;
+package Simplified_HR;
 
 import java.io.IOException;
 import java.util.List;
 
 import org.openqa.selenium.WebElement;
+import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 
 import Listerners.Report_Listen;
 import Locaters.Side_menu_locaters;
+import Product_Codeclouds.Project.Simplified.Side_menu_Handler;
+import Repeatative_codes.Repeat;
+import Simplified_HR_Locaters.Simplified_Hr_Master_Locaters;
 
-public class Side_menu_Handler extends Simplified_hire_login {
-
+public class Simplified_HR_Login extends Side_menu_Handler{
+	
+	
+	@Test
+	public void Simplified_Hr_App_Login() throws IOException, InterruptedException{
+		
+		
+		
+		Simplified_Apps_Accessor(0);
+		Menu_option_selector("Control Center");
+		
+		
+	}
+	
+	
 	public void Menu_option_selector(String opt_text) throws IOException, InterruptedException {
 
-		Side_menu_locaters p = new Side_menu_locaters(d);
+		Simplified_Hr_Master_Locaters p = new Simplified_Hr_Master_Locaters(d);
+		Repeat rp = new Repeat(d);
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
 				"<b>🔹 Scenario Title:</b> Select required side menu option in Simplified Hire");
@@ -71,7 +89,17 @@ public class Side_menu_Handler extends Simplified_hire_login {
 				"<b>Step 3:</b> Search for side menu option = " + opt_text + " and click on it.");
 		System.out.println("Step 3: Search for side menu option = " + opt_text + " and click on it.");
 		System.out.println();
-
+		if (opt_text.contains("Control Center")) {
+			WebElement control_center_option = menu_options.get(6);
+			rp.movetoelement(control_center_option);
+			WebElement sub_menu = p.First_Submenu();
+			rp.movetoelement(sub_menu);
+			
+			
+		}
+		
+		
+/*
 		boolean option_clicked = menu_options.stream().filter(menuop -> menuop.getText().trim().equalsIgnoreCase(opt_text))
 				.findFirst().map(menuop -> {
 					menuop.click();
@@ -90,15 +118,7 @@ public class Side_menu_Handler extends Simplified_hire_login {
 					"<b>❌ Actual:</b> Required side menu option was not found = " + opt_text);
 			System.out.println("❌ Actual: Required side menu option was not found = " + opt_text);
 			System.out.println();
-		}
+		} */
 	}
 
-	public void side_menu_expander() throws IOException, InterruptedException {
-
-		Side_menu_locaters p = new Side_menu_locaters(d);
-
-		WebElement Menu_expand = p.Menu_Expander();
-		Menu_expand.click();
-		p.Side_menu();
-	}
 }

@@ -20,7 +20,7 @@ public class Simplified_Cucumber_hire_login extends Simplified_hire_login{
 	public void Simplified_Hire_Cucumber_Accessor() throws IOException, InterruptedException {
 		
 		Bind_driver();
-		Simplified_Hire_Accessor();
+		Simplified_Apps_Accessor(1);
 		
 		
 		
