@@ -89,21 +89,21 @@ public class Saas_Admin_Locaters extends Repeat{
 		@FindBy(xpath="//div[@class='text-truncate']")
 		private List<WebElement> Truncated_data_in_list; 
 		@FindBy(xpath="//tbody[contains(@class,'ant-table-tbody')]//tr[contains(@class,'ant-table-placeholder')]//*[local-name()='svg' and @role='img']")
-		private List<WebElement> Loader; /*
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
+		private List<WebElement> Loader; 
+		@FindBy(xpath="//*[contains(@class,'d-block line-heigh-2')]")
+		private WebElement Invite_link; 
+		@FindBy(xpath="//*[contains(@class,'ant-modal-header')]/..")
+		private WebElement pop_up_modal; 
+		@FindBy(id="password")
+		private WebElement password;
+		@FindBy(id="confirm_password")
+		private WebElement confirm_password; 
+		@FindBy(xpath="//*[text()='Almost there…']")
+		private WebElement Landed_in_Set_Password_page; 
+		@FindBy(xpath="//button[@type='Submit']")
+		private WebElement Submit_Button; 
+		@FindBy(xpath="//form[contains(@class,'ant-form')]//div[@role='alert' and @data-show='true' and contains(@class,'ant-alert-success')]")
+        private WebElement Account_Verified_Success_Message; /*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -491,28 +491,28 @@ public class Saas_Admin_Locaters extends Repeat{
 		public List<WebElement> Loader(){
 		wait_for_theElement(Loader);
 		return Loader;} 
-		/*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		
+		public WebElement Invite_link(){
+		wait_for_theElement(Invite_link);
+		return Invite_link;} 
+		public WebElement pop_up_modal(){
+		wait_for_theElement(pop_up_modal);
+		return pop_up_modal;} 
+		public WebElement password(){
+		wait_for_theElement(password);
+		return password;}
+		public WebElement confirm_password(){
+		wait_for_theElement(confirm_password);
+		return confirm_password;} 
+		public WebElement Landed_in_Set_Password_page(){
+		wait_for_theElement(Landed_in_Set_Password_page);
+		return Landed_in_Set_Password_page;}
+		public WebElement Submit_Button(){
+		wait_for_theElement(Submit_Button);
+		return Submit_Button;}  
+		public WebElement Account_Verified_Success_Message(){
+		wait_for_theElement(Account_Verified_Success_Message);
+		return Account_Verified_Success_Message;} /*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}

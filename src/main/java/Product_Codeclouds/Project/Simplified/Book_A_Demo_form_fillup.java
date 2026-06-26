@@ -2,6 +2,7 @@ package Product_Codeclouds.Project.Simplified;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 import org.openqa.selenium.By;
@@ -395,7 +396,81 @@ public void book_a_demo_form_fillup(TreeMap<String, String> form_data) throws IO
 	System.out.println("Step " + (step - 1) + ": Open lead action menu and view lead details.");
 	list_threedot_dropdown_option_selector("View Lead");
 	sa.Leads_Approve_button();
-	Leads_Details_fetcher();
+	TreeMap<String,String> Leads_Label_values = Leads_Details_fetcher();
+
+	TreeMap<String,String> Expected_Lead_Data = new TreeMap<String,String>();
+	Expected_Lead_Data.put("First Name", First_Name);
+	Expected_Lead_Data.put("Last Name", Last_Name);
+	Expected_Lead_Data.put("Email", Email);
+	Expected_Lead_Data.put("Company Name", Company_Name);
+	Expected_Lead_Data.put("Country Code", Country_Code);
+	Expected_Lead_Data.put("Phone Number", Phone_Number);
+	Expected_Lead_Data.put("Message", Message);
+	Expected_Lead_Data.put("Selected Product", Selected_Product);
+
+	boolean lead_data_matched = true;
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Verify submitted Book a Demo data with fetched SaaS Admin lead details.");
+	System.out.println("Step " + (step - 1) + ": Verify submitted Book a Demo data with fetched SaaS Admin lead details.");
+
+	for(Map.Entry<String,String> pair : Leads_Label_values.entrySet()) {
+
+		String Admin_Label = pair.getKey().trim();
+		String Admin_Value = pair.getValue().trim();
+		String Admin_Label_Lower = Admin_Label.toLowerCase();
+
+		String Expected_Value = null;
+
+		if(Admin_Label_Lower.contains("first") && Admin_Label_Lower.contains("name")) {
+			Expected_Value = First_Name;
+		} else if(Admin_Label_Lower.contains("last") && Admin_Label_Lower.contains("name")) {
+			Expected_Value = Last_Name;
+		} else if(Admin_Label_Lower.contains("email")) {
+			Expected_Value = Email;
+		} else if(Admin_Label_Lower.contains("company")) {
+			Expected_Value = Company_Name;
+		} else if(Admin_Label_Lower.contains("country") && Admin_Label_Lower.contains("code")) {
+			Expected_Value = Country_Code;
+		} else if(Admin_Label_Lower.contains("phone") || Admin_Label_Lower.contains("mobile") || Admin_Label_Lower.contains("contact")) {
+			Expected_Value = Phone_Number;
+		} else if(Admin_Label_Lower.contains("message") || Admin_Label_Lower.contains("requirement") || Admin_Label_Lower.contains("description")) {
+			Expected_Value = Message;
+		} else if(Admin_Label_Lower.contains("product") || Admin_Label_Lower.contains("app") || Admin_Label_Lower.contains("service")) {
+			Expected_Value = Selected_Product;
+		}
+
+		if(Expected_Value != null) {
+			String Expected_Value_Normalized = Expected_Value.replaceAll("\\s+", " ").trim();
+			String Admin_Value_Normalized = Admin_Value.replaceAll("\\s+", " ").trim();
+
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> Comparing Lead Field | Label = " + Admin_Label + " | Expected = " + Expected_Value_Normalized + " | Actual = " + Admin_Value_Normalized);
+			System.out.println("🟨 Debug: Comparing Lead Field | Label = " + Admin_Label + " | Expected = " + Expected_Value_Normalized + " | Actual = " + Admin_Value_Normalized);
+
+			if(Admin_Value_Normalized.contains(Expected_Value_Normalized) || Expected_Value_Normalized.contains(Admin_Value_Normalized)) {
+				Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Match:</b> Lead field matched successfully. Label = " + Admin_Label + " | Value = " + Admin_Value_Normalized);
+				System.out.println("✅ Match: Lead field matched successfully. Label = " + Admin_Label + " | Value = " + Admin_Value_Normalized);
+			} else {
+				lead_data_matched = false;
+				Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Mismatch:</b> Lead field value mismatch. Label = " + Admin_Label + " | Expected = " + Expected_Value_Normalized + " | Actual = " + Admin_Value_Normalized);
+				System.out.println("❌ Mismatch: Lead field value mismatch. Label = " + Admin_Label + " | Expected = " + Expected_Value_Normalized + " | Actual = " + Admin_Value_Normalized);
+			}
+		} else {
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Skipped:</b> No matching frontend input key mapped for admin label = " + Admin_Label + " | Admin Value = " + Admin_Value);
+			System.out.println("🟨 Skipped: No matching frontend input key mapped for admin label = " + Admin_Label + " | Admin Value = " + Admin_Value);
+		}
+
+		System.out.println();
+	}
+
+	if(lead_data_matched) {
+		Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> All available mapped Book a Demo lead details matched successfully with SaaS Admin fetched data.");
+		System.out.println("✅ Actual: All available mapped Book a Demo lead details matched successfully with SaaS Admin fetched data.");
+	} else {
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> One or more Book a Demo lead detail values did not match with SaaS Admin fetched data.");
+		System.out.println("❌ Actual: One or more Book a Demo lead detail values did not match with SaaS Admin fetched data.");
+	}
+	System.out.println();
+    
 	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Final Status:</b> Book a Demo form submission and lead details verification completed successfully.");
 	System.out.println("✅ Final Status: Book a Demo form submission and lead details verification completed successfully.");
 	System.out.println();
@@ -491,203 +566,203 @@ public Object[][] Contact_Form_Data() {
 
 	TreeMap<String, String> data1 = new TreeMap<String, String>();
 	data1.put("Selected Product", "Simplified Checkout");
-	data1.put("First Name", "Dmitry Alexei");
-	data1.put("Last Name", "Volkov");
-	data1.put("Email", "dmitry.alexei.volkov.checkout066@yopmail.com");
-	data1.put("Company Name", "Volkov Digital Retail OOO");
-	data1.put("Country Code", "+7");
-	data1.put("Phone Number", "9164827350");
-	data1.put("Message", "We are a Russia-based digital retail company evaluating Simplified Checkout to improve payment completion, reduce checkout friction, monitor transaction status more clearly, and create a smoother online purchase experience for customers across multiple sales channels.");
+	data1.put("First Name", "Emilian Gregor");
+	data1.put("Last Name", "Weissmuller");
+	data1.put("Email", "emilian.gregor.weissmuller.checkout086@yopmail.com");
+	data1.put("Company Name", "Weissmuller Digital Commerce GmbH");
+	data1.put("Country Code", "+49");
+	data1.put("Phone Number", "15742869301");
+	data1.put("Message", "We are a Germany-based digital commerce company exploring Simplified Checkout to improve payment completion, reduce checkout abandonment, track transaction status clearly, and provide customers with a smoother online purchase experience.");
 
 	TreeMap<String, String> data2 = new TreeMap<String, String>();
 	data2.put("Selected Product", "Simplified Hire");
-	data2.put("First Name", "Camille Elise");
-	data2.put("Last Name", "Leroux");
-	data2.put("Email", "camille.elise.leroux.hire067@yopmail.com");
-	data2.put("Company Name", "Leroux Talent Advisory SAS");
+	data2.put("First Name", "Noemie Celestine");
+	data2.put("Last Name", "Marchand");
+	data2.put("Email", "noemie.celestine.marchand.hire087@yopmail.com");
+	data2.put("Company Name", "Marchand Talent Enablement SAS");
 	data2.put("Country Code", "+33");
-	data2.put("Phone Number", "764928135");
-	data2.put("Message", "Our France-based recruitment advisory team wants to review Simplified Hire for managing candidate applications, interview feedback, recruiter notes, job stages, hiring visibility, and client communication from one structured hiring workflow.");
+	data2.put("Phone Number", "752681934");
+	data2.put("Message", "Our France-based talent enablement team wants to review Simplified Hire for candidate tracking, job pipeline visibility, interview feedback, recruiter collaboration, hiring stage updates, and structured recruitment reporting.");
 
 	TreeMap<String, String> data3 = new TreeMap<String, String>();
 	data3.put("Selected Product", "Simplified HR");
-	data3.put("First Name", "Anastasia Mikhailovna");
-	data3.put("Last Name", "Sokolova");
-	data3.put("Email", "anastasia.mikhailovna.sokolova.hr068@yopmail.com");
-	data3.put("Company Name", "Sokolova People Operations OOO");
-	data3.put("Country Code", "+7");
-	data3.put("Phone Number", "9257384612");
-	data3.put("Message", "We are reviewing Simplified HR for our internal workforce and want to understand employee profile management, attendance tracking, leave approval workflows, department mapping, administrator access, and reporting options for HR operations.");
+	data3.put("First Name", "Eivind Torbjorn");
+	data3.put("Last Name", "Haugen");
+	data3.put("Email", "eivind.torbjorn.haugen.hr088@yopmail.com");
+	data3.put("Company Name", "Haugen Employee Systems AS");
+	data3.put("Country Code", "+47");
+	data3.put("Phone Number", "46291837");
+	data3.put("Message", "We are evaluating Simplified HR for employee record management, attendance tracking, leave approval workflows, department mapping, HR administrator access, employee communication, and reporting support for our Norway-based team.");
 
 	TreeMap<String, String> data4 = new TreeMap<String, String>();
 	data4.put("Selected Product", "Simplified Spaces");
-	data4.put("First Name", "Matteo Lorenzo");
-	data4.put("Last Name", "Bellandi");
-	data4.put("Email", "matteo.lorenzo.bellandi.spaces069@yopmail.com");
-	data4.put("Company Name", "Bellandi Workspace Services SRL");
+	data4.put("First Name", "Valerio Niccolo");
+	data4.put("Last Name", "Contarini");
+	data4.put("Email", "valerio.niccolo.contarini.spaces089@yopmail.com");
+	data4.put("Company Name", "Contarini Workspace Operations SRL");
 	data4.put("Country Code", "+39");
-	data4.put("Phone Number", "3475829160");
-	data4.put("Message", "We manage flexible workspace locations in Italy and want to explore Simplified Spaces for desk booking, meeting room availability, customer inquiry handling, workspace allocation, branch-level operations, and daily availability tracking.");
+	data4.put("Phone Number", "3517284960");
+	data4.put("Message", "We manage shared office locations in Italy and want to explore Simplified Spaces for desk booking, meeting room scheduling, workspace availability, customer inquiries, branch coordination, and daily space utilization tracking.");
 
 	TreeMap<String, String> data5 = new TreeMap<String, String>();
 	data5.put("Selected Product", "Simplified Checkout, Simplified Hire");
-	data5.put("First Name", "Nikolai Viktor");
-	data5.put("Last Name", "Morozov");
-	data5.put("Email", "nikolai.viktor.morozov.checkout.hire070@yopmail.com");
-	data5.put("Company Name", "Morozov Commerce Talent OOO");
-	data5.put("Country Code", "+7");
-	data5.put("Phone Number", "9036172845");
-	data5.put("Message", "Our company is expanding online sales and recruitment activities, so we want to evaluate Simplified Checkout and Simplified Hire together for payment flow management, candidate tracking, recruitment visibility, and operational reporting.");
+	data5.put("First Name", "Edmund Charles");
+	data5.put("Last Name", "Whitmore");
+	data5.put("Email", "edmund.charles.whitmore.checkout.hire090@yopmail.com");
+	data5.put("Company Name", "Whitmore Commerce Talent Ltd");
+	data5.put("Country Code", "+44");
+	data5.put("Phone Number", "7516382940");
+	data5.put("Message", "Our UK-based company wants to evaluate Simplified Checkout and Simplified Hire together for online payment handling, order conversion visibility, candidate management, recruiter collaboration, and hiring workflow reporting.");
 
 	TreeMap<String, String> data6 = new TreeMap<String, String>();
 	data6.put("Selected Product", "Simplified HR, Simplified Spaces");
-	data6.put("First Name", "Sophie Marieke");
-	data6.put("Last Name", "Van Dalen");
-	data6.put("Email", "sophie.marieke.vandalen.hrspaces071@yopmail.com");
-	data6.put("Company Name", "Van Dalen Office People BV");
-	data6.put("Country Code", "+31");
-	data6.put("Phone Number", "652918374");
-	data6.put("Message", "We are a Netherlands-based operations company looking for a combined solution to manage employee records, attendance, leave requests, desk bookings, meeting room availability, office coordination, and internal reporting.");
+	data6.put("First Name", "Celine Aurelie");
+	data6.put("Last Name", "Moreau");
+	data6.put("Email", "celine.aurelie.moreau.hrspaces091@yopmail.com");
+	data6.put("Company Name", "Moreau Office People SAS");
+	data6.put("Country Code", "+33");
+	data6.put("Phone Number", "736492851");
+	data6.put("Message", "We are looking for a combined HR and workspace solution to manage employee records, attendance, leave requests, desk bookings, meeting room availability, office coordination, and internal operational reports.");
 
 	TreeMap<String, String> data7 = new TreeMap<String, String>();
 	data7.put("Selected Product", "Simplified Checkout, Simplified HR");
-	data7.put("First Name", "Pavel Andreev");
-	data7.put("Last Name", "Orlov");
-	data7.put("Email", "pavel.andreev.orlov.checkouthr072@yopmail.com");
-	data7.put("Company Name", "Orlov Business Systems OOO");
-	data7.put("Country Code", "+7");
-	data7.put("Phone Number", "9167354820");
-	data7.put("Message", "We want to review Simplified Checkout and Simplified HR for our business operations, mainly to understand customer payment handling, transaction monitoring, employee administration, attendance tracking, and HR approval workflows.");
+	data7.put("First Name", "Dominik Sebastian");
+	data7.put("Last Name", "Gruber");
+	data7.put("Email", "dominik.sebastian.gruber.checkouthr092@yopmail.com");
+	data7.put("Company Name", "Gruber Business Workforce GmbH");
+	data7.put("Country Code", "+43");
+	data7.put("Phone Number", "6647281935");
+	data7.put("Message", "We want to review Simplified Checkout and Simplified HR for business operations, including payment processing, checkout performance tracking, employee administration, attendance monitoring, HR approvals, and reporting.");
 
 	TreeMap<String, String> data8 = new TreeMap<String, String>();
 	data8.put("Selected Product", "Simplified Hire, Simplified HR");
-	data8.put("First Name", "Isabelle Therese");
-	data8.put("Last Name", "Schreiber");
-	data8.put("Email", "isabelle.therese.schreiber.hirehr073@yopmail.com");
-	data8.put("Company Name", "Schreiber Workforce Systems GmbH");
-	data8.put("Country Code", "+49");
-	data8.put("Phone Number", "17659284730");
-	data8.put("Message", "We need a platform that can support the complete employee journey from candidate application and interview stages to onboarding, employee record creation, attendance monitoring, leave approval, and HR reporting.");
+	data8.put("First Name", "Natalia Katarzyna");
+	data8.put("Last Name", "Wojcik");
+	data8.put("Email", "natalia.katarzyna.wojcik.hirehr093@yopmail.com");
+	data8.put("Company Name", "Wojcik People Platforms Sp z oo");
+	data8.put("Country Code", "+48");
+	data8.put("Phone Number", "534761928");
+	data8.put("Message", "We need a platform that supports hiring and HR operations together, from candidate applications, interview stages, and recruiter notes to onboarding, employee records, attendance logs, and leave approval workflows.");
 
 	TreeMap<String, String> data9 = new TreeMap<String, String>();
 	data9.put("Selected Product", "Simplified Checkout, Simplified Hire, Simplified HR");
-	data9.put("First Name", "Ekaterina Sergeevna");
-	data9.put("Last Name", "Kuznetsova");
-	data9.put("Email", "ekaterina.sergeevna.kuznetsova.enterprise074@yopmail.com");
-	data9.put("Company Name", "Kuznetsova Enterprise Platforms OOO");
-	data9.put("Country Code", "+7");
-	data9.put("Phone Number", "9294817365");
-	data9.put("Message", "Our enterprise team is comparing SaaS platforms for checkout processing, hiring workflow, and HR administration, and we would like a detailed walkthrough with feature details, pricing options, setup process, and implementation guidance.");
+	data9.put("First Name", "Maarten Jeroen");
+	data9.put("Last Name", "De Vries");
+	data9.put("Email", "maarten.jeroen.devries.enterprise094@yopmail.com");
+	data9.put("Company Name", "De Vries Enterprise Operations BV");
+	data9.put("Country Code", "+31");
+	data9.put("Phone Number", "621984735");
+	data9.put("Message", "Our enterprise operations team is comparing solutions for checkout processing, recruitment workflow, and HR administration, and we want a detailed walkthrough of module features, setup process, reporting, and pricing options.");
 
 	TreeMap<String, String> data10 = new TreeMap<String, String>();
 	data10.put("Selected Product", "Simplified Checkout, Simplified Hire, Simplified HR, Simplified Spaces");
-	data10.put("First Name", "Oscar Frederik");
-	data10.put("Last Name", "Bergstrom");
-	data10.put("Email", "oscar.frederik.bergstrom.fullsuite075@yopmail.com");
-	data10.put("Company Name", "Bergstrom Integrated Services AB");
-	data10.put("Country Code", "+46");
-	data10.put("Phone Number", "734928615");
-	data10.put("Message", "We are evaluating the complete Simplified product suite for checkout management, recruitment workflow, HR administration, and workspace coordination across multiple departments, internal teams, and office locations.");
+	data10.put("First Name", "Theresa Liselotte");
+	data10.put("Last Name", "Kraus");
+	data10.put("Email", "theresa.liselotte.kraus.fullsuite095@yopmail.com");
+	data10.put("Company Name", "Kraus Integrated People GmbH");
+	data10.put("Country Code", "+49");
+	data10.put("Phone Number", "16083749251");
+	data10.put("Message", "We are evaluating the full Simplified product suite for checkout management, recruitment workflow, HR administration, and workspace coordination across departments, office locations, internal teams, and customer-facing operations.");
 
 	TreeMap<String, String> data11 = new TreeMap<String, String>();
 	data11.put("Selected Product", "Simplified Checkout");
-	data11.put("First Name", "Viktoria Alekseevna");
-	data11.put("Last Name", "Smirnova");
-	data11.put("Email", "viktoria.alekseevna.smirnova.checkout076@yopmail.com");
-	data11.put("Company Name", "Smirnova Online Commerce OOO");
-	data11.put("Country Code", "+7");
-	data11.put("Phone Number", "9048261735");
-	data11.put("Message", "Our online commerce company wants to improve checkout reliability, increase successful payment completion, reduce customer friction during purchase, and gain better transaction visibility for digital sales operations.");
+	data11.put("First Name", "Miguel Alberto");
+	data11.put("Last Name", "Herrera");
+	data11.put("Email", "miguel.alberto.herrera.checkout096@yopmail.com");
+	data11.put("Company Name", "Herrera Digital Payments SL");
+	data11.put("Country Code", "+34");
+	data11.put("Phone Number", "619472835");
+	data11.put("Message", "Our Spain-based digital payments team wants to improve checkout reliability, increase completed payments, reduce customer friction during purchase, and gain clearer transaction visibility for online sales operations.");
 
 	TreeMap<String, String> data12 = new TreeMap<String, String>();
 	data12.put("Selected Product", "Simplified Hire");
-	data12.put("First Name", "Hugo Laurent");
-	data12.put("Last Name", "Besson");
-	data12.put("Email", "hugo.laurent.besson.hire077@yopmail.com");
-	data12.put("Company Name", "Besson Executive Hiring SAS");
-	data12.put("Country Code", "+33");
-	data12.put("Phone Number", "741638295");
-	data12.put("Message", "We are an executive hiring company managing multiple senior recruitment processes and want to review candidate profile handling, job stage tracking, interviewer feedback, recruiter collaboration, and recruitment reporting.");
+	data12.put("First Name", "Lucia Valentina");
+	data12.put("Last Name", "Rinaldi");
+	data12.put("Email", "lucia.valentina.rinaldi.hire097@yopmail.com");
+	data12.put("Company Name", "Rinaldi Executive Talent SRL");
+	data12.put("Country Code", "+39");
+	data12.put("Phone Number", "3381749265");
+	data12.put("Message", "We are managing multiple recruitment campaigns and want to review Simplified Hire for candidate profile handling, job stage updates, interviewer feedback, recruiter activity tracking, and hiring performance reports.");
 
 	TreeMap<String, String> data13 = new TreeMap<String, String>();
 	data13.put("Selected Product", "Simplified HR");
-	data13.put("First Name", "Kirill Dmitrievich");
-	data13.put("Last Name", "Antonov");
-	data13.put("Email", "kirill.dmitrievich.antonov.hr078@yopmail.com");
-	data13.put("Company Name", "Antonov Employee Management OOO");
-	data13.put("Country Code", "+7");
-	data13.put("Phone Number", "9153728640");
-	data13.put("Message", "We are searching for an HR management platform for our workforce and want to understand employee data handling, department structure, attendance logs, leave approval flow, administrator access, and reporting options.");
+	data13.put("First Name", "Anton Vilhelm");
+	data13.put("Last Name", "Nyberg");
+	data13.put("Email", "anton.vilhelm.nyberg.hr098@yopmail.com");
+	data13.put("Company Name", "Nyberg People Services AB");
+	data13.put("Country Code", "+46");
+	data13.put("Phone Number", "768193524");
+	data13.put("Message", "We are searching for an HR management platform to support employee data, department structure, attendance records, leave approvals, administrator permissions, communication visibility, and workforce reporting.");
 
 	TreeMap<String, String> data14 = new TreeMap<String, String>();
 	data14.put("Selected Product", "Simplified Spaces");
-	data14.put("First Name", "Clara Johanne");
-	data14.put("Last Name", "Mikkelsen");
-	data14.put("Email", "clara.johanne.mikkelsen.spaces079@yopmail.com");
-	data14.put("Company Name", "Mikkelsen Flexible Offices ApS");
-	data14.put("Country Code", "+45");
-	data14.put("Phone Number", "31692847");
-	data14.put("Message", "We manage shared workspaces and meeting facilities in Denmark and would like to review Simplified Spaces for booking requests, workspace inventory, availability monitoring, customer handling, and multi-location operational reporting.");
+	data14.put("First Name", "Bram Cornelis");
+	data14.put("Last Name", "Meijer");
+	data14.put("Email", "bram.cornelis.meijer.spaces099@yopmail.com");
+	data14.put("Company Name", "Meijer Flexible Workspace BV");
+	data14.put("Country Code", "+31");
+	data14.put("Phone Number", "639582174");
+	data14.put("Message", "We operate flexible workspace locations and want to review Simplified Spaces for workspace bookings, room availability, customer inquiry handling, space inventory management, location-level reporting, and office usage planning.");
 
 	TreeMap<String, String> data15 = new TreeMap<String, String>();
 	data15.put("Selected Product", "Simplified Checkout, Simplified Hire");
-	data15.put("First Name", "Marina Olegovna");
-	data15.put("Last Name", "Lebedeva");
-	data15.put("Email", "marina.olegovna.lebedeva.checkout.hire080@yopmail.com");
-	data15.put("Company Name", "Lebedeva Commerce Talent OOO");
-	data15.put("Country Code", "+7");
-	data15.put("Phone Number", "9265817340");
-	data15.put("Message", "Our business is expanding online sales and recruitment activities, so we want to evaluate Checkout and Hire modules for payment processing, candidate management, recruiter collaboration, and business performance reporting.");
+	data15.put("First Name", "Leonie Margaretha");
+	data15.put("Last Name", "Baumgartner");
+	data15.put("Email", "leonie.margaretha.baumgartner.checkout.hire100@yopmail.com");
+	data15.put("Company Name", "Baumgartner Commerce Talent AG");
+	data15.put("Country Code", "+41");
+	data15.put("Phone Number", "762849135");
+	data15.put("Message", "Our business wants to evaluate Checkout and Hire modules together for customer payment processing, transaction monitoring, candidate tracking, recruiter collaboration, hiring stages, and business activity reporting.");
 
 	TreeMap<String, String> data16 = new TreeMap<String, String>();
 	data16.put("Selected Product", "Simplified HR, Simplified Spaces");
-	data16.put("First Name", "Lukas Matthias");
-	data16.put("Last Name", "Hoffmeister");
-	data16.put("Email", "lukas.matthias.hoffmeister.hrspaces081@yopmail.com");
-	data16.put("Company Name", "Hoffmeister Corporate Operations GmbH");
+	data16.put("First Name", "Andreas Florian");
+	data16.put("Last Name", "Reiter");
+	data16.put("Email", "andreas.florian.reiter.hrspaces101@yopmail.com");
+	data16.put("Company Name", "Reiter Corporate Operations GmbH");
 	data16.put("Country Code", "+49");
-	data16.put("Phone Number", "15173948260");
-	data16.put("Message", "We are a Germany-based operations company looking for HR and workspace management modules to manage employee administration, attendance logs, leave approvals, desk bookings, meeting room planning, office usage, and internal reports.");
+	data16.put("Phone Number", "15268473910");
+	data16.put("Message", "We are a Germany-based operations company looking for HR and workspace modules to manage employee records, attendance, leave approvals, desk bookings, meeting rooms, office utilization, and internal reports.");
 
 	TreeMap<String, String> data17 = new TreeMap<String, String>();
 	data17.put("Selected Product", "Simplified Checkout, Simplified HR");
-	data17.put("First Name", "Yuri Konstantin");
-	data17.put("Last Name", "Fedorov");
-	data17.put("Email", "yuri.konstantin.fedorov.checkouthr082@yopmail.com");
-	data17.put("Company Name", "Fedorov Business Systems OOO");
-	data17.put("Country Code", "+7");
-	data17.put("Phone Number", "9682749153");
-	data17.put("Message", "We want to review Simplified Checkout and Simplified HR for our operations, especially online payment processing, transaction monitoring, employee record handling, attendance management, and HR approval workflows.");
+	data17.put("First Name", "Henrik Olav");
+	data17.put("Last Name", "Lundqvist");
+	data17.put("Email", "henrik.olav.lundqvist.checkouthr102@yopmail.com");
+	data17.put("Company Name", "Lundqvist Business Systems AB");
+	data17.put("Country Code", "+46");
+	data17.put("Phone Number", "739184625");
+	data17.put("Message", "We want to review Simplified Checkout and Simplified HR for online payment operations, transaction tracking, employee profile management, attendance visibility, leave approvals, and HR reporting workflows.");
 
 	TreeMap<String, String> data18 = new TreeMap<String, String>();
 	data18.put("Selected Product", "Simplified Hire, Simplified HR");
-	data18.put("First Name", "Elena Francesca");
-	data18.put("Last Name", "Caruso");
-	data18.put("Email", "elena.francesca.caruso.hirehr083@yopmail.com");
-	data18.put("Company Name", "Caruso Workforce Management SRL");
+	data18.put("First Name", "Giulia Benedetta");
+	data18.put("Last Name", "Ferraro");
+	data18.put("Email", "giulia.benedetta.ferraro.hirehr103@yopmail.com");
+	data18.put("Company Name", "Ferraro Workforce Management SRL");
 	data18.put("Country Code", "+39");
-	data18.put("Phone Number", "3496281753");
-	data18.put("Message", "Our workforce team is looking for a platform that supports candidate tracking, interview coordination, onboarding management, employee records, attendance logs, leave approvals, and HR reporting after hiring.");
+	data18.put("Phone Number", "3462817590");
+	data18.put("Message", "Our workforce team needs support from candidate tracking and interview coordination through onboarding, employee profile creation, attendance records, leave approvals, and HR reporting after hiring.");
 
 	TreeMap<String, String> data19 = new TreeMap<String, String>();
 	data19.put("Selected Product", "Simplified Spaces");
-	data19.put("First Name", "Oleg Romanovich");
-	data19.put("Last Name", "Zaitsev");
-	data19.put("Email", "oleg.romanovich.zaitsev.spaces084@yopmail.com");
-	data19.put("Company Name", "Zaitsev Workspace Solutions OOO");
-	data19.put("Country Code", "+7");
-	data19.put("Phone Number", "9017482635");
-	data19.put("Message", "We operate flexible office locations and want to review Simplified Spaces for workspace bookings, meeting room availability, customer request handling, space inventory management, and branch-level reporting.");
+	data19.put("First Name", "Kasper Mikkel");
+	data19.put("Last Name", "Sorensen");
+	data19.put("Email", "kasper.mikkel.sorensen.spaces104@yopmail.com");
+	data19.put("Company Name", "Sorensen Workspace Solutions ApS");
+	data19.put("Country Code", "+45");
+	data19.put("Phone Number", "42861379");
+	data19.put("Message", "We operate shared office locations and want to review Simplified Spaces for desk reservations, meeting room availability, customer requests, space allocation, multi-location visibility, and workspace performance reports.");
 
 	TreeMap<String, String> data20 = new TreeMap<String, String>();
 	data20.put("Selected Product", "Simplified Checkout, Simplified Hire, Simplified HR, Simplified Spaces");
-	data20.put("First Name", "Amelie Florence");
-	data20.put("Last Name", "Keller");
-	data20.put("Email", "amelie.florence.keller.allmodules085@yopmail.com");
-	data20.put("Company Name", "Keller Strategic Operations AG");
+	data20.put("First Name", "Sofia Helena");
+	data20.put("Last Name", "Altenburg");
+	data20.put("Email", "sofia.helena.altenburg.allmodules105@yopmail.com");
+	data20.put("Company Name", "Altenburg Strategic Operations AG");
 	data20.put("Country Code", "+41");
-	data20.put("Phone Number", "778294631");
-	data20.put("Message", "We are comparing SaaS platforms for digital checkout, recruitment workflow, HR administration, and workspace coordination, and we would like a complete demo covering all Simplified modules with pricing information.");
+	data20.put("Phone Number", "798531642");
+	data20.put("Message", "We are comparing SaaS platforms for digital checkout, recruitment workflow, HR administration, and workspace coordination, and we would like a full demo covering all Simplified modules, pricing, setup, and implementation support.");
 
 	return new Object[][] {
 		{ data1 },
@@ -712,7 +787,6 @@ public Object[][] Contact_Form_Data() {
 		{ data20 }
 	};
 }
-
 
 
 

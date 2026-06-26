@@ -102,6 +102,8 @@ public class Simplified_HR_Login extends Side_menu_Handler{
 		
 		
 	}
+	
+	
 @DataProvider
 public Object[][] User_Create_Data() {
 
@@ -562,12 +564,12 @@ public Object[][] User_Create_Data() {
 				"<b>Step 1:</b> Access Simplified Hire dashboard before working with side menu.");
 		System.out.println("Step 1: Access Simplified Hire dashboard before working with side menu.");
 		System.out.println();
-	/*	try {
+	try {
 			p.Side_menu();
-		} catch (Exception mm) { */
+		} catch (Exception mm) { 
 			Simplified_Apps_Accessor(0);
 			p.Side_menu();
-	//	}
+	}
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
 				"<b>🟨 Actual:</b> Simplified Hire dashboard accessed successfully.");
