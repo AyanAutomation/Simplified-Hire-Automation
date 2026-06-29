@@ -72,8 +72,20 @@ public class Saas_Admin_Locaters extends Repeat{
 		private WebElement Plan_Tab; 
 		@FindBy(id="select_plan_hr")
 		private WebElement Hr_Plan_Input_feild; 
+		@FindBy(id="select_plan_checkout")
+		private WebElement Checkout_Plan_Input_feild;
+		@FindBy(id="select_plan_hire")
+		private WebElement Hire_Plan_Input_feild;
+		@FindBy(id="select_plan_spaces")
+		private WebElement Spaces_Plan_Input_feild;
 		@FindBy(id="hr_number_of_users")
 		private WebElement hr_number_of_users_input_field; 
+		@FindBy(id="checkout_number_of_shared_instances")
+		private WebElement checkout_number_of_shared_instances_input_field;
+		@FindBy(id="hire_number_of_users")
+		private WebElement hire_number_of_users_input_field;
+		@FindBy(id="spaces_number_of_locations")
+		private WebElement spaces_number_of_locations_input_field;
 		@FindBy(xpath="(//*[text()='Save as Draft']/..)[2]")
 		private WebElement Save_Draft_Button; 
 		@FindBy(xpath="(//*[text()='Save & Invite']/..)[2]")
@@ -463,9 +475,34 @@ public class Saas_Admin_Locaters extends Repeat{
 		public WebElement Hr_Plan_Input_feild(){
 		wait_for_theElement(Hr_Plan_Input_feild);
 		return Hr_Plan_Input_feild;} 
+		public WebElement Checkout_Plan_Input_feild(){
+		wait_for_theElement(Checkout_Plan_Input_feild);
+		return Checkout_Plan_Input_feild;} 
+		public WebElement Hire_Plan_Input_feild(){
+		wait_for_theElement(Hire_Plan_Input_feild);
+		return Hire_Plan_Input_feild;} 
+		public WebElement Spaces_Plan_Input_feild(){
+		wait_for_theElement(Spaces_Plan_Input_feild);
+		return Spaces_Plan_Input_feild;} 
+		
+		
+		
+		
+		
+		
+		
 		public WebElement hr_number_of_users_input_field(){
 		wait_for_theElement(hr_number_of_users_input_field);
 		return hr_number_of_users_input_field;} 
+		public WebElement checkout_number_of_shared_instances_input_field(){
+		wait_for_theElement(checkout_number_of_shared_instances_input_field);
+		return checkout_number_of_shared_instances_input_field;} 
+		public WebElement hire_number_of_users_input_field(){
+		wait_for_theElement(hire_number_of_users_input_field);
+		return hire_number_of_users_input_field;} 
+		public WebElement spaces_number_of_locations_input_field(){
+		wait_for_theElement(spaces_number_of_locations_input_field);
+		return spaces_number_of_locations_input_field;} 
 		public WebElement Save_Draft_Button(){
 		wait_for_theElement(Save_Draft_Button);
 		return Save_Draft_Button;}
