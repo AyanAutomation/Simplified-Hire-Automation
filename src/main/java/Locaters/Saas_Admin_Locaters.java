@@ -115,19 +115,19 @@ public class Saas_Admin_Locaters extends Repeat{
 		@FindBy(xpath="//button[@type='Submit']")
 		private WebElement Submit_Button; 
 		@FindBy(xpath="//form[contains(@class,'ant-form')]//div[@role='alert' and @data-show='true' and contains(@class,'ant-alert-success')]")
-        private WebElement Account_Verified_Success_Message; /*
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
+        private WebElement Account_Verified_Success_Message; 
+		@FindBy(xpath="//*[text()='Account Manager']/../..//*[@class='ant-form-item-control-input']")
+		private WebElement Account_manager_field; 
+		@FindBy(id="assigned_to")
+		private WebElement Account_Manager_input;
+		@FindBy(xpath="//*[text()='Group']/../..//*[@class='ant-form-item-control-input']")
+		private WebElement Group_Field;
+		@FindBy(id="group_ids")
+		private WebElement Group_input; 
+		@FindBy(xpath="//*[@class='ant-select-dropdown ant-select-dropdown-placement-bottomLeft ']")
+		private WebElement Account_Manager_Dropdown; 
+		@FindBy(xpath="//textarea")
+		private WebElement Text_Area_Field; /*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -484,13 +484,6 @@ public class Saas_Admin_Locaters extends Repeat{
 		public WebElement Spaces_Plan_Input_feild(){
 		wait_for_theElement(Spaces_Plan_Input_feild);
 		return Spaces_Plan_Input_feild;} 
-		
-		
-		
-		
-		
-		
-		
 		public WebElement hr_number_of_users_input_field(){
 		wait_for_theElement(hr_number_of_users_input_field);
 		return hr_number_of_users_input_field;} 
@@ -522,13 +515,11 @@ public class Saas_Admin_Locaters extends Repeat{
 		wait_for_theElement(Save_Invite_Button);
 		return Save_Invite_Button;}
 		public List<WebElement> Truncated_data_in_list(){
-		
 		wait_for_theElement(Truncated_data_in_list);
 		return Truncated_data_in_list;} 
 		public List<WebElement> Loader(){
 		wait_for_theElement(Loader);
 		return Loader;} 
-		
 		public WebElement Invite_link(){
 		wait_for_theElement(Invite_link);
 		return Invite_link;} 
@@ -549,25 +540,25 @@ public class Saas_Admin_Locaters extends Repeat{
 		return Submit_Button;}  
 		public WebElement Account_Verified_Success_Message(){
 		wait_for_theElement(Account_Verified_Success_Message);
-		return Account_Verified_Success_Message;} /*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Account_Verified_Success_Message;} 
+		public WebElement Account_manager_field(){
+		wait_for_theElement(Account_manager_field);
+		return Account_manager_field;}
+		public WebElement Account_Manager_input(){
+		wait_for_theElement(Account_Manager_input);
+		return Account_Manager_input;}
+		public WebElement Group_Field(){
+		wait_for_theElement(Group_Field);
+		return Group_Field;}
+		public WebElement Group_input(){
+		wait_for_theElement(Group_input);
+		return Group_input;} 
+		public WebElement Account_Manager_Dropdown(){
+		wait_for_theElement(Account_Manager_Dropdown);
+		return Account_Manager_Dropdown;} 
+		public WebElement Text_Area_Field(){
+		wait_for_theElement(Text_Area_Field);
+		return Text_Area_Field;} /*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}
