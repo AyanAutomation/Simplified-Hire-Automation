@@ -127,15 +127,15 @@ public class Saas_Admin_Locaters extends Repeat{
 		@FindBy(xpath="//*[@class='ant-select-dropdown ant-select-dropdown-placement-bottomLeft ']")
 		private WebElement Account_Manager_Dropdown; 
 		@FindBy(xpath="//textarea")
-		private WebElement Text_Area_Field; /*
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
+		private WebElement Text_Area_Field; 
+		@FindBy(xpath="//*[text()='Actions']/../..")
+		private WebElement  Action_button; 
+		@FindBy(xpath="//h3[text()='Plans & Billing']/../..")
+		private WebElement Billing_Tab; 
+		@FindBy(xpath="//*[text()='View All']")
+		private WebElement  view_all_button; 
+		@FindBy(xpath="//div[@class='ant-dropdown ant-dropdown-placement-bottomLeft ']")
+		private WebElement Plan_Dropdown; /*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -558,19 +558,19 @@ public class Saas_Admin_Locaters extends Repeat{
 		return Account_Manager_Dropdown;} 
 		public WebElement Text_Area_Field(){
 		wait_for_theElement(Text_Area_Field);
-		return Text_Area_Field;} /*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Text_Area_Field;} 
+		public WebElement Action_button(){
+		wait_for_theElement(Action_button);
+		return Action_button;} 
+		public WebElement Billing_Tab(){
+		wait_for_theElement(Billing_Tab);
+		return Billing_Tab;} 
+		public WebElement view_all_button(){
+		wait_for_theElement(view_all_button);
+		return view_all_button;} 
+		public WebElement Plan_Dropdown(){
+		wait_for_theElement(Plan_Dropdown);
+		return Plan_Dropdown;}/*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}

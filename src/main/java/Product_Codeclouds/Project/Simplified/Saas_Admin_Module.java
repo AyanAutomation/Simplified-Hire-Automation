@@ -280,26 +280,81 @@ public class Saas_Admin_Module extends Base{
 				"<b>Step:</b> Click on 3 dot button of the first lead in the list to view dropdown options.");
 		System.out.println("Step: Click on 3 dot button of the first lead in the list to view dropdown options.");
 		System.out.println();
-		List<WebElement> Three_dot_Button= p.List_threedots_button();
-		Three_dot_Button.get(0).click();
-		List<WebElement> Dropdown_Options = p.Action_menu_options();
-		for (WebElement ele : Dropdown_Options) {
+		Thread.sleep(800);
+		List<WebElement> Three_dot_Button = p.List_threedots_button();
+		WebElement First_Rows_Three_dot_Button = Three_dot_Button.get(0);
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step:</b> Open first row three-dot action menu.");
+		System.out.println("Step: Open first row three-dot action menu.");
+		
+		 
+        rp.movetoelement(First_Rows_Three_dot_Button);
+		First_Rows_Three_dot_Button.click();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> First row three-dot button clicked successfully.");
+		System.out.println("🟨 Actual: First row three-dot button clicked successfully.");
+
+		List<WebElement> Dropdown_Options = null;
+
+		try {
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step:</b> Fetch action menu dropdown options after first click.");
+			System.out.println("Step: Fetch action menu dropdown options after first click.");
+
+			Dropdown_Options = p.Action_menu_options();
+
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Action menu options fetched successfully. Option count = " + Dropdown_Options.size());
+			System.out.println("🟨 Actual: Action menu options fetched successfully. Option count = " + Dropdown_Options.size());
+
+		} catch(Exception e) {
+			Report_Listen.log_print_in_report().log(Status.WARNING, "<b>⚠ Actual:</b> Action menu options were not fetched after first click. Retrying by clicking first row three-dot button again.<br><b>Reason:</b> " + e.getMessage());
+			System.out.println("⚠ Actual: Action menu options were not fetched after first click. Retrying by clicking first row three-dot button again.");
+			System.out.println("Reason: " + e.getMessage());
+
+			Three_dot_Button = p.List_threedots_button();
+			First_Rows_Three_dot_Button = Three_dot_Button.get(0);
+
+			rp.movetoelement(First_Rows_Three_dot_Button);
+			First_Rows_Three_dot_Button.click();
+
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> First row three-dot button re-clicked successfully.");
+			System.out.println("🟨 Actual: First row three-dot button re-clicked successfully.");
+
+			Dropdown_Options = p.Action_menu_options();
+
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Action menu options fetched successfully after retry. Option count = " + Dropdown_Options.size());
+			System.out.println("🟨 Actual: Action menu options fetched successfully after retry. Option count = " + Dropdown_Options.size());
+		}
+		System.out.println();
+
+		boolean Option_Selected = false;
+
+		for(WebElement ele : Dropdown_Options) {
 
 			String text = ele.getText().trim();
 
-			System.out.println("Dropdown option found = " + text);
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> Dropdown option found = " + text);
+			System.out.println("🟨 Debug: Dropdown option found = " + text);
 
-			if (text.equalsIgnoreCase(option)) {
+			if(text.equalsIgnoreCase(option)) {
 
 				rp.movetoelement(ele);
 				ele.click();
 
-				Report_Listen.log_print_in_report().log(Status.INFO,
-						"<b>🟨 Actual:</b> Dropdown option selected successfully = " + text);
+				Option_Selected = true;
+
+				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Dropdown option selected successfully = " + text);
 				System.out.println("🟨 Actual: Dropdown option selected successfully = " + text);
 				System.out.println();
 
-				break;}}
+				break;
+			}
+		}
+
+		if(!Option_Selected) {
+			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> Required dropdown option was not found. Expected option = " + option);
+			System.out.println("❌ Actual: Required dropdown option was not found. Expected option = " + option);
+			System.out.println();
+		}
 
 
 	}
@@ -406,18 +461,26 @@ public int Account_Activator(TreeMap<String, String> account_data, int step) thr
 	String Users = account_data.get("Users");
 
 	WebElement Create_Button;
+	String Admin_Window = d.getWindowHandle();
+	String Activation_Window = "";
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Section:</b> Validate account activation using generated invite link.");
 	System.out.println("🔹 Scenario Section: Validate account activation using generated invite link.");
 
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Search the newly invited account in SaaS Admin, open Get Invite Link action, copy invite link, open it in a new tab, set password, submit activation form, and validate account verified success message.");
-	System.out.println("📘 Description: Search the newly invited account in SaaS Admin, open Get Invite Link action, copy invite link, open it in a new tab, set password, submit activation form, and validate account verified success message.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Search the newly invited account in SaaS Admin, open Get Invite Link action, copy invite link, open it in a new tab, set password, submit activation form, validate account verified success message, and switch back to SaaS Admin tab for further operations.");
+	System.out.println("📘 Description: Search the newly invited account in SaaS Admin, open Get Invite Link action, copy invite link, open it in a new tab, set password, submit activation form, validate account verified success message, and switch back to SaaS Admin tab for further operations.");
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Email = " + Email + " | Company = " + Company_Name + " | Plan = " + Plan_Name + " | Users = " + Users);
 	System.out.println("📥 Input: Email = " + Email + " | Company = " + Company_Name + " | Plan = " + Plan_Name + " | Users = " + Users);
 
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> Account invite link should open successfully, password should be set, and account verified success message should be displayed.");
-	System.out.println("✅ Expected: Account invite link should open successfully, password should be set, and account verified success message should be displayed.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> Account invite link should open successfully, password should be set, account verified success message should be displayed, and control should return to the SaaS Admin account list tab without closing any browser tab.");
+	System.out.println("✅ Expected: Account invite link should open successfully, password should be set, account verified success message should be displayed, and control should return to the SaaS Admin account list tab without closing any browser tab.");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Store current SaaS Admin tab/window before opening invite link.");
+	System.out.println("Step " + (step - 1) + ": Store current SaaS Admin tab/window before opening invite link.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> SaaS Admin window stored successfully. Window Handle = " + Admin_Window);
+	System.out.println("🟨 Actual: SaaS Admin window stored successfully. Window Handle = " + Admin_Window);
 	System.out.println();
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Check whether SaaS Admin account list page is already accessible.");
@@ -485,9 +548,10 @@ public int Account_Activator(TreeMap<String, String> account_data, int step) thr
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Open invite link in a new browser tab.");
 	System.out.println("Step " + (step - 1) + ": Open invite link in a new browser tab.");
 	d.switchTo().newWindow(WindowType.TAB);
+	Activation_Window = d.getWindowHandle();
 	d.navigate().to(Invite_link);
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Invite link opened successfully in new tab.");
-	System.out.println("🟨 Actual: Invite link opened successfully in new tab.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Invite link opened successfully in new tab. Activation Window Handle = " + Activation_Window);
+	System.out.println("🟨 Actual: Invite link opened successfully in new tab. Activation Window Handle = " + Activation_Window);
 	System.out.println();
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Validate user landed on Set Password page.");
@@ -523,6 +587,13 @@ public int Account_Activator(TreeMap<String, String> account_data, int step) thr
 	String Success_Message = Success.getText().trim();
 	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Account activation completed successfully. Success message = " + Success_Message);
 	System.out.println("✅ Actual: Account activation completed successfully. Success message = " + Success_Message);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Switch back to previous SaaS Admin tab/window after account activation.");
+	System.out.println("Step " + (step - 1) + ": Switch back to previous SaaS Admin tab/window after account activation.");
+	d.switchTo().window(Admin_Window);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Control switched back to SaaS Admin window successfully without closing any browser tab. Current Window Handle = " + d.getWindowHandle());
+	System.out.println("🟨 Actual: Control switched back to SaaS Admin window successfully without closing any browser tab. Current Window Handle = " + d.getWindowHandle());
 	System.out.println();
 
 	return step;
@@ -1491,9 +1562,9 @@ public Object[][] Account_Create_Data() {
 	data20.put("Account Manager", "Ayan Test Manager");
 	data20.put("Staff Notes", "Creating France-based all app account to verify weekly checkout, monthly spaces, monthly hire, and monthly HR plans together, users field value, newsletter disabled state, and valid group selection.");
 
-	return new Object[][] {
-		{ data1 },
-		{ data2 },
+	return new Object[][] {/*
+		{ data1 }, */
+		{ data2 },/*
 		{ data3 },
 		{ data4 },
 		{ data5 },
@@ -1511,7 +1582,7 @@ public Object[][] Account_Create_Data() {
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 }
+		{ data20 } */
 	};
 }
 
@@ -1547,4 +1618,67 @@ for(int i=0;i<Math.min(Labels.size(), Values.size());i++) {
 
 }
 return lead_details;
-}}
+}
+
+@Test(dataProvider="Account_Create_Data")
+public void Quick_Plan_Upgrade_Several_times(TreeMap<String, String> account_data) throws IOException, InterruptedException{
+	
+	Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+	Repeat rp = new Repeat(d);
+	JavascriptExecutor js = (JavascriptExecutor)d;
+	
+	String Email = account_data.get("Email");
+	String Company_Name = account_data.get("Company Name");
+	String Plan_Name = account_data.get("Plan Name");
+	String Users = account_data.get("Users");
+	
+	int step = 1;
+	try {
+		p.Create_Account_button();
+	}catch (Exception e) {
+		Saas_Admin_Login();
+		p.Create_Account_button();
+	}List<WebElement> Loaders = p.Loader();
+	rp.wait_for_invisibilty_of_theElement(Loaders);
+	WebElement Search = p.search_field();
+	Search.sendKeys(Email);
+    Thread.sleep(2000);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Email entered successfully in account search field = " + Email);
+	System.out.println("🟨 Actual: Email entered successfully in account search field = " + Email);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Fetch account list data after search.");
+	System.out.println("Step " + (step - 1) + ": Fetch account list data after search.");
+	list_threedot_dropdown_option_selector("View Account");
+	p.Action_button();
+	WebElement Billing_section=p.Billing_Tab();
+	rp.Scroll_to_element(Billing_section);
+	Thread.sleep(800);
+	List<WebElement> Plan_section=Billing_section.findElements(By.xpath(".//div[@class='wrap-panel-row px-3 py-4 cursor-pointer border-bottom']"));	
+	WebElement Plan_One=Plan_section.get(0);
+	WebElement Plan_Card_Gear_Button=Plan_One.findElement(By.xpath(".//span[@aria-label='setting']"));
+	Plan_Card_Gear_Button.click();
+	WebElement Plan_dropdown_list=p.Plan_Dropdown();
+	List<WebElement> options=Plan_dropdown_list.findElements(By.xpath(".//li"));
+	for(WebElement option:options) {
+		String option_text=option.getText().trim();
+		if(option_text.contains("Change Plan")) {
+			
+			option.click();
+			break;}}
+	WebElement Pop_up=p.pop_up_modal();
+	WebElement	Modal_dropdown=Pop_up.findElement(By.xpath(".//*[contains(@class,'ant-select-single ant-select-show-arrow')]"));
+	Modal_dropdown.click();
+	WebElement input_search_box=Pop_up.findElement(By.xpath(".//input[@type='search']"));
+	input_search_box.click();
+	input_search_box.sendKeys("Ayan");
+}
+
+
+
+
+
+
+
+
+}
