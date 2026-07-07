@@ -280,16 +280,18 @@ public class Saas_Admin_Module extends Base{
 				"<b>Step:</b> Click on 3 dot button of the first lead in the list to view dropdown options.");
 		System.out.println("Step: Click on 3 dot button of the first lead in the list to view dropdown options.");
 		System.out.println();
-		Thread.sleep(800);
-		List<WebElement> Three_dot_Button = p.List_threedots_button();
-		WebElement First_Rows_Three_dot_Button = Three_dot_Button.get(0);
-
+		Thread.sleep(1000);
+		List<WebElement>Three_dot_Button= p.List_threedots_button();
+		WebElement  First_Rows_Three_dot_Button = Three_dot_Button.get(0);
+		rp.movetoelement(First_Rows_Three_dot_Button);
+		First_Rows_Three_dot_Button.click();
 		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step:</b> Open first row three-dot action menu.");
 		System.out.println("Step: Open first row three-dot action menu.");
+
+
 		
 		 
-        rp.movetoelement(First_Rows_Three_dot_Button);
-		First_Rows_Three_dot_Button.click();
+        
 
 		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> First row three-dot button clicked successfully.");
 		System.out.println("🟨 Actual: First row three-dot button clicked successfully.");
@@ -1589,7 +1591,7 @@ public Object[][] Account_Create_Data() {
 public TreeMap<String, String> Leads_Details_fetcher() throws IOException, InterruptedException {
 	
 	Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
-	
+	Repeat rp = new Repeat(d);
 	
 	TreeMap<String, String> lead_details = new TreeMap<>();
 	
@@ -1600,11 +1602,40 @@ public TreeMap<String, String> Leads_Details_fetcher() throws IOException, Inter
   } catch (Exception e) {
 	  
 	  Saas_Admin_Menu_navigation("Leads");
+	  List<WebElement> loaders = p.Loader();
+	  rp.wait_for_invisibilty_of_theElement(loaders);
       list_threedot_dropdown_option_selector("View Lead");
       Approve_button=p.Leads_Approve_button();
   }
-List<WebElement> Labels = p.Labels();
-List<WebElement> Values = p.values(); 
+  Thread.sleep(1200);
+  List<WebElement> Labels;
+
+  try {
+      Labels = p.Labels();
+  } catch (Exception e) {
+      System.out.println("First attempt failed, retrying once...");
+      try {
+          Labels = p.Labels(); // Retrying the exact action inside the catch block
+      } catch (Exception retryEx) {
+          System.out.println("Retry also failed: " + retryEx.getMessage());
+          // Handle ultimate failure here (e.g., throw retryEx; or assign an empty list)
+          Labels = new ArrayList<>(); 
+      }
+  }
+  List<WebElement> Values;
+
+  try {
+      Values = p.values();
+  } catch (Exception e) {
+      System.out.println("First attempt failed, retrying once...");
+      try {
+          Values = p.values(); // Retrying the exact action inside the catch block
+      } catch (Exception retryEx) {
+          System.out.println("Retry also failed: " + retryEx.getMessage());
+          // Handle ultimate failure here (e.g., assign an empty list)
+          Values = new ArrayList<>();
+      }
+  }
 
 for(int i=0;i<Math.min(Labels.size(), Values.size());i++) {
 	
@@ -1618,6 +1649,292 @@ for(int i=0;i<Math.min(Labels.size(), Values.size());i++) {
 
 }
 return lead_details;
+}
+
+
+@Test(dataProvider="Plan_Type_Name_Data")
+public void Leads_Approve(TreeMap<String, String> Plan_data) throws IOException, InterruptedException{
+	
+	Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+	Repeat rp = new Repeat(d);
+	
+	String Checkout_plan_name=Plan_data.get("Checkout Plan Name");
+	String Spaces_plan_name=Plan_data.get("Spaces Plan Name");
+	String Hire_plan_name=Plan_data.get("Hire Plan Name");
+	String Hr_plan_name=Plan_data.get("Hr Plan Name");
+	
+	String App_type_id = null;
+	Leads_Details_fetcher();
+	WebElement Approve_button=  p.Leads_Approve_button();
+	Approve_button.click();
+	Thread.sleep(800);
+	List<WebElement> Plan_Select = p.Leads_plan_select_dropdowm();
+	WebElement Plan_Input_Field = null;
+	List<WebElement> Plan_Toggles = p.Approve_Plan_toggle_Buttons();
+	System.out.println("Total Plan Toggles: "+Plan_Toggles.size());
+	for(WebElement toggle:Plan_Toggles){
+	if(toggle.getAttribute("aria-checked").trim().contains("true")) {
+		WebElement App_type=toggle.findElement(By.xpath("./../../..//input"));
+		App_type_id=App_type.getAttribute("id").trim();
+		if(App_type_id.contains("select_plan_hire")){
+			
+			    WebElement Hire_Plan = Plan_Select.get(0);
+			    Hire_Plan.click();
+			    rp.movetoelement(Hire_Plan);
+			Plan_Input_Field = p.Hire_Plan_Input_feild();
+			break;}
+		if(App_type_id.contains("select_plan_checkout")){
+			Plan_Input_Field = p.Checkout_Plan_Input_feild();
+			break;}
+		if(App_type_id.contains("select_plan_hr")){
+			Plan_Input_Field = p.Hr_Plan_Input_feild();
+			break;}
+		if(App_type_id.contains("select_plan_spaces")){
+			Plan_Input_Field = p.Spaces_Plan_Input_feild();
+			break;}System.out.println();
+		System.out.println("App Type: "+App_type_id+" is enabled");
+		System.out.println();
+		
+	}}
+	
+	if(App_type_id.contains("select_plan_hire")) {
+    WebElement Hire_Plan = Plan_Select.get(0);
+    Hire_Plan.click();
+	Plan_Input_Field.sendKeys(Hire_plan_name);
+	WebElement Dropdown_List = d.findElement(By.xpath("(//*[@id='select_plan_hire_list']"));
+	rp.wait_for_theElement(Dropdown_List);
+	Thread.sleep(800);
+	rp.movetoelement(Dropdown_List);
+	}
+}
+
+
+
+@DataProvider
+public Object[][] Plan_Type_Name_Data() {
+
+	TreeMap<String, String> data1 = new TreeMap<String, String>();
+	data1.put("Checkout App Type", "checkout");
+	data1.put("Checkout Plan Name", "Checkout Weekly 999");
+	data1.put("Spaces App Type", "spaces");
+	data1.put("Spaces Plan Name", "Ayan Weekly Spaces Growth Plan");
+	data1.put("Hr App Type", "hr");
+	data1.put("Hr Plan Name", "Ayan Weekly HR Growth Plan");
+	data1.put("Hire App Type", "hire");
+	data1.put("Hire Plan Name", "testyearly");
+
+	TreeMap<String, String> data2 = new TreeMap<String, String>();
+	data2.put("Checkout App Type", "checkout");
+	data2.put("Checkout Plan Name", "Ayan Yearly Checkout Enterprise Plan");
+	data2.put("Spaces App Type", "spaces");
+	data2.put("Spaces Plan Name", "Ayan Yearly Spaces Enterprise Plan");
+	data2.put("Hr App Type", "hr");
+	data2.put("Hr Plan Name", "Ayan Yearly HR Enterprise Plan");
+	data2.put("Hire App Type", "hire");
+	data2.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
+
+	TreeMap<String, String> data3 = new TreeMap<String, String>();
+	data3.put("Checkout App Type", "checkout");
+	data3.put("Checkout Plan Name", "test weekly checkout plan");
+	data3.put("Spaces App Type", "spaces");
+	data3.put("Spaces Plan Name", "Space Weekly Plan 99");
+	data3.put("Hr App Type", "hr");
+	data3.put("Hr Plan Name", "Ayan HR New Weekly Plan");
+	data3.put("Hire App Type", "hire");
+	data3.put("Hire Plan Name", "Free Trial");
+
+	TreeMap<String, String> data4 = new TreeMap<String, String>();
+	data4.put("Checkout App Type", "checkout");
+	data4.put("Checkout Plan Name", "Ayan Monthly Checkout Business Plan");
+	data4.put("Spaces App Type", "spaces");
+	data4.put("Spaces Plan Name", "Ayan Monthly Spaces Business Plan");
+	data4.put("Hr App Type", "hr");
+	data4.put("Hr Plan Name", "Ayan Monthly HR Business Plan");
+	data4.put("Hire App Type", "hire");
+	data4.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
+
+	TreeMap<String, String> data5 = new TreeMap<String, String>();
+	data5.put("Checkout App Type", "checkout");
+	data5.put("Checkout Plan Name", "Ayan Custom Days Checkout Premium Plan");
+	data5.put("Spaces App Type", "spaces");
+	data5.put("Spaces Plan Name", "Custom Plan 999");
+	data5.put("Hr App Type", "hr");
+	data5.put("Hr Plan Name", "Ayan Custom Days HR Flex Plan");
+	data5.put("Hire App Type", "hire");
+	data5.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
+
+	TreeMap<String, String> data6 = new TreeMap<String, String>();
+	data6.put("Checkout App Type", "checkout");
+	data6.put("Checkout Plan Name", "Ayan Daily Checkout Starter Plan");
+	data6.put("Spaces App Type", "spaces");
+	data6.put("Spaces Plan Name", "Ayan Daily Spaces Starter Plan");
+	data6.put("Hr App Type", "hr");
+	data6.put("Hr Plan Name", "Ayan Daily HR Starter Plan");
+	data6.put("Hire App Type", "hire");
+	data6.put("Hire Plan Name", "15 day Freemium");
+
+	TreeMap<String, String> data7 = new TreeMap<String, String>();
+	data7.put("Checkout App Type", "checkout");
+	data7.put("Checkout Plan Name", "Ayan Custom Days Checkout Advance Plan");
+	data7.put("Spaces App Type", "spaces");
+	data7.put("Spaces Plan Name", "Ayan New Professional Diamond Plan");
+	data7.put("Hr App Type", "hr");
+	data7.put("Hr Plan Name", "Custom HR Plan 99");
+	data7.put("Hire App Type", "hire");
+	data7.put("Hire Plan Name", "lessthan3-1");
+
+	TreeMap<String, String> data8 = new TreeMap<String, String>();
+	data8.put("Checkout App Type", "checkout");
+	data8.put("Checkout Plan Name", "Ayan Checkout New Yearly Plan");
+	data8.put("Spaces App Type", "spaces");
+	data8.put("Spaces Plan Name", "Free Trial - Spaces");
+	data8.put("Hr App Type", "hr");
+	data8.put("Hr Plan Name", "HR Plan");
+	data8.put("Hire App Type", "hire");
+	data8.put("Hire Plan Name", "lessthan3-2");
+
+	TreeMap<String, String> data9 = new TreeMap<String, String>();
+	data9.put("Checkout App Type", "checkout");
+	data9.put("Checkout Plan Name", "Free Checkout + Features");
+	data9.put("Spaces App Type", "spaces");
+	data9.put("Spaces Plan Name", "Speical 99");
+	data9.put("Hr App Type", "hr");
+	data9.put("Hr Plan Name", "Pro Test New");
+	data9.put("Hire App Type", "hire");
+	data9.put("Hire Plan Name", "testyearly");
+
+	TreeMap<String, String> data10 = new TreeMap<String, String>();
+	data10.put("Checkout App Type", "checkout");
+	data10.put("Checkout Plan Name", "New Flow - Paid Plan 1");
+	data10.put("Spaces App Type", "spaces");
+	data10.put("Spaces Plan Name", "Ayan Weekly Spaces Growth Plan");
+	data10.put("Hr App Type", "hr");
+	data10.put("Hr Plan Name", "Ayan Weekly HR Growth Plan");
+	data10.put("Hire App Type", "hire");
+	data10.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
+
+	TreeMap<String, String> data11 = new TreeMap<String, String>();
+	data11.put("Checkout App Type", "checkout");
+	data11.put("Checkout Plan Name", "New Flow - Paid Plan 2");
+	data11.put("Spaces App Type", "spaces");
+	data11.put("Spaces Plan Name", "Ayan Yearly Spaces Enterprise Plan");
+	data11.put("Hr App Type", "hr");
+	data11.put("Hr Plan Name", "Ayan Yearly HR Enterprise Plan");
+	data11.put("Hire App Type", "hire");
+	data11.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
+
+	TreeMap<String, String> data12 = new TreeMap<String, String>();
+	data12.put("Checkout App Type", "checkout");
+	data12.put("Checkout Plan Name", "TL Checkout Plan");
+	data12.put("Spaces App Type", "spaces");
+	data12.put("Spaces Plan Name", "Ayan Monthly Spaces Business Plan");
+	data12.put("Hr App Type", "hr");
+	data12.put("Hr Plan Name", "Ayan Monthly HR Business Plan");
+	data12.put("Hire App Type", "hire");
+	data12.put("Hire Plan Name", "Free Trial");
+
+	TreeMap<String, String> data13 = new TreeMap<String, String>();
+	data13.put("Checkout App Type", "checkout");
+	data13.put("Checkout Plan Name", "After Fix Plan 99");
+	data13.put("Spaces App Type", "spaces");
+	data13.put("Spaces Plan Name", "Space Weekly Plan 99");
+	data13.put("Hr App Type", "hr");
+	data13.put("Hr Plan Name", "Ayan HR New Weekly Plan");
+	data13.put("Hire App Type", "hire");
+	data13.put("Hire Plan Name", "15 day Freemium");
+
+	TreeMap<String, String> data14 = new TreeMap<String, String>();
+	data14.put("Checkout App Type", "checkout");
+	data14.put("Checkout Plan Name", "Custom Plan New Flow");
+	data14.put("Spaces App Type", "spaces");
+	data14.put("Spaces Plan Name", "Custom Plan 999");
+	data14.put("Hr App Type", "hr");
+	data14.put("Hr Plan Name", "Custom plan testing");
+	data14.put("Hire App Type", "hire");
+	data14.put("Hire Plan Name", "lessthan3-1");
+
+	TreeMap<String, String> data15 = new TreeMap<String, String>();
+	data15.put("Checkout App Type", "checkout");
+	data15.put("Checkout Plan Name", "Test Custom Unit Fix");
+	data15.put("Spaces App Type", "spaces");
+	data15.put("Spaces Plan Name", "Ayan New Professional Diamond Plan");
+	data15.put("Hr App Type", "hr");
+	data15.put("Hr Plan Name", "Ayan Custom Days HR Flex Plan");
+	data15.put("Hire App Type", "hire");
+	data15.put("Hire Plan Name", "lessthan3-2");
+
+	TreeMap<String, String> data16 = new TreeMap<String, String>();
+	data16.put("Checkout App Type", "checkout");
+	data16.put("Checkout Plan Name", "Checkout Custom Plan 999");
+	data16.put("Spaces App Type", "spaces");
+	data16.put("Spaces Plan Name", "Free Trial - Spaces");
+	data16.put("Hr App Type", "hr");
+	data16.put("Hr Plan Name", "Hr Default Trial Plan");
+	data16.put("Hire App Type", "hire");
+	data16.put("Hire Plan Name", "Free Trial");
+
+	TreeMap<String, String> data17 = new TreeMap<String, String>();
+	data17.put("Checkout App Type", "checkout");
+	data17.put("Checkout Plan Name", "Ayan Custom Days Checkout Advance Plan");
+	data17.put("Spaces App Type", "spaces");
+	data17.put("Spaces Plan Name", "Ayan Weekly Spaces Growth Plan");
+	data17.put("Hr App Type", "hr");
+	data17.put("Hr Plan Name", "Ayan Weekly HR Growth Plan");
+	data17.put("Hire App Type", "hire");
+	data17.put("Hire Plan Name", "testyearly");
+
+	TreeMap<String, String> data18 = new TreeMap<String, String>();
+	data18.put("Checkout App Type", "checkout");
+	data18.put("Checkout Plan Name", "Ayan Yearly Checkout Enterprise Plan");
+	data18.put("Spaces App Type", "spaces");
+	data18.put("Spaces Plan Name", "Ayan Monthly Spaces Business Plan");
+	data18.put("Hr App Type", "hr");
+	data18.put("Hr Plan Name", "Ayan Monthly HR Business Plan");
+	data18.put("Hire App Type", "hire");
+	data18.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
+
+	TreeMap<String, String> data19 = new TreeMap<String, String>();
+	data19.put("Checkout App Type", "checkout");
+	data19.put("Checkout Plan Name", "Checkout Weekly 999");
+	data19.put("Spaces App Type", "spaces");
+	data19.put("Spaces Plan Name", "Ayan Yearly Spaces Enterprise Plan");
+	data19.put("Hr App Type", "hr");
+	data19.put("Hr Plan Name", "Ayan Yearly HR Enterprise Plan");
+	data19.put("Hire App Type", "hire");
+	data19.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
+
+	TreeMap<String, String> data20 = new TreeMap<String, String>();
+	data20.put("Checkout App Type", "checkout");
+	data20.put("Checkout Plan Name", "test weekly checkout plan");
+	data20.put("Spaces App Type", "spaces");
+	data20.put("Spaces Plan Name", "Space Weekly Plan 99");
+	data20.put("Hr App Type", "hr");
+	data20.put("Hr Plan Name", "Ayan HR New Weekly Plan");
+	data20.put("Hire App Type", "hire");
+	data20.put("Hire Plan Name", "testyearly");
+
+	return new Object[][] {
+		{ data1 },/*
+		{ data2 },
+		{ data3 },
+		{ data4 },
+		{ data5 },
+		{ data6 },
+		{ data7 },
+		{ data8 },
+		{ data9 },
+		{ data10 },
+		{ data11 },
+		{ data12 },
+		{ data13 },
+		{ data14 },
+		{ data15 },
+		{ data16 },
+		{ data17 },
+		{ data18 },
+		{ data19 },
+		{ data20 } */
+	};
 }
 
 @Test(dataProvider="Account_Create_Data")

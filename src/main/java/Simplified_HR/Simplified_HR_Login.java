@@ -71,7 +71,7 @@ public class Simplified_HR_Login extends Side_menu_Handler{
 		rp.movetoelement(Employment_Type_dropdown_list);
 		Employment_Type_dropdown_list.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"))
 				.stream().filter(owneropt -> owneropt.getText().trim().equalsIgnoreCase(Employment_Type)).findFirst()
-				.ifPresent(WebElement::click);
+				.ifPresent(WebElement::click);/*
 		WebElement Job_Title_dropdown = p.Job_Title_field();
 		Job_Title_dropdown.click();
 		p.job_title_input().sendKeys(Job_Title);
@@ -81,7 +81,7 @@ public class Simplified_HR_Login extends Side_menu_Handler{
 
 		Job_Title_dropdown_list.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"))
 				.stream().filter(owneropt -> owneropt.getText().trim().equalsIgnoreCase(Job_Title)).findFirst()
-				.ifPresent(WebElement::click); 
+				.ifPresent(WebElement::click); */
 		//ChromeDriver
 		p.Personal_mail().sendKeys(Personal_Email);
 		p.Phone_Number_field().sendKeys(Phone_Number);

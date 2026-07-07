@@ -39,7 +39,7 @@ public class Saas_Admin_Locaters extends Repeat{
 		private List<WebElement> Product_check_boxes; 
 		@FindBy(id="search_search_input")
 		private WebElement search_field; 
-		@FindBy(xpath="//div[@class='text-right '] ")
+		@FindBy(xpath="//div[@class='text-right ']")
 		private List<WebElement> List_threedots_button; 
 		@FindBy(xpath="//*[local-name()='rect' and @role='presentation']")
 		private WebElement Loader_element; 
@@ -135,9 +135,9 @@ public class Saas_Admin_Locaters extends Repeat{
 		@FindBy(xpath="//*[text()='View All']")
 		private WebElement  view_all_button; 
 		@FindBy(xpath="//div[@class='ant-dropdown ant-dropdown-placement-bottomLeft ']")
-		private WebElement Plan_Dropdown; /*
-		@FindBy(xpath="")
-		private WebElement  ;
+		private WebElement Plan_Dropdown; 
+		@FindBy(xpath="//*[@class='d-flex flex-column']")
+		private WebElement Leads_plan_Approver_section;/*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -570,22 +570,18 @@ public class Saas_Admin_Locaters extends Repeat{
 		return view_all_button;} 
 		public WebElement Plan_Dropdown(){
 		wait_for_theElement(Plan_Dropdown);
-		return Plan_Dropdown;}/*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Plan_Dropdown;}
+		public WebElement Leads_plan_Approver(){
+		wait_for_theElement(Leads_plan_Approver_section);
+		return Leads_plan_Approver_section;}
+		public List<WebElement> Approve_Plan_toggle_Buttons(){
+		List<WebElement> Approve_Plan_toggle_Buttons = Leads_plan_Approver().findElements(By.xpath(".//button"));
+		wait_for_theElement(Approve_Plan_toggle_Buttons);
+		return Approve_Plan_toggle_Buttons;}
+		public List<WebElement> Leads_plan_select_dropdowm(){
+		List<WebElement> Leads_plan_select_dropdowm = Leads_plan_Approver().findElements(By.xpath(".//*[@class='ant-form-item-control-input']"));
+		wait_for_theElement(Leads_plan_select_dropdowm);
+		return Leads_plan_select_dropdowm;} /*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}
