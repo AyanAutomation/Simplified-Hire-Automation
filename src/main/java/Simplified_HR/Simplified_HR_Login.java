@@ -6,6 +6,7 @@ import java.util.TreeMap;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WindowType;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -13,14 +14,165 @@ import com.aventstack.extentreports.Status;
 
 import Listerners.Report_Listen;
 import Locaters.Candidate_Module_Locaters;
+import Locaters.Saas_Admin_Locaters;
 import Locaters.Side_menu_locaters;
+import Product_Codeclouds.Project.Simplified.Data_Reader;
 import Product_Codeclouds.Project.Simplified.Side_menu_Handler;
 import Repeatative_codes.Repeat;
 import Simplified_HR_Locaters.Simplified_Hr_Master_Locaters;
 
 public class Simplified_HR_Login extends Side_menu_Handler{
-	
-	
+	/*
+	public int Account_Activator(TreeMap<String, String> account_data, int step) throws IOException, InterruptedException{
+
+		Simplified_Hr_Master_Locaters p = new Simplified_Hr_Master_Locaters(d);
+		Repeat rp = new Repeat(d);
+		Data_Reader f = new Data_Reader();
+
+		String Email = account_data.get("Email");
+		String Company_Name = account_data.get("Company Name");
+		String Plan_Name = account_data.get("Plan Name");
+		String Users = account_data.get("Users");
+
+		WebElement Create_Button;
+		String Admin_Window = d.getWindowHandle();
+		String Activation_Window = "";
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Section:</b> Validate account activation using generated invite link.");
+		System.out.println("🔹 Scenario Section: Validate account activation using generated invite link.");
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Search the newly invited account in SaaS Admin, open Get Invite Link action, copy invite link, open it in a new tab, set password, submit activation form, validate account verified success message, and switch back to SaaS Admin tab for further operations.");
+		System.out.println("📘 Description: Search the newly invited account in SaaS Admin, open Get Invite Link action, copy invite link, open it in a new tab, set password, submit activation form, validate account verified success message, and switch back to SaaS Admin tab for further operations.");
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Email = " + Email + " | Company = " + Company_Name + " | Plan = " + Plan_Name + " | Users = " + Users);
+		System.out.println("📥 Input: Email = " + Email + " | Company = " + Company_Name + " | Plan = " + Plan_Name + " | Users = " + Users);
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> Account invite link should open successfully, password should be set, account verified success message should be displayed, and control should return to the SaaS Admin account list tab without closing any browser tab.");
+		System.out.println("✅ Expected: Account invite link should open successfully, password should be set, account verified success message should be displayed, and control should return to the SaaS Admin account list tab without closing any browser tab.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Store current SaaS Admin tab/window before opening invite link.");
+		System.out.println("Step " + (step - 1) + ": Store current SaaS Admin tab/window before opening invite link.");
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> SaaS Admin window stored successfully. Window Handle = " + Admin_Window);
+		System.out.println("🟨 Actual: SaaS Admin window stored successfully. Window Handle = " + Admin_Window);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Check whether SaaS Admin account list page is already accessible.");
+		System.out.println("Step " + (step - 1) + ": Check whether SaaS Admin account list page is already accessible.");
+
+		try {
+			Create_Button = p.Add_Member_button();
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Create Account button found. SaaS Admin account list page is already accessible.");
+			System.out.println("🟨 Actual: Create Account button found. SaaS Admin account list page is already accessible.");
+		} catch(Exception r) {
+			Report_Listen.log_print_in_report().log(Status.WARNING, "<b>⚠ Actual:</b> Create Account button was not found. SaaS Admin login will be performed again.<br><b>Reason:</b> " + r.getMessage());
+			System.out.println("⚠ Actual: Create Account button was not found. SaaS Admin login will be performed again.");
+			System.out.println("Reason: " + r.getMessage());
+
+			Menu_option_selector("Control Center","Users");
+			Create_Button = p.Add_Member_button();
+
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> SaaS Admin login completed and Create Account button is now available.");
+			System.out.println("🟨 Actual: SaaS Admin login completed and Create Account button is now available.");
+		}
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Wait for account list loader to disappear before searching invited account.");
+		System.out.println("Step " + (step - 1) + ": Wait for account list loader to disappear before searching invited account.");
+		List<WebElement> Loaders = p.Loader();
+		rp.wait_for_invisibilty_of_theElement(Loaders);
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Initial account list loader disappeared successfully.");
+		System.out.println("🟨 Actual: Initial account list loader disappeared successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Search invited account using email = " + Email);
+		System.out.println("Step " + (step - 1) + ": Search invited account using email = " + Email);
+		WebElement Search = p.search_field();
+		Search.sendKeys(Email);
+		Thread.sleep(1000);
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Email entered successfully in account search field = " + Email);
+		System.out.println("🟨 Actual: Email entered successfully in account search field = " + Email);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Wait for account list reload after search.");
+		System.out.println("Step " + (step - 1) + ": Wait for account list reload after search.");
+		List<WebElement> Reloaders = p.Loader();
+		rp.wait_for_invisibilty_of_theElement(Reloaders);
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Account list reload completed after search.");
+		System.out.println("🟨 Actual: Account list reload completed after search.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Open row action menu and select Get Invite Link option.");
+		System.out.println("Step " + (step - 1) + ": Open row action menu and select Get Invite Link option.");
+		list_threedot_dropdown_option_selector("Get Invite Link");
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Get Invite Link option selected successfully for searched account.");
+		System.out.println("🟨 Actual: Get Invite Link option selected successfully for searched account.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Validate invite link popup modal and capture invite link.");
+		System.out.println("Step " + (step - 1) + ": Validate invite link popup modal and capture invite link.");
+		p.pop_up_modal();
+		WebElement Invite = p.Invite_link();
+		String Invite_link = Invite.getText().trim();
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Invite link popup opened and invite link captured successfully.");
+		System.out.println("🟨 Actual: Invite link popup opened and invite link captured successfully.");
+		System.out.println("Invite Link Is ------> " + Invite_link);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Open invite link in a new browser tab.");
+		System.out.println("Step " + (step - 1) + ": Open invite link in a new browser tab.");
+		d.switchTo().newWindow(WindowType.TAB);
+		Activation_Window = d.getWindowHandle();
+		d.navigate().to(Invite_link);
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Invite link opened successfully in new tab. Activation Window Handle = " + Activation_Window);
+		System.out.println("🟨 Actual: Invite link opened successfully in new tab. Activation Window Handle = " + Activation_Window);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Validate user landed on Set Password page.");
+		System.out.println("Step " + (step - 1) + ": Validate user landed on Set Password page.");
+		p.Landed_in_Set_Password_page();
+		Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> User landed successfully on Set Password page.");
+		System.out.println("✅ Actual: User landed successfully on Set Password page.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Enter password and confirm password.");
+		System.out.println("Step " + (step - 1) + ": Enter password and confirm password.");
+		String Pass = f.Data_Fetcher("Pass");
+		WebElement passfield = p.password();
+		WebElement Confirm_pass_field = p.confirm_password();
+		passfield.sendKeys(Pass);
+		Confirm_pass_field.sendKeys(Pass);
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Password and confirm password entered successfully.");
+		System.out.println("🟨 Actual: Password and confirm password entered successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Submit Set Password form to activate account.");
+		System.out.println("Step " + (step - 1) + ": Submit Set Password form to activate account.");
+		WebElement Submit = p.Submit_Button();
+		rp.movetoelement(Submit);
+		Submit.click();
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Set Password form submitted successfully.");
+		System.out.println("🟨 Actual: Set Password form submitted successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Capture account verified success message.");
+		System.out.println("Step " + (step - 1) + ": Capture account verified success message.");
+		WebElement Success = p.Account_Verified_Success_Message();
+		String Success_Message = Success.getText().trim();
+		Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Account activation completed successfully. Success message = " + Success_Message);
+		System.out.println("✅ Actual: Account activation completed successfully. Success message = " + Success_Message);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Switch back to previous SaaS Admin tab/window after account activation.");
+		System.out.println("Step " + (step - 1) + ": Switch back to previous SaaS Admin tab/window after account activation.");
+		d.switchTo().window(Admin_Window);
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Control switched back to SaaS Admin window successfully without closing any browser tab. Current Window Handle = " + d.getWindowHandle());
+		System.out.println("🟨 Actual: Control switched back to SaaS Admin window successfully without closing any browser tab. Current Window Handle = " + d.getWindowHandle());
+		System.out.println();
+
+		return step;
+	}
+	*/
 	@Test(dataProvider = "User_Create_Data")
 	public void Simplified_Hr_User_Add(TreeMap<String, String> user_data) throws IOException, InterruptedException {
 		

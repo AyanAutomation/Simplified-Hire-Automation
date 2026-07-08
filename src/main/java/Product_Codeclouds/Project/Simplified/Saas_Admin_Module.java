@@ -1,5 +1,7 @@
 package Product_Codeclouds.Project.Simplified;
 
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -230,12 +232,12 @@ public class Saas_Admin_Module extends Base{
 	    
 		Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
 	   
-		try {
+	/*	try {
 			p.Side_menu();
-		} catch (Exception mm) {
+	} catch (Exception mm) { */
 			Saas_Admin_Login();
 			p.Side_menu();
-		}
+	//	}
 		List<WebElement> menu_options = p.options();
 		boolean option_clicked = menu_options.stream().filter(menuop -> menuop.getText().trim().equalsIgnoreCase(opt_text))
 				.findFirst().map(menuop -> {
@@ -1595,18 +1597,18 @@ public TreeMap<String, String> Leads_Details_fetcher() throws IOException, Inter
 	
 	TreeMap<String, String> lead_details = new TreeMap<>();
 	
-   WebElement Approve_button;
+   WebElement Approve_button;/*
   try {
 	  Approve_button=  p.Leads_Approve_button();
 	  
-  } catch (Exception e) {
+  } catch (Exception e) { */
 	  
 	  Saas_Admin_Menu_navigation("Leads");
 	  List<WebElement> loaders = p.Loader();
 	  rp.wait_for_invisibilty_of_theElement(loaders);
       list_threedot_dropdown_option_selector("View Lead");
       Approve_button=p.Leads_Approve_button();
-  }
+ // }
   Thread.sleep(1200);
   List<WebElement> Labels;
 
@@ -1651,12 +1653,14 @@ for(int i=0;i<Math.min(Labels.size(), Values.size());i++) {
 return lead_details;
 }
 
-
 @Test(dataProvider="Plan_Type_Name_Data")
-public void Leads_Approve(TreeMap<String, String> Plan_data) throws IOException, InterruptedException{
+public void Leads_Approve(TreeMap<String, String> Plan_data) throws IOException, InterruptedException, AWTException{
 	
 	Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
 	Repeat rp = new Repeat(d);
+	Candidate_Module_Locaters ca = new Candidate_Module_Locaters(d);
+	
+	JavascriptExecutor js = (JavascriptExecutor)d;
 	
 	String Checkout_plan_name=Plan_data.get("Checkout Plan Name");
 	String Spaces_plan_name=Plan_data.get("Spaces Plan Name");
@@ -1664,49 +1668,241 @@ public void Leads_Approve(TreeMap<String, String> Plan_data) throws IOException,
 	String Hr_plan_name=Plan_data.get("Hr Plan Name");
 	
 	String App_type_id = null;
+	int step = 1;
+	int Enabled_App_Count = 0;
+	int Selected_Plan_Count = 0;
+	
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Validate Leads Approve flow with dynamic multiple app plan assignment.");
+	System.out.println("🔹 Scenario Title: Validate Leads Approve flow with dynamic multiple app plan assignment.");
+	
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Open lead details, click Approve, identify enabled app toggles, open each enabled app's own Select Plan dropdown, select matching plan, then assign and create account.");
+	System.out.println("📘 Description: Open lead details, click Approve, identify enabled app toggles, open each enabled app's own Select Plan dropdown, select matching plan, then assign and create account.");
+	
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Hire Plan = " + Hire_plan_name + " | Checkout Plan = " + Checkout_plan_name + " | HR Plan = " + Hr_plan_name + " | Spaces Plan = " + Spaces_plan_name);
+	System.out.println("📥 Input: Hire Plan = " + Hire_plan_name + " | Checkout Plan = " + Checkout_plan_name + " | HR Plan = " + Hr_plan_name + " | Spaces Plan = " + Spaces_plan_name);
+	
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> Correct plan should be selected for all enabled app toggles, including single, two-app, three-app, and all-app combinations.");
+	System.out.println("✅ Expected: Correct plan should be selected for all enabled app toggles, including single, two-app, three-app, and all-app combinations.");
+	System.out.println();
+	
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Fetch lead details before approval.");
+	System.out.println("Step " + (step - 1) + ": Fetch lead details before approval.");
 	Leads_Details_fetcher();
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Lead details fetched successfully.");
+	System.out.println("🟨 Actual: Lead details fetched successfully.");
+	System.out.println();
+	
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Click Approve button from lead details page.");
+	System.out.println("Step " + (step - 1) + ": Click Approve button from lead details page.");
 	WebElement Approve_button=  p.Leads_Approve_button();
+	rp.movetoelement(Approve_button);
 	Approve_button.click();
 	Thread.sleep(800);
-	List<WebElement> Plan_Select = p.Leads_plan_select_dropdowm();
-	WebElement Plan_Input_Field = null;
-	List<WebElement> Plan_Toggles = p.Approve_Plan_toggle_Buttons();
-	System.out.println("Total Plan Toggles: "+Plan_Toggles.size());
-	for(WebElement toggle:Plan_Toggles){
-	if(toggle.getAttribute("aria-checked").trim().contains("true")) {
-		WebElement App_type=toggle.findElement(By.xpath("./../../..//input"));
-		App_type_id=App_type.getAttribute("id").trim();
-		if(App_type_id.contains("select_plan_hire")){
-			
-			    WebElement Hire_Plan = Plan_Select.get(0);
-			    Hire_Plan.click();
-			    rp.movetoelement(Hire_Plan);
-			Plan_Input_Field = p.Hire_Plan_Input_feild();
-			break;}
-		if(App_type_id.contains("select_plan_checkout")){
-			Plan_Input_Field = p.Checkout_Plan_Input_feild();
-			break;}
-		if(App_type_id.contains("select_plan_hr")){
-			Plan_Input_Field = p.Hr_Plan_Input_feild();
-			break;}
-		if(App_type_id.contains("select_plan_spaces")){
-			Plan_Input_Field = p.Spaces_Plan_Input_feild();
-			break;}System.out.println();
-		System.out.println("App Type: "+App_type_id+" is enabled");
-		System.out.println();
-		
-	}}
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Approve button clicked successfully and Assign Plan modal opened.");
+	System.out.println("🟨 Actual: Approve button clicked successfully and Assign Plan modal opened.");
+	System.out.println();
 	
-	if(App_type_id.contains("select_plan_hire")) {
-    WebElement Hire_Plan = Plan_Select.get(0);
-    Hire_Plan.click();
-	Plan_Input_Field.sendKeys(Hire_plan_name);
-	WebElement Dropdown_List = d.findElement(By.xpath("(//*[@id='select_plan_hire_list']"));
-	rp.wait_for_theElement(Dropdown_List);
-	Thread.sleep(800);
-	rp.movetoelement(Dropdown_List);
+	WebElement Plan_Input_Field = null;
+	
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Fetch all app toggle buttons from Assign Plan modal.");
+	System.out.println("Step " + (step - 1) + ": Fetch all app toggle buttons from Assign Plan modal.");
+	List<WebElement> Plan_Toggles = p.Approve_Plan_toggle_Buttons();
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Total Plan Toggles fetched = " + Plan_Toggles.size());
+	System.out.println("🟨 Actual: Total Plan Toggles fetched = " + Plan_Toggles.size());
+	System.out.println();
+	
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Start checking enabled app toggles and assign plans.");
+	System.out.println("Step " + (step - 1) + ": Start checking enabled app toggles and assign plans.");
+	
+	for(WebElement toggle:Plan_Toggles){
+		
+		String Toggle_Status = toggle.getAttribute("aria-checked") == null ? "" : toggle.getAttribute("aria-checked").trim();
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> Toggle status found = " + Toggle_Status);
+		System.out.println("🟨 Debug: Toggle status found = " + Toggle_Status);
+		
+		if(Toggle_Status.contains("true")) {
+			
+			Enabled_App_Count++;
+			
+			WebElement Plan_Input_box = toggle.findElement(By.xpath("./../../..//*[text()='Select Plan']/../..//*[@class='ant-form-item-control-input']"));
+			WebElement App_type=toggle.findElement(By.xpath("./../../..//input[contains(@id,'select_plan_')]"));
+			App_type_id=App_type.getAttribute("id").trim();
+			
+			String Expected_Plan_Name = "";
+			String App_Display_Name = "";
+			
+			if(App_type_id.contains("select_plan_hire")){
+				Expected_Plan_Name = Hire_plan_name;
+				App_Display_Name = "Simplified Hire";
+			}
+			if(App_type_id.contains("select_plan_checkout")){
+				Expected_Plan_Name = Checkout_plan_name;
+				App_Display_Name = "Simplified Checkout";
+			}
+			if(App_type_id.contains("select_plan_hr")){
+				Expected_Plan_Name = Hr_plan_name;
+				App_Display_Name = "Simplified HR";
+			}
+			if(App_type_id.contains("select_plan_spaces")){
+				Expected_Plan_Name = Spaces_plan_name;
+				App_Display_Name = "Simplified Spaces";
+			}
+			
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> Enabled App Type detected = " + App_type_id + " | App Name = " + App_Display_Name + " | Expected Plan = " + Expected_Plan_Name);
+			System.out.println();
+			System.out.println("🟨 Debug: Enabled App Type detected = " + App_type_id + " | App Name = " + App_Display_Name + " | Expected Plan = " + Expected_Plan_Name);
+			System.out.println();
+			
+			if(Expected_Plan_Name == null || Expected_Plan_Name.trim().length() == 0) {
+				Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> Expected plan name is blank or missing for enabled app = " + App_Display_Name + " | App Type = " + App_type_id);
+				System.out.println("❌ Actual: Expected plan name is blank or missing for enabled app = " + App_Display_Name + " | App Type = " + App_type_id);
+				System.out.println();
+				return;
+			}
+			
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Open Select Plan dropdown for enabled app = " + App_Display_Name);
+			System.out.println("Step " + (step - 1) + ": Open Select Plan dropdown for enabled app = " + App_Display_Name);
+			
+			Plan_Input_Field = Plan_Input_box;
+			rp.Scroll_to_element(Plan_Input_Field);
+			Thread.sleep(800);
+			rp.movetoelement(Plan_Input_Field);
+			Plan_Input_Field.click();
+			Thread.sleep(800);
+			
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Select Plan dropdown opened successfully for " + App_Display_Name);
+			System.out.println("🟨 Actual: Select Plan dropdown opened successfully for " + App_Display_Name);
+			
+			try {
+				App_type.sendKeys(Expected_Plan_Name);
+				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Plan name entered in searchable input for " + App_Display_Name + " = " + Expected_Plan_Name);
+				System.out.println("🟨 Actual: Plan name entered in searchable input for " + App_Display_Name + " = " + Expected_Plan_Name);
+			} catch(Exception searchIssue) {
+				Report_Listen.log_print_in_report().log(Status.WARNING, "<b>⚠ Actual:</b> Plan search input typing skipped for " + App_Display_Name + ". Dropdown options will be checked directly.<br><b>Reason:</b> " + searchIssue.getMessage());
+				System.out.println("⚠ Actual: Plan search input typing skipped for " + App_Display_Name + ". Dropdown options will be checked directly.");
+				System.out.println("Reason: " + searchIssue.getMessage());
+			}
+			
+			WebElement Dropdown_List = d.findElement(By.xpath("//div[contains(@class,'ant-select-dropdown') and not(contains(@class,'ant-select-dropdown-hidden'))]//div[contains(@class,'rc-virtual-list-holder')]"));
+			rp.wait_for_theElement(Dropdown_List);
+			Thread.sleep(800);
+			rp.movetoelement(Dropdown_List);
+			
+			List<WebElement> Options = Dropdown_List.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> Visible dropdown option count for " + App_Display_Name + " = " + Options.size());
+			System.out.println("🟨 Debug: Visible dropdown option count for " + App_Display_Name + " = " + Options.size());
+			
+			boolean Plan_Selected = false;
+			
+			for(WebElement Option:Options){
+				
+				String Option_Text = Option.getText().trim();
+				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> " + App_Display_Name + " Option: " + Option_Text);
+				System.out.println(App_Display_Name + " Option: " + Option_Text);
+				System.out.println();
+				
+				if(Option_Text.equalsIgnoreCase(Expected_Plan_Name.trim()) || Option_Text.contains(Expected_Plan_Name.trim())){
+					
+					rp.movetoelement(Option);
+					Option.click();
+					Plan_Selected = true;
+					Selected_Plan_Count++;
+					
+					Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Plan selected successfully for " + App_Display_Name + " = " + Option_Text);
+					System.out.println("🟨 Actual: Plan selected successfully for " + App_Display_Name + " = " + Option_Text);
+					System.out.println();
+					break;
+				}
+			}
+			
+			if(!Plan_Selected) {
+				
+				Report_Listen.log_print_in_report().log(Status.WARNING, "<b>⚠ Retry:</b> Plan was not found in initially visible options for " + App_Display_Name + ". Scrolling dropdown list and checking again.");
+				System.out.println("⚠ Retry: Plan was not found in initially visible options for " + App_Display_Name + ". Scrolling dropdown list and checking again.");
+				
+				rp.Scroll_to_bottom_of_list(Dropdown_List);
+				Thread.sleep(800);
+				
+				Options = Dropdown_List.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> Dropdown option count after scroll for " + App_Display_Name + " = " + Options.size());
+				System.out.println("🟨 Debug: Dropdown option count after scroll for " + App_Display_Name + " = " + Options.size());
+				
+				for(WebElement Option:Options){
+					
+					String Option_Text = Option.getText().trim();
+					Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> " + App_Display_Name + " Option after scroll: " + Option_Text);
+					System.out.println(App_Display_Name + " Option after scroll: " + Option_Text);
+					System.out.println();
+					
+					if(Option_Text.equalsIgnoreCase(Expected_Plan_Name.trim()) || Option_Text.contains(Expected_Plan_Name.trim())){
+						
+						rp.movetoelement(Option);
+						Option.click();
+						Plan_Selected = true;
+						Selected_Plan_Count++;
+						
+						Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Plan selected successfully after dropdown scroll for " + App_Display_Name + " = " + Option_Text);
+						System.out.println("🟨 Actual: Plan selected successfully after dropdown scroll for " + App_Display_Name + " = " + Option_Text);
+						System.out.println();
+						break;
+					}
+				}
+			}
+			
+			if(!Plan_Selected) {
+				Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> Required plan was not found for enabled app = " + App_Display_Name + " | Expected Plan = " + Expected_Plan_Name);
+				System.out.println("❌ Actual: Required plan was not found for enabled app = " + App_Display_Name + " | Expected Plan = " + Expected_Plan_Name);
+				System.out.println();
+				return;
+			}
+			
+			System.out.println();
+			System.out.println("App Type: "+App_type_id+" is enabled");
+			System.out.println();
+			
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> App Type processed successfully = " + App_type_id + " | App Name = " + App_Display_Name);
+			System.out.println("🟨 Actual: App Type processed successfully = " + App_type_id + " | App Name = " + App_Display_Name);
+			System.out.println();
+		}
 	}
+	
+	if(Enabled_App_Count == 0) {
+		Report_Listen.log_print_in_report().log(Status.WARNING, "<b>⚠ Actual:</b> No enabled app toggle found in Assign Plan modal.");
+		System.out.println("⚠ Actual: No enabled app toggle found in Assign Plan modal.");
+		System.out.println();
+		return;
+	}
+	
+	if(Selected_Plan_Count != Enabled_App_Count) {
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> Plan selection count mismatch. Enabled App Count = " + Enabled_App_Count + " | Selected Plan Count = " + Selected_Plan_Count);
+		System.out.println("❌ Actual: Plan selection count mismatch. Enabled App Count = " + Enabled_App_Count + " | Selected Plan Count = " + Selected_Plan_Count);
+		System.out.println();
+		return;
+	}
+	
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Click Assign & Create Account button after selecting all enabled app plans.");
+	System.out.println("Step " + (step - 1) + ": Click Assign & Create Account button after selecting all enabled app plans.");
+	WebElement Approve_Confirm_button = p.Assign_Create_Account_button();
+	rp.Scroll_to_element(Approve_Confirm_button);
+	Approve_Confirm_button.click();
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Assign & Create Account button clicked successfully.");
+	System.out.println("🟨 Actual: Assign & Create Account button clicked successfully.");
+	System.out.println();
+	
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Capture confirmation toast after approving lead.");
+	System.out.println("Step " + (step - 1) + ": Capture confirmation toast after approving lead.");
+	WebElement Approve_Confirm_Popup = p.Toast_();
+	String Approve_Confirm_Popup_Text = Approve_Confirm_Popup.getText().trim();
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Lead approval completed successfully. Toast message = " + Approve_Confirm_Popup_Text);
+	System.out.println("✅ Actual: Lead approval completed successfully. Toast message = " + Approve_Confirm_Popup_Text);
+	System.out.println();
+	rp.wait_for_invisibilty_of_theElement(Approve_Confirm_Popup);
+	
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Final Result:</b> Leads Approve flow completed successfully. Enabled App Count = " + Enabled_App_Count + " | Selected Plan Count = " + Selected_Plan_Count);
+	System.out.println("✅ Final Result: Leads Approve flow completed successfully. Enabled App Count = " + Enabled_App_Count + " | Selected Plan Count = " + Selected_Plan_Count);
+	System.out.println();
 }
+
 
 
 
@@ -1914,7 +2110,7 @@ public Object[][] Plan_Type_Name_Data() {
 	data20.put("Hire Plan Name", "testyearly");
 
 	return new Object[][] {
-		{ data1 },/*
+		{ data1 },
 		{ data2 },
 		{ data3 },
 		{ data4 },
@@ -1933,7 +2129,7 @@ public Object[][] Plan_Type_Name_Data() {
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 } */
+		{ data20 } 
 	};
 }
 

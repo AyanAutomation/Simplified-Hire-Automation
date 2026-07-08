@@ -137,19 +137,19 @@ public class Saas_Admin_Locaters extends Repeat{
 		@FindBy(xpath="//div[@class='ant-dropdown ant-dropdown-placement-bottomLeft ']")
 		private WebElement Plan_Dropdown; 
 		@FindBy(xpath="//*[@class='d-flex flex-column']")
-		private WebElement Leads_plan_Approver_section;/*
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
+		private WebElement Leads_plan_Approver_section;
+		@FindBy(xpath="(//*[@class='rc-virtual-list-holder'])[2]")
+		private WebElement rc_virtual_list_holder_two;
+	    @FindBy(xpath="(//*[@class='rc-virtual-list-holder'])[1]")
+		private WebElement rc_virtual_list_holder_one;
+		@FindBy(xpath="(//*[@class='rc-virtual-list-holder'])[3]")
+		private WebElement rc_virtual_list_holder_three;
+		@FindBy(xpath="(//*[@class='rc-virtual-list-holder'])[4]")
+		private WebElement rc_virtual_list_holder_four; 
+		@FindBy(xpath="//*[text()='Assign & Create Account']/..")
+		private WebElement Assign_Create_Account_button; 
+		@FindBy(xpath="//div[@role='alert']//div[@class='ant-notification-notice-description']")
+		private WebElement Toast_; /*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -579,27 +579,27 @@ public class Saas_Admin_Locaters extends Repeat{
 		wait_for_theElement(Approve_Plan_toggle_Buttons);
 		return Approve_Plan_toggle_Buttons;}
 		public List<WebElement> Leads_plan_select_dropdowm(){
-		List<WebElement> Leads_plan_select_dropdowm = Leads_plan_Approver().findElements(By.xpath(".//*[@class='ant-form-item-control-input']"));
+		List<WebElement> Leads_plan_select_dropdowm = Leads_plan_Approver().findElements(By.xpath(".//*[text()='Select Plan']/../..//*[@class='ant-form-item-control-input']"));
 		wait_for_theElement(Leads_plan_select_dropdowm);
-		return Leads_plan_select_dropdowm;} /*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Leads_plan_select_dropdowm;}
+		public WebElement rc_virtual_list_holder_two(){
+		wait_for_theElement(rc_virtual_list_holder_two);
+		return rc_virtual_list_holder_two;}
+		public WebElement rc_virtual_list_holder_one(){
+		wait_for_theElement(rc_virtual_list_holder_one);
+		return rc_virtual_list_holder_one;}
+		public WebElement rc_virtual_list_holder_three(){
+		wait_for_theElement(rc_virtual_list_holder_three);
+		return rc_virtual_list_holder_three;}
+		public WebElement rc_virtual_list_holder_four(){
+		wait_for_theElement(rc_virtual_list_holder_four);
+		return rc_virtual_list_holder_four;} 
+		public WebElement Assign_Create_Account_button(){
+		wait_for_theElement(Assign_Create_Account_button);
+		return Assign_Create_Account_button;}
+		public WebElement Toast_(){
+		wait_for_theElement(Toast_);
+		return Toast_;}/*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}

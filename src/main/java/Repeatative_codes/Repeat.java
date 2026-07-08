@@ -103,6 +103,15 @@ public class Repeat {
 			 
 			 JavascriptExecutor js = (JavascriptExecutor)d;
 			 js.executeScript("arguments[0].scrollIntoView(true);", element);}
+    
+    
+    public void Scroll_to_bottom_of_list(WebElement scrollable_listElement) {
+		JavascriptExecutor js = (JavascriptExecutor) d;
+		js.executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", scrollable_listElement);
+	}
+		 
+   
+    
 	
     public void Java_script_executor_CLICK(WebElement element){
 		 
