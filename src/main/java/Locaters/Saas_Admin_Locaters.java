@@ -149,11 +149,11 @@ public class Saas_Admin_Locaters extends Repeat{
 		@FindBy(xpath="//*[text()='Assign & Create Account']/..")
 		private WebElement Assign_Create_Account_button; 
 		@FindBy(xpath="//div[@role='alert']//div[@class='ant-notification-notice-description']")
-		private WebElement Toast_; /*
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
+		private WebElement Toast_; 
+		@FindBy(xpath="//h2//span[text()='Leads']")
+		private WebElement Leads_page_heading_title; 
+		@FindBy(xpath="//button[@color='danger']")
+		private WebElement Delete_button_red; /*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -599,13 +599,13 @@ public class Saas_Admin_Locaters extends Repeat{
 		return Assign_Create_Account_button;}
 		public WebElement Toast_(){
 		wait_for_theElement(Toast_);
-		return Toast_;}/*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Toast_;}
+		public WebElement Leads_page_heading_title(){
+		wait_for_theElement(Leads_page_heading_title);
+		return Leads_page_heading_title;} 
+		public WebElement Delete_button_red(){
+		wait_for_theElement(Delete_button_red);
+		return Delete_button_red;}/*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}

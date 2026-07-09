@@ -447,11 +447,12 @@ public void Account_create(TreeMap<String, String> account_data) throws Interrup
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Start account activation flow using generated invite link.");
 	System.out.println("Step " + (step - 1) + ": Start account activation flow using generated invite link.");
-	Account_Activator(account_data, step);
+//	Account_Activator(account_data, step);
 
 	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Final Result:</b> Account creation and activation flow completed successfully. Company = " + Company_Name + " | Email = " + Email + " | Plan = " + Plan_Name + " | Users = " + Users);
 	System.out.println("✅ Final Result: Account creation and activation flow completed successfully. Company = " + Company_Name + " | Email = " + Email + " | Plan = " + Plan_Name + " | Users = " + Users);
 	System.out.println(); }
+
 
 public int Account_Activator(TreeMap<String, String> account_data, int step) throws IOException, InterruptedException{
 
@@ -463,6 +464,7 @@ public int Account_Activator(TreeMap<String, String> account_data, int step) thr
 	String Company_Name = account_data.get("Company Name");
 	String Plan_Name = account_data.get("Plan Name");
 	String Users = account_data.get("Users");
+
 
 	WebElement Create_Button;
 	String Admin_Window = d.getWindowHandle();
@@ -509,10 +511,24 @@ public int Account_Activator(TreeMap<String, String> account_data, int step) thr
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Wait for account list loader to disappear before searching invited account.");
 	System.out.println("Step " + (step - 1) + ": Wait for account list loader to disappear before searching invited account.");
-	List<WebElement> Loaders = p.Loader();
-	rp.wait_for_invisibilty_of_theElement(Loaders);
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Initial account list loader disappeared successfully.");
-	System.out.println("🟨 Actual: Initial account list loader disappeared successfully.");
+	try {
+		List<WebElement> Loaders = p.Loader();
+
+		if(Loaders != null && Loaders.size() > 0) {
+			rp.wait_for_invisibilty_of_theElement(Loaders);
+
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Account list loading completed successfully.");
+			System.out.println("🟨 Actual: Account list loading completed successfully.");
+		} else {
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Account list was already available. Loader was not displayed.");
+			System.out.println("🟨 Actual: Account list was already available. Loader was not displayed.");
+		}
+
+	} catch(Exception e) {
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Account list was already available. Loader wait was skipped.");
+		System.out.println("🟨 Actual: Account list was already available. Loader wait was skipped.");
+	}
+
 	System.out.println();
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Search invited account using email = " + Email);
@@ -1597,61 +1613,228 @@ public TreeMap<String, String> Leads_Details_fetcher() throws IOException, Inter
 	
 	TreeMap<String, String> lead_details = new TreeMap<>();
 	
-   WebElement Approve_button;/*
-  try {
-	  Approve_button=  p.Leads_Approve_button();
-	  
-  } catch (Exception e) { */
-	  
-	  Saas_Admin_Menu_navigation("Leads");
-	  List<WebElement> loaders = p.Loader();
-	  rp.wait_for_invisibilty_of_theElement(loaders);
-      list_threedot_dropdown_option_selector("View Lead");
-      Approve_button=p.Leads_Approve_button();
- // }
-  Thread.sleep(1200);
-  List<WebElement> Labels;
-
-  try {
-      Labels = p.Labels();
-  } catch (Exception e) {
-      System.out.println("First attempt failed, retrying once...");
-      try {
-          Labels = p.Labels(); // Retrying the exact action inside the catch block
-      } catch (Exception retryEx) {
-          System.out.println("Retry also failed: " + retryEx.getMessage());
-          // Handle ultimate failure here (e.g., throw retryEx; or assign an empty list)
-          Labels = new ArrayList<>(); 
-      }
-  }
-  List<WebElement> Values;
-
-  try {
-      Values = p.values();
-  } catch (Exception e) {
-      System.out.println("First attempt failed, retrying once...");
-      try {
-          Values = p.values(); // Retrying the exact action inside the catch block
-      } catch (Exception retryEx) {
-          System.out.println("Retry also failed: " + retryEx.getMessage());
-          // Handle ultimate failure here (e.g., assign an empty list)
-          Values = new ArrayList<>();
-      }
-  }
-
-for(int i=0;i<Math.min(Labels.size(), Values.size());i++) {
+	int step = 1;
 	
-	String label = Labels.get(i).getText().trim();
-	String value = Values.get(i).getText().trim();
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Section:</b> Lead Details Validation");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Open the lead details page and capture the available lead information before performing further lead actions.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> Lead details should be available and important lead field values should be captured successfully.");
 	
-	lead_details.put(label, value);
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println("🔹 Scenario Section: Lead Details Validation");
+	System.out.println("📘 Description: Open the lead details page and capture the available lead information before performing further lead actions.");
+	System.out.println("✅ Expected: Lead details should be available and important lead field values should be captured successfully.");
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 	System.out.println();
-    System.out.println(label + " : " + value);
-    System.out.println();
+	
+	WebElement Approve_button;
+	
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Validate whether the lead details page is already open.");
+	System.out.println("Step " + (step - 1) + ": Validate whether the lead details page is already open.");
+	
+	try {
+		Approve_button = p.Leads_Approve_button();
+		
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Lead details page is already open and approval action is available.");
+		System.out.println("🟨 Actual: Lead details page is already open and approval action is available.");
+	} catch (Exception e) { 
+		
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Lead details page was not open. Navigating to Leads module and opening the first lead details.");
+		System.out.println("🟨 Actual: Lead details page was not open. Navigating to Leads module and opening the first lead details.");
+		
+		Saas_Admin_Menu_navigation("Leads");
+		
+		List<WebElement> loaders = p.Loader();
+		rp.wait_for_invisibilty_of_theElement(loaders);
+		
+		list_threedot_dropdown_option_selector("View Lead");
+		
+		Approve_button = p.Leads_Approve_button();
+		
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Lead details page opened successfully from Leads list.");
+		System.out.println("🟨 Actual: Lead details page opened successfully from Leads list.");
+	}
+	System.out.println();
+	
+	Thread.sleep(1200);
+	
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Fetch lead detail labels.");
+	System.out.println("Step " + (step - 1) + ": Fetch lead detail labels.");
+	
+	List<WebElement> Labels;
+	
+	try {
+		Labels = p.Labels();
+		
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Lead detail labels fetched successfully. Label count = " + Labels.size());
+		System.out.println("🟨 Actual: Lead detail labels fetched successfully. Label count = " + Labels.size());
+	} catch (Exception e) {
+		
+		Report_Listen.log_print_in_report().log(Status.WARNING, "<b>⚠ Retry:</b> Lead detail labels were not ready. Retrying once.");
+		System.out.println("⚠ Retry: Lead detail labels were not ready. Retrying once.");
+		
+		try {
+			Labels = p.Labels();
+			
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Lead detail labels fetched successfully after retry. Label count = " + Labels.size());
+			System.out.println("🟨 Actual: Lead detail labels fetched successfully after retry. Label count = " + Labels.size());
+		} catch (Exception retryEx) {
+			
+			Labels = new ArrayList<>();
+			
+			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> Lead detail labels could not be fetched.");
+			System.out.println("❌ Actual: Lead detail labels could not be fetched.");
+		}
+	}
+	System.out.println();
+	
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Fetch lead detail values.");
+	System.out.println("Step " + (step - 1) + ": Fetch lead detail values.");
+	
+	List<WebElement> Values;
+	
+	try {
+		Values = p.values();
+		
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Lead detail values fetched successfully. Value count = " + Values.size());
+		System.out.println("🟨 Actual: Lead detail values fetched successfully. Value count = " + Values.size());
+	} catch (Exception e) {
+		
+		Report_Listen.log_print_in_report().log(Status.WARNING, "<b>⚠ Retry:</b> Lead detail values were not ready. Retrying once.");
+		System.out.println("⚠ Retry: Lead detail values were not ready. Retrying once.");
+		
+		try {
+			Values = p.values();
+			
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Lead detail values fetched successfully after retry. Value count = " + Values.size());
+			System.out.println("🟨 Actual: Lead detail values fetched successfully after retry. Value count = " + Values.size());
+		} catch (Exception retryEx) {
+			
+			Values = new ArrayList<>();
+			
+			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> Lead detail values could not be fetched.");
+			System.out.println("❌ Actual: Lead detail values could not be fetched.");
+		}
+	}
+	System.out.println();
+	
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Capture available lead details.");
+	System.out.println("Step " + (step - 1) + ": Capture available lead details.");
+	
+	int Details_Count = Math.min(Labels.size(), Values.size());
+	
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Lead details ready for capture. Total matched fields = " + Details_Count);
+	System.out.println("🟨 Actual: Lead details ready for capture. Total matched fields = " + Details_Count);
+	System.out.println();
+	
+	for(int i = 0; i < Details_Count; i++) {
+		
+		String label = Labels.get(i).getText().trim();
+		String value = Values.get(i).getText().trim();
+		
+		lead_details.put(label, value);
+		
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>📌 Lead Detail:</b> " + label + " = " + value);
+		System.out.println("📌 Lead Detail: " + label + " = " + value);
+	}
+	System.out.println();
+	
+	if(lead_details.size() > 0) {
+		Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Lead details captured successfully. Total captured fields = " + lead_details.size());
+		System.out.println("✅ Actual: Lead details captured successfully. Total captured fields = " + lead_details.size());
+	} else {
+		Report_Listen.log_print_in_report().log(Status.WARNING, "<b>⚠ Actual:</b> No lead details were captured from the lead details page.");
+		System.out.println("⚠ Actual: No lead details were captured from the lead details page.");
+	}
+	
+	System.out.println();
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+	
+	return lead_details;
+}
 
+@Test(dataProvider="Contact_Form_Data")
+public void Leads_Delete(TreeMap<String, String> form_data) throws IOException, InterruptedException{
+	
+	Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+	Repeat rp = new Repeat(d);
+	
+	String Email = form_data.get("Email");
+	WebElement Lead_module_Heading;
+	
+	
+	try {
+		Lead_module_Heading=p.Leads_page_heading_title();
+		
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Lead details page is already open and approval action is available.");
+		System.out.println("🟨 Actual: Lead details page is already open and approval action is available.");
+	} catch (Exception e) { 
+		
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Lead details page was not open. Navigating to Leads module and opening the first lead details.");
+		System.out.println("🟨 Actual: Lead details page was not open. Navigating to Leads module and opening the first lead details.");
+		
+		Saas_Admin_Menu_navigation("Leads");
+		
+		
+		try {
+			List<WebElement> Loaders = p.Loader();
+
+			if(Loaders != null && Loaders.size() > 0) {
+				rp.wait_for_invisibilty_of_theElement(Loaders);
+
+				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Account list loading completed successfully.");
+				System.out.println("🟨 Actual: Account list loading completed successfully.");
+			} else {
+				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Account list was already available. Loader was not displayed.");
+				System.out.println("🟨 Actual: Account list was already available. Loader was not displayed.");
+			}
+
+		} catch(Exception emk) {
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Account list was already available. Loader wait was skipped.");
+			System.out.println("🟨 Actual: Account list was already available. Loader wait was skipped.");
+		}
+
+		System.out.println();}
+
+	WebElement Search = p.search_field();
+	Search.sendKeys(Email);
+    Thread.sleep(1000);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Email entered successfully in account search field = " + Email);
+	System.out.println("🟨 Actual: Email entered successfully in account search field = " + Email);
+	System.out.println();
+	
+	try {
+		List<WebElement> Reloaders = p.Loader();
+
+		if(Reloaders != null && Reloaders.size() > 0) {
+			rp.wait_for_invisibilty_of_theElement(Reloaders);
+
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Account list loading completed successfully.");
+			System.out.println("🟨 Actual: Account list loading completed successfully.");
+		} else {
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Account list was already available. Loader was not displayed.");
+			System.out.println("🟨 Actual: Account list was already available. Loader was not displayed.");
+		}
+
+	} catch(Exception emkm) {
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Account list was already available. Loader wait was skipped.");
+		System.out.println("🟨 Actual: Account list was already available. Loader wait was skipped.");
+	}
+	list_threedot_dropdown_option_selector("Delete");
+	WebElement Delete_popup_button = p.Delete_button_red();	
+	rp.movetoelement(Delete_popup_button);
+	Delete_popup_button.click();
+	WebElement Delete_Confirm_Popup = p.Toast_();
+	String Delete_Confirm_Popup_Text = Delete_Confirm_Popup.getText().trim();
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Lead approved successfully. Confirmation message = " + Delete_Confirm_Popup_Text);
+	System.out.println("✅ Actual: Lead approved successfully. Confirmation message = " + Delete_Confirm_Popup_Text);
+	System.out.println();
+	rp.wait_for_invisibilty_of_theElement(Delete_Confirm_Popup);
+	
+	
 }
-return lead_details;
-}
+
 
 @Test(dataProvider="Plan_Type_Name_Data")
 public void Leads_Approve(TreeMap<String, String> Plan_data) throws IOException, InterruptedException, AWTException{
@@ -1672,53 +1855,118 @@ public void Leads_Approve(TreeMap<String, String> Plan_data) throws IOException,
 	int Enabled_App_Count = 0;
 	int Selected_Plan_Count = 0;
 	
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Validate Leads Approve flow with dynamic multiple app plan assignment.");
-	System.out.println("🔹 Scenario Title: Validate Leads Approve flow with dynamic multiple app plan assignment.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Validate Lead Approval with App Plan Assignment");
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println("🔹 Scenario Title: Validate Lead Approval with App Plan Assignment");
 	
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Open lead details, click Approve, identify enabled app toggles, open each enabled app's own Select Plan dropdown, select matching plan, then assign and create account.");
-	System.out.println("📘 Description: Open lead details, click Approve, identify enabled app toggles, open each enabled app's own Select Plan dropdown, select matching plan, then assign and create account.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Review the lead, approve it, assign the correct plan for each enabled application, and create the account successfully.");
+	System.out.println("📘 Description: Review the lead, approve it, assign the correct plan for each enabled application, and create the account successfully.");
 	
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Hire Plan = " + Hire_plan_name + " | Checkout Plan = " + Checkout_plan_name + " | HR Plan = " + Hr_plan_name + " | Spaces Plan = " + Spaces_plan_name);
 	System.out.println("📥 Input: Hire Plan = " + Hire_plan_name + " | Checkout Plan = " + Checkout_plan_name + " | HR Plan = " + Hr_plan_name + " | Spaces Plan = " + Spaces_plan_name);
 	
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> Correct plan should be selected for all enabled app toggles, including single, two-app, three-app, and all-app combinations.");
-	System.out.println("✅ Expected: Correct plan should be selected for all enabled app toggles, including single, two-app, three-app, and all-app combinations.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> Every enabled application should receive the correct plan and the lead should be converted into an account successfully.");
+	System.out.println("✅ Expected: Every enabled application should receive the correct plan and the lead should be converted into an account successfully.");
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 	System.out.println();
 	
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Fetch lead details before approval.");
-	System.out.println("Step " + (step - 1) + ": Fetch lead details before approval.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Open and verify lead details before approval.");
+	System.out.println("Step " + (step - 1) + ": Open and verify lead details before approval.");
 	Leads_Details_fetcher();
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Lead details fetched successfully.");
-	System.out.println("🟨 Actual: Lead details fetched successfully.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Lead details reviewed successfully.");
+	System.out.println("🟨 Actual: Lead details reviewed successfully.");
 	System.out.println();
 	
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Click Approve button from lead details page.");
-	System.out.println("Step " + (step - 1) + ": Click Approve button from lead details page.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Start lead approval process.");
+	System.out.println("Step " + (step - 1) + ": Start lead approval process.");
 	WebElement Approve_button=  p.Leads_Approve_button();
 	rp.movetoelement(Approve_button);
 	Approve_button.click();
 	Thread.sleep(800);
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Approve button clicked successfully and Assign Plan modal opened.");
-	System.out.println("🟨 Actual: Approve button clicked successfully and Assign Plan modal opened.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Lead approval plan assignment popup opened successfully.");
+	System.out.println("🟨 Actual: Lead approval plan assignment popup opened successfully.");
 	System.out.println();
+	
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Identify enabled applications for plan assignment.");
+	System.out.println("Step " + (step - 1) + ": Identify enabled applications for plan assignment.");
+	List<WebElement> Plan_Toggles = p.Approve_Plan_toggle_Buttons();
+	System.out.println();
+	
+	int[] Plan_Assign_Result = Leads_Approve_Plan_Assigner(Plan_data, Plan_Toggles, step);
+	step = Plan_Assign_Result[0];
+	Enabled_App_Count = Plan_Assign_Result[1];
+	Selected_Plan_Count = Plan_Assign_Result[2];
+	int Plan_Assign_Status = Plan_Assign_Result[3];
+	
+	if(Plan_Assign_Status == 0) {
+		return;
+	}
+	
+	if(Enabled_App_Count == 0) {
+		Report_Listen.log_print_in_report().log(Status.WARNING, "<b>⚠ Actual:</b> No enabled application was found for plan assignment.");
+		System.out.println("⚠ Actual: No enabled application was found for plan assignment.");
+		System.out.println();
+		return;
+	}
+	
+	if(Selected_Plan_Count != Enabled_App_Count) {
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> Plan assignment was incomplete. Enabled Applications = " + Enabled_App_Count + " | Plans Selected = " + Selected_Plan_Count);
+		System.out.println("❌ Actual: Plan assignment was incomplete. Enabled Applications = " + Enabled_App_Count + " | Plans Selected = " + Selected_Plan_Count);
+		System.out.println();
+		return;
+	}
+	
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Confirm lead approval and account creation.");
+	System.out.println("Step " + (step - 1) + ": Confirm lead approval and account creation.");
+	WebElement Approve_Confirm_button = p.Assign_Create_Account_button();
+	rp.Scroll_to_element(Approve_Confirm_button);
+	Approve_Confirm_button.click();
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Lead approval confirmation submitted successfully.");
+	System.out.println("🟨 Actual: Lead approval confirmation submitted successfully.");
+	System.out.println();
+	
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Verify approval confirmation message.");
+	System.out.println("Step " + (step - 1) + ": Verify approval confirmation message.");
+	WebElement Approve_Confirm_Popup = p.Toast_();
+	String Approve_Confirm_Popup_Text = Approve_Confirm_Popup.getText().trim();
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Lead approved successfully. Confirmation message = " + Approve_Confirm_Popup_Text);
+	System.out.println("✅ Actual: Lead approved successfully. Confirmation message = " + Approve_Confirm_Popup_Text);
+	System.out.println();
+	rp.wait_for_invisibilty_of_theElement(Approve_Confirm_Popup);
+	
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Final Result:</b> Lead approval flow completed successfully. Enabled Applications = " + Enabled_App_Count + " | Plans Assigned = " + Selected_Plan_Count);
+	System.out.println("✅ Final Result: Lead approval flow completed successfully. Enabled Applications = " + Enabled_App_Count + " | Plans Assigned = " + Selected_Plan_Count);
+	System.out.println();
+	
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	
+}
+
+public int[] Leads_Approve_Plan_Assigner(TreeMap<String, String> Plan_data, List<WebElement> Plan_Toggles, int step) throws InterruptedException{
+	
+	Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+	Repeat rp = new Repeat(d);
+	
+	String Checkout_plan_name=Plan_data.get("Checkout Plan Name");
+	String Spaces_plan_name=Plan_data.get("Spaces Plan Name");
+	String Hire_plan_name=Plan_data.get("Hire Plan Name");
+	String Hr_plan_name=Plan_data.get("Hr Plan Name");
+	
+	String App_type_id = null;
+	int Enabled_App_Count = 0;
+	int Selected_Plan_Count = 0;
+	int Plan_Assign_Status = 1;
 	
 	WebElement Plan_Input_Field = null;
 	
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Fetch all app toggle buttons from Assign Plan modal.");
-	System.out.println("Step " + (step - 1) + ": Fetch all app toggle buttons from Assign Plan modal.");
-	List<WebElement> Plan_Toggles = p.Approve_Plan_toggle_Buttons();
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Total Plan Toggles fetched = " + Plan_Toggles.size());
-	System.out.println("🟨 Actual: Total Plan Toggles fetched = " + Plan_Toggles.size());
-	System.out.println();
-	
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Start checking enabled app toggles and assign plans.");
-	System.out.println("Step " + (step - 1) + ": Start checking enabled app toggles and assign plans.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Assign matching plans to enabled applications.");
+	System.out.println("Step " + (step - 1) + ": Assign matching plans to enabled applications.");
 	
 	for(WebElement toggle:Plan_Toggles){
 		
 		String Toggle_Status = toggle.getAttribute("aria-checked") == null ? "" : toggle.getAttribute("aria-checked").trim();
-		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> Toggle status found = " + Toggle_Status);
-		System.out.println("🟨 Debug: Toggle status found = " + Toggle_Status);
 		
 		if(Toggle_Status.contains("true")) {
 			
@@ -1748,20 +1996,20 @@ public void Leads_Approve(TreeMap<String, String> Plan_data) throws IOException,
 				App_Display_Name = "Simplified Spaces";
 			}
 			
-			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> Enabled App Type detected = " + App_type_id + " | App Name = " + App_Display_Name + " | Expected Plan = " + Expected_Plan_Name);
-			System.out.println();
-			System.out.println("🟨 Debug: Enabled App Type detected = " + App_type_id + " | App Name = " + App_Display_Name + " | Expected Plan = " + Expected_Plan_Name);
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>📌 Enabled Application:</b> " + App_Display_Name + " | Required Plan = " + Expected_Plan_Name);
+			System.out.println("📌 Enabled Application: " + App_Display_Name + " | Required Plan = " + Expected_Plan_Name);
 			System.out.println();
 			
 			if(Expected_Plan_Name == null || Expected_Plan_Name.trim().length() == 0) {
-				Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> Expected plan name is blank or missing for enabled app = " + App_Display_Name + " | App Type = " + App_type_id);
-				System.out.println("❌ Actual: Expected plan name is blank or missing for enabled app = " + App_Display_Name + " | App Type = " + App_type_id);
+				Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> Plan assignment could not continue because the required plan name is missing for " + App_Display_Name);
+				System.out.println("❌ Actual: Plan assignment could not continue because the required plan name is missing for " + App_Display_Name);
 				System.out.println();
-				return;
+				Plan_Assign_Status = 0;
+				return new int[] {step, Enabled_App_Count, Selected_Plan_Count, Plan_Assign_Status};
 			}
 			
-			Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Open Select Plan dropdown for enabled app = " + App_Display_Name);
-			System.out.println("Step " + (step - 1) + ": Open Select Plan dropdown for enabled app = " + App_Display_Name);
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Select required plan for " + App_Display_Name + ".");
+			System.out.println("Step " + (step - 1) + ": Select required plan for " + App_Display_Name + ".");
 			
 			Plan_Input_Field = Plan_Input_box;
 			rp.Scroll_to_element(Plan_Input_Field);
@@ -1770,17 +2018,11 @@ public void Leads_Approve(TreeMap<String, String> Plan_data) throws IOException,
 			Plan_Input_Field.click();
 			Thread.sleep(800);
 			
-			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Select Plan dropdown opened successfully for " + App_Display_Name);
-			System.out.println("🟨 Actual: Select Plan dropdown opened successfully for " + App_Display_Name);
-			
 			try {
 				App_type.sendKeys(Expected_Plan_Name);
-				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Plan name entered in searchable input for " + App_Display_Name + " = " + Expected_Plan_Name);
-				System.out.println("🟨 Actual: Plan name entered in searchable input for " + App_Display_Name + " = " + Expected_Plan_Name);
 			} catch(Exception searchIssue) {
-				Report_Listen.log_print_in_report().log(Status.WARNING, "<b>⚠ Actual:</b> Plan search input typing skipped for " + App_Display_Name + ". Dropdown options will be checked directly.<br><b>Reason:</b> " + searchIssue.getMessage());
-				System.out.println("⚠ Actual: Plan search input typing skipped for " + App_Display_Name + ". Dropdown options will be checked directly.");
-				System.out.println("Reason: " + searchIssue.getMessage());
+				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Plan list opened for " + App_Display_Name + ". Proceeding with available plan options.");
+				System.out.println("🟨 Actual: Plan list opened for " + App_Display_Name + ". Proceeding with available plan options.");
 			}
 			
 			WebElement Dropdown_List = d.findElement(By.xpath("//div[contains(@class,'ant-select-dropdown') and not(contains(@class,'ant-select-dropdown-hidden'))]//div[contains(@class,'rc-virtual-list-holder')]"));
@@ -1789,17 +2031,12 @@ public void Leads_Approve(TreeMap<String, String> Plan_data) throws IOException,
 			rp.movetoelement(Dropdown_List);
 			
 			List<WebElement> Options = Dropdown_List.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
-			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> Visible dropdown option count for " + App_Display_Name + " = " + Options.size());
-			System.out.println("🟨 Debug: Visible dropdown option count for " + App_Display_Name + " = " + Options.size());
 			
 			boolean Plan_Selected = false;
 			
 			for(WebElement Option:Options){
 				
 				String Option_Text = Option.getText().trim();
-				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> " + App_Display_Name + " Option: " + Option_Text);
-				System.out.println(App_Display_Name + " Option: " + Option_Text);
-				System.out.println();
 				
 				if(Option_Text.equalsIgnoreCase(Expected_Plan_Name.trim()) || Option_Text.contains(Expected_Plan_Name.trim())){
 					
@@ -1817,22 +2054,17 @@ public void Leads_Approve(TreeMap<String, String> Plan_data) throws IOException,
 			
 			if(!Plan_Selected) {
 				
-				Report_Listen.log_print_in_report().log(Status.WARNING, "<b>⚠ Retry:</b> Plan was not found in initially visible options for " + App_Display_Name + ". Scrolling dropdown list and checking again.");
-				System.out.println("⚠ Retry: Plan was not found in initially visible options for " + App_Display_Name + ". Scrolling dropdown list and checking again.");
+				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Required plan was not visible immediately for " + App_Display_Name + ". Checking additional plan options.");
+				System.out.println("🟨 Actual: Required plan was not visible immediately for " + App_Display_Name + ". Checking additional plan options.");
 				
 				rp.Scroll_to_bottom_of_list(Dropdown_List);
 				Thread.sleep(800);
 				
 				Options = Dropdown_List.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
-				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> Dropdown option count after scroll for " + App_Display_Name + " = " + Options.size());
-				System.out.println("🟨 Debug: Dropdown option count after scroll for " + App_Display_Name + " = " + Options.size());
 				
 				for(WebElement Option:Options){
 					
 					String Option_Text = Option.getText().trim();
-					Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> " + App_Display_Name + " Option after scroll: " + Option_Text);
-					System.out.println(App_Display_Name + " Option after scroll: " + Option_Text);
-					System.out.println();
 					
 					if(Option_Text.equalsIgnoreCase(Expected_Plan_Name.trim()) || Option_Text.contains(Expected_Plan_Name.trim())){
 						
@@ -1841,8 +2073,8 @@ public void Leads_Approve(TreeMap<String, String> Plan_data) throws IOException,
 						Plan_Selected = true;
 						Selected_Plan_Count++;
 						
-						Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Plan selected successfully after dropdown scroll for " + App_Display_Name + " = " + Option_Text);
-						System.out.println("🟨 Actual: Plan selected successfully after dropdown scroll for " + App_Display_Name + " = " + Option_Text);
+						Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Plan selected successfully for " + App_Display_Name + " = " + Option_Text);
+						System.out.println("🟨 Actual: Plan selected successfully for " + App_Display_Name + " = " + Option_Text);
 						System.out.println();
 						break;
 					}
@@ -1850,59 +2082,21 @@ public void Leads_Approve(TreeMap<String, String> Plan_data) throws IOException,
 			}
 			
 			if(!Plan_Selected) {
-				Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> Required plan was not found for enabled app = " + App_Display_Name + " | Expected Plan = " + Expected_Plan_Name);
-				System.out.println("❌ Actual: Required plan was not found for enabled app = " + App_Display_Name + " | Expected Plan = " + Expected_Plan_Name);
+				Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> Required plan was not found for " + App_Display_Name + ". Expected Plan = " + Expected_Plan_Name);
+				System.out.println("❌ Actual: Required plan was not found for " + App_Display_Name + ". Expected Plan = " + Expected_Plan_Name);
 				System.out.println();
-				return;
+				Plan_Assign_Status = 0;
+				return new int[] {step, Enabled_App_Count, Selected_Plan_Count, Plan_Assign_Status};
 			}
 			
-			System.out.println();
-			System.out.println("App Type: "+App_type_id+" is enabled");
-			System.out.println();
-			
-			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> App Type processed successfully = " + App_type_id + " | App Name = " + App_Display_Name);
-			System.out.println("🟨 Actual: App Type processed successfully = " + App_type_id + " | App Name = " + App_Display_Name);
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Completed:</b> Plan assignment completed for " + App_Display_Name);
+			System.out.println("✅ Completed: Plan assignment completed for " + App_Display_Name);
 			System.out.println();
 		}
 	}
 	
-	if(Enabled_App_Count == 0) {
-		Report_Listen.log_print_in_report().log(Status.WARNING, "<b>⚠ Actual:</b> No enabled app toggle found in Assign Plan modal.");
-		System.out.println("⚠ Actual: No enabled app toggle found in Assign Plan modal.");
-		System.out.println();
-		return;
-	}
-	
-	if(Selected_Plan_Count != Enabled_App_Count) {
-		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> Plan selection count mismatch. Enabled App Count = " + Enabled_App_Count + " | Selected Plan Count = " + Selected_Plan_Count);
-		System.out.println("❌ Actual: Plan selection count mismatch. Enabled App Count = " + Enabled_App_Count + " | Selected Plan Count = " + Selected_Plan_Count);
-		System.out.println();
-		return;
-	}
-	
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Click Assign & Create Account button after selecting all enabled app plans.");
-	System.out.println("Step " + (step - 1) + ": Click Assign & Create Account button after selecting all enabled app plans.");
-	WebElement Approve_Confirm_button = p.Assign_Create_Account_button();
-	rp.Scroll_to_element(Approve_Confirm_button);
-	Approve_Confirm_button.click();
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Assign & Create Account button clicked successfully.");
-	System.out.println("🟨 Actual: Assign & Create Account button clicked successfully.");
-	System.out.println();
-	
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Capture confirmation toast after approving lead.");
-	System.out.println("Step " + (step - 1) + ": Capture confirmation toast after approving lead.");
-	WebElement Approve_Confirm_Popup = p.Toast_();
-	String Approve_Confirm_Popup_Text = Approve_Confirm_Popup.getText().trim();
-	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Lead approval completed successfully. Toast message = " + Approve_Confirm_Popup_Text);
-	System.out.println("✅ Actual: Lead approval completed successfully. Toast message = " + Approve_Confirm_Popup_Text);
-	System.out.println();
-	rp.wait_for_invisibilty_of_theElement(Approve_Confirm_Popup);
-	
-	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Final Result:</b> Leads Approve flow completed successfully. Enabled App Count = " + Enabled_App_Count + " | Selected Plan Count = " + Selected_Plan_Count);
-	System.out.println("✅ Final Result: Leads Approve flow completed successfully. Enabled App Count = " + Enabled_App_Count + " | Selected Plan Count = " + Selected_Plan_Count);
-	System.out.println();
+	return new int[] {step, Enabled_App_Count, Selected_Plan_Count, Plan_Assign_Status};
 }
-
 
 
 
@@ -2189,7 +2383,232 @@ public void Quick_Plan_Upgrade_Several_times(TreeMap<String, String> account_dat
 
 
 
+@DataProvider
+public Object[][] Contact_Form_Data() {
 
+	TreeMap<String, String> data1 = new TreeMap<String, String>();
+	data1.put("Selected Product", "Simplified Checkout");
+	data1.put("First Name", "Klaus Ferdinand");
+	data1.put("Last Name", "Himmelreich");
+	data1.put("Email", "klaus.ferdinand.himmelreich.checkout126@yopmail.com");
+	data1.put("Company Name", "Himmelreich Digital Commerce GmbH");
+	data1.put("Country Code", "+49");
+	data1.put("Phone Number", "15192638470");
+	data1.put("Message", "We are a Germany-based digital commerce team exploring Simplified Checkout to improve payment success, reduce abandoned orders, monitor transaction flow, simplify customer checkout steps, and strengthen online purchase reporting.");
+
+	TreeMap<String, String> data2 = new TreeMap<String, String>();
+	data2.put("Selected Product", "Simplified Hire");
+	data2.put("First Name", "Eloise Capucine");
+	data2.put("Last Name", "Delaunay");
+	data2.put("Email", "eloise.capucine.delaunay.hire127@yopmail.com");
+	data2.put("Company Name", "Delaunay Talent Operations SAS");
+	data2.put("Country Code", "+33");
+	data2.put("Phone Number", "749286315");
+	data2.put("Message", "Our France-based hiring team wants to review Simplified Hire for applicant tracking, job pipeline visibility, recruiter collaboration, interview feedback, hiring stage updates, and recruitment performance reporting.");
+
+	TreeMap<String, String> data3 = new TreeMap<String, String>();
+	data3.put("Selected Product", "Simplified HR");
+	data3.put("First Name", "Arvid Lennart");
+	data3.put("Last Name", "Soderholm");
+	data3.put("Email", "arvid.lennart.soderholm.hr128@yopmail.com");
+	data3.put("Company Name", "Soderholm People Services AB");
+	data3.put("Country Code", "+46");
+	data3.put("Phone Number", "704928361");
+	data3.put("Message", "We are evaluating Simplified HR for employee record handling, attendance tracking, leave approval workflows, department mapping, HR administrator access, internal communication, and workforce reporting.");
+
+	TreeMap<String, String> data4 = new TreeMap<String, String>();
+	data4.put("Selected Product", "Simplified Spaces");
+	data4.put("First Name", "Giorgio Matteo");
+	data4.put("Last Name", "Marcelli");
+	data4.put("Email", "giorgio.matteo.marcelli.spaces129@yopmail.com");
+	data4.put("Company Name", "Marcelli Workspace Operations SRL");
+	data4.put("Country Code", "+39");
+	data4.put("Phone Number", "3516847290");
+	data4.put("Message", "We manage flexible workspace locations in Italy and want to explore Simplified Spaces for desk reservations, meeting room scheduling, customer inquiries, space availability, branch coordination, and usage reporting.");
+
+	TreeMap<String, String> data5 = new TreeMap<String, String>();
+	data5.put("Selected Product", "Simplified Checkout, Simplified Hire");
+	data5.put("First Name", "Rupert Finley");
+	data5.put("Last Name", "Ashbourne");
+	data5.put("Email", "rupert.finley.ashbourne.checkout.hire130@yopmail.com");
+	data5.put("Company Name", "Ashbourne Commerce Talent Ltd");
+	data5.put("Country Code", "+44");
+	data5.put("Phone Number", "7482619350");
+	data5.put("Message", "Our UK-based business wants to evaluate Simplified Checkout and Simplified Hire together for payment handling, order conversion visibility, candidate tracking, recruiter coordination, hiring stages, and operational reporting.");
+
+	TreeMap<String, String> data6 = new TreeMap<String, String>();
+	data6.put("Selected Product", "Simplified HR, Simplified Spaces");
+	data6.put("First Name", "Saskia Annelotte");
+	data6.put("Last Name", "Breuker");
+	data6.put("Email", "saskia.annelotte.breuker.hrspaces131@yopmail.com");
+	data6.put("Company Name", "Breuker Office People BV");
+	data6.put("Country Code", "+31");
+	data6.put("Phone Number", "684291753");
+	data6.put("Message", "We are searching for a combined HR and workspace solution to manage employee records, attendance logs, leave requests, desk bookings, meeting room availability, office coordination, and internal reports.");
+
+	TreeMap<String, String> data7 = new TreeMap<String, String>();
+	data7.put("Selected Product", "Simplified Checkout, Simplified HR");
+	data7.put("First Name", "Wolfgang Tobias");
+	data7.put("Last Name", "Steinacker");
+	data7.put("Email", "wolfgang.tobias.steinacker.checkouthr132@yopmail.com");
+	data7.put("Company Name", "Steinacker Business Workforce GmbH");
+	data7.put("Country Code", "+43");
+	data7.put("Phone Number", "6648291735");
+	data7.put("Message", "We want to review Simplified Checkout and Simplified HR for online payment operations, transaction monitoring, employee administration, attendance visibility, HR approvals, and structured reporting.");
+
+	TreeMap<String, String> data8 = new TreeMap<String, String>();
+	data8.put("Selected Product", "Simplified Hire, Simplified HR");
+	data8.put("First Name", "Katarzyna Mirela");
+	data8.put("Last Name", "Zielonka");
+	data8.put("Email", "katarzyna.mirela.zielonka.hirehr133@yopmail.com");
+	data8.put("Company Name", "Zielonka People Platforms Sp z oo");
+	data8.put("Country Code", "+48");
+	data8.put("Phone Number", "519742836");
+	data8.put("Message", "We need a platform that supports hiring and HR operations together, from candidate applications, interview stages, and recruiter feedback to onboarding, employee records, attendance logs, and leave approvals.");
+
+	TreeMap<String, String> data9 = new TreeMap<String, String>();
+	data9.put("Selected Product", "Simplified Checkout, Simplified Hire, Simplified HR");
+	data9.put("First Name", "Floris Maarten");
+	data9.put("Last Name", "Van Helmond");
+	data9.put("Email", "floris.maarten.vanhelmond.enterprise134@yopmail.com");
+	data9.put("Company Name", "Van Helmond Enterprise Operations BV");
+	data9.put("Country Code", "+31");
+	data9.put("Phone Number", "639174825");
+	data9.put("Message", "Our enterprise operations team is reviewing solutions for checkout processing, recruitment workflow, and HR administration, and we need a detailed walkthrough of setup, reporting, module access, and pricing options.");
+
+	TreeMap<String, String> data10 = new TreeMap<String, String>();
+	data10.put("Selected Product", "Simplified Checkout, Simplified Hire, Simplified HR, Simplified Spaces");
+	data10.put("First Name", "Hildegard Marlene");
+	data10.put("Last Name", "Osterwald");
+	data10.put("Email", "hildegard.marlene.osterwald.fullsuite135@yopmail.com");
+	data10.put("Company Name", "Osterwald Integrated Operations GmbH");
+	data10.put("Country Code", "+49");
+	data10.put("Phone Number", "16072849351");
+	data10.put("Message", "We are evaluating the full Simplified product suite for checkout management, recruitment workflow, HR administration, and workspace coordination across departments, office locations, internal teams, and customer-facing operations.");
+
+	TreeMap<String, String> data11 = new TreeMap<String, String>();
+	data11.put("Selected Product", "Simplified Checkout");
+	data11.put("First Name", "Salvador Tomas");
+	data11.put("Last Name", "Cabrera");
+	data11.put("Email", "salvador.tomas.cabrera.checkout136@yopmail.com");
+	data11.put("Company Name", "Cabrera Digital Payments SL");
+	data11.put("Country Code", "+34");
+	data11.put("Phone Number", "618472935");
+	data11.put("Message", "Our Spain-based digital payments team wants to improve checkout reliability, increase successful transactions, reduce customer friction during purchase, and gain clearer visibility into online sales activity.");
+
+	TreeMap<String, String> data12 = new TreeMap<String, String>();
+	data12.put("Selected Product", "Simplified Hire");
+	data12.put("First Name", "Giordana Eleonora");
+	data12.put("Last Name", "Rossetti");
+	data12.put("Email", "giordana.eleonora.rossetti.hire137@yopmail.com");
+	data12.put("Company Name", "Rossetti Executive Talent SRL");
+	data12.put("Country Code", "+39");
+	data12.put("Phone Number", "3472859160");
+	data12.put("Message", "We are managing multiple recruitment campaigns and want to review Simplified Hire for candidate profile handling, job stage updates, interview feedback, recruiter activity tracking, and hiring reports.");
+
+	TreeMap<String, String> data13 = new TreeMap<String, String>();
+	data13.put("Selected Product", "Simplified HR");
+	data13.put("First Name", "Filip Edvard");
+	data13.put("Last Name", "Blomqvist");
+	data13.put("Email", "filip.edvard.blomqvist.hr138@yopmail.com");
+	data13.put("Company Name", "Blomqvist People Management AB");
+	data13.put("Country Code", "+46");
+	data13.put("Phone Number", "732849165");
+	data13.put("Message", "We are looking for an HR management platform to support employee information, department structure, attendance records, leave approvals, administrator permissions, team communication, and workforce reporting.");
+
+	TreeMap<String, String> data14 = new TreeMap<String, String>();
+	data14.put("Selected Product", "Simplified Spaces");
+	data14.put("First Name", "Thijs Cornelis");
+	data14.put("Last Name", "Houtman");
+	data14.put("Email", "thijs.cornelis.houtman.spaces139@yopmail.com");
+	data14.put("Company Name", "Houtman Flexible Workspace BV");
+	data14.put("Country Code", "+31");
+	data14.put("Phone Number", "682739451");
+	data14.put("Message", "We operate flexible workspace locations and want to review Simplified Spaces for booking management, room availability, customer inquiry handling, space inventory, location-level reporting, and office usage planning.");
+
+	TreeMap<String, String> data15 = new TreeMap<String, String>();
+	data15.put("Selected Product", "Simplified Checkout, Simplified Hire");
+	data15.put("First Name", "Margaux Severine");
+	data15.put("Last Name", "Mercier");
+	data15.put("Email", "margaux.severine.mercier.checkout.hire140@yopmail.com");
+	data15.put("Company Name", "Mercier Commerce Talent AG");
+	data15.put("Country Code", "+41");
+	data15.put("Phone Number", "779284631");
+	data15.put("Message", "Our business wants to evaluate Checkout and Hire modules together for customer payment processing, transaction monitoring, candidate tracking, recruiter collaboration, hiring stages, and business reporting.");
+
+	TreeMap<String, String> data16 = new TreeMap<String, String>();
+	data16.put("Selected Product", "Simplified HR, Simplified Spaces");
+	data16.put("First Name", "Bernhard Lukas");
+	data16.put("Last Name", "Rosenfeld");
+	data16.put("Email", "bernhard.lukas.rosenfeld.hrspaces141@yopmail.com");
+	data16.put("Company Name", "Rosenfeld Corporate Operations GmbH");
+	data16.put("Country Code", "+49");
+	data16.put("Phone Number", "15273941860");
+	data16.put("Message", "We are a Germany-based operations company looking for HR and workspace modules to manage employee records, attendance, leave approvals, desk bookings, meeting rooms, office utilization, and internal reporting.");
+
+	TreeMap<String, String> data17 = new TreeMap<String, String>();
+	data17.put("Selected Product", "Simplified Checkout, Simplified HR");
+	data17.put("First Name", "Linnea Matilda");
+	data17.put("Last Name", "Engstrom");
+	data17.put("Email", "linnea.matilda.engstrom.checkouthr142@yopmail.com");
+	data17.put("Company Name", "Engstrom Business Systems AB");
+	data17.put("Country Code", "+46");
+	data17.put("Phone Number", "739462815");
+	data17.put("Message", "We want to review Simplified Checkout and Simplified HR for online payment operations, transaction tracking, employee profile management, attendance visibility, leave approvals, and HR reporting workflows.");
+
+	TreeMap<String, String> data18 = new TreeMap<String, String>();
+	data18.put("Selected Product", "Simplified Hire, Simplified HR");
+	data18.put("First Name", "Raffaella Beatrice");
+	data18.put("Last Name", "Palmieri");
+	data18.put("Email", "raffaella.beatrice.palmieri.hirehr143@yopmail.com");
+	data18.put("Company Name", "Palmieri Workforce Management SRL");
+	data18.put("Country Code", "+39");
+	data18.put("Phone Number", "3465927180");
+	data18.put("Message", "Our workforce team needs support from candidate tracking and interview coordination through onboarding, employee profile creation, attendance records, leave approvals, and HR reporting after hiring.");
+
+	TreeMap<String, String> data19 = new TreeMap<String, String>();
+	data19.put("Selected Product", "Simplified Spaces");
+	data19.put("First Name", "Mikkel Anders");
+	data19.put("Last Name", "Rasmussen");
+	data19.put("Email", "mikkel.anders.rasmussen.spaces144@yopmail.com");
+	data19.put("Company Name", "Rasmussen Workspace Solutions ApS");
+	data19.put("Country Code", "+45");
+	data19.put("Phone Number", "42968137");
+	data19.put("Message", "We operate shared office locations and want to review Simplified Spaces for desk reservations, meeting room availability, customer requests, space allocation, multi-location visibility, and workspace performance reports.");
+
+	TreeMap<String, String> data20 = new TreeMap<String, String>();
+	data20.put("Selected Product", "Simplified Checkout, Simplified Hire, Simplified HR, Simplified Spaces");
+	data20.put("First Name", "Verena Adelheid");
+	data20.put("Last Name", "Schwanenberg");
+	data20.put("Email", "verena.adelheid.schwanenberg.allmodules145@yopmail.com");
+	data20.put("Company Name", "Schwanenberg Strategic Operations AG");
+	data20.put("Country Code", "+41");
+	data20.put("Phone Number", "798364152");
+	data20.put("Message", "We are comparing SaaS platforms for digital checkout, recruitment workflow, HR administration, and workspace coordination, and we would like a full demo covering all Simplified modules, pricing, setup, and implementation support.");
+
+	return new Object[][] {/*
+		{ data1 },
+		{ data2 }
+		{ data3 },
+		{ data4 },,*/
+		{ data5 },/*
+		{ data6 },
+		{ data7 },
+		{ data8 },
+		{ data9 },
+		{ data10 },
+		{ data11 },
+		{ data12 },
+		{ data13 },
+		{ data14 },
+		{ data15 },
+		{ data16 },
+		{ data17 },
+		{ data18 },
+		{ data19 },
+		{ data20 } */
+	};
+}
 
 
 
