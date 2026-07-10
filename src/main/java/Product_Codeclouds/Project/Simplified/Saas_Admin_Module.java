@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.TreeMap;
+import java.util.stream.IntStream;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -2327,17 +2328,21 @@ public Object[][] Plan_Type_Name_Data() {
 	};
 }
 
-@Test(dataProvider="Account_Create_Data")
-public void Quick_Plan_Upgrade_Several_times(TreeMap<String, String> account_data) throws IOException, InterruptedException{
+@Test(dataProvider = "Account_create_and_Plan_Upgrade_combined_data_provider")
+public void Quick_Plan_Upgrade_Several_times(TreeMap<String, String> Account_data,TreeMap<String, String> Plan_Data) throws IOException, InterruptedException{
 	
 	Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
 	Repeat rp = new Repeat(d);
 	JavascriptExecutor js = (JavascriptExecutor)d;
 	
-	String Email = account_data.get("Email");
-	String Company_Name = account_data.get("Company Name");
-	String Plan_Name = account_data.get("Plan Name");
-	String Users = account_data.get("Users");
+	String First_Name = Plan_Data.get("First Name");
+	String Last_Name = Plan_Data.get("Last Name");
+	String Address = Plan_Data.get("Address");
+	String Country = Plan_Data.get("Country");
+	String City = Plan_Data.get("City");
+	String State = Plan_Data.get("State");
+	String Zip = Plan_Data.get("Zip");
+	String Email= Account_data.get("Email");
 	
 	int step = 1;
 	try {
@@ -2360,7 +2365,8 @@ public void Quick_Plan_Upgrade_Several_times(TreeMap<String, String> account_dat
 	p.Action_button();
 	WebElement Billing_section=p.Billing_Tab();
 	rp.Scroll_to_element(Billing_section);
-	Thread.sleep(800);
+
+	Thread.sleep(1200);	
 	List<WebElement> Plan_section=Billing_section.findElements(By.xpath(".//div[@class='wrap-panel-row px-3 py-4 cursor-pointer border-bottom']"));	
 	WebElement Plan_One=Plan_section.get(0);
 	WebElement Plan_Card_Gear_Button=Plan_One.findElement(By.xpath(".//span[@aria-label='setting']"));
@@ -2374,14 +2380,296 @@ public void Quick_Plan_Upgrade_Several_times(TreeMap<String, String> account_dat
 			option.click();
 			break;}}
 	WebElement Pop_up=p.pop_up_modal();
-	WebElement	Modal_dropdown=Pop_up.findElement(By.xpath(".//*[contains(@class,'ant-select-single ant-select-show-arrow')]"));
+	WebElement Modal_dropdown=Pop_up.findElement(By.xpath(".//*[contains(@class,'ant-select-single ant-select-show-arrow')]"));
 	Modal_dropdown.click();
-	WebElement input_search_box=Pop_up.findElement(By.xpath(".//input[@type='search']"));
-	input_search_box.click();
-	input_search_box.sendKeys("Ayan");
+
+	WebElement Plan_List=p.rc_virtual_list_holder_one();
+	rp.Scroll_to_bottom_of_list(Plan_List);
+	List<WebElement> planoptions=Plan_List.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+	for(WebElement planoption:planoptions) {
+		String planoption_text=planoption.getText().trim();
+		if(planoption_text.contains("Ayan")) {
+			
+			planoption.click();
+			break;}}
+	WebElement Continue_button=p.Continue_button();
+	Continue_button.click();
+	WebElement Upgrade_Popup=p.Plan_change_popup();
+	List<WebElement> inputfields=Upgrade_Popup.findElements(By.xpath("./../../../../..//div[@class='ant-form-item-control-input-content']"));
+	inputfields.get(0).click();
+	WebElement Billing_Frequency_List=p.rc_virtual_list_holder_two();
+	rp.Scroll_to_bottom_of_list(Billing_Frequency_List);
+	List<WebElement> Billing_Frequency_Options=Billing_Frequency_List.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+    WebElement Billing_Frequency_First_Option=Billing_Frequency_Options.get(0);
+    Billing_Frequency_First_Option.click();
+    inputfields.get(1).click();
+	WebElement Start_Date_List=p.rc_virtual_list_holder_three();
+	rp.Scroll_to_bottom_of_list(Start_Date_List);
+	List<WebElement> Start_Date_Options=Start_Date_List.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+    WebElement Start_Date_First_Option=Start_Date_Options.get(0);
+    Start_Date_First_Option.click();
+    WebElement Confirm_button=p.Submit_button();
+    Confirm_button.click();
+    WebElement Last_Popup=p.form_original();
+    p.first_name().sendKeys(First_Name);
+    p.last_name().sendKeys(Last_Name);
+    p.address().sendKeys(Address);
+    List<WebElement> popup_inputs=Last_Popup.findElements(By.xpath(".//*[@class='ant-form-item-control-input']"));
+    WebElement country_field_box=popup_inputs.get(3);
+    country_field_box.click();
+    p.country().sendKeys(Country);
+	WebElement Country_List=p.rc_virtual_list_holder_two();
+	rp.Scroll_to_bottom_of_list(Country_List);
+	List<WebElement> Country_List_Options=Country_List.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+    WebElement Country_List_First_Option=Country_List_Options.get(0);
+    Country_List_First_Option.click();
+    
+    p.state().sendKeys(State);
+    p.city().sendKeys(City);
+    p.zipcode().sendKeys(Zip);
+    
+    WebElement Subscribe_button=p.Submit_button();
+    rp.Scroll_to_element(Subscribe_button);
+    Subscribe_button.click();
+    p.Upgrade_Successful_message();
+    WebElement Close_button=d.findElement(By.xpath("(//*[@aria-modal='true']//*[@aria-label='Close'])[2]"));
+    rp.wait_for_theElement(Close_button);
+    Close_button.click();
+    
+    
+    
+}
+
+@DataProvider
+public Object[][] Account_create_and_Plan_Upgrade_combined_data_provider() {
+	
+	
+	
+	Object[][] Create_Account_datas = Account_Create_Data();
+	Object[][] Plan_upgrade_datas = Plan_Upgrade_Billing_Data();
+	
+	int n =  IntStream.of( Create_Account_datas.length, Plan_upgrade_datas.length).min().orElse(0);
+
+	
+	Object[][] combined_data = new Object[n][2];
+	int i=0;
+    while(i<n){
+    	combined_data[i][0] = Create_Account_datas[i][0];       // Account Create datas
+    	combined_data[i][1] = Plan_upgrade_datas[i][0];  // Upgrade Plan Datas
+    	
+        i++;
+    }
+    return combined_data;
+	
 }
 
 
+@DataProvider
+public Object[][] Plan_Upgrade_Billing_Data() {
+
+	TreeMap<String, String> data1 = new TreeMap<String, String>();
+	data1.put("First Name", "Adrian");
+	data1.put("Last Name", "Keller");
+	data1.put("Address", "18 Lindenstrasse, Business Tower 4");
+	data1.put("Country", "Germany");
+	data1.put("City", "Berlin");
+	data1.put("State", "Berlin");
+	data1.put("Zip", "10115");
+
+	TreeMap<String, String> data2 = new TreeMap<String, String>();
+	data2.put("First Name", "Claire");
+	data2.put("Last Name", "Morel");
+	data2.put("Address", "42 Rue Lafayette, Suite 305");
+	data2.put("Country", "France");
+	data2.put("City", "Paris");
+	data2.put("State", "Ile-de-France");
+	data2.put("Zip", "75009");
+
+	TreeMap<String, String> data3 = new TreeMap<String, String>();
+	data3.put("First Name", "Matteo");
+	data3.put("Last Name", "Ricci");
+	data3.put("Address", "27 Via Torino, Floor 2");
+	data3.put("Country", "Italy");
+	data3.put("City", "Milan");
+	data3.put("State", "Lombardy");
+	data3.put("Zip", "20123");
+
+	TreeMap<String, String> data4 = new TreeMap<String, String>();
+	data4.put("First Name", "Sophie");
+	data4.put("Last Name", "Van Dijk");
+	data4.put("Address", "64 Herengracht, Office 12B");
+	data4.put("Country", "Netherlands");
+	data4.put("City", "Amsterdam");
+	data4.put("State", "North Holland");
+	data4.put("Zip", "1015BN");
+
+	TreeMap<String, String> data5 = new TreeMap<String, String>();
+	data5.put("First Name", "Oliver");
+	data5.put("Last Name", "Whitfield");
+	data5.put("Address", "91 King Street, Unit 7");
+	data5.put("Country", "United Kingdom");
+	data5.put("City", "London");
+	data5.put("State", "England");
+	data5.put("Zip", "SW1A 1AA");
+
+	TreeMap<String, String> data6 = new TreeMap<String, String>();
+	data6.put("First Name", "Isabella");
+	data6.put("Last Name", "Martinez");
+	data6.put("Address", "35 Calle de Alcala, Planta 4");
+	data6.put("Country", "Spain");
+	data6.put("City", "Madrid");
+	data6.put("State", "Community of Madrid");
+	data6.put("Zip", "28014");
+
+	TreeMap<String, String> data7 = new TreeMap<String, String>();
+	data7.put("First Name", "Erik");
+	data7.put("Last Name", "Lundgren");
+	data7.put("Address", "22 Drottninggatan, Workspace 8");
+	data7.put("Country", "Sweden");
+	data7.put("City", "Stockholm");
+	data7.put("State", "Stockholm County");
+	data7.put("Zip", "11151");
+
+	TreeMap<String, String> data8 = new TreeMap<String, String>();
+	data8.put("First Name", "Nora");
+	data8.put("Last Name", "Bergheim");
+	data8.put("Address", "14 Karl Johans Gate, Office 6");
+	data8.put("Country", "Norway");
+	data8.put("City", "Oslo");
+	data8.put("State", "Oslo");
+	data8.put("Zip", "0154");
+
+	TreeMap<String, String> data9 = new TreeMap<String, String>();
+	data9.put("First Name", "Lukas");
+	data9.put("Last Name", "Meier");
+	data9.put("Address", "58 Bahnhofstrasse, Level 3");
+	data9.put("Country", "Switzerland");
+	data9.put("City", "Zurich");
+	data9.put("State", "Zurich");
+	data9.put("Zip", "8001");
+
+	TreeMap<String, String> data10 = new TreeMap<String, String>();
+	data10.put("First Name", "Emily");
+	data10.put("Last Name", "Anderson");
+	data10.put("Address", "120 Madison Avenue, Suite 904");
+	data10.put("Country", "United States");
+	data10.put("City", "New York");
+	data10.put("State", "New York");
+	data10.put("Zip", "10016");
+
+	TreeMap<String, String> data11 = new TreeMap<String, String>();
+	data11.put("First Name", "Henrik");
+	data11.put("Last Name", "Schneider");
+	data11.put("Address", "73 Maximilianstrasse, Office 210");
+	data11.put("Country", "Germany");
+	data11.put("City", "Munich");
+	data11.put("State", "Bavaria");
+	data11.put("Zip", "80539");
+
+	TreeMap<String, String> data12 = new TreeMap<String, String>();
+	data12.put("First Name", "Juliette");
+	data12.put("Last Name", "Bernard");
+	data12.put("Address", "16 Rue Victor Hugo, Batiment B");
+	data12.put("Country", "France");
+	data12.put("City", "Lyon");
+	data12.put("State", "Auvergne-Rhone-Alpes");
+	data12.put("Zip", "69002");
+
+	TreeMap<String, String> data13 = new TreeMap<String, String>();
+	data13.put("First Name", "Alessandro");
+	data13.put("Last Name", "Ferrari");
+	data13.put("Address", "49 Via Nazionale, Scala A");
+	data13.put("Country", "Italy");
+	data13.put("City", "Rome");
+	data13.put("State", "Lazio");
+	data13.put("Zip", "00184");
+
+	TreeMap<String, String> data14 = new TreeMap<String, String>();
+	data14.put("First Name", "Mila");
+	data14.put("Last Name", "Jansen");
+	data14.put("Address", "31 Coolsingel, Business Center");
+	data14.put("Country", "Netherlands");
+	data14.put("City", "Rotterdam");
+	data14.put("State", "South Holland");
+	data14.put("Zip", "3012AD");
+
+	TreeMap<String, String> data15 = new TreeMap<String, String>();
+	data15.put("First Name", "George");
+	data15.put("Last Name", "Harrington");
+	data15.put("Address", "77 Deansgate, Floor 5");
+	data15.put("Country", "United Kingdom");
+	data15.put("City", "Manchester");
+	data15.put("State", "England");
+	data15.put("Zip", "M3 2BW");
+
+	TreeMap<String, String> data16 = new TreeMap<String, String>();
+	data16.put("First Name", "Lucia");
+	data16.put("Last Name", "Navarro");
+	data16.put("Address", "88 Passeig de Gracia, Oficina 9");
+	data16.put("Country", "Spain");
+	data16.put("City", "Barcelona");
+	data16.put("State", "Catalonia");
+	data16.put("Zip", "08008");
+
+	TreeMap<String, String> data17 = new TreeMap<String, String>();
+	data17.put("First Name", "Astrid");
+	data17.put("Last Name", "Nyström");
+	data17.put("Address", "45 Sodra Forstadsgatan, Unit 11");
+	data17.put("Country", "Sweden");
+	data17.put("City", "Malmo");
+	data17.put("State", "Skane County");
+	data17.put("Zip", "21143");
+
+	TreeMap<String, String> data18 = new TreeMap<String, String>();
+	data18.put("First Name", "Magnus");
+	data18.put("Last Name", "Haukeland");
+	data18.put("Address", "9 Bryggen, Office 3");
+	data18.put("Country", "Norway");
+	data18.put("City", "Bergen");
+	data18.put("State", "Vestland");
+	data18.put("Zip", "5003");
+
+	TreeMap<String, String> data19 = new TreeMap<String, String>();
+	data19.put("First Name", "Elena");
+	data19.put("Last Name", "Vogel");
+	data19.put("Address", "26 Rue du Rhone, Suite 15");
+	data19.put("Country", "Switzerland");
+	data19.put("City", "Geneva");
+	data19.put("State", "Geneva");
+	data19.put("Zip", "1204");
+
+	TreeMap<String, String> data20 = new TreeMap<String, String>();
+	data20.put("First Name", "Daniel");
+	data20.put("Last Name", "Carter");
+	data20.put("Address", "430 North Michigan Avenue, Suite 1200");
+	data20.put("Country", "United States");
+	data20.put("City", "Chicago");
+	data20.put("State", "Illinois");
+	data20.put("Zip", "60611");
+
+	return new Object[][] {
+		{ data1 },/*
+		{ data2 },
+		{ data3 },
+		{ data4 },
+		{ data5 },
+		{ data6 },
+		{ data7 },
+		{ data8 },
+		{ data9 },
+		{ data10 },
+		{ data11 },
+		{ data12 },
+		{ data13 },
+		{ data14 },
+		{ data15 },
+		{ data16 },
+		{ data17 },
+		{ data18 },
+		{ data19 },
+		{ data20 } */
+	};
+}
 
 @DataProvider
 public Object[][] Contact_Form_Data() {

@@ -134,7 +134,7 @@ public class Saas_Admin_Locaters extends Repeat{
 		private WebElement Billing_Tab; 
 		@FindBy(xpath="//*[text()='View All']")
 		private WebElement  view_all_button; 
-		@FindBy(xpath="//div[@class='ant-dropdown ant-dropdown-placement-bottomLeft ']")
+		@FindBy(xpath="//ul[@class='ant-dropdown-menu ant-dropdown-menu-root ant-dropdown-menu-vertical ant-dropdown-menu-light']")
 		private WebElement Plan_Dropdown; 
 		@FindBy(xpath="//*[@class='d-flex flex-column']")
 		private WebElement Leads_plan_Approver_section;
@@ -153,31 +153,31 @@ public class Saas_Admin_Locaters extends Repeat{
 		@FindBy(xpath="//h2//span[text()='Leads']")
 		private WebElement Leads_page_heading_title; 
 		@FindBy(xpath="//button[@color='danger']")
-		private WebElement Delete_button_red; /*
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
+		private WebElement Delete_button_red; 
+		@FindBy(xpath="//div[contains(@class, 'ant-spin-spinning')]")
+		private WebElement inner_loader;
+		@FindBy(xpath="//*[text()='Continue']/..")
+		private WebElement Continue_button; 
+		@FindBy(xpath="//*[contains(@class,'plan-checkout-bg text-secondary ')]")
+		private WebElement Plan_change_popup; 
+		@FindBy(id="first_name")
+		private WebElement first_name;
+		@FindBy(id="last_name")
+		private WebElement last_name;
+		@FindBy(id="address")
+		private WebElement address;
+		@FindBy(id="city")
+		private WebElement city;
+		@FindBy(xpath="//div[contains(@class,'ant-modal organization-modal modal-title-center')]//form")
+		private WebElement form_original; 
+		@FindBy(id="zip")
+		private WebElement zipcode;
+		@FindBy(id="state")
+		private WebElement state;
+		@FindBy(id="country")
+		private WebElement country;
+		@FindBy(xpath="//*[text()='Upgrade Successful']")
+		private WebElement Upgrade_Successful_message; /*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -605,43 +605,43 @@ public class Saas_Admin_Locaters extends Repeat{
 		return Leads_page_heading_title;} 
 		public WebElement Delete_button_red(){
 		wait_for_theElement(Delete_button_red);
-		return Delete_button_red;}/*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Delete_button_red;}
+		public WebElement inner_loader(){
+		wait_for_theElement(inner_loader);
+		return inner_loader;}
+		public WebElement Continue_button(){
+		wait_for_theElement(Continue_button);
+		return Continue_button;}
+		public WebElement Plan_change_popup(){
+		wait_for_theElement(Plan_change_popup);
+		return Plan_change_popup;}
+		public WebElement first_name(){
+		wait_for_theElement(first_name);
+		return first_name;}
+		public WebElement last_name(){
+		wait_for_theElement(last_name);
+		return last_name;}
+		public WebElement address(){
+		wait_for_theElement(address);
+		return address;}
+		public WebElement form_original(){
+		wait_for_theElement(form_original);
+		return form_original;}
+		public WebElement city(){
+		wait_for_theElement(city);
+		return city;}
+		public WebElement zipcode(){
+		wait_for_theElement(zipcode);
+		return zipcode;}
+		public WebElement state(){
+		wait_for_theElement(state);
+		return state;}
+		public WebElement country(){
+		wait_for_theElement(country);
+		return country;}
+		public WebElement Upgrade_Successful_message(){
+		wait_for_theElement(Upgrade_Successful_message);
+		return Upgrade_Successful_message;}/*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}
