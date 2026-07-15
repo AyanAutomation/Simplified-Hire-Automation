@@ -28,9 +28,10 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module{
 	
 
 	@Test(dataProvider = "combined_data_provider")
-	public void book_a_demo_form_fillup(TreeMap<String, String> form_data, TreeMap<String, String> Plan_data) throws IOException, InterruptedException, AWTException {
+	public void book_a_demo_form_fillup(TreeMap<String, String> form_data, TreeMap<String, String> Plan_data, TreeMap<String, String> upgrade_plan_datas, TreeMap<String, String> account_create_data) throws IOException, InterruptedException, AWTException {	
 	
 	int step = 1;
+	
 	Data_Reader f = new Data_Reader();
 	Repeat rp = new Repeat(d);
 	Frontend_Locaters p = new Frontend_Locaters(d);
@@ -49,7 +50,24 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module{
 	String Spaces_plan_name = Plan_data.get("Spaces Plan Name");
 	String Hire_plan_name = Plan_data.get("Hire Plan Name");
 	String Hr_plan_name = Plan_data.get("Hr Plan Name");
-	
+	String Target_Upgrade_Plan_Name = null;
+
+	if(Target_Upgrade_Plan_Name == null || Target_Upgrade_Plan_Name.trim().length() == 0) {
+		
+		if(Selected_Product.toLowerCase().contains("checkout")) {
+			Target_Upgrade_Plan_Name = account_create_data.get("Checkout Plan Name");
+		}
+		else if(Selected_Product.toLowerCase().contains("hire")) {
+			Target_Upgrade_Plan_Name = account_create_data.get("Hire Plan Name");
+		}
+		else if(Selected_Product.toLowerCase().contains("hr")) {
+			Target_Upgrade_Plan_Name = account_create_data.get("Hr Plan Name");
+		}
+		else if(Selected_Product.toLowerCase().contains("spaces")) {
+			Target_Upgrade_Plan_Name = account_create_data.get("Spaces Plan Name");
+		}
+	}
+	String Upgrade_Users = account_create_data.get("Users");
 	
 	
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Validate Book a Demo form submission from frontend");
@@ -67,6 +85,10 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module{
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Lead Approval Plan Input:</b> Hire Plan = " + Hire_plan_name + " | Checkout Plan = " + Checkout_plan_name + " | HR Plan = " + Hr_plan_name + " | Spaces Plan = " + Spaces_plan_name);
 	System.out.println("📥 Lead Approval Plan Input: Hire Plan = " + Hire_plan_name + " | Checkout Plan = " + Checkout_plan_name + " | HR Plan = " + Hr_plan_name + " | Spaces Plan = " + Spaces_plan_name);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Plan Upgrade Input:</b> Target Upgrade Plan = " + Target_Upgrade_Plan_Name + " | Billing First Name = " + upgrade_plan_datas.get("First Name") + " | Billing Last Name = " + upgrade_plan_datas.get("Last Name") + " | Country = " + upgrade_plan_datas.get("Country") + " | City = " + upgrade_plan_datas.get("City") + " | State = " + upgrade_plan_datas.get("State") + " | Zip = " + upgrade_plan_datas.get("Zip"));
+	System.out.println("📥 Plan Upgrade Input: Target Upgrade Plan = " + Target_Upgrade_Plan_Name + " | Billing First Name = " + upgrade_plan_datas.get("First Name") + " | Billing Last Name = " + upgrade_plan_datas.get("Last Name") + " | Country = " + upgrade_plan_datas.get("Country") + " | City = " + upgrade_plan_datas.get("City") + " | State = " + upgrade_plan_datas.get("State") + " | Zip = " + upgrade_plan_datas.get("Zip"));
 	System.out.println();
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> User should be able to fill and submit the Book a Demo form. If CAPTCHA appears, it should be completed and the form should be submitted again. If CAPTCHA is absent, success or duplicate/error message should be captured directly.");
@@ -391,6 +413,7 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module{
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Search keyword entered successfully = " + First_Name);
 	System.out.println("🟨 Actual: Search keyword entered successfully = " + First_Name);
 	System.out.println();
+	Thread.sleep(1000);
 
 	try {
 		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step:</b> Wait for list loader to disappear after search.");
@@ -497,8 +520,14 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module{
 	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Final Status:</b> Book a Demo form submission, SaaS Admin lead verification, lead approval, app plan assignment, and account creation flow completed successfully.");
 	System.out.println("✅ Final Status: Book a Demo form submission, SaaS Admin lead verification, lead approval, app plan assignment, and account creation flow completed successfully.");
 	System.out.println();
-	
-	Account_Activator(form_data,step); 
+	Quick_Plan_Upgrade_Several_times(form_data, account_create_data, upgrade_plan_datas, Target_Upgrade_Plan_Name);
+
+	TreeMap<String, String> activation_data = new TreeMap<String, String>();
+	activation_data.putAll(form_data);
+	activation_data.put("Plan Name", Target_Upgrade_Plan_Name);
+	activation_data.put("Users", Upgrade_Users);
+
+	Account_Activator(activation_data,step);
 }
 
 
@@ -589,24 +618,30 @@ public boolean Captcha_Bypass(WebElement captcha_frame) throws InterruptedExcept
 @DataProvider
 public Object[][] combined_data_provider() {
 	
-	
-	
 	Object[][] book_demo_form_datas = Contact_Form_Data();
 	Object[][] Plan_datas = Plan_Type_Name_Data();
+	Object[][] Plan_Upgrade_datas = Plan_Upgrade_Billing_Data();
+	Object[][] Account_Create_datas = Account_Create_Data();
 	
-	int n =  IntStream.of( book_demo_form_datas.length, Plan_datas.length).min().orElse(0);
+	int n =  IntStream.of(
+			book_demo_form_datas.length,
+			Plan_datas.length,
+			Plan_Upgrade_datas.length,
+			Account_Create_datas.length
+	).min().orElse(0);
 
+	Object[][] combined_data = new Object[n][4];
 	
-	Object[][] combined_data = new Object[n][2];
-	int i=0;
-    while(i<n){
-    	combined_data[i][0] = book_demo_form_datas[i][0];       // Frontend Book a Demo form data
-    	combined_data[i][1] = Plan_datas[i][0];  // Lead Plan Assigner Data
-    	
-        i++;
-    }
-    return combined_data;
-	
+	int i = 0;
+	while(i < n){
+		combined_data[i][0] = book_demo_form_datas[i][0];      // Frontend Book a Demo form data
+		combined_data[i][1] = Plan_datas[i][0];                // Lead Plan Assigner Data
+		combined_data[i][2] = Plan_Upgrade_datas[i][0];        // Plan Upgrade Billing Data
+		combined_data[i][3] = Account_Create_datas[i][0];      // Account data for target upgrade plan name
+		
+		i++;
+	}
+	return combined_data;
 }
 
 

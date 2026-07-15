@@ -158,7 +158,7 @@ public class Saas_Admin_Locaters extends Repeat{
 		private WebElement inner_loader;
 		@FindBy(xpath="//*[text()='Continue']/..")
 		private WebElement Continue_button; 
-		@FindBy(xpath="//*[contains(@class,'plan-checkout-bg text-secondary ')]")
+		@FindBy(xpath="//*[contains(@class,'ant-modal-content')]//*[@class='ant-form ant-form-vertical']/../..//*[contains(@class,'text-secondary')]")
 		private WebElement Plan_change_popup; 
 		@FindBy(id="first_name")
 		private WebElement first_name;
@@ -177,11 +177,11 @@ public class Saas_Admin_Locaters extends Repeat{
 		@FindBy(id="country")
 		private WebElement country;
 		@FindBy(xpath="//*[text()='Upgrade Successful']")
-		private WebElement Upgrade_Successful_message; /*
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
+		private WebElement Upgrade_Successful_message; 
+		@FindBy(xpath="//*[@class='ant-card-body']//div[@class='d-flex align-items-center']//span[@style='box-sizing: border-box; display: block; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; max-width: 100%;']")
+		private List<WebElement> App_cards;
+		@FindBy(xpath="//div[@class='ant-tooltip ant-tooltip-placement-top ']//div[@role='tooltip']")
+		private WebElement Visibile_tooltip;/*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -641,13 +641,13 @@ public class Saas_Admin_Locaters extends Repeat{
 		return country;}
 		public WebElement Upgrade_Successful_message(){
 		wait_for_theElement(Upgrade_Successful_message);
-		return Upgrade_Successful_message;}/*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Upgrade_Successful_message;}
+		public List<WebElement> App_cards(){
+		wait_for_theElement(App_cards);
+		return App_cards;}
+		public WebElement Visibile_tooltip(){
+		wait_for_theElement(Visibile_tooltip);
+		return Visibile_tooltip;}/*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}

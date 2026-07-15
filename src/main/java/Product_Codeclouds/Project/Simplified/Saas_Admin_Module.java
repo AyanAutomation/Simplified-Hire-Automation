@@ -535,6 +535,8 @@ public int Account_Activator(TreeMap<String, String> account_data, int step) thr
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Search invited account using email = " + Email);
 	System.out.println("Step " + (step - 1) + ": Search invited account using email = " + Email);
 	WebElement Search = p.search_field();
+	Search.clear();
+	Thread.sleep(750);
 	Search.sendKeys(Email);
 	Thread.sleep(1000);
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Email entered successfully in account search field = " + Email);
@@ -1583,9 +1585,9 @@ public Object[][] Account_Create_Data() {
 	data20.put("Account Manager", "Ayan Test Manager");
 	data20.put("Staff Notes", "Creating France-based all app account to verify weekly checkout, monthly spaces, monthly hire, and monthly HR plans together, users field value, newsletter disabled state, and valid group selection.");
 
-	return new Object[][] {/*
-		{ data1 }, */
-		{ data2 },/*
+	return new Object[][] {
+		{ data1 }, 
+		{ data2 },
 		{ data3 },
 		{ data4 },
 		{ data5 },
@@ -1603,7 +1605,7 @@ public Object[][] Account_Create_Data() {
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 } */
+		{ data20 } 
 	};
 }
 
@@ -1612,7 +1614,7 @@ public TreeMap<String, String> Leads_Details_fetcher() throws IOException, Inter
 	Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
 	Repeat rp = new Repeat(d);
 	
-	TreeMap<String, String> lead_details = new TreeMap<>();
+	TreeMap<String, String> lead_details = new TreeMap<String, String>();
 	
 	int step = 1;
 	
@@ -1645,15 +1647,36 @@ public TreeMap<String, String> Leads_Details_fetcher() throws IOException, Inter
 		
 		Saas_Admin_Menu_navigation("Leads");
 		
-		List<WebElement> loaders = p.Loader();
-		rp.wait_for_invisibilty_of_theElement(loaders);
+		try {
+			List<WebElement> loaders = p.Loader();
+			rp.wait_for_invisibilty_of_theElement(loaders);
+			
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Leads list loader disappeared successfully.");
+			System.out.println("🟨 Actual: Leads list loader disappeared successfully.");
+		} catch(Exception loaderException) {
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Leads list loader was not displayed or already disappeared.");
+			System.out.println("🟨 Actual: Leads list loader was not displayed or already disappeared.");
+		}
 		
 		list_threedot_dropdown_option_selector("View Lead");
 		
-		Approve_button = p.Leads_Approve_button();
-		
-		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Lead details page opened successfully from Leads list.");
-		System.out.println("🟨 Actual: Lead details page opened successfully from Leads list.");
+		try {
+			Approve_button = p.Leads_Approve_button();
+			
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Lead details page opened successfully from Leads list.");
+			System.out.println("🟨 Actual: Lead details page opened successfully from Leads list.");
+		} catch(Exception openLeadException) {
+			
+			String errorMessage = "Lead details page did not open properly after selecting View Lead.";
+			
+			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure Point:</b> " + errorMessage + "<br><b>Exception:</b> " + openLeadException.getMessage());
+			System.out.println("❌ Failure Point: " + errorMessage);
+			System.out.println("Exception Reason: " + openLeadException.getMessage());
+			openLeadException.printStackTrace();
+			System.out.println();
+			
+			throw new RuntimeException(errorMessage, openLeadException);
+		}
 	}
 	System.out.println();
 	
@@ -1675,16 +1698,22 @@ public TreeMap<String, String> Leads_Details_fetcher() throws IOException, Inter
 		System.out.println("⚠ Retry: Lead detail labels were not ready. Retrying once.");
 		
 		try {
+			Thread.sleep(1000);
 			Labels = p.Labels();
 			
 			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Lead detail labels fetched successfully after retry. Label count = " + Labels.size());
 			System.out.println("🟨 Actual: Lead detail labels fetched successfully after retry. Label count = " + Labels.size());
 		} catch (Exception retryEx) {
 			
-			Labels = new ArrayList<>();
+			String errorMessage = "Lead detail labels could not be fetched from lead details page.";
 			
-			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> Lead detail labels could not be fetched.");
-			System.out.println("❌ Actual: Lead detail labels could not be fetched.");
+			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure Point:</b> " + errorMessage + "<br><b>Exception:</b> " + retryEx.getMessage());
+			System.out.println("❌ Failure Point: " + errorMessage);
+			System.out.println("Exception Reason: " + retryEx.getMessage());
+			retryEx.printStackTrace();
+			System.out.println();
+			
+			throw new RuntimeException(errorMessage, retryEx);
 		}
 	}
 	System.out.println();
@@ -1705,16 +1734,22 @@ public TreeMap<String, String> Leads_Details_fetcher() throws IOException, Inter
 		System.out.println("⚠ Retry: Lead detail values were not ready. Retrying once.");
 		
 		try {
+			Thread.sleep(1000);
 			Values = p.values();
 			
 			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Lead detail values fetched successfully after retry. Value count = " + Values.size());
 			System.out.println("🟨 Actual: Lead detail values fetched successfully after retry. Value count = " + Values.size());
 		} catch (Exception retryEx) {
 			
-			Values = new ArrayList<>();
+			String errorMessage = "Lead detail values could not be fetched from lead details page.";
 			
-			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> Lead detail values could not be fetched.");
-			System.out.println("❌ Actual: Lead detail values could not be fetched.");
+			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure Point:</b> " + errorMessage + "<br><b>Exception:</b> " + retryEx.getMessage());
+			System.out.println("❌ Failure Point: " + errorMessage);
+			System.out.println("Exception Reason: " + retryEx.getMessage());
+			retryEx.printStackTrace();
+			System.out.println();
+			
+			throw new RuntimeException(errorMessage, retryEx);
 		}
 	}
 	System.out.println();
@@ -1722,30 +1757,129 @@ public TreeMap<String, String> Leads_Details_fetcher() throws IOException, Inter
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Capture available lead details.");
 	System.out.println("Step " + (step - 1) + ": Capture available lead details.");
 	
-	int Details_Count = Math.min(Labels.size(), Values.size());
+	int Label_Count = Labels.size();
+	int Value_Index = 0;
 	
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Lead details ready for capture. Total matched fields = " + Details_Count);
-	System.out.println("🟨 Actual: Lead details ready for capture. Total matched fields = " + Details_Count);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> Lead label count = " + Labels.size() + " | Lead value count = " + Values.size());
+	System.out.println("🟨 Debug: Lead label count = " + Labels.size() + " | Lead value count = " + Values.size());
 	System.out.println();
 	
-	for(int i = 0; i < Details_Count; i++) {
+	for(int i = 0; i < Label_Count; i++) {
 		
 		String label = Labels.get(i).getText().trim();
-		String value = Values.get(i).getText().trim();
 		
-		lead_details.put(label, value);
-		
-		Report_Listen.log_print_in_report().log(Status.INFO, "<b>📌 Lead Detail:</b> " + label + " = " + value);
-		System.out.println("📌 Lead Detail: " + label + " = " + value);
+		if(label.toLowerCase().contains("requested demo")) {
+			
+			String tooltip_values = "";
+			
+			try {
+				
+				List<WebElement> cards = p.App_cards();
+				
+				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> Requested Demo App icon/card count = " + cards.size());
+				System.out.println("🟨 Debug: Requested Demo App icon/card count = " + cards.size());
+				
+				if(cards == null || cards.size() == 0) {
+					
+					String errorMessage = "Requested Demo App cards/icons were not found on lead details page. Label = " + label;
+					
+					Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure Point:</b> " + errorMessage);
+					System.out.println("❌ Failure Point: " + errorMessage);
+					System.out.println();
+					
+					throw new IllegalStateException(errorMessage);
+				}
+				
+				for(WebElement card : cards) {
+					
+					rp.movetoelement(card);
+					Thread.sleep(800);
+					
+					WebElement Tooltip = p.Visibile_tooltip();
+					String tooltip_text = Tooltip.getText().trim();
+					
+					if(tooltip_text.length() > 0) {
+						
+						if(tooltip_values.length() > 0) {
+							tooltip_values = tooltip_values + ", ";
+						}
+						
+						tooltip_values = tooltip_values + tooltip_text;
+						
+						Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> Requested Demo App tooltip captured = " + tooltip_text);
+						System.out.println("🟨 Debug: Requested Demo App tooltip captured = " + tooltip_text);
+					}
+				}
+				
+				if(tooltip_values.trim().length() == 0) {
+					
+					String errorMessage = "Requested Demo App tooltip text was not captured even though app cards/icons were found. Card Count = " + cards.size() + " | Label = " + label;
+					
+					Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure Point:</b> " + errorMessage);
+					System.out.println("❌ Failure Point: " + errorMessage);
+					System.out.println();
+					
+					throw new IllegalStateException(errorMessage);
+				}
+				
+				lead_details.put(label, tooltip_values);
+				
+				Report_Listen.log_print_in_report().log(Status.INFO, "<b>📌 Lead Detail:</b> " + label + " = " + tooltip_values);
+				System.out.println("📌 Lead Detail: " + label + " = " + tooltip_values);
+				
+			} catch(Exception e) {
+				
+				String errorMessage = "Failed to capture Requested Demo App tooltip values. Label = " + label;
+				
+				Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure Point:</b> " + errorMessage + "<br><b>Exception:</b> " + e.getMessage());
+				System.out.println("❌ Failure Point: " + errorMessage);
+				System.out.println("Exception Reason: " + e.getMessage());
+				e.printStackTrace();
+				System.out.println();
+				
+				throw new RuntimeException(errorMessage, e);
+			}
+			
+		} else {
+			
+			if(Value_Index >= Values.size()) {
+				
+				String errorMessage = "Lead value is missing for label. Label = " + label + " | Label Index = " + i + " | Current Value Index = " + Value_Index + " | Total Values = " + Values.size();
+				
+				Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure Point:</b> " + errorMessage);
+				System.out.println("❌ Failure Point: " + errorMessage);
+				System.out.println();
+				
+				throw new IllegalStateException(errorMessage);
+			}
+			
+			String value = Values.get(Value_Index).getText().trim();
+			Value_Index++;
+			
+			lead_details.put(label, value);
+			
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>📌 Lead Detail:</b> " + label + " = " + value);
+			System.out.println("📌 Lead Detail: " + label + " = " + value);
+		}
 	}
+	
+	System.out.println();
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> Final consumed normal value count = " + Value_Index + " | Total normal values available = " + Values.size());
+	System.out.println("🟨 Debug: Final consumed normal value count = " + Value_Index + " | Total normal values available = " + Values.size());
 	System.out.println();
 	
 	if(lead_details.size() > 0) {
 		Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Lead details captured successfully. Total captured fields = " + lead_details.size());
 		System.out.println("✅ Actual: Lead details captured successfully. Total captured fields = " + lead_details.size());
 	} else {
-		Report_Listen.log_print_in_report().log(Status.WARNING, "<b>⚠ Actual:</b> No lead details were captured from the lead details page.");
-		System.out.println("⚠ Actual: No lead details were captured from the lead details page.");
+		
+		String errorMessage = "No lead details were captured from the lead details page.";
+		
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure Point:</b> " + errorMessage);
+		System.out.println("❌ Failure Point: " + errorMessage);
+		System.out.println();
+		
+		throw new IllegalStateException(errorMessage);
 	}
 	
 	System.out.println();
@@ -2106,39 +2240,39 @@ public Object[][] Plan_Type_Name_Data() {
 
 	TreeMap<String, String> data1 = new TreeMap<String, String>();
 	data1.put("Checkout App Type", "checkout");
-	data1.put("Checkout Plan Name", "Checkout Weekly 999");
+	data1.put("Checkout Plan Name", "Ayan Checkout New Yearly Plan");
 	data1.put("Spaces App Type", "spaces");
-	data1.put("Spaces Plan Name", "Ayan Weekly Spaces Growth Plan");
+	data1.put("Spaces Plan Name", "Ayan New Professional Diamond Plan");
 	data1.put("Hr App Type", "hr");
-	data1.put("Hr Plan Name", "Ayan Weekly HR Growth Plan");
+	data1.put("Hr Plan Name", "Ayan HR New Weekly Plan");
 	data1.put("Hire App Type", "hire");
-	data1.put("Hire Plan Name", "testyearly");
+	data1.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
 
 	TreeMap<String, String> data2 = new TreeMap<String, String>();
 	data2.put("Checkout App Type", "checkout");
-	data2.put("Checkout Plan Name", "Ayan Yearly Checkout Enterprise Plan");
+	data2.put("Checkout Plan Name", "Ayan Daily Checkout Starter Plan");
 	data2.put("Spaces App Type", "spaces");
-	data2.put("Spaces Plan Name", "Ayan Yearly Spaces Enterprise Plan");
+	data2.put("Spaces Plan Name", "Ayan Monthly Spaces Business Plan");
 	data2.put("Hr App Type", "hr");
-	data2.put("Hr Plan Name", "Ayan Yearly HR Enterprise Plan");
+	data2.put("Hr Plan Name", "Ayan Daily HR Starter Plan");
 	data2.put("Hire App Type", "hire");
-	data2.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
+	data2.put("Hire Plan Name", "Ayan Custom Weeks Hire Flex Plan");
 
 	TreeMap<String, String> data3 = new TreeMap<String, String>();
 	data3.put("Checkout App Type", "checkout");
-	data3.put("Checkout Plan Name", "test weekly checkout plan");
+	data3.put("Checkout Plan Name", "Ayan Monthly Checkout Business Plan");
 	data3.put("Spaces App Type", "spaces");
-	data3.put("Spaces Plan Name", "Space Weekly Plan 99");
+	data3.put("Spaces Plan Name", "Ayan Daily Spaces Starter Plan");
 	data3.put("Hr App Type", "hr");
-	data3.put("Hr Plan Name", "Ayan HR New Weekly Plan");
+	data3.put("Hr Plan Name", "Ayan Weekly HR Growth Plan");
 	data3.put("Hire App Type", "hire");
-	data3.put("Hire Plan Name", "Free Trial");
+	data3.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
 
 	TreeMap<String, String> data4 = new TreeMap<String, String>();
 	data4.put("Checkout App Type", "checkout");
-	data4.put("Checkout Plan Name", "Ayan Monthly Checkout Business Plan");
+	data4.put("Checkout Plan Name", "Ayan Yearly Checkout Enterprise Plan");
 	data4.put("Spaces App Type", "spaces");
-	data4.put("Spaces Plan Name", "Ayan Monthly Spaces Business Plan");
+	data4.put("Spaces Plan Name", "Ayan Weekly Spaces Growth Plan");
 	data4.put("Hr App Type", "hr");
 	data4.put("Hr Plan Name", "Ayan Monthly HR Business Plan");
 	data4.put("Hire App Type", "hire");
@@ -2148,161 +2282,161 @@ public Object[][] Plan_Type_Name_Data() {
 	data5.put("Checkout App Type", "checkout");
 	data5.put("Checkout Plan Name", "Ayan Custom Days Checkout Premium Plan");
 	data5.put("Spaces App Type", "spaces");
-	data5.put("Spaces Plan Name", "Custom Plan 999");
+	data5.put("Spaces Plan Name", "Ayan Yearly Spaces Enterprise Plan");
 	data5.put("Hr App Type", "hr");
-	data5.put("Hr Plan Name", "Ayan Custom Days HR Flex Plan");
+	data5.put("Hr Plan Name", "Ayan Yearly HR Enterprise Plan");
 	data5.put("Hire App Type", "hire");
-	data5.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
+	data5.put("Hire Plan Name", "Ayan Custom Weeks Hire Flex Plan");
 
 	TreeMap<String, String> data6 = new TreeMap<String, String>();
 	data6.put("Checkout App Type", "checkout");
-	data6.put("Checkout Plan Name", "Ayan Daily Checkout Starter Plan");
+	data6.put("Checkout Plan Name", "AYan 5 day biilling plan");
 	data6.put("Spaces App Type", "spaces");
-	data6.put("Spaces Plan Name", "Ayan Daily Spaces Starter Plan");
+	data6.put("Spaces Plan Name", "Ayan New Professional Diamond Plan");
 	data6.put("Hr App Type", "hr");
-	data6.put("Hr Plan Name", "Ayan Daily HR Starter Plan");
+	data6.put("Hr Plan Name", "Ayan Custom Days HR Flex Plan");
 	data6.put("Hire App Type", "hire");
-	data6.put("Hire Plan Name", "15 day Freemium");
+	data6.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
 
 	TreeMap<String, String> data7 = new TreeMap<String, String>();
 	data7.put("Checkout App Type", "checkout");
 	data7.put("Checkout Plan Name", "Ayan Custom Days Checkout Advance Plan");
 	data7.put("Spaces App Type", "spaces");
-	data7.put("Spaces Plan Name", "Ayan New Professional Diamond Plan");
+	data7.put("Spaces Plan Name", "Ayan Monthly Spaces Business Plan");
 	data7.put("Hr App Type", "hr");
-	data7.put("Hr Plan Name", "Custom HR Plan 99");
+	data7.put("Hr Plan Name", "Ayan HR New Weekly Plan");
 	data7.put("Hire App Type", "hire");
-	data7.put("Hire Plan Name", "lessthan3-1");
+	data7.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
 
 	TreeMap<String, String> data8 = new TreeMap<String, String>();
 	data8.put("Checkout App Type", "checkout");
 	data8.put("Checkout Plan Name", "Ayan Checkout New Yearly Plan");
 	data8.put("Spaces App Type", "spaces");
-	data8.put("Spaces Plan Name", "Free Trial - Spaces");
+	data8.put("Spaces Plan Name", "Ayan Daily Spaces Starter Plan");
 	data8.put("Hr App Type", "hr");
-	data8.put("Hr Plan Name", "HR Plan");
+	data8.put("Hr Plan Name", "Ayan Daily HR Starter Plan");
 	data8.put("Hire App Type", "hire");
-	data8.put("Hire Plan Name", "lessthan3-2");
+	data8.put("Hire Plan Name", "Ayan Custom Weeks Hire Flex Plan");
 
 	TreeMap<String, String> data9 = new TreeMap<String, String>();
 	data9.put("Checkout App Type", "checkout");
-	data9.put("Checkout Plan Name", "Free Checkout + Features");
+	data9.put("Checkout Plan Name", "Ayan Daily Checkout Starter Plan");
 	data9.put("Spaces App Type", "spaces");
-	data9.put("Spaces Plan Name", "Speical 99");
+	data9.put("Spaces Plan Name", "Ayan Weekly Spaces Growth Plan");
 	data9.put("Hr App Type", "hr");
-	data9.put("Hr Plan Name", "Pro Test New");
+	data9.put("Hr Plan Name", "Ayan Weekly HR Growth Plan");
 	data9.put("Hire App Type", "hire");
-	data9.put("Hire Plan Name", "testyearly");
+	data9.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
 
 	TreeMap<String, String> data10 = new TreeMap<String, String>();
 	data10.put("Checkout App Type", "checkout");
-	data10.put("Checkout Plan Name", "New Flow - Paid Plan 1");
+	data10.put("Checkout Plan Name", "Ayan Monthly Checkout Business Plan");
 	data10.put("Spaces App Type", "spaces");
-	data10.put("Spaces Plan Name", "Ayan Weekly Spaces Growth Plan");
+	data10.put("Spaces Plan Name", "Ayan Yearly Spaces Enterprise Plan");
 	data10.put("Hr App Type", "hr");
-	data10.put("Hr Plan Name", "Ayan Weekly HR Growth Plan");
+	data10.put("Hr Plan Name", "Ayan Monthly HR Business Plan");
 	data10.put("Hire App Type", "hire");
 	data10.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
 
 	TreeMap<String, String> data11 = new TreeMap<String, String>();
 	data11.put("Checkout App Type", "checkout");
-	data11.put("Checkout Plan Name", "New Flow - Paid Plan 2");
+	data11.put("Checkout Plan Name", "Ayan Yearly Checkout Enterprise Plan");
 	data11.put("Spaces App Type", "spaces");
-	data11.put("Spaces Plan Name", "Ayan Yearly Spaces Enterprise Plan");
+	data11.put("Spaces Plan Name", "Ayan New Professional Diamond Plan");
 	data11.put("Hr App Type", "hr");
 	data11.put("Hr Plan Name", "Ayan Yearly HR Enterprise Plan");
 	data11.put("Hire App Type", "hire");
-	data11.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
+	data11.put("Hire Plan Name", "Ayan Custom Weeks Hire Flex Plan");
 
 	TreeMap<String, String> data12 = new TreeMap<String, String>();
 	data12.put("Checkout App Type", "checkout");
-	data12.put("Checkout Plan Name", "TL Checkout Plan");
+	data12.put("Checkout Plan Name", "Ayan Custom Days Checkout Premium Plan");
 	data12.put("Spaces App Type", "spaces");
 	data12.put("Spaces Plan Name", "Ayan Monthly Spaces Business Plan");
 	data12.put("Hr App Type", "hr");
-	data12.put("Hr Plan Name", "Ayan Monthly HR Business Plan");
+	data12.put("Hr Plan Name", "Ayan Custom Days HR Flex Plan");
 	data12.put("Hire App Type", "hire");
-	data12.put("Hire Plan Name", "Free Trial");
+	data12.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
 
 	TreeMap<String, String> data13 = new TreeMap<String, String>();
 	data13.put("Checkout App Type", "checkout");
-	data13.put("Checkout Plan Name", "After Fix Plan 99");
+	data13.put("Checkout Plan Name", "AYan 5 day biilling plan");
 	data13.put("Spaces App Type", "spaces");
-	data13.put("Spaces Plan Name", "Space Weekly Plan 99");
+	data13.put("Spaces Plan Name", "Ayan Daily Spaces Starter Plan");
 	data13.put("Hr App Type", "hr");
 	data13.put("Hr Plan Name", "Ayan HR New Weekly Plan");
 	data13.put("Hire App Type", "hire");
-	data13.put("Hire Plan Name", "15 day Freemium");
+	data13.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
 
 	TreeMap<String, String> data14 = new TreeMap<String, String>();
 	data14.put("Checkout App Type", "checkout");
-	data14.put("Checkout Plan Name", "Custom Plan New Flow");
+	data14.put("Checkout Plan Name", "Ayan Custom Days Checkout Advance Plan");
 	data14.put("Spaces App Type", "spaces");
-	data14.put("Spaces Plan Name", "Custom Plan 999");
+	data14.put("Spaces Plan Name", "Ayan Weekly Spaces Growth Plan");
 	data14.put("Hr App Type", "hr");
-	data14.put("Hr Plan Name", "Custom plan testing");
+	data14.put("Hr Plan Name", "Ayan Daily HR Starter Plan");
 	data14.put("Hire App Type", "hire");
-	data14.put("Hire Plan Name", "lessthan3-1");
+	data14.put("Hire Plan Name", "Ayan Custom Weeks Hire Flex Plan");
 
 	TreeMap<String, String> data15 = new TreeMap<String, String>();
 	data15.put("Checkout App Type", "checkout");
-	data15.put("Checkout Plan Name", "Test Custom Unit Fix");
+	data15.put("Checkout Plan Name", "Ayan Checkout New Yearly Plan");
 	data15.put("Spaces App Type", "spaces");
-	data15.put("Spaces Plan Name", "Ayan New Professional Diamond Plan");
+	data15.put("Spaces Plan Name", "Ayan Yearly Spaces Enterprise Plan");
 	data15.put("Hr App Type", "hr");
-	data15.put("Hr Plan Name", "Ayan Custom Days HR Flex Plan");
+	data15.put("Hr Plan Name", "Ayan Weekly HR Growth Plan");
 	data15.put("Hire App Type", "hire");
-	data15.put("Hire Plan Name", "lessthan3-2");
+	data15.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
 
 	TreeMap<String, String> data16 = new TreeMap<String, String>();
 	data16.put("Checkout App Type", "checkout");
-	data16.put("Checkout Plan Name", "Checkout Custom Plan 999");
+	data16.put("Checkout Plan Name", "Ayan Daily Checkout Starter Plan");
 	data16.put("Spaces App Type", "spaces");
-	data16.put("Spaces Plan Name", "Free Trial - Spaces");
+	data16.put("Spaces Plan Name", "Ayan New Professional Diamond Plan");
 	data16.put("Hr App Type", "hr");
-	data16.put("Hr Plan Name", "Hr Default Trial Plan");
+	data16.put("Hr Plan Name", "Ayan Monthly HR Business Plan");
 	data16.put("Hire App Type", "hire");
-	data16.put("Hire Plan Name", "Free Trial");
+	data16.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
 
 	TreeMap<String, String> data17 = new TreeMap<String, String>();
 	data17.put("Checkout App Type", "checkout");
-	data17.put("Checkout Plan Name", "Ayan Custom Days Checkout Advance Plan");
+	data17.put("Checkout Plan Name", "Ayan Monthly Checkout Business Plan");
 	data17.put("Spaces App Type", "spaces");
-	data17.put("Spaces Plan Name", "Ayan Weekly Spaces Growth Plan");
+	data17.put("Spaces Plan Name", "Ayan Monthly Spaces Business Plan");
 	data17.put("Hr App Type", "hr");
-	data17.put("Hr Plan Name", "Ayan Weekly HR Growth Plan");
+	data17.put("Hr Plan Name", "Ayan Yearly HR Enterprise Plan");
 	data17.put("Hire App Type", "hire");
-	data17.put("Hire Plan Name", "testyearly");
+	data17.put("Hire Plan Name", "Ayan Custom Weeks Hire Flex Plan");
 
 	TreeMap<String, String> data18 = new TreeMap<String, String>();
 	data18.put("Checkout App Type", "checkout");
 	data18.put("Checkout Plan Name", "Ayan Yearly Checkout Enterprise Plan");
 	data18.put("Spaces App Type", "spaces");
-	data18.put("Spaces Plan Name", "Ayan Monthly Spaces Business Plan");
+	data18.put("Spaces Plan Name", "Ayan Daily Spaces Starter Plan");
 	data18.put("Hr App Type", "hr");
-	data18.put("Hr Plan Name", "Ayan Monthly HR Business Plan");
+	data18.put("Hr Plan Name", "Ayan Custom Days HR Flex Plan");
 	data18.put("Hire App Type", "hire");
-	data18.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
+	data18.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
 
 	TreeMap<String, String> data19 = new TreeMap<String, String>();
 	data19.put("Checkout App Type", "checkout");
-	data19.put("Checkout Plan Name", "Checkout Weekly 999");
+	data19.put("Checkout Plan Name", "Ayan Custom Days Checkout Premium Plan");
 	data19.put("Spaces App Type", "spaces");
-	data19.put("Spaces Plan Name", "Ayan Yearly Spaces Enterprise Plan");
+	data19.put("Spaces Plan Name", "Ayan Weekly Spaces Growth Plan");
 	data19.put("Hr App Type", "hr");
-	data19.put("Hr Plan Name", "Ayan Yearly HR Enterprise Plan");
+	data19.put("Hr Plan Name", "Ayan HR New Weekly Plan");
 	data19.put("Hire App Type", "hire");
-	data19.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
+	data19.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
 
 	TreeMap<String, String> data20 = new TreeMap<String, String>();
 	data20.put("Checkout App Type", "checkout");
-	data20.put("Checkout Plan Name", "test weekly checkout plan");
+	data20.put("Checkout Plan Name", "Ayan Custom Days Checkout Advance Plan");
 	data20.put("Spaces App Type", "spaces");
-	data20.put("Spaces Plan Name", "Space Weekly Plan 99");
+	data20.put("Spaces Plan Name", "Ayan Yearly Spaces Enterprise Plan");
 	data20.put("Hr App Type", "hr");
-	data20.put("Hr Plan Name", "Ayan HR New Weekly Plan");
+	data20.put("Hr Plan Name", "Ayan Monthly HR Business Plan");
 	data20.put("Hire App Type", "hire");
-	data20.put("Hire Plan Name", "testyearly");
+	data20.put("Hire Plan Name", "Ayan Custom Weeks Hire Flex Plan");
 
 	return new Object[][] {
 		{ data1 },
@@ -2324,16 +2458,15 @@ public Object[][] Plan_Type_Name_Data() {
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 } 
+		{ data20 }
 	};
 }
 
-@Test(dataProvider = "Account_create_and_Plan_Upgrade_combined_data_provider")
-public void Quick_Plan_Upgrade_Several_times(TreeMap<String, String> Account_data,TreeMap<String, String> Plan_Data) throws IOException, InterruptedException{
-	
+
+public void Quick_Plan_Upgrade_Several_times(TreeMap<String, String> form_data, TreeMap<String, String> Account_data, TreeMap<String, String> Plan_Data, String Target_Upgrade_Plan_Name) throws IOException, InterruptedException{	
 	Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
 	Repeat rp = new Repeat(d);
-	JavascriptExecutor js = (JavascriptExecutor)d;
+
 	
 	String First_Name = Plan_Data.get("First Name");
 	String Last_Name = Plan_Data.get("Last Name");
@@ -2342,7 +2475,7 @@ public void Quick_Plan_Upgrade_Several_times(TreeMap<String, String> Account_dat
 	String City = Plan_Data.get("City");
 	String State = Plan_Data.get("State");
 	String Zip = Plan_Data.get("Zip");
-	String Email= Account_data.get("Email");
+	String Email = form_data.get("Email");
 	
 	int step = 1;
 	try {
@@ -2350,8 +2483,23 @@ public void Quick_Plan_Upgrade_Several_times(TreeMap<String, String> Account_dat
 	}catch (Exception e) {
 		Saas_Admin_Login();
 		p.Create_Account_button();
-	}List<WebElement> Loaders = p.Loader();
-	rp.wait_for_invisibilty_of_theElement(Loaders);
+	}	try {
+		List<WebElement> Loaders = p.Loader();
+
+		if(Loaders != null && Loaders.size() > 0) {
+			rp.wait_for_invisibilty_of_theElement(Loaders);
+
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Account list loading completed successfully.");
+			System.out.println("🟨 Actual: Account list loading completed successfully.");
+		} else {
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Account list was already available. Loader was not displayed.");
+			System.out.println("🟨 Actual: Account list was already available. Loader was not displayed.");
+		}
+
+	} catch(Exception e) {
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Account list was already available. Loader wait was skipped.");
+		System.out.println("🟨 Actual: Account list was already available. Loader wait was skipped.");
+	}
 	WebElement Search = p.search_field();
 	Search.sendKeys(Email);
     Thread.sleep(2000);
@@ -2369,31 +2517,190 @@ public void Quick_Plan_Upgrade_Several_times(TreeMap<String, String> Account_dat
 	Thread.sleep(1200);	
 	List<WebElement> Plan_section=Billing_section.findElements(By.xpath(".//div[@class='wrap-panel-row px-3 py-4 cursor-pointer border-bottom']"));	
 	WebElement Plan_One=Plan_section.get(0);
+	WebElement Plan_Name_Element_One=Plan_One.findElement(By.xpath(".//div[@class='ant-col ant-col-12']//p"));
+	String Plan_Name_One=Plan_Name_Element_One.getText().trim();
+
+	System.out.println();
+	System.out.println("🟨 Actual: Current Plan Full Text = " + Plan_Name_One);
+	System.out.println();
+
+	String Name_text[] = Plan_Name_One.split("\\|");
+	String Current_Plan_Name = Name_text[0].trim();
+
+	System.out.println();
+	System.out.println("🟨 Actual: Current Plan Name = " + Current_Plan_Name);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Current Plan Name = " + Current_Plan_Name);
+	System.out.println("🟨 Actual: Target Upgrade Plan Name = " + Target_Upgrade_Plan_Name);
+	System.out.println("🟨 Debug: Upgrade Account Data App Type = " + Account_data.get("App Type"));
+	System.out.println("🟨 Debug: Upgrade Account Data Plan Name = " + Account_data.get("Plan Name"));
+	System.out.println("🟨 Debug: Upgrade Account Data Checkout Plan Name = " + Account_data.get("Checkout Plan Name"));
+	System.out.println("🟨 Debug: Upgrade Account Data Hire Plan Name = " + Account_data.get("Hire Plan Name"));
+	System.out.println("🟨 Debug: Upgrade Account Data HR Plan Name = " + Account_data.get("Hr Plan Name"));
+	System.out.println("🟨 Debug: Upgrade Account Data Spaces Plan Name = " + Account_data.get("Spaces Plan Name"));
+	System.out.println();
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Target Upgrade Plan Name = " + Target_Upgrade_Plan_Name);
+
+	if(Target_Upgrade_Plan_Name == null || Target_Upgrade_Plan_Name.trim().length() == 0) {
+	
+	String errorMessage = "Target upgrade plan name is missing. Selected Product = " 
+			+ form_data.get("Selected Product") 
+			+ " | Account App Type = " + Account_data.get("App Type")
+			+ " | Account Data = " + Account_data;
+
+	Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure Point:</b> " + errorMessage);
+	System.out.println("❌ Failure Point: " + errorMessage);
+	System.out.println();
+
+	throw new IllegalArgumentException(errorMessage);
+}
+
+	boolean Select_Any_Ayan_Plan = false;
+
+if(Current_Plan_Name.equalsIgnoreCase(Target_Upgrade_Plan_Name.trim())) {
+	
+	Select_Any_Ayan_Plan = true;
+	
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Target upgrade plan is already assigned as current plan. Script will now select another available plan containing keyword Ayan.");
+	System.out.println("🟨 Actual: Target upgrade plan is already assigned as current plan. Script will now select another available plan containing keyword Ayan.");
+	System.out.println("🟨 Current Plan = " + Current_Plan_Name);
+	System.out.println("🟨 Original Target Plan = " + Target_Upgrade_Plan_Name);
+	System.out.println();
+}
+
 	WebElement Plan_Card_Gear_Button=Plan_One.findElement(By.xpath(".//span[@aria-label='setting']"));
 	Plan_Card_Gear_Button.click();
+
 	WebElement Plan_dropdown_list=p.Plan_Dropdown();
 	List<WebElement> options=Plan_dropdown_list.findElements(By.xpath(".//li"));
+
 	for(WebElement option:options) {
 		String option_text=option.getText().trim();
+		
 		if(option_text.contains("Change Plan")) {
 			
 			option.click();
-			break;}}
-	WebElement Pop_up=p.pop_up_modal();
-	WebElement Modal_dropdown=Pop_up.findElement(By.xpath(".//*[contains(@class,'ant-select-single ant-select-show-arrow')]"));
-	Modal_dropdown.click();
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Change Plan option selected successfully.");
+			System.out.println("🟨 Actual: Change Plan option selected successfully.");
+			break;
+		}
+	}
 
-	WebElement Plan_List=p.rc_virtual_list_holder_one();
-	rp.Scroll_to_bottom_of_list(Plan_List);
-	List<WebElement> planoptions=Plan_List.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
-	for(WebElement planoption:planoptions) {
-		String planoption_text=planoption.getText().trim();
-		if(planoption_text.contains("Ayan")) {
+	WebElement Pop_up = p.pop_up_modal();
+
+	String Plan_Search_Text = "Ayan";
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Searching available upgrade plans using keyword = " + Plan_Search_Text);
+	System.out.println("🟨 Actual: Searching available upgrade plans using keyword = " + Plan_Search_Text);
+	System.out.println("🟨 Debug: Original Target Plan From DataProvider = " + Target_Upgrade_Plan_Name);
+	System.out.println("🟨 Debug: Current Plan = " + Current_Plan_Name);
+	System.out.println();
+
+	WebElement Modal_dropdown = Pop_up.findElement(By.xpath(".//*[contains(@class,'ant-select-single') and contains(@class,'ant-select-show-arrow')]"));
+	rp.movetoelement(Modal_dropdown);
+	Modal_dropdown.click();
+	Thread.sleep(800);
+
+	try {
+		WebElement input_search_box = d.findElement(By.xpath("//div[contains(@class,'ant-select-open')]//input[@type='search']"));
+		input_search_box.click();
+		input_search_box.clear();
+		input_search_box.sendKeys(Plan_Search_Text);
+	} catch(Exception e) {
+		d.switchTo().activeElement().sendKeys(Plan_Search_Text);
+	}
+
+	Thread.sleep(1000);
+
+	WebElement Visible_Dropdown = d.findElement(By.xpath("//div[contains(@class,'ant-select-dropdown') and not(contains(@class,'ant-select-dropdown-hidden'))]"));
+	WebElement Plan_List = Visible_Dropdown.findElement(By.xpath(".//div[contains(@class,'rc-virtual-list-holder')]"));
+
+	boolean Upgrade_Plan_Selected = false;
+	String Selected_Upgrade_Plan_Name = "";
+
+	for(int attempt = 1; attempt <= 2 && !Upgrade_Plan_Selected; attempt++) {
+		
+		if(attempt == 2) {
+			rp.Scroll_to_bottom_of_list(Plan_List);
+			Thread.sleep(800);
+		}
+
+		List<WebElement> planoptions = Visible_Dropdown.findElements(By.xpath(".//div[contains(@class,'ant-select-item-option')]"));
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> Ayan plan option count on attempt " + attempt + " = " + planoptions.size());
+		System.out.println("🟨 Debug: Ayan plan option count on attempt " + attempt + " = " + planoptions.size());
+
+		for(WebElement planoption : planoptions) {
 			
-			planoption.click();
-			break;}}
-	WebElement Continue_button=p.Continue_button();
+			String planoption_text = planoption.getText().trim();
+			
+			if(planoption_text.length() == 0) {
+				continue;
+			}
+			
+			System.out.println("Plan option found = " + planoption_text);
+
+			if(planoption_text.toLowerCase().contains("ayan")
+					&& !planoption_text.equalsIgnoreCase(Current_Plan_Name.trim())
+					&& !planoption_text.toLowerCase().contains(Current_Plan_Name.toLowerCase().trim())) {
+				
+				rp.movetoelement(planoption);
+				planoption.click();
+
+				Upgrade_Plan_Selected = true;
+				Selected_Upgrade_Plan_Name = planoption_text;
+				Target_Upgrade_Plan_Name = planoption_text;
+
+				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Upgrade plan selected successfully = " + Selected_Upgrade_Plan_Name);
+				System.out.println("🟨 Actual: Upgrade plan selected successfully = " + Selected_Upgrade_Plan_Name);
+				System.out.println();
+				break;
+			}
+		}
+	}
+
+	if(!Upgrade_Plan_Selected) {
+		
+		String errorMessage = "Target upgrade plan was not found in Change Plan dropdown. Expected Plan = " 
+				+ Target_Upgrade_Plan_Name 
+				+ " | Current Plan = " + Current_Plan_Name
+				+ " | Email = " + Email;
+
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure Point:</b> " + errorMessage);
+		System.out.println("❌ Failure Point: " + errorMessage);
+		System.out.println();
+
+		throw new IllegalStateException(errorMessage);
+	}
+
+	Thread.sleep(800);
+
+	WebElement Continue_button;
+
+	try {
+		Continue_button = p.Continue_button();
+	} catch(Exception e) {
+		
+		String errorMessage = "Continue button was not displayed after selecting upgrade plan. Selected Plan = " 
+				+ Target_Upgrade_Plan_Name 
+				+ " | Current Plan = " + Current_Plan_Name
+				+ " | Email = " + Email;
+
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure Point:</b> " + errorMessage + "<br><b>Exception:</b> " + e.getMessage());
+		System.out.println("❌ Failure Point: " + errorMessage);
+		System.out.println("Exception Reason: " + e.getMessage());
+		e.printStackTrace();
+		System.out.println();
+
+		throw new RuntimeException(errorMessage, e);
+	}
+
 	Continue_button.click();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Continue button clicked successfully after selecting upgrade plan.");
+	System.out.println("🟨 Actual: Continue button clicked successfully after selecting upgrade plan.");
+	System.out.println();
 	WebElement Upgrade_Popup=p.Plan_change_popup();
 	List<WebElement> inputfields=Upgrade_Popup.findElements(By.xpath("./../../../../..//div[@class='ant-form-item-control-input-content']"));
 	inputfields.get(0).click();
@@ -2411,23 +2718,35 @@ public void Quick_Plan_Upgrade_Several_times(TreeMap<String, String> Account_dat
     WebElement Confirm_button=p.Submit_button();
     Confirm_button.click();
     WebElement Last_Popup=p.form_original();
-    p.first_name().sendKeys(First_Name);
-    p.last_name().sendKeys(Last_Name);
-    p.address().sendKeys(Address);
+    WebElement FirstName=p.first_name();
+    WebElement LastName=p.last_name();
+    WebElement Address_Field=p.address();
+    WebElement Country_Feild=p.country();
+    WebElement State_Feild=p.state();
+    WebElement City_Feild=p.city();
+    WebElement Zip_Feild=p.zipcode();
+    FirstName.clear();
+    FirstName.sendKeys(First_Name);
+    LastName.clear();
+    LastName.sendKeys(Last_Name);
+    Address_Field.clear();
+    Address_Field.sendKeys(Address);
     List<WebElement> popup_inputs=Last_Popup.findElements(By.xpath(".//*[@class='ant-form-item-control-input']"));
     WebElement country_field_box=popup_inputs.get(3);
     country_field_box.click();
-    p.country().sendKeys(Country);
+    Country_Feild.clear();
+    Country_Feild.sendKeys(Country);
 	WebElement Country_List=p.rc_virtual_list_holder_two();
 	rp.Scroll_to_bottom_of_list(Country_List);
 	List<WebElement> Country_List_Options=Country_List.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
     WebElement Country_List_First_Option=Country_List_Options.get(0);
     Country_List_First_Option.click();
-    
-    p.state().sendKeys(State);
-    p.city().sendKeys(City);
-    p.zipcode().sendKeys(Zip);
-    
+    State_Feild.clear();
+    State_Feild.sendKeys(State);
+    City_Feild.clear();
+    City_Feild.sendKeys(City);
+    Zip_Feild.clear();
+    Zip_Feild.sendKeys(Zip);
     WebElement Subscribe_button=p.Submit_button();
     rp.Scroll_to_element(Subscribe_button);
     Subscribe_button.click();
@@ -2435,7 +2754,8 @@ public void Quick_Plan_Upgrade_Several_times(TreeMap<String, String> Account_dat
     WebElement Close_button=d.findElement(By.xpath("(//*[@aria-modal='true']//*[@aria-label='Close'])[2]"));
     rp.wait_for_theElement(Close_button);
     Close_button.click();
-    
+    d.navigate().to("https://accounts.dev.besimplified.net/accounts");
+    d.navigate().refresh();
     
     
 }
@@ -2648,7 +2968,7 @@ public Object[][] Plan_Upgrade_Billing_Data() {
 	data20.put("Zip", "60611");
 
 	return new Object[][] {
-		{ data1 },/*
+		{ data1 },
 		{ data2 },
 		{ data3 },
 		{ data4 },
@@ -2667,219 +2987,220 @@ public Object[][] Plan_Upgrade_Billing_Data() {
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 } */
+		{ data20 } 
 	};
 }
+
 
 @DataProvider
 public Object[][] Contact_Form_Data() {
 
 	TreeMap<String, String> data1 = new TreeMap<String, String>();
 	data1.put("Selected Product", "Simplified Checkout");
-	data1.put("First Name", "Klaus Ferdinand");
-	data1.put("Last Name", "Himmelreich");
-	data1.put("Email", "klaus.ferdinand.himmelreich.checkout126@yopmail.com");
-	data1.put("Company Name", "Himmelreich Digital Commerce GmbH");
+	data1.put("First Name", "Anselm Joachim");
+	data1.put("Last Name", "Wernicke");
+	data1.put("Email", "anselm.joachim.wernicke.checkout226@yopmail.com");
+	data1.put("Company Name", "Wernicke Digital Commerce GmbH");
 	data1.put("Country Code", "+49");
-	data1.put("Phone Number", "15192638470");
-	data1.put("Message", "We are a Germany-based digital commerce team exploring Simplified Checkout to improve payment success, reduce abandoned orders, monitor transaction flow, simplify customer checkout steps, and strengthen online purchase reporting.");
+	data1.put("Phone Number", "15583729461");
+	data1.put("Message", "We are a Germany-based digital commerce company exploring Simplified Checkout to improve payment completion, reduce abandoned orders, monitor transaction activity, simplify customer purchases, and strengthen checkout performance reporting.");
 
 	TreeMap<String, String> data2 = new TreeMap<String, String>();
 	data2.put("Selected Product", "Simplified Hire");
-	data2.put("First Name", "Eloise Capucine");
-	data2.put("Last Name", "Delaunay");
-	data2.put("Email", "eloise.capucine.delaunay.hire127@yopmail.com");
-	data2.put("Company Name", "Delaunay Talent Operations SAS");
+	data2.put("First Name", "Solene Marguerite");
+	data2.put("Last Name", "Beauchamp");
+	data2.put("Email", "solene.marguerite.beauchamp.hire227@yopmail.com");
+	data2.put("Company Name", "Beauchamp Talent Operations SAS");
 	data2.put("Country Code", "+33");
-	data2.put("Phone Number", "749286315");
-	data2.put("Message", "Our France-based hiring team wants to review Simplified Hire for applicant tracking, job pipeline visibility, recruiter collaboration, interview feedback, hiring stage updates, and recruitment performance reporting.");
+	data2.put("Phone Number", "745291863");
+	data2.put("Message", "Our France-based recruitment team wants to review Simplified Hire for applicant tracking, job pipeline visibility, recruiter collaboration, interview feedback, hiring stage management, and recruitment performance reporting.");
 
 	TreeMap<String, String> data3 = new TreeMap<String, String>();
 	data3.put("Selected Product", "Simplified HR");
-	data3.put("First Name", "Arvid Lennart");
-	data3.put("Last Name", "Soderholm");
-	data3.put("Email", "arvid.lennart.soderholm.hr128@yopmail.com");
-	data3.put("Company Name", "Soderholm People Services AB");
-	data3.put("Country Code", "+46");
-	data3.put("Phone Number", "704928361");
-	data3.put("Message", "We are evaluating Simplified HR for employee record handling, attendance tracking, leave approval workflows, department mapping, HR administrator access, internal communication, and workforce reporting.");
+	data3.put("First Name", "Torstein Vidar");
+	data3.put("Last Name", "Aasgaard");
+	data3.put("Email", "torstein.vidar.aasgaard.hr228@yopmail.com");
+	data3.put("Company Name", "Aasgaard People Operations AS");
+	data3.put("Country Code", "+47");
+	data3.put("Phone Number", "46937281");
+	data3.put("Message", "We are evaluating Simplified HR for employee information management, attendance tracking, leave approval workflows, department mapping, administrator access, internal communication, and workforce reporting.");
 
 	TreeMap<String, String> data4 = new TreeMap<String, String>();
 	data4.put("Selected Product", "Simplified Spaces");
-	data4.put("First Name", "Giorgio Matteo");
-	data4.put("Last Name", "Marcelli");
-	data4.put("Email", "giorgio.matteo.marcelli.spaces129@yopmail.com");
-	data4.put("Company Name", "Marcelli Workspace Operations SRL");
+	data4.put("First Name", "Ginevra Ludovica");
+	data4.put("Last Name", "Malaspina");
+	data4.put("Email", "ginevra.ludovica.malaspina.spaces229@yopmail.com");
+	data4.put("Company Name", "Malaspina Workspace Operations SRL");
 	data4.put("Country Code", "+39");
-	data4.put("Phone Number", "3516847290");
-	data4.put("Message", "We manage flexible workspace locations in Italy and want to explore Simplified Spaces for desk reservations, meeting room scheduling, customer inquiries, space availability, branch coordination, and usage reporting.");
+	data4.put("Phone Number", "3527469180");
+	data4.put("Message", "We manage flexible workspace locations in Italy and want to explore Simplified Spaces for desk reservations, meeting room scheduling, customer requests, space availability, branch coordination, and utilization reporting.");
 
 	TreeMap<String, String> data5 = new TreeMap<String, String>();
 	data5.put("Selected Product", "Simplified Checkout, Simplified Hire");
-	data5.put("First Name", "Rupert Finley");
-	data5.put("Last Name", "Ashbourne");
-	data5.put("Email", "rupert.finley.ashbourne.checkout.hire130@yopmail.com");
-	data5.put("Company Name", "Ashbourne Commerce Talent Ltd");
+	data5.put("First Name", "Reginald Hugh");
+	data5.put("Last Name", "Wetherby");
+	data5.put("Email", "reginald.hugh.wetherby.checkout.hire230@yopmail.com");
+	data5.put("Company Name", "Wetherby Commerce Talent Ltd");
 	data5.put("Country Code", "+44");
-	data5.put("Phone Number", "7482619350");
-	data5.put("Message", "Our UK-based business wants to evaluate Simplified Checkout and Simplified Hire together for payment handling, order conversion visibility, candidate tracking, recruiter coordination, hiring stages, and operational reporting.");
+	data5.put("Phone Number", "7572941830");
+	data5.put("Message", "Our UK-based business wants to evaluate Simplified Checkout and Simplified Hire together for online payment handling, transaction visibility, candidate tracking, recruiter coordination, hiring stages, and operational reporting.");
 
 	TreeMap<String, String> data6 = new TreeMap<String, String>();
 	data6.put("Selected Product", "Simplified HR, Simplified Spaces");
-	data6.put("First Name", "Saskia Annelotte");
-	data6.put("Last Name", "Breuker");
-	data6.put("Email", "saskia.annelotte.breuker.hrspaces131@yopmail.com");
-	data6.put("Company Name", "Breuker Office People BV");
+	data6.put("First Name", "Marloes Hendrika");
+	data6.put("Last Name", "Van Ooijen");
+	data6.put("Email", "marloes.hendrika.vanooijen.hrspaces231@yopmail.com");
+	data6.put("Company Name", "Van Ooijen Office People BV");
 	data6.put("Country Code", "+31");
-	data6.put("Phone Number", "684291753");
-	data6.put("Message", "We are searching for a combined HR and workspace solution to manage employee records, attendance logs, leave requests, desk bookings, meeting room availability, office coordination, and internal reports.");
+	data6.put("Phone Number", "686315942");
+	data6.put("Message", "We are searching for a combined HR and workspace platform to manage employee records, attendance logs, leave requests, desk bookings, meeting room availability, office coordination, and internal operational reports.");
 
 	TreeMap<String, String> data7 = new TreeMap<String, String>();
 	data7.put("Selected Product", "Simplified Checkout, Simplified HR");
-	data7.put("First Name", "Wolfgang Tobias");
-	data7.put("Last Name", "Steinacker");
-	data7.put("Email", "wolfgang.tobias.steinacker.checkouthr132@yopmail.com");
-	data7.put("Company Name", "Steinacker Business Workforce GmbH");
+	data7.put("First Name", "Severin Clemens");
+	data7.put("Last Name", "Traunfellner");
+	data7.put("Email", "severin.clemens.traunfellner.checkouthr232@yopmail.com");
+	data7.put("Company Name", "Traunfellner Business Workforce GmbH");
 	data7.put("Country Code", "+43");
-	data7.put("Phone Number", "6648291735");
-	data7.put("Message", "We want to review Simplified Checkout and Simplified HR for online payment operations, transaction monitoring, employee administration, attendance visibility, HR approvals, and structured reporting.");
+	data7.put("Phone Number", "6775283914");
+	data7.put("Message", "We want to review Simplified Checkout and Simplified HR for payment operations, transaction monitoring, employee administration, attendance visibility, HR approvals, and structured business reporting.");
 
 	TreeMap<String, String> data8 = new TreeMap<String, String>();
 	data8.put("Selected Product", "Simplified Hire, Simplified HR");
-	data8.put("First Name", "Katarzyna Mirela");
-	data8.put("Last Name", "Zielonka");
-	data8.put("Email", "katarzyna.mirela.zielonka.hirehr133@yopmail.com");
-	data8.put("Company Name", "Zielonka People Platforms Sp z oo");
+	data8.put("First Name", "Bogumila Elwira");
+	data8.put("Last Name", "Kwiatkowska");
+	data8.put("Email", "bogumila.elwira.kwiatkowska.hirehr233@yopmail.com");
+	data8.put("Company Name", "Kwiatkowska People Platforms Sp z oo");
 	data8.put("Country Code", "+48");
-	data8.put("Phone Number", "519742836");
+	data8.put("Phone Number", "515983742");
 	data8.put("Message", "We need a platform that supports hiring and HR operations together, from candidate applications, interview stages, and recruiter feedback to onboarding, employee records, attendance logs, and leave approvals.");
 
 	TreeMap<String, String> data9 = new TreeMap<String, String>();
 	data9.put("Selected Product", "Simplified Checkout, Simplified Hire, Simplified HR");
-	data9.put("First Name", "Floris Maarten");
-	data9.put("Last Name", "Van Helmond");
-	data9.put("Email", "floris.maarten.vanhelmond.enterprise134@yopmail.com");
-	data9.put("Company Name", "Van Helmond Enterprise Operations BV");
+	data9.put("First Name", "Reinier Sebastiaan");
+	data9.put("Last Name", "Van Amerongen");
+	data9.put("Email", "reinier.sebastiaan.vanamerongen.enterprise234@yopmail.com");
+	data9.put("Company Name", "Van Amerongen Enterprise Operations BV");
 	data9.put("Country Code", "+31");
-	data9.put("Phone Number", "639174825");
-	data9.put("Message", "Our enterprise operations team is reviewing solutions for checkout processing, recruitment workflow, and HR administration, and we need a detailed walkthrough of setup, reporting, module access, and pricing options.");
+	data9.put("Phone Number", "637815294");
+	data9.put("Message", "Our enterprise operations team is reviewing solutions for checkout processing, recruitment workflows, and HR administration, and we need a detailed walkthrough of setup, module access, reporting, and pricing options.");
 
 	TreeMap<String, String> data10 = new TreeMap<String, String>();
 	data10.put("Selected Product", "Simplified Checkout, Simplified Hire, Simplified HR, Simplified Spaces");
-	data10.put("First Name", "Hildegard Marlene");
-	data10.put("Last Name", "Osterwald");
-	data10.put("Email", "hildegard.marlene.osterwald.fullsuite135@yopmail.com");
-	data10.put("Company Name", "Osterwald Integrated Operations GmbH");
+	data10.put("First Name", "Irmgard Eveline");
+	data10.put("Last Name", "Dornbach");
+	data10.put("Email", "irmgard.eveline.dornbach.fullsuite235@yopmail.com");
+	data10.put("Company Name", "Dornbach Integrated Operations GmbH");
 	data10.put("Country Code", "+49");
-	data10.put("Phone Number", "16072849351");
-	data10.put("Message", "We are evaluating the full Simplified product suite for checkout management, recruitment workflow, HR administration, and workspace coordination across departments, office locations, internal teams, and customer-facing operations.");
+	data10.put("Phone Number", "16174928350");
+	data10.put("Message", "We are evaluating the complete Simplified product suite for checkout management, recruitment workflows, HR administration, and workspace coordination across multiple departments, office locations, and customer-facing operations.");
 
 	TreeMap<String, String> data11 = new TreeMap<String, String>();
 	data11.put("Selected Product", "Simplified Checkout");
-	data11.put("First Name", "Salvador Tomas");
-	data11.put("Last Name", "Cabrera");
-	data11.put("Email", "salvador.tomas.cabrera.checkout136@yopmail.com");
-	data11.put("Company Name", "Cabrera Digital Payments SL");
+	data11.put("First Name", "Gonzalo Mateo");
+	data11.put("Last Name", "Llorente");
+	data11.put("Email", "gonzalo.mateo.llorente.checkout236@yopmail.com");
+	data11.put("Company Name", "Llorente Digital Payments SL");
 	data11.put("Country Code", "+34");
-	data11.put("Phone Number", "618472935");
-	data11.put("Message", "Our Spain-based digital payments team wants to improve checkout reliability, increase successful transactions, reduce customer friction during purchase, and gain clearer visibility into online sales activity.");
+	data11.put("Phone Number", "616839274");
+	data11.put("Message", "Our Spain-based digital payments team wants to improve checkout reliability, increase successful transactions, reduce customer friction during purchases, and gain clearer visibility into online sales activity.");
 
 	TreeMap<String, String> data12 = new TreeMap<String, String>();
 	data12.put("Selected Product", "Simplified Hire");
-	data12.put("First Name", "Giordana Eleonora");
-	data12.put("Last Name", "Rossetti");
-	data12.put("Email", "giordana.eleonora.rossetti.hire137@yopmail.com");
-	data12.put("Company Name", "Rossetti Executive Talent SRL");
+	data12.put("First Name", "Elettra Costanza");
+	data12.put("Last Name", "Manfredi");
+	data12.put("Email", "elettra.costanza.manfredi.hire237@yopmail.com");
+	data12.put("Company Name", "Manfredi Executive Talent SRL");
 	data12.put("Country Code", "+39");
-	data12.put("Phone Number", "3472859160");
-	data12.put("Message", "We are managing multiple recruitment campaigns and want to review Simplified Hire for candidate profile handling, job stage updates, interview feedback, recruiter activity tracking, and hiring reports.");
+	data12.put("Phone Number", "3487295160");
+	data12.put("Message", "We are managing several recruitment campaigns and want to review Simplified Hire for candidate profile handling, job stage updates, interview feedback, recruiter activity tracking, and hiring performance reports.");
 
 	TreeMap<String, String> data13 = new TreeMap<String, String>();
 	data13.put("Selected Product", "Simplified HR");
-	data13.put("First Name", "Filip Edvard");
-	data13.put("Last Name", "Blomqvist");
-	data13.put("Email", "filip.edvard.blomqvist.hr138@yopmail.com");
-	data13.put("Company Name", "Blomqvist People Management AB");
+	data13.put("First Name", "Nils August");
+	data13.put("Last Name", "Forsman");
+	data13.put("Email", "nils.august.forsman.hr238@yopmail.com");
+	data13.put("Company Name", "Forsman People Management AB");
 	data13.put("Country Code", "+46");
-	data13.put("Phone Number", "732849165");
-	data13.put("Message", "We are looking for an HR management platform to support employee information, department structure, attendance records, leave approvals, administrator permissions, team communication, and workforce reporting.");
+	data13.put("Phone Number", "703581946");
+	data13.put("Message", "We are looking for an HR management platform to support employee information, department structures, attendance records, leave approvals, administrator permissions, team communication, and workforce reporting.");
 
 	TreeMap<String, String> data14 = new TreeMap<String, String>();
 	data14.put("Selected Product", "Simplified Spaces");
-	data14.put("First Name", "Thijs Cornelis");
-	data14.put("Last Name", "Houtman");
-	data14.put("Email", "thijs.cornelis.houtman.spaces139@yopmail.com");
-	data14.put("Company Name", "Houtman Flexible Workspace BV");
+	data14.put("First Name", "Gijsbert Wouter");
+	data14.put("Last Name", "Van Nistel");
+	data14.put("Email", "gijsbert.wouter.vannistel.spaces239@yopmail.com");
+	data14.put("Company Name", "Van Nistel Flexible Workspace BV");
 	data14.put("Country Code", "+31");
-	data14.put("Phone Number", "682739451");
+	data14.put("Phone Number", "683197425");
 	data14.put("Message", "We operate flexible workspace locations and want to review Simplified Spaces for booking management, room availability, customer inquiry handling, space inventory, location-level reporting, and office usage planning.");
 
 	TreeMap<String, String> data15 = new TreeMap<String, String>();
 	data15.put("Selected Product", "Simplified Checkout, Simplified Hire");
-	data15.put("First Name", "Margaux Severine");
-	data15.put("Last Name", "Mercier");
-	data15.put("Email", "margaux.severine.mercier.checkout.hire140@yopmail.com");
-	data15.put("Company Name", "Mercier Commerce Talent AG");
+	data15.put("First Name", "Eliane Sabine");
+	data15.put("Last Name", "Rufenacht");
+	data15.put("Email", "eliane.sabine.rufenacht.checkout.hire240@yopmail.com");
+	data15.put("Company Name", "Rufenacht Commerce Talent AG");
 	data15.put("Country Code", "+41");
-	data15.put("Phone Number", "779284631");
-	data15.put("Message", "Our business wants to evaluate Checkout and Hire modules together for customer payment processing, transaction monitoring, candidate tracking, recruiter collaboration, hiring stages, and business reporting.");
+	data15.put("Phone Number", "763829451");
+	data15.put("Message", "Our business wants to evaluate Checkout and Hire modules together for customer payment processing, transaction monitoring, candidate tracking, recruiter collaboration, hiring stages, and business activity reporting.");
 
 	TreeMap<String, String> data16 = new TreeMap<String, String>();
 	data16.put("Selected Product", "Simplified HR, Simplified Spaces");
-	data16.put("First Name", "Bernhard Lukas");
-	data16.put("Last Name", "Rosenfeld");
-	data16.put("Email", "bernhard.lukas.rosenfeld.hrspaces141@yopmail.com");
-	data16.put("Company Name", "Rosenfeld Corporate Operations GmbH");
+	data16.put("First Name", "Quirin Theobald");
+	data16.put("Last Name", "Hartenfels");
+	data16.put("Email", "quirin.theobald.hartenfels.hrspaces241@yopmail.com");
+	data16.put("Company Name", "Hartenfels Corporate Operations GmbH");
 	data16.put("Country Code", "+49");
-	data16.put("Phone Number", "15273941860");
+	data16.put("Phone Number", "15492837160");
 	data16.put("Message", "We are a Germany-based operations company looking for HR and workspace modules to manage employee records, attendance, leave approvals, desk bookings, meeting rooms, office utilization, and internal reporting.");
 
 	TreeMap<String, String> data17 = new TreeMap<String, String>();
 	data17.put("Selected Product", "Simplified Checkout, Simplified HR");
-	data17.put("First Name", "Linnea Matilda");
-	data17.put("Last Name", "Engstrom");
-	data17.put("Email", "linnea.matilda.engstrom.checkouthr142@yopmail.com");
-	data17.put("Company Name", "Engstrom Business Systems AB");
+	data17.put("First Name", "Ebba Kristina");
+	data17.put("Last Name", "Soderberg");
+	data17.put("Email", "ebba.kristina.soderberg.checkouthr242@yopmail.com");
+	data17.put("Company Name", "Soderberg Business Systems AB");
 	data17.put("Country Code", "+46");
-	data17.put("Phone Number", "739462815");
+	data17.put("Phone Number", "737815294");
 	data17.put("Message", "We want to review Simplified Checkout and Simplified HR for online payment operations, transaction tracking, employee profile management, attendance visibility, leave approvals, and HR reporting workflows.");
 
 	TreeMap<String, String> data18 = new TreeMap<String, String>();
 	data18.put("Selected Product", "Simplified Hire, Simplified HR");
-	data18.put("First Name", "Raffaella Beatrice");
-	data18.put("Last Name", "Palmieri");
-	data18.put("Email", "raffaella.beatrice.palmieri.hirehr143@yopmail.com");
-	data18.put("Company Name", "Palmieri Workforce Management SRL");
+	data18.put("First Name", "Cosetta Margherita");
+	data18.put("Last Name", "Valenti");
+	data18.put("Email", "cosetta.margherita.valenti.hirehr243@yopmail.com");
+	data18.put("Company Name", "Valenti Workforce Management SRL");
 	data18.put("Country Code", "+39");
-	data18.put("Phone Number", "3465927180");
+	data18.put("Phone Number", "3459187260");
 	data18.put("Message", "Our workforce team needs support from candidate tracking and interview coordination through onboarding, employee profile creation, attendance records, leave approvals, and HR reporting after hiring.");
 
 	TreeMap<String, String> data19 = new TreeMap<String, String>();
 	data19.put("Selected Product", "Simplified Spaces");
-	data19.put("First Name", "Mikkel Anders");
-	data19.put("Last Name", "Rasmussen");
-	data19.put("Email", "mikkel.anders.rasmussen.spaces144@yopmail.com");
-	data19.put("Company Name", "Rasmussen Workspace Solutions ApS");
+	data19.put("First Name", "Kasper Bo");
+	data19.put("Last Name", "Ravnsholt");
+	data19.put("Email", "kasper.bo.ravnsholt.spaces244@yopmail.com");
+	data19.put("Company Name", "Ravnsholt Workspace Solutions ApS");
 	data19.put("Country Code", "+45");
-	data19.put("Phone Number", "42968137");
-	data19.put("Message", "We operate shared office locations and want to review Simplified Spaces for desk reservations, meeting room availability, customer requests, space allocation, multi-location visibility, and workspace performance reports.");
+	data19.put("Phone Number", "42618397");
+	data19.put("Message", "We operate shared office locations and want to review Simplified Spaces for desk reservations, meeting room availability, customer requests, space allocation, multi-location visibility, and workspace performance reporting.");
 
 	TreeMap<String, String> data20 = new TreeMap<String, String>();
 	data20.put("Selected Product", "Simplified Checkout, Simplified Hire, Simplified HR, Simplified Spaces");
-	data20.put("First Name", "Verena Adelheid");
-	data20.put("Last Name", "Schwanenberg");
-	data20.put("Email", "verena.adelheid.schwanenberg.allmodules145@yopmail.com");
-	data20.put("Company Name", "Schwanenberg Strategic Operations AG");
+	data20.put("First Name", "Odilia Seraphine");
+	data20.put("Last Name", "Bernoulli");
+	data20.put("Email", "odilia.seraphine.bernoulli.allmodules245@yopmail.com");
+	data20.put("Company Name", "Bernoulli Strategic Operations AG");
 	data20.put("Country Code", "+41");
-	data20.put("Phone Number", "798364152");
-	data20.put("Message", "We are comparing SaaS platforms for digital checkout, recruitment workflow, HR administration, and workspace coordination, and we would like a full demo covering all Simplified modules, pricing, setup, and implementation support.");
+	data20.put("Phone Number", "797315824");
+	data20.put("Message", "We are comparing SaaS platforms for digital checkout, recruitment workflows, HR administration, and workspace coordination, and we would like a full demo covering all Simplified modules, pricing, setup, and implementation support.");
 
-	return new Object[][] {/*
+	return new Object[][] {
 		{ data1 },
-		{ data2 }
+		{ data2 },
 		{ data3 },
-		{ data4 },,*/
-		{ data5 },/*
+		{ data4 },
+		{ data5 },
 		{ data6 },
 		{ data7 },
 		{ data8 },
@@ -2894,10 +3215,9 @@ public Object[][] Contact_Form_Data() {
 		{ data17 },
 		{ data18 },
 		{ data19 },
-		{ data20 } */
+		{ data20 }
 	};
 }
-
 
 
 
