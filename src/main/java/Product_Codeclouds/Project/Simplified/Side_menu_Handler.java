@@ -12,9 +12,12 @@ import Locaters.Side_menu_locaters;
 
 public class Side_menu_Handler extends Simplified_hire_login {
 
-	public void Menu_option_selector(String opt_text) throws IOException, InterruptedException {
+		public void Menu_option_selector(String opt_text) throws IOException, InterruptedException {
 
 		Side_menu_locaters p = new Side_menu_locaters(d);
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
 				"<b>🔹 Scenario Title:</b> Select required side menu option in Simplified Hire");
@@ -39,6 +42,9 @@ public class Side_menu_Handler extends Simplified_hire_login {
 				"✅ Expected: User should be able to access the Simplified Hire dashboard, fetch all visible side menu options successfully, and click the required side menu option.");
 		System.out.println();
 
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🏠 DASHBOARD ACCESS ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 🏠 DASHBOARD ACCESS ━━━━━━━━━━━━━━");
+
 		Report_Listen.log_print_in_report().log(Status.INFO,
 				"<b>Step 1:</b> Access Simplified Hire dashboard before working with side menu.");
 		System.out.println("Step 1: Access Simplified Hire dashboard before working with side menu.");
@@ -55,6 +61,9 @@ public class Side_menu_Handler extends Simplified_hire_login {
 		System.out.println("🟨 Actual: Simplified Hire dashboard accessed successfully.");
 		System.out.println();
 
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 📋 MENU OPTIONS ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 📋 MENU OPTIONS ━━━━━━━━━━━━━━");
+
 		Report_Listen.log_print_in_report().log(Status.INFO,
 				"<b>Step 2:</b> Open side menu and fetch all available menu options.");
 		System.out.println("Step 2: Open side menu and fetch all available menu options.");
@@ -66,6 +75,9 @@ public class Side_menu_Handler extends Simplified_hire_login {
 				"<b>🟨 Actual:</b> Side menu options fetched successfully. Total menu options found = " + menu_options.size());
 		System.out.println("🟨 Actual: Side menu options fetched successfully. Total menu options found = " + menu_options.size());
 		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🧭 MENU SELECTION ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 🧭 MENU SELECTION ━━━━━━━━━━━━━━");
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
 				"<b>Step 3:</b> Search for side menu option = " + opt_text + " and click on it.");
@@ -91,14 +103,27 @@ public class Side_menu_Handler extends Simplified_hire_login {
 			System.out.println("❌ Actual: Required side menu option was not found = " + opt_text);
 			System.out.println();
 		}
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
+
 	}
 
 	public void side_menu_expander() throws IOException, InterruptedException {
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ ↔️ SIDE MENU EXPANSION ━━━━━━━━━━━━━━</b>");
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step:</b> Expand the Simplified Hire side menu and verify that it is visible.");
+		System.out.println("━━━━━━━━━━━━━━ ↔️ SIDE MENU EXPANSION ━━━━━━━━━━━━━━");
+		System.out.println("Step: Expand the Simplified Hire side menu and verify that it is visible.");
 
 		Side_menu_locaters p = new Side_menu_locaters(d);
 
 		WebElement Menu_expand = p.Menu_Expander();
 		Menu_expand.click();
 		p.Side_menu();
+		Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Side menu expanded and displayed successfully.");
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		System.out.println("✅ Actual: Side menu expanded and displayed successfully.");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 	}
 }

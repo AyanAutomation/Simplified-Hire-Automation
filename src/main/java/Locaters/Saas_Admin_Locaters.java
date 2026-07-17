@@ -181,13 +181,13 @@ public class Saas_Admin_Locaters extends Repeat{
 		@FindBy(xpath="//*[@class='ant-card-body']//div[@class='d-flex align-items-center']//span[@style='box-sizing: border-box; display: block; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; max-width: 100%;']")
 		private List<WebElement> App_cards;
 		@FindBy(xpath="//div[@class='ant-tooltip ant-tooltip-placement-top ']//div[@role='tooltip']")
-		private WebElement Visibile_tooltip;/*
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
+		private WebElement Visibile_tooltip;
+		@FindBy(xpath="//button[@class='ant-btn ant-btn-default filter-btn']")
+		private WebElement filter_clear_button; 
+		@FindBy(xpath="//table//td[4]")
+		private List<WebElement> Table_Third_Column_Plan_Column_Values;
+		@FindBy(xpath="//span[contains(@class,'ant-tag ant-tag')]")
+		private List<WebElement> plan_status_tag;/*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -647,16 +647,16 @@ public class Saas_Admin_Locaters extends Repeat{
 		return App_cards;}
 		public WebElement Visibile_tooltip(){
 		wait_for_theElement(Visibile_tooltip);
-		return Visibile_tooltip;}/*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Visibile_tooltip;}
+		public WebElement filter_clear_button(){
+		wait_for_theElement(filter_clear_button);
+		return filter_clear_button;}
+		public List<WebElement> Table_Third_Column_Plan_Column_Values(){
+		wait_for_theElement(Table_Third_Column_Plan_Column_Values);
+		return Table_Third_Column_Plan_Column_Values;}
+		public List<WebElement> plan_status_tag(){
+		wait_for_theElement(plan_status_tag);
+		return plan_status_tag;}/*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}

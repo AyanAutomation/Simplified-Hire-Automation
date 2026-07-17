@@ -27,7 +27,7 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module{
 	
 	
 
-	@Test(dataProvider = "combined_data_provider")
+@Test(dataProvider = "combined_data_provider")
 	public void book_a_demo_form_fillup(TreeMap<String, String> form_data, TreeMap<String, String> Plan_data, TreeMap<String, String> upgrade_plan_datas, TreeMap<String, String> account_create_data) throws IOException, InterruptedException, AWTException {	
 	
 	int step = 1;
@@ -50,26 +50,41 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module{
 	String Spaces_plan_name = Plan_data.get("Spaces Plan Name");
 	String Hire_plan_name = Plan_data.get("Hire Plan Name");
 	String Hr_plan_name = Plan_data.get("Hr Plan Name");
-	String Target_Upgrade_Plan_Name = null;
+	String Target_Upgrade_Plan_Name = account_create_data.get("Plan Name");
 
 	if(Target_Upgrade_Plan_Name == null || Target_Upgrade_Plan_Name.trim().length() == 0) {
 		
-		if(Selected_Product.toLowerCase().contains("checkout")) {
+		if(Selected_Product.toLowerCase().contains("checkout")
+				&& account_create_data.get("Checkout Plan Name") != null) {
+			
 			Target_Upgrade_Plan_Name = account_create_data.get("Checkout Plan Name");
 		}
-		else if(Selected_Product.toLowerCase().contains("hire")) {
+		else if(Selected_Product.toLowerCase().contains("hire")
+				&& account_create_data.get("Hire Plan Name") != null) {
+			
 			Target_Upgrade_Plan_Name = account_create_data.get("Hire Plan Name");
 		}
-		else if(Selected_Product.toLowerCase().contains("hr")) {
+		else if(Selected_Product.toLowerCase().contains("hr")
+				&& account_create_data.get("Hr Plan Name") != null) {
+			
 			Target_Upgrade_Plan_Name = account_create_data.get("Hr Plan Name");
 		}
-		else if(Selected_Product.toLowerCase().contains("spaces")) {
+		else if(Selected_Product.toLowerCase().contains("spaces")
+				&& account_create_data.get("Spaces Plan Name") != null) {
+			
 			Target_Upgrade_Plan_Name = account_create_data.get("Spaces Plan Name");
 		}
+	}
+
+	if(Target_Upgrade_Plan_Name == null || Target_Upgrade_Plan_Name.trim().length() == 0) {
+		Target_Upgrade_Plan_Name = "Ayan";
 	}
 	String Upgrade_Users = account_create_data.get("Users");
 	
 	
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Validate Book a Demo form submission from frontend");
 	System.out.println();
 	System.out.println("🔹 Scenario Title: Validate Book a Demo form submission from frontend");
@@ -94,6 +109,9 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module{
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> User should be able to fill and submit the Book a Demo form. If CAPTCHA appears, it should be completed and the form should be submitted again. If CAPTCHA is absent, success or duplicate/error message should be captured directly.");
 	System.out.println("✅ Expected: User should be able to fill and submit the Book a Demo form. If CAPTCHA appears, it should be completed and the form should be submitted again. If CAPTCHA is absent, success or duplicate/error message should be captured directly.");
 	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🌐 FRONTEND ACCESS ━━━━━━━━━━━━━━</b>");
+	System.out.println("━━━━━━━━━━━━━━ 🌐 FRONTEND ACCESS ━━━━━━━━━━━━━━");
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Open frontend URL.");
 	System.out.println("Step " + (step - 1) + ": Open frontend URL.");
@@ -128,6 +146,9 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module{
 		System.out.println("⚠ Actual: Cookie banner was not displayed, so cookie accept step was skipped.");
 	}
 	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🧩 PRODUCT SELECTION ━━━━━━━━━━━━━━</b>");
+	System.out.println("━━━━━━━━━━━━━━ 🧩 PRODUCT SELECTION ━━━━━━━━━━━━━━");
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Fetch form input fields, message box, submit button, and product cards.");
 	System.out.println("Step " + (step - 1) + ": Fetch form input fields, message box, submit button, and product cards.");
@@ -234,6 +255,9 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module{
 	}
 	System.out.println();
 
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 📝 CONTACT DETAILS ━━━━━━━━━━━━━━</b>");
+	System.out.println("━━━━━━━━━━━━━━ 📝 CONTACT DETAILS ━━━━━━━━━━━━━━");
+
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Fill first name, last name, email, and company details.");
 	System.out.println("Step " + (step - 1) + ": Fill first name, last name, email, and company details.");
 	Input_Fields.get(0).sendKeys(First_Name);
@@ -288,6 +312,9 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module{
 	System.out.println("🟨 Actual: Phone number and message entered successfully.");
 	System.out.println();
 
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🚀 FORM SUBMISSION ━━━━━━━━━━━━━━</b>");
+	System.out.println("━━━━━━━━━━━━━━ 🚀 FORM SUBMISSION ━━━━━━━━━━━━━━");
+
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Submit Book a Demo form first time.");
 	System.out.println("Step " + (step - 1) + ": Submit Book a Demo form first time.");
 	rp.Scroll_to_element(Submit_Button);
@@ -296,6 +323,9 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module{
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Submit button clicked successfully for the first time.");
 	System.out.println("🟨 Actual: Submit button clicked successfully for the first time.");
 	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🔐 CAPTCHA HANDLING ━━━━━━━━━━━━━━</b>");
+	System.out.println("━━━━━━━━━━━━━━ 🔐 CAPTCHA HANDLING ━━━━━━━━━━━━━━");
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Check whether visible checkbox CAPTCHA appeared after first submit.");
 	System.out.println("Step " + (step - 1) + ": Check whether visible checkbox CAPTCHA appeared after first submit.");
@@ -338,6 +368,9 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module{
 	System.out.println();
 
 	Thread.sleep(1000);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 📬 SUBMISSION RESULT ━━━━━━━━━━━━━━</b>");
+	System.out.println("━━━━━━━━━━━━━━ 📬 SUBMISSION RESULT ━━━━━━━━━━━━━━");
+
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Capture Book a Demo form submission result message.");
 	System.out.println("Step " + (step - 1) + ": Capture Book a Demo form submission result message.");
 	WebElement below_submit_button = sa.Section_below_submit_button();
@@ -405,6 +438,9 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module{
 		System.out.println();
 		return;
 	}
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🔎 LEAD VERIFICATION ━━━━━━━━━━━━━━</b>");
+	System.out.println("━━━━━━━━━━━━━━ 🔎 LEAD VERIFICATION ━━━━━━━━━━━━━━");
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Navigate to SaaS Admin Lead module and search submitted lead.");
 	System.out.println("Step " + (step - 1) + ": Navigate to SaaS Admin Lead module and search submitted lead.");
@@ -479,7 +515,6 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module{
 			String Expected_Value_Normalized = Expected_Value.replaceAll("\\s+", " ").trim();
 			String Admin_Value_Normalized = Admin_Value.replaceAll("\\s+", " ").trim();
 
-			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> Comparing Lead Field | Label = " + Admin_Label + " | Expected = " + Expected_Value_Normalized + " | Actual = " + Admin_Value_Normalized);
 			System.out.println("🟨 Debug: Comparing Lead Field | Label = " + Admin_Label + " | Expected = " + Expected_Value_Normalized + " | Actual = " + Admin_Value_Normalized);
 
 			if(Admin_Value_Normalized.contains(Expected_Value_Normalized) || Expected_Value_Normalized.contains(Admin_Value_Normalized)) {
@@ -509,6 +544,9 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module{
 	}
 	System.out.println();
 
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ ✅ LEAD APPROVAL ━━━━━━━━━━━━━━</b>");
+	System.out.println("━━━━━━━━━━━━━━ ✅ LEAD APPROVAL ━━━━━━━━━━━━━━");
+
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Start SaaS Admin lead approval and plan assignment flow.");
 	System.out.println("Step " + (step - 1) + ": Start SaaS Admin lead approval and plan assignment flow.");
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📌 Approval Context:</b> The submitted lead will now be approved and assigned with the matching enabled application plans.");
@@ -520,14 +558,23 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module{
 	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Final Status:</b> Book a Demo form submission, SaaS Admin lead verification, lead approval, app plan assignment, and account creation flow completed successfully.");
 	System.out.println("✅ Final Status: Book a Demo form submission, SaaS Admin lead verification, lead approval, app plan assignment, and account creation flow completed successfully.");
 	System.out.println();
-	Quick_Plan_Upgrade_Several_times(form_data, account_create_data, upgrade_plan_datas, Target_Upgrade_Plan_Name);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🔄 PLAN UPGRADE ━━━━━━━━━━━━━━</b>");
+	System.out.println("━━━━━━━━━━━━━━ 🔄 PLAN UPGRADE ━━━━━━━━━━━━━━");
 
+	Target_Upgrade_Plan_Name = Quick_Plan_Upgrade_Several_times(form_data,account_create_data,upgrade_plan_datas,Target_Upgrade_Plan_Name);
+    
 	TreeMap<String, String> activation_data = new TreeMap<String, String>();
 	activation_data.putAll(form_data);
 	activation_data.put("Plan Name", Target_Upgrade_Plan_Name);
 	activation_data.put("Users", Upgrade_Users);
 
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🔑 ACCOUNT ACTIVATION ━━━━━━━━━━━━━━</b>");
+	System.out.println("━━━━━━━━━━━━━━ 🔑 ACCOUNT ACTIVATION ━━━━━━━━━━━━━━");
+
 	Account_Activator(activation_data,step);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
 }
 
 
@@ -539,12 +586,27 @@ public boolean Captcha_Bypass(WebElement captcha_frame) throws InterruptedExcept
 	boolean iframe_switched = false;
 	String captcha_stage = "CAPTCHA handling started";
 
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Section:</b> CAPTCHA Validation");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Switch into the visible CAPTCHA iframe, identify the checkbox control, complete the CAPTCHA interaction, verify the checked state, and return to the main page.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> CAPTCHA checkbox should be completed successfully and control should return to the default page content.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println("🔹 Scenario Section: CAPTCHA Validation");
+	System.out.println("📘 Description: Switch into the visible CAPTCHA iframe, identify the checkbox control, complete the CAPTCHA interaction, verify the checked state, and return to the main page.");
+	System.out.println("✅ Expected: CAPTCHA checkbox should be completed successfully and control should return to the default page content.");
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println();
+
 	try {
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🔐 CAPTCHA CHECKBOX ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 🔐 CAPTCHA CHECKBOX ━━━━━━━━━━━━━━");
+
 		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step:</b> Handle visible checkbox CAPTCHA.");
 		System.out.println("Step: Handle visible checkbox CAPTCHA.");
 
 		captcha_stage = "Switch into size=normal CAPTCHA iframe";
-		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> CAPTCHA iframe src = " + captcha_frame.getAttribute("src"));
 		System.out.println("🟨 Debug: CAPTCHA iframe src = " + captcha_frame.getAttribute("src"));
 
 		rp.Scroll_to_element(captcha_frame);
@@ -558,7 +620,6 @@ public boolean Captcha_Bypass(WebElement captcha_frame) throws InterruptedExcept
 		List<WebElement> checkbox_list = p.Captcha_checkbox_list();
 		List<WebElement> border_list = p.Captcha_checkbox_border_list();
 
-		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> Checkbox count = " + checkbox_list.size() + " | Border count = " + border_list.size());
 		System.out.println("🟨 Debug: Checkbox count = " + checkbox_list.size() + " | Border count = " + border_list.size());
 
 		if (checkbox_list.size() == 0 && border_list.size() == 0) {
@@ -569,7 +630,6 @@ public boolean Captcha_Bypass(WebElement captcha_frame) throws InterruptedExcept
 
 		WebElement captcha_target = checkbox_list.size() > 0 ? checkbox_list.get(0) : border_list.get(0);
 
-		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> CAPTCHA target | tag = " + captcha_target.getTagName() + " | id = " + captcha_target.getAttribute("id") + " | class = " + captcha_target.getAttribute("class") + " | role = " + captcha_target.getAttribute("role") + " | aria-checked = " + captcha_target.getAttribute("aria-checked"));
 		System.out.println("🟨 Debug: CAPTCHA target | tag = " + captcha_target.getTagName() + " | id = " + captcha_target.getAttribute("id") + " | class = " + captcha_target.getAttribute("class") + " | role = " + captcha_target.getAttribute("role") + " | aria-checked = " + captcha_target.getAttribute("aria-checked"));
 
 		captcha_stage = "Click CAPTCHA checkbox";
@@ -589,7 +649,6 @@ public boolean Captcha_Bypass(WebElement captcha_frame) throws InterruptedExcept
 		List<WebElement> anchor_list = d.findElements(By.xpath("//*[@id='recaptcha-anchor']"));
 		String captcha_status = anchor_list.size() > 0 ? anchor_list.get(0).getAttribute("aria-checked") : "not-found";
 
-		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> CAPTCHA verification | anchor count = " + anchor_list.size() + " | aria-checked = " + captcha_status);
 		System.out.println("🟨 Debug: CAPTCHA verification | anchor count = " + anchor_list.size() + " | aria-checked = " + captcha_status);
 
 		if (captcha_status.equals("true")) {
@@ -612,6 +671,8 @@ public boolean Captcha_Bypass(WebElement captcha_frame) throws InterruptedExcept
 			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Switched back to default content after CAPTCHA handling.");
 			System.out.println("🟨 Actual: Switched back to default content after CAPTCHA handling.");
 		}
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 	}
 }
 
