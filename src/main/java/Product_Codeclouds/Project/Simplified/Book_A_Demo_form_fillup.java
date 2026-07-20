@@ -27,7 +27,7 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module{
 	
 	
 
-@Test(dataProvider = "combined_data_provider")
+    @Test(dataProvider = "combined_data_provider")
 	public void book_a_demo_form_fillup(TreeMap<String, String> form_data, TreeMap<String, String> Plan_data, TreeMap<String, String> upgrade_plan_datas, TreeMap<String, String> account_create_data) throws IOException, InterruptedException, AWTException {	
 	
 	int step = 1;
