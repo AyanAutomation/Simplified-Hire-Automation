@@ -32,8 +32,7 @@ public class Cucumber_Saas_Admin_Module extends Saas_Admin_Module {
 
 		Bind_driver();
 
-		TreeMap<String, String> Account_Data = new TreeMap<String, String>(
-				Data_Table.asMap(String.class, String.class));
+		TreeMap<String, String> Account_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
 
 		Draft_Account_Create(Account_Data);
 	}
@@ -43,8 +42,7 @@ public class Cucumber_Saas_Admin_Module extends Saas_Admin_Module {
 
 		Bind_driver();
 
-		TreeMap<String, String> Account_Data = new TreeMap<String, String>(
-				Data_Table.asMap(String.class, String.class));
+		TreeMap<String, String> Account_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
 
 		Account_create(Account_Data);
 	}
@@ -54,8 +52,7 @@ public class Cucumber_Saas_Admin_Module extends Saas_Admin_Module {
 
 		Bind_driver();
 
-		TreeMap<String, String> Account_Data = new TreeMap<String, String>(
-				Data_Table.asMap(String.class, String.class));
+		TreeMap<String, String> Account_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
 
 		check_for_added_Account(Account_Data);
 	}
@@ -65,8 +62,7 @@ public class Cucumber_Saas_Admin_Module extends Saas_Admin_Module {
 
 		Bind_driver();
 
-		TreeMap<String, String> Contact_Form_Data = new TreeMap<String, String>(
-				Data_Table.asMap(String.class, String.class));
+		TreeMap<String, String> Contact_Form_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
 
 		Leads_Delete(Contact_Form_Data);
 	}
@@ -98,13 +94,11 @@ public class Cucumber_Saas_Admin_Module extends Saas_Admin_Module {
 			throw new IllegalStateException("Account feature data was not prepared before plan upgrade.");
 		}
 
-		TreeMap<String, String> Billing_Data = new TreeMap<String, String>(
-				Data_Table.asMap(String.class, String.class));
+		TreeMap<String, String> Billing_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
 
 		String Target_Upgrade_Plan_Name = Upgrade_Account_Data.get("Plan Name");
 
-		Quick_Plan_Upgrade_Several_times(Upgrade_Account_Data, Upgrade_Account_Data, Billing_Data,
-				Target_Upgrade_Plan_Name);
+		Quick_Plan_Upgrade_Several_times(Upgrade_Account_Data, Upgrade_Account_Data, Billing_Data,Target_Upgrade_Plan_Name);
 	}
 	
 
@@ -113,8 +107,7 @@ public class Cucumber_Saas_Admin_Module extends Saas_Admin_Module {
 
 		Bind_driver();
 
-		TreeMap<String, String> Account_Data = new TreeMap<String, String>(
-				Data_Table.asMap(String.class, String.class));
+		TreeMap<String, String> Account_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
 
 		Account_Activator(Account_Data, 1);
 	}
