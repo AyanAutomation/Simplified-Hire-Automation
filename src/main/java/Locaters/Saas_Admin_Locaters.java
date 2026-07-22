@@ -188,9 +188,7 @@ public class Saas_Admin_Locaters extends Repeat{
 		private List<WebElement> Table_Third_Column_Plan_Column_Values;
 		@FindBy(xpath="//span[contains(@class,'ant-tag ant-tag')]")
 		private List<WebElement> plan_status_tag;/*
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
+		
 		private WebElement  ;
 		@FindBy(xpath="")
 		private WebElement  ;
@@ -657,9 +655,6 @@ public class Saas_Admin_Locaters extends Repeat{
 		public List<WebElement> plan_status_tag(){
 		wait_for_theElement(plan_status_tag);
 		return plan_status_tag;}/*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
 		public WebElement (){
 		wait_for_theElement();
 		return ;}
