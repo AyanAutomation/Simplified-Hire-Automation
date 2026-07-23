@@ -445,11 +445,11 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module {
 
 		First_Name_Field.sendKeys(First_Name_With_Number);
 
-		WebElement First_Name_Error = p.New_Error_book_demo_form();
+		List <WebElement> First_Name_Error = p.New_Error_book_demo_form();
+        WebElement First_error=First_Name_Error.get(0);
+		rp.Scroll_to_element(First_error);
 
-		rp.Scroll_to_element(First_Name_Error);
-
-		String First_Name_Error_Text = First_Name_Error.getText().trim();
+		String First_Name_Error_Text = First_error.getText().trim();
 
 		if (!First_Name_Error_Text.isEmpty()) {
 
@@ -511,11 +511,11 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module {
 
 		Last_Name_Field.sendKeys(Last_Name_With_Number);
 
-		WebElement Last_Name_Error = p.New_Error_book_demo_form();
+		List <WebElement> Last_Name_Error = p.New_Error_book_demo_form();
+        WebElement firsterrror=Last_Name_Error.get(0);
+		rp.Scroll_to_element(firsterrror);
 
-		rp.Scroll_to_element(Last_Name_Error);
-
-		String Last_Name_Error_Text = Last_Name_Error.getText().trim();
+		String Last_Name_Error_Text = firsterrror.getText().trim();
 
 		if (!Last_Name_Error_Text.isEmpty()) {
 
@@ -714,6 +714,7 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module {
 					"🟨 Actual: Visible checkbox CAPTCHA iframe was found. Iframe Count = " + captcha_frames.size());
 
 			captcha_status = Captcha_Bypass(captcha_frames.get(0));
+			Thread.sleep(4800);
 		}
 
 		System.out.println();
@@ -1119,8 +1120,7 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module {
 		System.out.println(
 				"Step " + (step - 1) + ": Upgrade the created account plan using the target plan and billing data.");
 
-		Target_Upgrade_Plan_Name = Quick_Plan_Upgrade_Several_times(form_data, account_create_data, upgrade_plan_datas,
-				Target_Upgrade_Plan_Name);
+		Target_Upgrade_Plan_Name = Quick_Plan_Upgrade_Several_times(form_data, account_create_data, upgrade_plan_datas,Target_Upgrade_Plan_Name);
 
 		Report_Listen.log_print_in_report().log(Status.PASS,
 				"<b>✅ Actual:</b> Account plan upgrade flow completed successfully. Final Plan Name = "
@@ -1286,31 +1286,10 @@ public class Book_A_Demo_form_fillup extends Saas_Admin_Module {
 			Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
 			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 		}
+		
+		
 	}
 
-	@DataProvider
-	public Object[][] combined_data_provider() {
-
-		Object[][] book_demo_form_datas = Contact_Form_Data();
-		Object[][] Plan_datas = Plan_Type_Name_Data();
-		Object[][] Plan_Upgrade_datas = Plan_Upgrade_Billing_Data();
-		Object[][] Account_Create_datas = Account_Create_Data();
-
-		int n = IntStream.of(book_demo_form_datas.length, Plan_datas.length, Plan_Upgrade_datas.length,
-				Account_Create_datas.length).min().orElse(0);
-
-		Object[][] combined_data = new Object[n][4];
-
-		int i = 0;
-		while (i < n) {
-			combined_data[i][0] = book_demo_form_datas[i][0]; // Frontend Book a Demo form data
-			combined_data[i][1] = Plan_datas[i][0]; // Lead Plan Assigner Data
-			combined_data[i][2] = Plan_Upgrade_datas[i][0]; // Plan Upgrade Billing Data
-			combined_data[i][3] = Account_Create_datas[i][0]; // Account data for target upgrade plan name
-
-			i++;
-		}
-		return combined_data;
-	}
+	
 
 }

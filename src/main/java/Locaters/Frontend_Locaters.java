@@ -37,8 +37,8 @@ public class Frontend_Locaters extends Repeat{
 		private WebElement error_message;  
 		@FindBy(xpath="//span[contains(@class,'bookADemo_custom_checkbox__')]")
 		private List<WebElement> Product_check_boxes; 
-		@FindBy(xpath="//*[@class='bookADemo_error_text__Y21_V']")
-		private WebElement New_Error_book_demo_form;/*
+		@FindBy(id="book_demo_error_message")
+		private List <WebElement> New_Error_book_demo_form;/*
 		@FindBy(xpath="")
 		@FindBy(xpath="")
 		private WebElement  ;
@@ -393,7 +393,7 @@ public class Frontend_Locaters extends Repeat{
 		public List<WebElement> Product_check_boxes(){
 		wait_for_theElement(Product_check_boxes);
 		return Product_check_boxes;}
-		public WebElement New_Error_book_demo_form(){
+		public List <WebElement> New_Error_book_demo_form(){
 		wait_for_theElement(New_Error_book_demo_form);
 		return New_Error_book_demo_form;}/*
 		public WebElement (){
