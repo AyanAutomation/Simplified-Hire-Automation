@@ -11,6 +11,8 @@ import io.cucumber.java.en.When;
 
 public class Cucumber_Saas_Admin_Module extends Saas_Admin_Module {
 
+	private TreeMap<String, String> Create_Account_Plan_Data;
+	private TreeMap<String, String> Create_Account_Billing_Data;
 	private TreeMap<String, String> Upgrade_Account_Data;
 
 	public void Bind_driver() {
@@ -37,6 +39,22 @@ public class Cucumber_Saas_Admin_Module extends Saas_Admin_Module {
 		Draft_Account_Create(Account_Data);
 	}
 
+	@Given("SaaS Admin account plan data is provided from the feature file")
+	public void Store_Create_Account_Plan_Data(DataTable Data_Table) {
+
+		Bind_driver();
+
+		Create_Account_Plan_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
+	}
+
+	@Given("SaaS Admin account billing data is provided from the feature file")
+	public void Store_Create_Account_Billing_Data(DataTable Data_Table) {
+
+		Bind_driver();
+
+		Create_Account_Billing_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
+	}
+
 	@Given("create SaaS Admin account using the following feature data")
 	public void Create_Account_Using_Feature_Data(DataTable Data_Table) throws IOException, InterruptedException {
 
@@ -44,7 +62,17 @@ public class Cucumber_Saas_Admin_Module extends Saas_Admin_Module {
 
 		TreeMap<String, String> Account_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
 
-		Account_create(Account_Data);
+		if (Create_Account_Plan_Data == null) {
+
+			throw new IllegalStateException("SaaS Admin account plan data was not provided before account creation.");
+		}
+
+		if (Create_Account_Billing_Data == null) {
+
+			throw new IllegalStateException("SaaS Admin account billing data was not provided before account creation.");
+		}
+
+		Account_create(Account_Data, Create_Account_Plan_Data, Create_Account_Billing_Data, Account_Data);
 	}
 
 	@Given("verify SaaS Admin account using the following feature data")
@@ -68,7 +96,8 @@ public class Cucumber_Saas_Admin_Module extends Saas_Admin_Module {
 	}
 
 	@Given("approve SaaS Admin lead using the following feature data")
-	public void Approve_Lead_Using_Feature_Data(DataTable Data_Table)throws IOException, InterruptedException, AWTException {
+	public void Approve_Lead_Using_Feature_Data(DataTable Data_Table)
+			throws IOException, InterruptedException, AWTException {
 
 		Bind_driver();
 
@@ -85,9 +114,10 @@ public class Cucumber_Saas_Admin_Module extends Saas_Admin_Module {
 		Upgrade_Account_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
 	}
 
-	
 	@When("the SaaS Admin account plan is upgraded using the following billing feature data")
 	public void Upgrade_Account_Plan_Using_Feature_Data(DataTable Data_Table) throws IOException, InterruptedException {
+
+		Bind_driver();
 
 		if (Upgrade_Account_Data == null) {
 
@@ -100,7 +130,6 @@ public class Cucumber_Saas_Admin_Module extends Saas_Admin_Module {
 
 		Quick_Plan_Upgrade_Several_times(Upgrade_Account_Data, Upgrade_Account_Data, Billing_Data,Target_Upgrade_Plan_Name);
 	}
-	
 
 	@Given("activate SaaS Admin account using the following feature data")
 	public void Activate_Account_Using_Feature_Data(DataTable Data_Table) throws IOException, InterruptedException {
