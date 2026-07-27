@@ -189,13 +189,13 @@ public class Saas_Admin_Locaters extends Repeat{
 		@FindBy(xpath="//span[contains(@class,'ant-tag ant-tag')]")
 		private List<WebElement> plan_status_tag;
 		@FindBy(xpath="//div[@class='ant-tooltip ant-tooltip-placement-top ']")
-		private WebElement List_Area_Tooltip;/*
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
+		private WebElement List_Area_Tooltip;
+		@FindBy(xpath="//div[@role='progressbar']")
+		private WebElement Progress_Bar;
+		@FindBy(xpath="//div[@class='screen-edit-cell ']")
+		private WebElement impersonated_box; 
+		@FindBy(xpath="(//div[@class='ant-card-body'])[1]")
+		private WebElement  Account_Owner_Plan_List_Section;/*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -655,19 +655,20 @@ public class Saas_Admin_Locaters extends Repeat{
 		return plan_status_tag;}
 		public WebElement List_Area_Tooltip(){
 		wait_for_theElement(List_Area_Tooltip);
-		return List_Area_Tooltip;} /*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return List_Area_Tooltip;} 
+		public WebElement Progress_Bar(){
+		wait_for_theElement(Progress_Bar);
+		return Progress_Bar;} 
+		public WebElement impersonated_box(){
+		wait_for_theElement(impersonated_box);
+		return impersonated_box;} 
+		public WebElement Account_Owner_Plan_List_Section(){
+		wait_for_theElement(Account_Owner_Plan_List_Section);
+		return Account_Owner_Plan_List_Section;} 
+		public List<WebElement> Listed_Plans_Elements(){
+		List<WebElement> Listed_Plans_Elements = Account_Owner_Plan_List_Section.findElements(By.xpath(".//ul//li[@class='list-color']"));
+		wait_for_theElement(Listed_Plans_Elements);
+		return Listed_Plans_Elements;}/*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}
