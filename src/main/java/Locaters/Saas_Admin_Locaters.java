@@ -90,6 +90,8 @@ public class Saas_Admin_Locaters extends Repeat{
 		private WebElement Save_Draft_Button; 
 		@FindBy(xpath="(//*[text()='Save & Invite']/..)[2]")
 		private WebElement Save_Invite_Button; 
+		@FindBy(xpath="(//*[text()='Save']/..)[2]")
+	    private WebElement Save_Button; 
 		@FindBy(id="company_country")
 		private WebElement Country_input;
 		@FindBy(xpath="//*[contains(@class,'ant-select-dropdown-placement-bottomLeft')]")
@@ -194,42 +196,42 @@ public class Saas_Admin_Locaters extends Repeat{
 		private WebElement Progress_Bar;
 		@FindBy(xpath="//div[@class='screen-edit-cell ']")
 		private WebElement impersonated_box; 
-		@FindBy(xpath="(//div[@class='ant-card-body'])[1]")
-		private WebElement  Account_Owner_Plan_List_Section;/*
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
+		@FindBy(xpath="(//div[@class='ant-card-body']//ul)[1]")
+		private WebElement  Account_Owner_Plan_List_Section;
+		@FindBy(xpath="(//div[contains(@class,'plansPage_planInfo__')])[1]")
+		private WebElement Landed_in_plans_page;
+		@FindBy(xpath="(//div[contains(@class,'plansPage_planInfo__')])")
+		private List<WebElement> Plans_Sections;
+		@FindBy(xpath="//form")
+		private WebElement form;
+		@FindBy(id="plan_name")
+		private WebElement plan_name_input;
+		@FindBy(id="plan_price")
+		private WebElement Plan_price_input; 
+		@FindBy(id="number_of_shared_instances")
+		private WebElement Instances_Input;
+		@FindBy(id="price_number_of_shared_instances")
+		private WebElement Price_Per_Instances_Input;
+		@FindBy(id="number_of_private_instances")
+		private WebElement private_instances;
+		@FindBy(id="no_of_events_can_manage")
+		private WebElement  Events_Management;
+		@FindBy(id="direct_link_checkout")
+		private WebElement direct_link_checkout;
+		@FindBy(id="custom_fields")
+		private WebElement Custom_field_input;
+		@FindBy(id="1_click_upsell")
+		private WebElement One_click_upsell;
+		@FindBy(id="no_of_cross_sell")
+		private WebElement Cross_Sells_Input;
+		@FindBy(id="no_of_bundles")
+		private WebElement Bundles;
+		@FindBy(id="shield")
+		private WebElement shield_input;
+		@FindBy(xpath="//*[text()='Every']/../../../../..//input[@class='ant-input']")
+		private WebElement Every_input_field;
+		@FindBy(xpath="//*[text()='Every']/../../../../..//*[@class='ant-select ant-select-single ant-select-show-arrow']")
+		private WebElement Every_fields_dropdown;/*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -666,66 +668,67 @@ public class Saas_Admin_Locaters extends Repeat{
 		wait_for_theElement(Account_Owner_Plan_List_Section);
 		return Account_Owner_Plan_List_Section;} 
 		public List<WebElement> Listed_Plans_Elements(){
-		List<WebElement> Listed_Plans_Elements = Account_Owner_Plan_List_Section.findElements(By.xpath(".//ul//li[@class='list-color']"));
+		List<WebElement> Listed_Plans_Elements = Account_Owner_Plan_List_Section().findElements(By.xpath(".//li"));
 		wait_for_theElement(Listed_Plans_Elements);
-		return Listed_Plans_Elements;}/*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Listed_Plans_Elements;}
+		public WebElement Landed_in_plans_page(){
+		wait_for_theElement(Landed_in_plans_page);
+		return Landed_in_plans_page;}
+		public List<WebElement> Plans_Sections(){
+		wait_for_theElement(Plans_Sections);
+		return Plans_Sections;}
+		public WebElement form(){
+		wait_for_theElement(form);
+		return form;} 
+		public List<WebElement> Form_Inputs(WebElement Form_element){
+		List<WebElement> Form_Inputs = Form_element.findElements(By.xpath(".//*[@class='ant-form-item-control-input']"));
+		wait_for_theElement(Form_Inputs);
+		return Form_Inputs;} 
+		public WebElement plan_name_input(){
+		wait_for_theElement(plan_name_input);
+		return plan_name_input;}
+		public WebElement Plan_price_input(){
+		wait_for_theElement(Plan_price_input);
+		return Plan_price_input;} 
+		public WebElement Instances_Input(){
+		wait_for_theElement(Instances_Input);
+		return Instances_Input;}
+		public WebElement Price_Per_Instances_Input(){
+		wait_for_theElement(Price_Per_Instances_Input);
+		return Price_Per_Instances_Input;}
+		public WebElement private_instances_input(){
+		wait_for_theElement(private_instances);
+		return private_instances;}
+		public WebElement Events_Management_input(){
+		wait_for_theElement(Events_Management);
+		return Events_Management;}
+		public WebElement direct_link_checkout_input(){
+		wait_for_theElement(direct_link_checkout);
+		return direct_link_checkout;}
+		public WebElement Custom_field_input(){
+		wait_for_theElement(Custom_field_input);
+		return Custom_field_input;}
+		public WebElement One_click_upsell_input(){
+		wait_for_theElement(One_click_upsell);
+		return One_click_upsell;}
+		public WebElement Cross_Sells_Input(){
+		wait_for_theElement(Cross_Sells_Input);
+		return Cross_Sells_Input;}
+		public WebElement Bundles_input(){
+		wait_for_theElement(Bundles);
+		return Bundles;}
+		public WebElement shield_input(){
+		wait_for_theElement(shield_input);
+		return shield_input;}
+		public WebElement Every_input_field(){
+		wait_for_theElement(Every_input_field);
+		return Every_input_field;}
+		public WebElement Every_fields_dropdown(){
+		wait_for_theElement(Every_fields_dropdown);
+		return Every_fields_dropdown;}
+		public WebElement Save_Button(){
+		wait_for_theElement(Save_Button);
+		return Save_Button;}/*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}
