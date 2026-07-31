@@ -478,36 +478,36 @@ public class Saas_Admin_Module extends Base {
 	}
 	
 	
-	
-@Test(dataProvider = "Checkout_Plan_Create_Data")
-public void Plan_Add(TreeMap<String, String> Checkout_Data) throws IOException, InterruptedException {
+@Test(dataProvider = "Combined_Plan_Data_Provider")
+public void Plan_Add(TreeMap<String, String> Checkout_Data, TreeMap<String, String> Spaces_Data) throws IOException, InterruptedException {
 
 	Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
 
-	String Plan_Name = Checkout_Data.get("Plan Name");
-	String Billing_Period = Checkout_Data.get("Billing Period");
-	String Plan_Pricing = Checkout_Data.get("Plan Pricing");
-	String Instance = Checkout_Data.get("Instance");
-	String Price_For_Instance = Checkout_Data.get("Price for Instance");
+	String Checkout_Plan_Name = Checkout_Data.isEmpty() ? "Not Provided" : Checkout_Data.get("Plan Name");
+	String Checkout_Billing_Period = Checkout_Data.isEmpty() ? "Not Provided" : Checkout_Data.get("Billing Period");
+	String Spaces_Plan_Name = Spaces_Data.isEmpty() ? "Not Provided" : Spaces_Data.get("Plan Name");
+	String Spaces_Billing_Period = Spaces_Data.isEmpty() ? "Not Provided" : Spaces_Data.get("Billing Period");
 
 	int step = 1;
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Create a new Simplified Checkout plan");
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Navigate to the SaaS Admin Plans module, open the Checkout plan creation form, enter the supplied billing, pricing, instance, and feature-limit details, save the plan, and verify that the Plans page is displayed after creation.");
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Plan Name = " + Plan_Name + " | Billing Period = " + Billing_Period + " | Plan Pricing = " + Plan_Pricing + " | Instances = " + Instance + " | Price Per Instance = " + Price_For_Instance);
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> The Checkout plan should be created successfully using the supplied plan configuration.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Create Simplified Checkout and Simplified Spaces plans using combined datasets");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Navigate to the SaaS Admin Plans module, fetch all application-plan sections once according to the configured section order, and reuse the corresponding Checkout and Spaces sections to create both plans.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Checkout Input:</b> Plan Name = " + Checkout_Plan_Name + " | Billing Period = " + Checkout_Billing_Period);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Spaces Input:</b> Plan Name = " + Spaces_Plan_Name + " | Billing Period = " + Spaces_Billing_Period);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> Checkout should use section index 1, Spaces should use section index 0, and both supplied datasets should be processed using the initially fetched plan sections.");
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
 
 	System.out.println();
 	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-	System.out.println("🔹 Scenario Title: Create a new Simplified Checkout plan");
+	System.out.println("🔹 Scenario Title: Create Simplified Checkout and Simplified Spaces plans using combined datasets");
 	System.out.println();
-	System.out.println("📘 Description: Navigate to the SaaS Admin Plans module, open the Checkout plan creation form, enter the supplied billing, pricing, instance, and feature-limit details, save the plan, and verify that the Plans page is displayed after creation.");
+	System.out.println("📘 Description: Navigate to the SaaS Admin Plans module, fetch all application-plan sections once according to the configured section order, and reuse the corresponding Checkout and Spaces sections to create both plans.");
 	System.out.println();
-	System.out.println("📥 Input: Plan Name = " + Plan_Name + " | Billing Period = " + Billing_Period + " | Plan Pricing = " + Plan_Pricing + " | Instances = " + Instance + " | Price Per Instance = " + Price_For_Instance);
+	System.out.println("📥 Checkout Input: Plan Name = " + Checkout_Plan_Name + " | Billing Period = " + Checkout_Billing_Period);
+	System.out.println("📥 Spaces Input: Plan Name = " + Spaces_Plan_Name + " | Billing Period = " + Spaces_Billing_Period);
 	System.out.println();
-	System.out.println("✅ Expected: The Checkout plan should be created successfully using the supplied plan configuration.");
+	System.out.println("✅ Expected: Checkout should use section index 1, Spaces should use section index 0, and both supplied datasets should be processed using the initially fetched plan sections.");
 	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 	System.out.println();
 
@@ -524,31 +524,72 @@ public void Plan_Add(TreeMap<String, String> Checkout_Data) throws IOException, 
 	System.out.println("✅ Actual: SaaS Admin Plans page opened successfully.");
 	System.out.println();
 
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Fetch the available application-plan sections and select the Simplified Checkout section.");
-	System.out.println("Step " + (step - 1) + ": Fetch the available application-plan sections and select the Simplified Checkout section.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Fetch all application-plan sections once and map them according to their configured indexes.");
+	System.out.println("Step " + (step - 1) + ": Fetch all application-plan sections once and map them according to their configured indexes.");
 
 	List<WebElement> Plan_info_sections = p.Plans_Sections();
+	WebElement Spaces_plan_section = Plan_info_sections.get(0);
 	WebElement Checkout_plan_section = Plan_info_sections.get(1);
+	WebElement HR_plan_section = Plan_info_sections.get(2);
+	WebElement Hire_plan_section = Plan_info_sections.get(3);
 
-	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Simplified Checkout plan section fetched successfully.");
-	System.out.println("✅ Actual: Simplified Checkout plan section fetched successfully.");
-	System.out.println();
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Application-plan sections fetched and mapped successfully. Spaces Index = 0 | Checkout Index = 1 | HR Index = 2 | Hire Index = 3.");
+	System.out.println("✅ Actual: Application-plan sections fetched and mapped successfully.");
+	System.out.println("🟨 Debug: Spaces Plan Section Index = 0");
+	System.out.println("🟨 Debug: Checkout Plan Section Index = 1");
+	System.out.println("🟨 Debug: HR Plan Section Index = 2");
+	System.out.println("🟨 Debug: Hire Plan Section Index = 3");
+	System.out.println(); /*
 
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ ➕ CHECKOUT PLAN CREATION ━━━━━━━━━━━━━━</b>");
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Create the Checkout plan using the supplied dataset.");
+	if (!Checkout_Data.isEmpty()) {
 
-	System.out.println("━━━━━━━━━━━━━━ ➕ CHECKOUT PLAN CREATION ━━━━━━━━━━━━━━");
-	System.out.println("Step " + (step - 1) + ": Create the Checkout plan using the supplied dataset.");
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ ➕ CHECKOUT PLAN CREATION ━━━━━━━━━━━━━━</b>");
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Create the Simplified Checkout plan using the previously fetched section at index 1.");
 
-	Checkout_Plan_Add(Checkout_plan_section, Checkout_Data);
-	p.Landed_in_plans_page();
+		System.out.println("━━━━━━━━━━━━━━ ➕ CHECKOUT PLAN CREATION ━━━━━━━━━━━━━━");
+		System.out.println("Step " + (step - 1) + ": Create the Simplified Checkout plan using the previously fetched section at index 1.");
 
-	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Final Result:</b> Simplified Checkout plan creation flow completed successfully. Plan Name = " + Plan_Name + " | Billing Period = " + Billing_Period + " | Plan Pricing = " + Plan_Pricing);
+		Checkout_Plan_Add(Checkout_plan_section, Checkout_Data);
+		p.Landed_in_plans_page();
+
+		Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Simplified Checkout plan created successfully. Plan Name = " + Checkout_Plan_Name + " | Billing Period = " + Checkout_Billing_Period + " | Section Index = 1");
+		System.out.println("✅ Actual: Simplified Checkout plan created successfully. Plan Name = " + Checkout_Plan_Name + " | Billing Period = " + Checkout_Billing_Period + " | Section Index = 1");
+		System.out.println();
+
+	} else {
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Skipped:</b> Checkout plan creation was skipped because no Checkout dataset was supplied for the current combined-data row.");
+		System.out.println("🟨 Skipped: Checkout plan creation was skipped because no Checkout dataset was supplied for the current combined-data row.");
+		System.out.println();
+	} */
+
+	if (!Spaces_Data.isEmpty()) {
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ ➕ SPACES PLAN CREATION ━━━━━━━━━━━━━━</b>");
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Create the Simplified Spaces plan using the previously fetched section at index 0.");
+
+		System.out.println("━━━━━━━━━━━━━━ ➕ SPACES PLAN CREATION ━━━━━━━━━━━━━━");
+		System.out.println("Step " + (step - 1) + ": Create the Simplified Spaces plan using the previously fetched section at index 0.");
+
+		Spaces_Plan_Add(Spaces_plan_section, Spaces_Data);/*
+		p.Landed_in_plans_page();
+
+		Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Simplified Spaces plan created successfully. Plan Name = " + Spaces_Plan_Name + " | Billing Period = " + Spaces_Billing_Period + " | Section Index = 0");
+		System.out.println("✅ Actual: Simplified Spaces plan created successfully. Plan Name = " + Spaces_Plan_Name + " | Billing Period = " + Spaces_Billing_Period + " | Section Index = 0");
+		System.out.println(); */
+
+	} else {
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Skipped:</b> Spaces plan creation was skipped because no Spaces dataset was supplied for the current combined-data row.");
+		System.out.println("🟨 Skipped: Spaces plan creation was skipped because no Spaces dataset was supplied for the current combined-data row.");
+		System.out.println();
+	}
+    /*
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Final Result:</b> Combined plan-data execution completed successfully using the initially fetched application-plan sections. Checkout Plan = " + Checkout_Plan_Name + " | Spaces Plan = " + Spaces_Plan_Name);
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
 
-	System.out.println("✅ Final Result: Simplified Checkout plan creation flow completed successfully. Plan Name = " + Plan_Name + " | Billing Period = " + Billing_Period + " | Plan Pricing = " + Plan_Pricing);
+	System.out.println("✅ Final Result: Combined plan-data execution completed successfully using the initially fetched application-plan sections. Checkout Plan = " + Checkout_Plan_Name + " | Spaces Plan = " + Spaces_Plan_Name);
 	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 	System.out.println();
+	*/
 }
 
 
@@ -819,6 +860,547 @@ public void Checkout_Plan_Add(WebElement Plan_Section, TreeMap<String, String> C
 	System.out.println();
 }
 	
+
+public void Spaces_Plan_Add(WebElement Plan_Section, TreeMap<String, String> Spaces_Data) throws InterruptedException, IOException {
+
+	Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+	Repeat rp = new Repeat(d);
+
+	String Plan_Name = Spaces_Data.get("Plan Name");
+	String Availability = Spaces_Data.get("Availability");
+	String Description = Spaces_Data.get("Description");
+	String Direct_Subscription = Spaces_Data.get("Direct Subscription");
+	String Billing_Period = Spaces_Data.get("Billing Period");
+	String Number_Of_Locations = Spaces_Data.get("Number of Locations");
+	String Monthly_Pricing_Currency = Spaces_Data.get("Monthly Pricing Currency");
+	String Monthly_Pricing_Per_Location = Spaces_Data.get("Monthly Pricing Per Location");
+	String Yearly_Pricing_Currency = Spaces_Data.get("Yearly Pricing Currency");
+	String Yearly_Pricing_Per_Location = Spaces_Data.get("Yearly Pricing Per Location");
+
+	int step = 1;
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Create a Simplified Spaces plan");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Open the Spaces plan form using the supplied plan section, enter the complete plan configuration, configure monthly and yearly location pricing, and save the plan.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Plan Input:</b> Plan Name = " + Plan_Name + " | Availability = " + Availability + " | Direct Subscription = " + Direct_Subscription + " | Billing Period = " + Billing_Period + " | Number of Locations = " + Number_Of_Locations);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Pricing Input:</b> Monthly Currency = " + Monthly_Pricing_Currency + " | Monthly Price Per Location = " + Monthly_Pricing_Per_Location + " | Yearly Currency = " + Yearly_Pricing_Currency + " | Yearly Price Per Location = " + Yearly_Pricing_Per_Location);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> The complete Spaces plan configuration should be accepted and the plan should be saved successfully.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+
+	System.out.println();
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println("🔹 Scenario Title: Create a Simplified Spaces plan");
+	System.out.println();
+	System.out.println("📘 Description: Open the Spaces plan form using the supplied plan section, enter the complete plan configuration, configure monthly and yearly location pricing, and save the plan.");
+	System.out.println();
+	System.out.println("📥 Plan Input: Plan Name = " + Plan_Name + " | Availability = " + Availability + " | Direct Subscription = " + Direct_Subscription + " | Billing Period = " + Billing_Period + " | Number of Locations = " + Number_Of_Locations);
+	System.out.println();
+	System.out.println("📥 Pricing Input: Monthly Currency = " + Monthly_Pricing_Currency + " | Monthly Price Per Location = " + Monthly_Pricing_Per_Location + " | Yearly Currency = " + Yearly_Pricing_Currency + " | Yearly Price Per Location = " + Yearly_Pricing_Per_Location);
+	System.out.println();
+	System.out.println("✅ Expected: The complete Spaces plan configuration should be accepted and the plan should be saved successfully.");
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 📝 SPACES PLAN FORM ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Open the Simplified Spaces plan creation form.");
+
+	System.out.println("━━━━━━━━━━━━━━ 📝 SPACES PLAN FORM ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Open the Simplified Spaces plan creation form.");
+
+	rp.Scroll_to_element(Plan_Section);
+	rp.movetoelement(Plan_Section);
+
+	WebElement Add_Button = Plan_Section.findElement(By.xpath(".//button"));
+	Add_Button.click();
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Simplified Spaces plan creation form opened successfully.");
+	System.out.println("✅ Actual: Simplified Spaces plan creation form opened successfully.");
+	System.out.println();
+
+	WebElement Form;
+	List<WebElement> Form_Fields;
+
+	WebElement Plan_Name_Field;
+	WebElement Availability_Field;
+	WebElement Description_Field;
+	WebElement Direct_Subscription_Field;
+	WebElement Billing_Period_Field;
+	WebElement Number_Of_Locations_Field;
+	WebElement Monthly_Pricing_Currency_Field;
+	WebElement Yearly_Pricing_Currency_Field;
+
+	WebElement Plan_Name_Input;
+	WebElement Description_Input;
+	WebElement Direct_Subscription_Toggle;
+	WebElement Number_Of_Locations_Input;
+	WebElement Monthly_Pricing_Per_Location_Input;
+	WebElement Yearly_Pricing_Per_Location_Input;
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Fetch the Spaces form fields and input elements.");
+	System.out.println("Step " + (step - 1) + ": Fetch the Spaces form fields and input elements.");
+
+	try {
+		Form = p.form();
+		Form_Fields = p.Form_Inputs(Form);
+
+		Plan_Name_Field = Form_Fields.get(0);
+		Availability_Field = Form_Fields.get(1);
+		Description_Field = Form_Fields.get(2);
+		Direct_Subscription_Field = Form_Fields.get(3);
+		Billing_Period_Field = Form_Fields.get(4);
+		Number_Of_Locations_Field = Form_Fields.get(5);
+		Monthly_Pricing_Currency_Field = Form_Fields.get(6);
+		Yearly_Pricing_Currency_Field = Form_Fields.get(7);
+
+		Plan_Name_Input = p.plan_name_input();
+		Description_Input = p.Description_input();
+		//Direct_Subscription_Toggle = Direct_Subscription_Field.findElement(By.xpath(".//button"));
+		Number_Of_Locations_Input = p.No_of_Location_Feild();
+		Monthly_Pricing_Per_Location_Input = p.Monthly_Pricing_Input();
+		Yearly_Pricing_Per_Location_Input = p.Yearly_Pricing_Input();
+
+		Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Spaces form fields and input elements fetched successfully.");
+		System.out.println("✅ Actual: Spaces form fields and input elements fetched successfully.");
+
+	} catch (Exception Form_Elements_Not_Found) {
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Retry:</b> Initial Spaces form-element fetch failed. Re-fetching the form and required elements.");
+		System.out.println("🟨 Retry: Initial Spaces form-element fetch failed. Re-fetching the form and required elements.");
+		System.out.println("🟨 Debug Reason: " + Form_Elements_Not_Found.getMessage());
+
+		Thread.sleep(800);
+
+		Form = p.form();
+		Form_Fields = p.Form_Inputs(Form);
+
+		Plan_Name_Field = Form_Fields.get(0);
+		Availability_Field = Form_Fields.get(1);
+		Description_Field = Form_Fields.get(2);
+		Direct_Subscription_Field = Form_Fields.get(3);
+		Billing_Period_Field = Form_Fields.get(4);
+		Number_Of_Locations_Field = Form_Fields.get(5);
+		Monthly_Pricing_Currency_Field = Form_Fields.get(6);
+		Yearly_Pricing_Currency_Field = Form_Fields.get(7);
+
+		Plan_Name_Input = p.plan_name_input();
+		Description_Input = p.Description_input();
+		 //Direct_Subscription_Toggle = Direct_Subscription_Field.findElement(By.xpath(".//button"));
+		Number_Of_Locations_Input = p.No_of_Location_Feild();
+		Monthly_Pricing_Per_Location_Input = p.Monthly_Pricing_Input();
+		Yearly_Pricing_Per_Location_Input = p.Yearly_Pricing_Input();
+
+		Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Spaces form fields and input elements fetched successfully during retry.");
+		System.out.println("✅ Actual: Spaces form fields and input elements fetched successfully during retry.");
+	}
+
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 📋 BASIC PLAN DETAILS ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Enter the plan name, availability, description, and direct-subscription setting.");
+
+	System.out.println("━━━━━━━━━━━━━━ 📋 BASIC PLAN DETAILS ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Enter the plan name, availability, description, and direct-subscription setting.");
+
+	Plan_Name_Field.click();
+	Plan_Name_Input.clear();
+	Plan_Name_Input.sendKeys(Plan_Name);
+
+	Availability_Field.click();
+
+	WebElement Availability_Dropdown = p.rc_virtual_list_holder_one();
+	List<WebElement> Availability_Options = Availability_Dropdown.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+
+	for (WebElement Availability_Option : Availability_Options) {
+		String Availability_Option_Text = Availability_Option.getText().trim();
+
+		if (Availability_Option_Text.contains(Availability)) {
+			Availability_Option.click();
+			break;
+		}
+	}
+
+	Description_Field.click();
+	Description_Input.clear();
+	Description_Input.sendKeys(Description);
+
+	/*String Direct_Subscription_Status = Direct_Subscription_Toggle.getAttribute("aria-checked");
+
+	if ((Direct_Subscription.equalsIgnoreCase("Yes") && Direct_Subscription_Status.equalsIgnoreCase("false")) || (Direct_Subscription.equalsIgnoreCase("No") && Direct_Subscription_Status.equalsIgnoreCase("true"))) {
+		Direct_Subscription_Toggle.click();
+	} */
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Basic Spaces plan details entered successfully. Plan Name = " + Plan_Name + " | Availability = " + Availability + " | Direct Subscription = " + Direct_Subscription);
+	System.out.println("✅ Actual: Basic Spaces plan details entered successfully. Plan Name = " + Plan_Name + " | Availability = " + Availability + " | Direct Subscription = " + Direct_Subscription);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 💳 BILLING CONFIGURATION ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Select the billing period and enter the number of locations.");
+
+	System.out.println("━━━━━━━━━━━━━━ 💳 BILLING CONFIGURATION ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Select the billing period and enter the number of locations.");
+
+	Billing_Period_Field.click();
+
+	WebElement Billing_Dropdown = p.rc_virtual_list_holder_two();
+	List<WebElement> Billing_Options = Billing_Dropdown.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+
+	for (WebElement Billing_Option : Billing_Options) {
+		String Billing_Option_Text = Billing_Option.getText().trim();
+
+		if (Billing_Option_Text.contains(Billing_Period)) {
+			Billing_Option.click();
+			break;
+		}
+	}
+
+	Number_Of_Locations_Field.click();
+	Number_Of_Locations_Input.clear();
+	Number_Of_Locations_Input.sendKeys(Number_Of_Locations);
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Billing configuration completed successfully. Billing Period = " + Billing_Period + " | Number of Locations = " + Number_Of_Locations);
+	System.out.println("✅ Actual: Billing configuration completed successfully. Billing Period = " + Billing_Period + " | Number of Locations = " + Number_Of_Locations);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 💰 LOCATION PRICING ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Configure monthly currency and monthly price per location.");
+
+
+	rp.Scroll_to_element(Monthly_Pricing_Per_Location_Input);
+	Monthly_Pricing_Per_Location_Input.clear();
+	Monthly_Pricing_Per_Location_Input.sendKeys(Monthly_Pricing_Per_Location);
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Monthly pricing configured successfully. Currency = " + Monthly_Pricing_Currency + " | Price Per Location = " + Monthly_Pricing_Per_Location);
+	System.out.println("✅ Actual: Monthly pricing configured successfully. Currency = " + Monthly_Pricing_Currency + " | Price Per Location = " + Monthly_Pricing_Per_Location);
+	System.out.println();
+
+
+	Yearly_Pricing_Per_Location_Input.clear();
+	Yearly_Pricing_Per_Location_Input.sendKeys(Yearly_Pricing_Per_Location);
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Yearly pricing configured successfully. Currency = " + Yearly_Pricing_Currency + " | Price Per Location = " + Yearly_Pricing_Per_Location);
+	System.out.println("✅ Actual: Yearly pricing configured successfully. Currency = " + Yearly_Pricing_Currency + " | Price Per Location = " + Yearly_Pricing_Per_Location);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 💾 SPACES PLAN SUBMISSION ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Save the configured Simplified Spaces plan.");
+
+	System.out.println("━━━━━━━━━━━━━━ 💾 SPACES PLAN SUBMISSION ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Save the configured Simplified Spaces plan.");
+
+	WebElement Save_Button = p.Save_Button();
+	rp.Scroll_to_element(Save_Button);
+	rp.movetoelement(Save_Button);
+	Save_Button.click();
+
+	WebElement Toast = p.Toast_message();
+	String Toast_Text = Toast.getText().trim();
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Spaces plan save confirmation displayed successfully. Message = " + Toast_Text + " | Plan Name = " + Plan_Name);
+	System.out.println("✅ Actual: Spaces plan save confirmation displayed successfully. Message = " + Toast_Text + " | Plan Name = " + Plan_Name);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Close the Spaces plan confirmation message.");
+	System.out.println("Step " + (step - 1) + ": Close the Spaces plan confirmation message.");
+
+	p.Toast_close_Button().click();
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Final Result:</b> Simplified Spaces plan creation completed successfully. Plan Name = " + Plan_Name + " | Billing Period = " + Billing_Period + " | Locations = " + Number_Of_Locations + " | Monthly Pricing = " + Monthly_Pricing_Currency + " " + Monthly_Pricing_Per_Location + " | Yearly Pricing = " + Yearly_Pricing_Currency + " " + Yearly_Pricing_Per_Location);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+
+	System.out.println("✅ Final Result: Simplified Spaces plan creation completed successfully. Plan Name = " + Plan_Name + " | Billing Period = " + Billing_Period + " | Locations = " + Number_Of_Locations + " | Monthly Pricing = " + Monthly_Pricing_Currency + " " + Monthly_Pricing_Per_Location + " | Yearly Pricing = " + Yearly_Pricing_Currency + " " + Yearly_Pricing_Per_Location);
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println();
+}
+
+
+@DataProvider
+public Object[][] Combined_Plan_Data_Provider() {
+
+	Object[][] Checkout_Plan_datas = Checkout_Plan_Create_Data();
+	Object[][] Spaces_Plan_datas = Spaces_Plan_Create_Data();
+
+	int n = IntStream.of(Checkout_Plan_datas.length, Spaces_Plan_datas.length).min().orElse(0);
+
+	Object[][] combined_data = new Object[n][2];
+
+	int i = 0;
+	while (i < n) {
+		combined_data[i][0] = Checkout_Plan_datas[i][0]; // Checkout Plan Creation Data
+		combined_data[i][1] = Spaces_Plan_datas[i][0]; // Spaces Plan Creation Data
+
+		i++;
+	}
+
+	return combined_data;
+}
+
+
+@DataProvider
+public Object[][] Spaces_Plan_Create_Data() {
+
+	TreeMap<String, String> data1 = new TreeMap<String, String>();
+	data1.put("Plan Name", "Ayan Monthly Spaces Cedarhaven Plan");
+	data1.put("Availability", "Public");
+	data1.put("Description", "A monthly workspace plan designed for growing teams that require predictable access to multiple locations, centralized reservations, and consistent operational pricing.");
+	data1.put("Direct Subscription", "Yes");
+	data1.put("Billing Period", "Monthly");
+	data1.put("Number of Locations", "5");
+	data1.put("Monthly Pricing Currency", "USD");
+	data1.put("Monthly Pricing Per Location", "101");
+	data1.put("Yearly Pricing Currency", "USD");
+	data1.put("Yearly Pricing Per Location", "1101");
+
+	TreeMap<String, String> data2 = new TreeMap<String, String>();
+	data2.put("Plan Name", "Ayan Daily Spaces Brookmere Plan");
+	data2.put("Availability", "Public");
+	data2.put("Description", "A daily workspace plan for temporary project teams requiring flexible office access, meeting-room availability, and short-term location management.");
+	data2.put("Direct Subscription", "No");
+	data2.put("Billing Period", "Daily");
+	data2.put("Number of Locations", "6");
+	data2.put("Monthly Pricing Currency", "USD");
+	data2.put("Monthly Pricing Per Location", "102");
+	data2.put("Yearly Pricing Currency", "USD");
+	data2.put("Yearly Pricing Per Location", "1102");
+
+	TreeMap<String, String> data3 = new TreeMap<String, String>();
+	data3.put("Plan Name", "Ayan Weekly Spaces Mistvale Plan");
+	data3.put("Availability", "Public");
+	data3.put("Description", "A weekly workspace package supporting recurring desk reservations, location coordination, customer access, and controlled resource utilization.");
+	data3.put("Direct Subscription", "Yes");
+	data3.put("Billing Period", "Weekly");
+	data3.put("Number of Locations", "7");
+	data3.put("Monthly Pricing Currency", "USD");
+	data3.put("Monthly Pricing Per Location", "103");
+	data3.put("Yearly Pricing Currency", "USD");
+	data3.put("Yearly Pricing Per Location", "1103");
+
+	TreeMap<String, String> data4 = new TreeMap<String, String>();
+	data4.put("Plan Name", "Ayan Yearly Spaces Coppermead Plan");
+	data4.put("Availability", "Public");
+	data4.put("Description", "A yearly workspace plan created for established organizations managing permanent office locations with long-term access and stable pricing.");
+	data4.put("Direct Subscription", "Yes");
+	data4.put("Billing Period", "Yearly");
+	data4.put("Number of Locations", "8");
+	data4.put("Monthly Pricing Currency", "USD");
+	data4.put("Monthly Pricing Per Location", "104");
+	data4.put("Yearly Pricing Currency", "USD");
+	data4.put("Yearly Pricing Per Location", "1104");
+
+	TreeMap<String, String> data5 = new TreeMap<String, String>();
+	data5.put("Plan Name", "Ayan Monthly Spaces Lakewarden Plan");
+	data5.put("Availability", "Public");
+	data5.put("Description", "A scalable monthly plan for organizations managing shared workspaces, branch availability, meeting rooms, and recurring customer reservations.");
+	data5.put("Direct Subscription", "No");
+	data5.put("Billing Period", "Monthly");
+	data5.put("Number of Locations", "9");
+	data5.put("Monthly Pricing Currency", "USD");
+	data5.put("Monthly Pricing Per Location", "105");
+	data5.put("Yearly Pricing Currency", "USD");
+	data5.put("Yearly Pricing Per Location", "1105");
+
+	TreeMap<String, String> data6 = new TreeMap<String, String>();
+	data6.put("Plan Name", "Ayan Daily Spaces Sunbarrow Plan");
+	data6.put("Availability", "Public");
+	data6.put("Description", "A flexible daily subscription for small teams, visiting employees, and customers requiring occasional access to managed workspace locations.");
+	data6.put("Direct Subscription", "Yes");
+	data6.put("Billing Period", "Daily");
+	data6.put("Number of Locations", "10");
+	data6.put("Monthly Pricing Currency", "USD");
+	data6.put("Monthly Pricing Per Location", "106");
+	data6.put("Yearly Pricing Currency", "USD");
+	data6.put("Yearly Pricing Per Location", "1106");
+
+	TreeMap<String, String> data7 = new TreeMap<String, String>();
+	data7.put("Plan Name", "Ayan Weekly Spaces Willowcross Plan");
+	data7.put("Availability", "Public");
+	data7.put("Description", "A weekly workspace solution for teams that need recurring desk access, meeting-room scheduling, and coordinated location availability.");
+	data7.put("Direct Subscription", "Yes");
+	data7.put("Billing Period", "Weekly");
+	data7.put("Number of Locations", "11");
+	data7.put("Monthly Pricing Currency", "USD");
+	data7.put("Monthly Pricing Per Location", "107");
+	data7.put("Yearly Pricing Currency", "USD");
+	data7.put("Yearly Pricing Per Location", "1107");
+
+	TreeMap<String, String> data8 = new TreeMap<String, String>();
+	data8.put("Plan Name", "Ayan Yearly Spaces Frostmere Plan");
+	data8.put("Availability", "Public");
+	data8.put("Description", "A long-term yearly plan for companies requiring reliable workplace access, centralized administration, and predictable per-location charges.");
+	data8.put("Direct Subscription", "No");
+	data8.put("Billing Period", "Yearly");
+	data8.put("Number of Locations", "12");
+	data8.put("Monthly Pricing Currency", "USD");
+	data8.put("Monthly Pricing Per Location", "108");
+	data8.put("Yearly Pricing Currency", "USD");
+	data8.put("Yearly Pricing Per Location", "1108");
+
+	TreeMap<String, String> data9 = new TreeMap<String, String>();
+	data9.put("Plan Name", "Ayan Monthly Spaces Clearbrook Plan");
+	data9.put("Availability", "Public");
+	data9.put("Description", "A monthly multi-location workspace plan supporting regular reservations, customer management, location visibility, and resource coordination.");
+	data9.put("Direct Subscription", "Yes");
+	data9.put("Billing Period", "Monthly");
+	data9.put("Number of Locations", "13");
+	data9.put("Monthly Pricing Currency", "USD");
+	data9.put("Monthly Pricing Per Location", "109");
+	data9.put("Yearly Pricing Currency", "USD");
+	data9.put("Yearly Pricing Per Location", "1109");
+
+	TreeMap<String, String> data10 = new TreeMap<String, String>();
+	data10.put("Plan Name", "Ayan Daily Spaces Dunewatch Plan");
+	data10.put("Availability", "Public");
+	data10.put("Description", "A daily workspace package intended for short-term teams requiring flexible location access and uncomplicated subscription management.");
+	data10.put("Direct Subscription", "No");
+	data10.put("Billing Period", "Daily");
+	data10.put("Number of Locations", "14");
+	data10.put("Monthly Pricing Currency", "USD");
+	data10.put("Monthly Pricing Per Location", "110");
+	data10.put("Yearly Pricing Currency", "USD");
+	data10.put("Yearly Pricing Per Location", "1110");
+
+	TreeMap<String, String> data11 = new TreeMap<String, String>();
+	data11.put("Plan Name", "Ayan Weekly Spaces Rosehaven Plan");
+	data11.put("Availability", "Public");
+	data11.put("Description", "A weekly workspace plan designed for recurring team visits, scheduled room usage, and organized access across multiple business locations.");
+	data11.put("Direct Subscription", "Yes");
+	data11.put("Billing Period", "Weekly");
+	data11.put("Number of Locations", "15");
+	data11.put("Monthly Pricing Currency", "USD");
+	data11.put("Monthly Pricing Per Location", "111");
+	data11.put("Yearly Pricing Currency", "USD");
+	data11.put("Yearly Pricing Per Location", "1111");
+
+	TreeMap<String, String> data12 = new TreeMap<String, String>();
+	data12.put("Plan Name", "Ayan Yearly Spaces Stormfield Plan");
+	data12.put("Availability", "Public");
+	data12.put("Description", "A yearly enterprise workspace package supporting long-term branch operations, centralized bookings, and structured location administration.");
+	data12.put("Direct Subscription", "Yes");
+	data12.put("Billing Period", "Yearly");
+	data12.put("Number of Locations", "16");
+	data12.put("Monthly Pricing Currency", "USD");
+	data12.put("Monthly Pricing Per Location", "112");
+	data12.put("Yearly Pricing Currency", "USD");
+	data12.put("Yearly Pricing Per Location", "1112");
+
+	TreeMap<String, String> data13 = new TreeMap<String, String>();
+	data13.put("Plan Name", "Ayan Monthly Spaces Ivybridge Plan");
+	data13.put("Availability", "Public");
+	data13.put("Description", "A monthly plan for regional organizations requiring dependable office access, room availability, and recurring workspace administration.");
+	data13.put("Direct Subscription", "No");
+	data13.put("Billing Period", "Monthly");
+	data13.put("Number of Locations", "17");
+	data13.put("Monthly Pricing Currency", "USD");
+	data13.put("Monthly Pricing Per Location", "113");
+	data13.put("Yearly Pricing Currency", "USD");
+	data13.put("Yearly Pricing Per Location", "1113");
+
+	TreeMap<String, String> data14 = new TreeMap<String, String>();
+	data14.put("Plan Name", "Ayan Daily Spaces Crownmeadow Plan");
+	data14.put("Availability", "Public");
+	data14.put("Description", "A convenient daily workspace plan supporting temporary bookings, visiting users, and flexible use of managed business locations.");
+	data14.put("Direct Subscription", "Yes");
+	data14.put("Billing Period", "Daily");
+	data14.put("Number of Locations", "18");
+	data14.put("Monthly Pricing Currency", "USD");
+	data14.put("Monthly Pricing Per Location", "114");
+	data14.put("Yearly Pricing Currency", "USD");
+	data14.put("Yearly Pricing Per Location", "1114");
+
+	TreeMap<String, String> data15 = new TreeMap<String, String>();
+	data15.put("Plan Name", "Ayan Weekly Spaces Brightwater Plan");
+	data15.put("Availability", "Public");
+	data15.put("Description", "A weekly subscription for distributed teams needing recurring reservations, meeting-space coordination, and location-level operational visibility.");
+	data15.put("Direct Subscription", "Yes");
+	data15.put("Billing Period", "Weekly");
+	data15.put("Number of Locations", "19");
+	data15.put("Monthly Pricing Currency", "USD");
+	data15.put("Monthly Pricing Per Location", "115");
+	data15.put("Yearly Pricing Currency", "USD");
+	data15.put("Yearly Pricing Per Location", "1115");
+
+	TreeMap<String, String> data16 = new TreeMap<String, String>();
+	data16.put("Plan Name", "Ayan Yearly Spaces Oakminster Plan");
+	data16.put("Availability", "Public");
+	data16.put("Description", "A yearly workspace solution created for large organizations requiring permanent location access and predictable long-term pricing.");
+	data16.put("Direct Subscription", "No");
+	data16.put("Billing Period", "Yearly");
+	data16.put("Number of Locations", "20");
+	data16.put("Monthly Pricing Currency", "USD");
+	data16.put("Monthly Pricing Per Location", "116");
+	data16.put("Yearly Pricing Currency", "USD");
+	data16.put("Yearly Pricing Per Location", "1116");
+
+	TreeMap<String, String> data17 = new TreeMap<String, String>();
+	data17.put("Plan Name", "Ayan Monthly Spaces Silvermarsh Plan");
+	data17.put("Availability", "Public");
+	data17.put("Description", "A comprehensive monthly workspace plan for businesses managing multiple locations, customer bookings, and resource availability.");
+	data17.put("Direct Subscription", "Yes");
+	data17.put("Billing Period", "Monthly");
+	data17.put("Number of Locations", "21");
+	data17.put("Monthly Pricing Currency", "USD");
+	data17.put("Monthly Pricing Per Location", "117");
+	data17.put("Yearly Pricing Currency", "USD");
+	data17.put("Yearly Pricing Per Location", "1117");
+
+	TreeMap<String, String> data18 = new TreeMap<String, String>();
+	data18.put("Plan Name", "Ayan Daily Spaces Granitebay Plan");
+	data18.put("Availability", "Public");
+	data18.put("Description", "A daily workspace subscription for organizations requiring immediate access to locations without committing to a longer billing cycle.");
+	data18.put("Direct Subscription", "No");
+	data18.put("Billing Period", "Daily");
+	data18.put("Number of Locations", "22");
+	data18.put("Monthly Pricing Currency", "USD");
+	data18.put("Monthly Pricing Per Location", "118");
+	data18.put("Yearly Pricing Currency", "USD");
+	data18.put("Yearly Pricing Per Location", "1118");
+
+	TreeMap<String, String> data19 = new TreeMap<String, String>();
+	data19.put("Plan Name", "Ayan Weekly Spaces Ferncastle Plan");
+	data19.put("Availability", "Public");
+	data19.put("Description", "A structured weekly workspace package for teams requiring repeated location access and organized booking management.");
+	data19.put("Direct Subscription", "Yes");
+	data19.put("Billing Period", "Weekly");
+	data19.put("Number of Locations", "23");
+	data19.put("Monthly Pricing Currency", "USD");
+	data19.put("Monthly Pricing Per Location", "119");
+	data19.put("Yearly Pricing Currency", "USD");
+	data19.put("Yearly Pricing Per Location", "1119");
+
+	TreeMap<String, String> data20 = new TreeMap<String, String>();
+	data20.put("Plan Name", "Ayan Yearly Spaces Moonharbor Plan");
+	data20.put("Availability", "Public");
+	data20.put("Description", "A premium yearly workspace plan supporting stable location access, centralized management, and long-term operational planning.");
+	data20.put("Direct Subscription", "Yes");
+	data20.put("Billing Period", "Yearly");
+	data20.put("Number of Locations", "24");
+	data20.put("Monthly Pricing Currency", "USD");
+	data20.put("Monthly Pricing Per Location", "120");
+	data20.put("Yearly Pricing Currency", "USD");
+	data20.put("Yearly Pricing Per Location", "1120");
+
+	return new Object[][] {/*
+		{ data1 }, */
+		{ data2 },/*
+		{ data3 },
+		{ data4 },
+		{ data5 },
+		{ data6 },
+		{ data7 },
+		{ data8 },
+		{ data9 },
+		{ data10 },
+		{ data11 },
+		{ data12 },
+		{ data13 },
+		{ data14 },
+		{ data15 },
+		{ data16 },
+		{ data17 },
+		{ data18 },
+		{ data19 },
+		{ data20 } */
+	};
+}
+
 @DataProvider
 public Object[][] Checkout_Plan_Create_Data() {
 
@@ -1286,6 +1868,12 @@ public Object[][] Checkout_Plan_Create_Data() {
 	};
 }
 	
+
+
+
+
+
+
 @Test(dataProvider = "combined_data_provider")
 public void Account_create(TreeMap<String, String> form_data, TreeMap<String, String> Plan_data, TreeMap<String, String> upgrade_plan_datas, TreeMap<String, String> account_create_data) throws InterruptedException, IOException {
 

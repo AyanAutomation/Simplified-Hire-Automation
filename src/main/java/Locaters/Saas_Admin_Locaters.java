@@ -206,6 +206,8 @@ public class Saas_Admin_Locaters extends Repeat{
 		private WebElement form;
 		@FindBy(id="plan_name")
 		private WebElement plan_name_input;
+		@FindBy(id="description")
+		private WebElement Description_input;
 		@FindBy(id="plan_price")
 		private WebElement Plan_price_input; 
 		@FindBy(id="number_of_shared_instances")
@@ -231,13 +233,13 @@ public class Saas_Admin_Locaters extends Repeat{
 		@FindBy(xpath="//*[text()='Every']/../../../../..//input[@class='ant-input']")
 		private WebElement Every_input_field;
 		@FindBy(xpath="//*[text()='Every']/../../../../..//*[@class='ant-select ant-select-single ant-select-show-arrow']")
-		private WebElement Every_fields_dropdown;/*
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
+		private WebElement Every_fields_dropdown;
+		@FindBy(id="number_of_locations")
+		private WebElement No_of_Location_Feild;
+		@FindBy(id="monthly_pricing")
+		private WebElement Monthly_Pricing_Input;
+		@FindBy(id="yearly_pricing")
+		private WebElement Yearly_Pricing_Input;/*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -728,19 +730,19 @@ public class Saas_Admin_Locaters extends Repeat{
 		return Every_fields_dropdown;}
 		public WebElement Save_Button(){
 		wait_for_theElement(Save_Button);
-		return Save_Button;}/*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Save_Button;}
+		public WebElement Description_input(){
+		wait_for_theElement(Description_input);
+		return Description_input;}
+		public WebElement No_of_Location_Feild(){
+		wait_for_theElement(No_of_Location_Feild);
+		return No_of_Location_Feild;}
+		public WebElement Monthly_Pricing_Input(){
+		wait_for_theElement(Monthly_Pricing_Input);
+		return Monthly_Pricing_Input;}
+		public WebElement Yearly_Pricing_Input(){
+		wait_for_theElement(Yearly_Pricing_Input);
+		return Yearly_Pricing_Input;} /*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}
