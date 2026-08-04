@@ -57,19 +57,19 @@ public class Simplified_Hr_Master_Locaters extends Repeat{
 	@FindBy(xpath="//*[text()='Role']/../..//*[@class='ant-form-item-control-input-content']")
 	private WebElement Role_Field; 
 	@FindBy(name="middle_name")
-	private WebElement middle_name; /*
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
-	@FindBy(xpath="")
-	private WebElement  ;
+	private WebElement middle_name; 
+	@FindBy(id="profileMenu")
+	private WebElement  Profile_Menu; 
+	@FindBy(xpath="//*[text()='New Team']/..")
+	private WebElement Team_Add_button;
+	@FindBy(xpath="//*[@class='ant-modal-content']")
+	private WebElement Popup_Modal;
+	@FindBy(xpath="//*[contains(@class,'style_teams-right-menu__tRwKr')]//span")
+	private List<WebElement> List_threedots_button; 
+	@FindBy(xpath="//div[@class='search-input ']//input")
+	private WebElement Search_input; 
+	@FindBy(xpath="//div[@class='ant-dropdown ant-dropdown-placement-bottomRight ']")
+	private WebElement Action_dropdown; /*
 	@FindBy(xpath="")
 	private WebElement  ;
 	@FindBy(xpath="")
@@ -407,37 +407,41 @@ public class Simplified_Hr_Master_Locaters extends Repeat{
 	return Role_Field;} 
 	public WebElement middle_name(){
 	wait_for_theElement(middle_name);
-	return middle_name;} /*
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
-	public WebElement (){
-	wait_for_theElement();
-	return ;}
+	return middle_name;} 
+	public WebElement Profile_Menu(){
+	wait_for_theElement(Profile_Menu);
+	return Profile_Menu;}
+	public List<WebElement> Profile_Menu_Options (){
+	List<WebElement> Profile_Menu_Options = Profile_Menu().findElements(By.xpath(".//li"));
+	wait_for_theElement(Profile_Menu_Options);
+	return Profile_Menu_Options;} 
+	public WebElement Team_Add_button(){
+	wait_for_theElement(Team_Add_button);
+	return Team_Add_button;}
+	public WebElement Popup_Modal(){
+	wait_for_theElement(Popup_Modal);
+	return Popup_Modal;} 
+	public WebElement Popup_Form_left_side(){
+	WebElement Popup_Form_left_side = Popup_Modal().findElement(By.xpath(".//div[@class='ant-col ant-col-12 left-team-col']"));
+	wait_for_theElement(Popup_Form_left_side);
+	return Popup_Form_left_side;}
+	public List<WebElement>  Popup_Form_left_side_Inputs(){
+	List<WebElement> Popup_Form_left_side_Inputs = Popup_Form_left_side().findElements(By.xpath(".//div[@class='ant-form-item-control-input-content']//input"));
+	wait_for_theElement(Popup_Form_left_side_Inputs);
+	return Popup_Form_left_side_Inputs;} 
+	public List<WebElement>  Popup_Form_left_Dropdown_Fields(){
+	List<WebElement> Popup_Form_left_Dropdown_Fields = Popup_Form_left_side().findElements(By.xpath(".//*[contains(@class,'ant-select-multiple ant-select-allow-clear ant-select-show-arrow ant-select-show-search')]"));
+	wait_for_theElement(Popup_Form_left_Dropdown_Fields);
+	return Popup_Form_left_Dropdown_Fields;} 
+	public List<WebElement> List_threedots_button(){
+	wait_for_theElement(List_threedots_button);
+	return List_threedots_button;}
+	public WebElement Search_input(){
+	wait_for_theElement(Search_input);
+	return Search_input;}
+	public WebElement Action_dropdown(){
+	wait_for_theElement(Action_dropdown);
+	return Action_dropdown;}/*
 	public WebElement (){
 	wait_for_theElement();
 	return ;}

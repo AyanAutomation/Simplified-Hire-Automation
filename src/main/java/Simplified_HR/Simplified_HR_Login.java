@@ -173,6 +173,381 @@ public class Simplified_HR_Login extends Side_menu_Handler{
 		return step;
 	}
 	*/
+	
+	
+	@DataProvider
+	public Object[][] Team_Add_Data() {
+
+		TreeMap<String, String> data1 = new TreeMap<String, String>();
+		data1.put("Team Name", "Accounts and Finance");
+		data1.put("Team Image", "");
+		data1.put("Additional Role", "Admin");
+		data1.put("Additional Permission Group", "");
+		data1.put("Recipient Email", "accounts.finance.team2026@yopmail.com");
+		data1.put("Add Team To Request Category", "Yes");
+		data1.put("Selected Team Members", "Alexei Volkov, Amelie Keller");
+
+		TreeMap<String, String> data2 = new TreeMap<String, String>();
+		data2.put("Team Name", "Back-up HTML Team");
+		data2.put("Team Image", "");
+		data2.put("Additional Role", "Guest");
+		data2.put("Additional Permission Group", "");
+		data2.put("Recipient Email", "backup.html.team2026@yopmail.com");
+		data2.put("Add Team To Request Category", "No");
+		data2.put("Selected Team Members", "Anouk Frederike Maas, Artyom Leonidovich Sidorov");
+
+		TreeMap<String, String> data3 = new TreeMap<String, String>();
+		data3.put("Team Name", "CCNZ");
+		data3.put("Team Image", "");
+		data3.put("Additional Role", "Manager");
+		data3.put("Additional Permission Group", "");
+		data3.put("Recipient Email", "ccnz.team2026@yopmail.com");
+		data3.put("Add Team To Request Category", "No");
+		data3.put("Selected Team Members", "Bikas Pal");
+
+		TreeMap<String, String> data4 = new TreeMap<String, String>();
+		data4.put("Team Name", "HRBP");
+		data4.put("Team Image", "");
+		data4.put("Additional Role", "User");
+		data4.put("Additional Permission Group", "");
+		data4.put("Recipient Email", "hrbp.team2026@yopmail.com");
+		data4.put("Add Team To Request Category", "Yes");
+		data4.put("Selected Team Members", "Amelie Keller, Anouk Frederike Maas");
+
+		TreeMap<String, String> data5 = new TreeMap<String, String>();
+		data5.put("Team Name", "IT Server Support");
+		data5.put("Team Image", "");
+		data5.put("Additional Role", "Admin");
+		data5.put("Additional Permission Group", "");
+		data5.put("Recipient Email", "it.server.support2026@yopmail.com, server.escalation2026@yopmail.com");
+		data5.put("Add Team To Request Category", "Yes");
+		data5.put("Selected Team Members", "Alexei Volkov, Artyom Leonidovich Sidorov");
+
+		TreeMap<String, String> data6 = new TreeMap<String, String>();
+		data6.put("Team Name", "IT System Support");
+		data6.put("Team Image", "");
+		data6.put("Additional Role", "Guest");
+		data6.put("Additional Permission Group", "");
+		data6.put("Recipient Email", "it.system.support2026@yopmail.com");
+		data6.put("Add Team To Request Category", "Yes");
+		data6.put("Selected Team Members", "Artyom Leonidovich Sidorov, Bikas Pal");
+
+		TreeMap<String, String> data7 = new TreeMap<String, String>();
+		data7.put("Team Name", "Reviewer");
+		data7.put("Team Image", "");
+		data7.put("Additional Role", "Manager");
+		data7.put("Additional Permission Group", "");
+		data7.put("Recipient Email", "reviewer.team2026@yopmail.com");
+		data7.put("Add Team To Request Category", "No");
+		data7.put("Selected Team Members", "Anouk Frederike Maas");
+
+		TreeMap<String, String> data8 = new TreeMap<String, String>();
+		data8.put("Team Name", "Security");
+		data8.put("Team Image", "");
+		data8.put("Additional Role", "User");
+		data8.put("Additional Permission Group", "");
+		data8.put("Recipient Email", "security.team2026@yopmail.com, security.alerts2026@yopmail.com");
+		data8.put("Add Team To Request Category", "Yes");
+		data8.put("Selected Team Members", "Alexei Volkov, Bikas Pal");
+
+		TreeMap<String, String> data9 = new TreeMap<String, String>();
+		data9.put("Team Name", "Simplified HR Support");
+		data9.put("Team Image", "");
+		data9.put("Additional Role", "Admin");
+		data9.put("Additional Permission Group", "");
+		data9.put("Recipient Email", "simplified.hr.support2026@yopmail.com");
+		data9.put("Add Team To Request Category", "Yes");
+		data9.put("Selected Team Members", "Amelie Keller, Bikas Pal");
+
+		TreeMap<String, String> data10 = new TreeMap<String, String>();
+		data10.put("Team Name", "Talent Acquisition");
+		data10.put("Team Image", "");
+		data10.put("Additional Role", "Manager");
+		data10.put("Additional Permission Group", "");
+		data10.put("Recipient Email", "talent.acquisition.team2026@yopmail.com, recruitment.requests2026@yopmail.com");
+		data10.put("Add Team To Request Category", "Yes");
+		data10.put("Selected Team Members", "Amelie Keller, Anouk Frederike Maas, Bikas Pal");
+
+		return new Object[][] {
+			{ data1 },
+			{ data2 },
+			{ data3 },
+			{ data4 },
+			{ data5 },
+			{ data6 },
+			{ data7 },
+			{ data8 },
+			{ data9 },
+			{ data10 } 
+		};
+	}
+	
+	
+	public WebElement Users_Module_navigator(String Module) throws IOException, InterruptedException {
+
+	Simplified_Hr_Master_Locaters p = new Simplified_Hr_Master_Locaters(d);
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 👥 USERS MODULE NAVIGATION ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Action:</b> Navigate to Control Center → Users and open the " + Module + " section.");
+	System.out.println("━━━━━━━━━━━━━━ 👥 USERS MODULE NAVIGATION ━━━━━━━━━━━━━━");
+	System.out.println("Action: Navigate to Control Center → Users and open the " + Module + " section.");
+
+	Menu_option_selector("Control Center", "Users");
+	p.Profile_Menu();
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Control Center Users module opened successfully.");
+	System.out.println("✅ Actual: Control Center Users module opened successfully.");
+
+	List<WebElement> Profile_Options = p.Profile_Menu_Options();
+
+	for (WebElement Profile_Option : Profile_Options) {
+		String Profile_Option_Name = Profile_Option.getText().trim();
+
+		if (Profile_Option_Name.equalsIgnoreCase(Module)) {
+			Profile_Option.click();
+
+			Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Users module section selected successfully = " + Profile_Option_Name);
+			System.out.println("✅ Actual: Users module section selected successfully = " + Profile_Option_Name);
+			break;
+		}
+	}
+
+	WebElement Add_Team_Button = p.Team_Add_button();
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Navigation Result:</b> " + Module + " section loaded successfully and the New Team button is available.");
+	System.out.println("✅ Navigation Result: " + Module + " section loaded successfully and the New Team button is available.");
+	System.out.println();
+
+	return Add_Team_Button;
+}
+	
+	
+@Test(dataProvider = "Team_Add_Data")
+public void Delete_Team(TreeMap<String, String> Team_Data) throws IOException, InterruptedException {
+
+	String Team_Name = Team_Data.get("Team Name");
+
+	Simplified_Hr_Master_Locaters p = new Simplified_Hr_Master_Locaters(d);
+	Repeat rp = new Repeat(d);
+	Saas_Admin_Locaters sa = new Saas_Admin_Locaters(d);
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Delete all matching team records");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Open the Teams section, search using the supplied team name, identify all matching rows, and delete every displayed team record through its three-dot action menu.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Team Name = " + Team_Name);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> Every matching team row displayed in the search result should be deleted successfully.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+
+	System.out.println();
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println("🔹 Scenario Title: Delete all matching team records");
+	System.out.println("📘 Description: Search for the supplied team and delete every matching row using its three-dot action menu.");
+	System.out.println("📥 Input: Team Name = " + Team_Name);
+	System.out.println("✅ Expected: Every matching team row should be deleted successfully.");
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println();
+
+	Users_Module_navigator("Teams");
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🔍 TEAM SEARCH ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Action:</b> Search for all team records matching Team Name = " + Team_Name);
+	System.out.println("━━━━━━━━━━━━━━ 🔍 TEAM SEARCH ━━━━━━━━━━━━━━");
+	System.out.println("Action: Search for all team records matching Team Name = " + Team_Name);
+
+	WebElement Team_Search_Box = p.Search_input();
+	Team_Search_Box.clear();
+	Team_Search_Box.sendKeys(Team_Name);
+
+	Thread.sleep(1200);
+
+	List<WebElement> Action_buttons = p.List_threedots_button();
+	int Total_Action_Buttons = Action_buttons.size();
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Team search completed successfully. Matching Row Count = " + Total_Action_Buttons + " | Team Name = " + Team_Name);
+	System.out.println("✅ Actual: Team search completed successfully. Matching Row Count = " + Total_Action_Buttons + " | Team Name = " + Team_Name);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🗑️ TEAM DELETION ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Action:</b> Delete all " + Total_Action_Buttons + " matching team rows.");
+	System.out.println("━━━━━━━━━━━━━━ 🗑️ TEAM DELETION ━━━━━━━━━━━━━━");
+	System.out.println("Action: Delete all " + Total_Action_Buttons + " matching team rows.");
+
+	for (int i = 0; i < Total_Action_Buttons; i++) {
+
+		Action_buttons = p.List_threedots_button();
+		WebElement Action_button = Action_buttons.get(0);
+
+		rp.Scroll_to_element(Action_button);
+		rp.movetoelement(Action_button);
+		Action_button.click();
+
+		WebElement Menu = p.Action_dropdown();
+		List<WebElement> Options = Menu.findElements(By.xpath(".//li"));
+
+		for (WebElement Option : Options) {
+			String Option_Name = Option.getText().trim();
+
+			if (Option_Name.equalsIgnoreCase("Delete")) {
+				Option.click();
+
+				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Action:</b> Delete option selected for matching row " + (i + 1) + " of " + Total_Action_Buttons + ".");
+				System.out.println("🟨 Action: Delete option selected for matching row " + (i + 1) + " of " + Total_Action_Buttons + ".");
+
+				WebElement Delete_Confirmation_Popup = p.Popup_Modal();
+				WebElement Delete_Confirmation_Popup_Yes_Button = sa.Submit_button();
+
+				rp.Scroll_to_element(Delete_Confirmation_Popup);
+				rp.Scroll_to_element(Delete_Confirmation_Popup_Yes_Button);
+				rp.movetoelement(Delete_Confirmation_Popup_Yes_Button);
+				Delete_Confirmation_Popup_Yes_Button.click();
+
+				WebElement Toast = p.Toast();
+				String Toast_Text = Toast.getText().trim();
+
+				Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Matching team row deleted successfully. Deleted Row = " + (i + 1) + " of " + Total_Action_Buttons + " | Notification = " + Toast_Text);
+				System.out.println("✅ Actual: Matching team row deleted successfully. Deleted Row = " + (i + 1) + " of " + Total_Action_Buttons + " | Notification = " + Toast_Text);
+
+				p.Toast_close_Button().click();
+
+				Thread.sleep(800);
+				break;
+			}
+		}
+
+		System.out.println();
+	}
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Final Result:</b> All matching team records were deleted successfully. Team Name = " + Team_Name + " | Deleted Row Count = " + Total_Action_Buttons);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+
+	System.out.println("✅ Final Result: All matching team records were deleted successfully.");
+	System.out.println("Team Name = " + Team_Name);
+	System.out.println("Deleted Row Count = " + Total_Action_Buttons);
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println();
+}
+		
+		
+	
+	
+	
+@Test(dataProvider = "Team_Add_Data")
+public void Team_add(TreeMap<String, String> Team_Data) throws IOException, InterruptedException {
+
+	String Team_Name = Team_Data.get("Team Name");
+	String Additional_Role = Team_Data.get("Additional Role");
+	String Recipient_Email = Team_Data.get("Recipient Email");
+
+	Simplified_Hr_Master_Locaters p = new Simplified_Hr_Master_Locaters(d);
+	Repeat rp = new Repeat(d);
+	Saas_Admin_Locaters sa = new Saas_Admin_Locaters(d);
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Create a new team");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Open the Teams section, launch the New Team form, enter the team name, assign an additional role, add the recipient email, save the team, and capture the resulting notification.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Team Name = " + Team_Name + " | Additional Role = " + Additional_Role + " | Recipient Email = " + Recipient_Email);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> The team should be created successfully and a save confirmation notification should be displayed.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+
+	System.out.println();
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println("🔹 Scenario Title: Create a new team");
+	System.out.println("📘 Description: Enter the team details, assign the role, add the recipient email, and save the team.");
+	System.out.println("📥 Input: Team Name = " + Team_Name + " | Additional Role = " + Additional_Role + " | Recipient Email = " + Recipient_Email);
+	System.out.println("✅ Expected: The team should be created successfully.");
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ ➕ TEAM FORM ACCESS ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Action:</b> Navigate to the Teams section and open the New Team form.");
+	System.out.println("━━━━━━━━━━━━━━ ➕ TEAM FORM ACCESS ━━━━━━━━━━━━━━");
+	System.out.println("Action: Navigate to the Teams section and open the New Team form.");
+
+	WebElement Add_Team_Button = Users_Module_navigator("Teams");
+	Add_Team_Button.click();
+	p.Popup_Modal();
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> New Team form opened successfully.");
+	System.out.println("✅ Actual: New Team form opened successfully.");
+	System.out.println();
+
+	List<WebElement> Modal_Form_Inputs = p.Popup_Form_left_side_Inputs();
+	List<WebElement> Modal_Dropdowns = p.Popup_Form_left_Dropdown_Fields();
+
+	WebElement Team_Name_Input = Modal_Form_Inputs.get(0);
+	WebElement Recipient_Email_Input = Modal_Form_Inputs.get(1);
+	WebElement Additional_Role_Field = Modal_Dropdowns.get(0);
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 📝 TEAM DETAILS ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Action:</b> Enter the team name and assign the additional role.");
+	System.out.println("━━━━━━━━━━━━━━ 📝 TEAM DETAILS ━━━━━━━━━━━━━━");
+	System.out.println("Action: Enter the team name and assign the additional role.");
+
+	Team_Name_Input.sendKeys(Team_Name);
+
+	Additional_Role_Field.click();
+
+	WebElement Additional_Role_Input = Additional_Role_Field.findElement(By.xpath(".//input"));
+	Additional_Role_Input.sendKeys(Additional_Role);
+
+	WebElement Role_Dropdown = sa.rc_virtual_list_holder_one();
+	List<WebElement> Role_Options = Role_Dropdown.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+
+	for (WebElement Role_Option : Role_Options) {
+		String Role_Option_Name = Role_Option.getText().trim();
+
+		if (Role_Option_Name.equalsIgnoreCase(Additional_Role)) {
+			Role_Option.click();
+			break;
+		}
+	}
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Team name and additional role entered successfully. Team Name = " + Team_Name + " | Additional Role = " + Additional_Role);
+	System.out.println("✅ Actual: Team name and additional role entered successfully. Team Name = " + Team_Name + " | Additional Role = " + Additional_Role);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Action:</b> Enter the recipient email address.");
+	System.out.println("Action: Enter the recipient email address.");
+
+	Recipient_Email_Input.sendKeys(Recipient_Email);
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Recipient email entered successfully = " + Recipient_Email);
+	System.out.println("✅ Actual: Recipient email entered successfully = " + Recipient_Email);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 💾 TEAM SUBMISSION ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Action:</b> Save the configured team.");
+	System.out.println("━━━━━━━━━━━━━━ 💾 TEAM SUBMISSION ━━━━━━━━━━━━━━");
+	System.out.println("Action: Save the configured team.");
+
+	WebElement Save_Button = sa.Submit_button();
+	rp.Scroll_to_element(Save_Button);
+	rp.movetoelement(Save_Button);
+	Save_Button.click();
+
+	WebElement Toast = p.Toast();
+	String Toast_Text = Toast.getText().trim();
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Team save notification displayed successfully. Message = " + Toast_Text);
+	System.out.println("✅ Actual: Team save notification displayed successfully. Message = " + Toast_Text);
+
+	p.Toast_close_Button().click();
+	p.Team_Add_button();
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Final Result:</b> Team created successfully. Team Name = " + Team_Name + " | Additional Role = " + Additional_Role + " | Recipient Email = " + Recipient_Email + " | Notification = " + Toast_Text);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+
+	System.out.println("✅ Final Result: Team created successfully.");
+	System.out.println("Team Name = " + Team_Name);
+	System.out.println("Additional Role = " + Additional_Role);
+	System.out.println("Recipient Email = " + Recipient_Email);
+	System.out.println("Notification = " + Toast_Text);
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println();
+}
+	
+	
+	
 	@Test(dataProvider = "User_Create_Data")
 	public void Simplified_Hr_User_Add(TreeMap<String, String> user_data) throws IOException, InterruptedException {
 		
