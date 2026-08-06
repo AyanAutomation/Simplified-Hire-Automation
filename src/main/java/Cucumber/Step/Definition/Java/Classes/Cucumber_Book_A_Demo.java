@@ -15,6 +15,7 @@ public class Cucumber_Book_A_Demo extends Book_A_Demo_form_fillup {
 	private TreeMap<String, String> Plan_Data;
 	private TreeMap<String, String> Upgrade_Billing_Data;
 	private TreeMap<String, String> Account_Data;
+	private TreeMap<String, String> Checkout_Plan_Data;
 
 	public void Bind_driver() {
 
@@ -33,11 +34,18 @@ public class Cucumber_Book_A_Demo extends Book_A_Demo_form_fillup {
 	@Given("Book a Demo lead plan data is provided from the feature file")
 	public void Store_Book_A_Demo_Plan_Data(DataTable Data_Table) {
 
+		Bind_driver();
+
 		Plan_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
+
+		Checkout_Plan_Data = new TreeMap<String, String>();
+		Checkout_Plan_Data.put("Plan Name", Plan_Data.get("Checkout Plan Name"));
 	}
 
 	@Given("Book a Demo upgrade billing data is provided from the feature file")
 	public void Store_Book_A_Demo_Billing_Data(DataTable Data_Table) {
+
+		Bind_driver();
 
 		Upgrade_Billing_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
 	}
@@ -45,17 +53,20 @@ public class Cucumber_Book_A_Demo extends Book_A_Demo_form_fillup {
 	@Given("Book a Demo account data is provided from the feature file")
 	public void Store_Book_A_Demo_Account_Data(DataTable Data_Table) {
 
+		Bind_driver();
+
 		Account_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
 	}
 
 	@When("the Book a Demo end to end flow is executed")
 	public void Execute_Book_A_Demo_Flow() throws IOException, InterruptedException, AWTException {
 
-		if (Form_Data == null || Plan_Data == null || Upgrade_Billing_Data == null || Account_Data == null) {
+		Bind_driver();
 
+		if (Form_Data == null || Plan_Data == null || Upgrade_Billing_Data == null || Account_Data == null || Checkout_Plan_Data == null) {
 			throw new IllegalStateException("Book a Demo feature data was not prepared completely.");
 		}
 
-		book_a_demo_form_fillup(Form_Data, Plan_Data, Upgrade_Billing_Data, Account_Data);
+		book_a_demo_form_fillup(Form_Data, Plan_Data, Upgrade_Billing_Data, Account_Data, Checkout_Plan_Data);
 	}
 }

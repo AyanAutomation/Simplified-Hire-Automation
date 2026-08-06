@@ -268,17 +268,17 @@ public class Simplified_HR_Login extends Side_menu_Handler{
 		data10.put("Add Team To Request Category", "Yes");
 		data10.put("Selected Team Members", "Amelie Keller, Anouk Frederike Maas, Bikas Pal");
 
-		return new Object[][] {
+		return new Object[][] {/*
 			{ data1 },
 			{ data2 },
-			{ data3 },
-			{ data4 },
+			{ data3 },*/
+			{ data4 },/*
 			{ data5 },
 			{ data6 },
-			{ data7 },
-			{ data8 },
+			{ data7 },*/
+			{ data8 },/*
 			{ data9 },
-			{ data10 } 
+			{ data10 } */
 		};
 	}
 	

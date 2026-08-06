@@ -14,6 +14,7 @@ public class Cucumber_Saas_Admin_Module extends Saas_Admin_Module {
 	private TreeMap<String, String> Create_Account_Plan_Data;
 	private TreeMap<String, String> Create_Account_Billing_Data;
 	private TreeMap<String, String> Upgrade_Account_Data;
+	private TreeMap<String, String> Checkout_Plan_Data;
 
 	public void Bind_driver() {
 
@@ -21,6 +22,10 @@ public class Cucumber_Saas_Admin_Module extends Saas_Admin_Module {
 		super.Target_url = Base_Cucumber.Target_url;
 	}
 
+	
+	
+	
+	
 	@Given("login to SaaS Admin portal")
 	public void Login_To_Saas_Admin() throws IOException, InterruptedException {
 
@@ -28,25 +33,48 @@ public class Cucumber_Saas_Admin_Module extends Saas_Admin_Module {
 
 		Saas_Admin_Login();
 	}
-
-	@Given("create SaaS Admin draft account using the following feature data")
-	public void Create_Draft_Account_Using_Feature_Data(DataTable Data_Table) throws IOException, InterruptedException {
+    
+	
+	@Given("SaaS Admin Checkout plan data is provided from the feature file")
+	public void Store_Checkout_Plan_Data(DataTable Data_Table) {
 
 		Bind_driver();
 
-		TreeMap<String, String> Account_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
-
-		Draft_Account_Create(Account_Data);
+		Checkout_Plan_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
 	}
+	
+	
+	
+	@Given("create SaaS Admin draft account using the following feature data")
+    public void Create_Draft_Account_Using_Feature_Data(DataTable Data_Table) throws IOException, InterruptedException {
+
+	Bind_driver();
+
+	TreeMap<String, String> Account_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
+	TreeMap<String, String> Plan_Data = new TreeMap<String, String>();
+	TreeMap<String, String> Billing_Data = new TreeMap<String, String>();
+
+	Checkout_Plan_Data = new TreeMap<String, String>();
+
+	if (Account_Data.get("Checkout Plan Name") != null) {
+		Checkout_Plan_Data.put("Plan Name", Account_Data.get("Checkout Plan Name"));
+	} else {
+		Checkout_Plan_Data.put("Plan Name", Account_Data.get("Plan Name"));
+	}
+
+	Draft_Account_Create(Account_Data, Plan_Data, Billing_Data, Account_Data, Checkout_Plan_Data);
+}
 
 	@Given("SaaS Admin account plan data is provided from the feature file")
-	public void Store_Create_Account_Plan_Data(DataTable Data_Table) {
+    public void Store_Create_Account_Plan_Data(DataTable Data_Table) {
 
-		Bind_driver();
+	Bind_driver();
 
-		Create_Account_Plan_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
-	}
+	Create_Account_Plan_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
 
+	Checkout_Plan_Data = new TreeMap<String, String>();
+	Checkout_Plan_Data.put("Plan Name", Create_Account_Plan_Data.get("Checkout Plan Name"));
+}
 	@Given("SaaS Admin account billing data is provided from the feature file")
 	public void Store_Create_Account_Billing_Data(DataTable Data_Table) {
 
@@ -56,24 +84,26 @@ public class Cucumber_Saas_Admin_Module extends Saas_Admin_Module {
 	}
 
 	@Given("create SaaS Admin account using the following feature data")
-	public void Create_Account_Using_Feature_Data(DataTable Data_Table) throws IOException, InterruptedException {
+    public void Create_Account_Using_Feature_Data(DataTable Data_Table) throws IOException, InterruptedException {
 
-		Bind_driver();
+	Bind_driver();
 
-		TreeMap<String, String> Account_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
+	TreeMap<String, String> Account_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
 
-		if (Create_Account_Plan_Data == null) {
-
-			throw new IllegalStateException("SaaS Admin account plan data was not provided before account creation.");
-		}
-
-		if (Create_Account_Billing_Data == null) {
-
-			throw new IllegalStateException("SaaS Admin account billing data was not provided before account creation.");
-		}
-
-		Account_create(Account_Data, Create_Account_Plan_Data, Create_Account_Billing_Data, Account_Data);
+	if (Create_Account_Plan_Data == null) {
+		throw new IllegalStateException("SaaS Admin account plan data was not provided before account creation.");
 	}
+
+	if (Create_Account_Billing_Data == null) {
+		throw new IllegalStateException("SaaS Admin account billing data was not provided before account creation.");
+	}
+
+	if (Checkout_Plan_Data == null) {
+		throw new IllegalStateException("SaaS Admin Checkout plan data was not prepared before account creation.");
+	}
+
+	Account_create(Account_Data, Create_Account_Plan_Data, Create_Account_Billing_Data, Account_Data, Checkout_Plan_Data);
+}
 
 	@Given("verify SaaS Admin account using the following feature data")
 	public void Verify_Account_Using_Feature_Data(DataTable Data_Table) throws IOException, InterruptedException {
@@ -112,24 +142,35 @@ public class Cucumber_Saas_Admin_Module extends Saas_Admin_Module {
 		Bind_driver();
 
 		Upgrade_Account_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
+
+		Checkout_Plan_Data = new TreeMap<String, String>();
+
+		if (Upgrade_Account_Data.get("Checkout Plan Name") != null) {
+			Checkout_Plan_Data.put("Plan Name", Upgrade_Account_Data.get("Checkout Plan Name"));
+		} else {
+			Checkout_Plan_Data.put("Plan Name", Upgrade_Account_Data.get("Plan Name"));
+		}
 	}
 
 	@When("the SaaS Admin account plan is upgraded using the following billing feature data")
-	public void Upgrade_Account_Plan_Using_Feature_Data(DataTable Data_Table) throws IOException, InterruptedException {
+    public void Upgrade_Account_Plan_Using_Feature_Data(DataTable Data_Table) throws IOException, InterruptedException {
 
-		Bind_driver();
+	Bind_driver();
 
-		if (Upgrade_Account_Data == null) {
-
-			throw new IllegalStateException("Account feature data was not prepared before plan upgrade.");
-		}
-
-		TreeMap<String, String> Billing_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
-
-		String Target_Upgrade_Plan_Name = Upgrade_Account_Data.get("Plan Name");
-
-		Quick_Plan_Upgrade_Several_times(Upgrade_Account_Data, Upgrade_Account_Data, Billing_Data,Target_Upgrade_Plan_Name);
+	if (Upgrade_Account_Data == null) {
+		throw new IllegalStateException("Account feature data was not prepared before plan upgrade.");
 	}
+
+	if (Checkout_Plan_Data == null) {
+		throw new IllegalStateException("Checkout plan data was not prepared before plan upgrade.");
+	}
+
+	TreeMap<String, String> Billing_Data = new TreeMap<String, String>(Data_Table.asMap(String.class, String.class));
+
+	String Target_Upgrade_Plan_Name = Upgrade_Account_Data.get("Plan Name");
+
+	Quick_Plan_Upgrade_Several_times(Upgrade_Account_Data, Upgrade_Account_Data, Billing_Data, Checkout_Plan_Data, Target_Upgrade_Plan_Name);
+}
 
 	@Given("activate SaaS Admin account using the following feature data")
 	public void Activate_Account_Using_Feature_Data(DataTable Data_Table) throws IOException, InterruptedException {

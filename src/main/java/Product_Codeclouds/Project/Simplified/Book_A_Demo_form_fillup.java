@@ -25,7 +25,7 @@ import Repeatative_codes.Repeat;
 public class Book_A_Demo_form_fillup extends Saas_Admin_Module {
 
 @Test(dataProvider = "combined_data_provider")
-public void book_a_demo_form_fillup(TreeMap<String, String> form_data, TreeMap<String, String> Plan_data, TreeMap<String, String> upgrade_plan_datas, TreeMap<String, String> account_create_data) throws IOException, InterruptedException, AWTException {
+public void book_a_demo_form_fillup(TreeMap<String, String> form_data, TreeMap<String, String> Plan_data, TreeMap<String, String> upgrade_plan_datas, TreeMap<String, String> account_create_data, TreeMap<String, String> Checkout_Plan_data) throws IOException, InterruptedException, AWTException {
 
 	int step = 1;
 	Data_Reader f = new Data_Reader();
@@ -43,36 +43,23 @@ public void book_a_demo_form_fillup(TreeMap<String, String> form_data, TreeMap<S
 	String Message = form_data.get("Message");
 	String URL = f.Data_Fetcher("Frontend_url");
 
-	String Checkout_plan_name = Plan_data.get("Checkout Plan Name");
+	String Checkout_plan_name = Checkout_Plan_data.get("Plan Name");
 	String Spaces_plan_name = Plan_data.get("Spaces Plan Name");
 	String Hire_plan_name = Plan_data.get("Hire Plan Name");
 	String Hr_plan_name = Plan_data.get("Hr Plan Name");
-	String Target_Upgrade_Plan_Name = null;
 
-	if (Selected_Product != null && Selected_Product.toLowerCase().contains("checkout") && Checkout_plan_name != null && !Checkout_plan_name.trim().isEmpty()) {
+	Plan_data.put("Checkout Plan Name", Checkout_plan_name);
+
+	String Target_Upgrade_Plan_Name;
+
+	if (Selected_Product.toLowerCase().contains("checkout")) {
 		Target_Upgrade_Plan_Name = Checkout_plan_name;
-	} else if (Selected_Product != null && Selected_Product.toLowerCase().contains("hire") && Hire_plan_name != null && !Hire_plan_name.trim().isEmpty()) {
+	} else if (Selected_Product.toLowerCase().contains("hire")) {
 		Target_Upgrade_Plan_Name = Hire_plan_name;
-	} else if (Selected_Product != null && Selected_Product.toLowerCase().contains("hr") && Hr_plan_name != null && !Hr_plan_name.trim().isEmpty()) {
+	} else if (Selected_Product.toLowerCase().contains("hr")) {
 		Target_Upgrade_Plan_Name = Hr_plan_name;
-	} else if (Selected_Product != null && Selected_Product.toLowerCase().contains("spaces") && Spaces_plan_name != null && !Spaces_plan_name.trim().isEmpty()) {
+	} else {
 		Target_Upgrade_Plan_Name = Spaces_plan_name;
-	}
-
-	if (Target_Upgrade_Plan_Name == null || Target_Upgrade_Plan_Name.trim().isEmpty()) {
-		if (Checkout_plan_name != null && !Checkout_plan_name.trim().isEmpty()) {
-			Target_Upgrade_Plan_Name = Checkout_plan_name;
-		} else if (Hire_plan_name != null && !Hire_plan_name.trim().isEmpty()) {
-			Target_Upgrade_Plan_Name = Hire_plan_name;
-		} else if (Hr_plan_name != null && !Hr_plan_name.trim().isEmpty()) {
-			Target_Upgrade_Plan_Name = Hr_plan_name;
-		} else if (Spaces_plan_name != null && !Spaces_plan_name.trim().isEmpty()) {
-			Target_Upgrade_Plan_Name = Spaces_plan_name;
-		}
-	}
-
-	if (Target_Upgrade_Plan_Name == null || Target_Upgrade_Plan_Name.trim().isEmpty()) {
-		Target_Upgrade_Plan_Name = "Ayan";
 	}
 
 	String Upgrade_Users = account_create_data.get("Users");
@@ -85,16 +72,16 @@ public void book_a_demo_form_fillup(TreeMap<String, String> form_data, TreeMap<S
 	System.out.println("🔹 Scenario Title: Validate Book a Demo form submission, field validation, lead approval, plan upgrade, Active-plan collection, and account activation");
 	System.out.println();
 
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Open the frontend URL, navigate to the Book a Demo page, select products according to the test data, validate First Name and Last Name fields, submit the form, handle CAPTCHA when displayed, verify the submitted lead, approve the lead with the supplied plans, upgrade one assigned plan, capture every Active plan returned by the upgrade method, and activate the account.");
-	System.out.println("📘 Description: Open the frontend URL, navigate to the Book a Demo page, select products according to the test data, validate First Name and Last Name fields, submit the form, handle CAPTCHA when displayed, verify the submitted lead, approve the lead with the supplied plans, upgrade one assigned plan, capture every Active plan returned by the upgrade method, and activate the account.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Open the frontend URL, navigate to the Book a Demo page, select products according to the test data, validate First Name and Last Name fields, submit the form, handle CAPTCHA when displayed, verify the submitted lead, approve the lead with the supplied plans including the generated Checkout plan, upgrade one assigned plan, capture every Active plan returned by the upgrade method, and activate the account.");
+	System.out.println("📘 Description: Open the frontend URL, navigate to the Book a Demo page, select products according to the test data, validate First Name and Last Name fields, submit the form, handle CAPTCHA when displayed, verify the submitted lead, approve the lead with the supplied plans including the generated Checkout plan, upgrade one assigned plan, capture every Active plan returned by the upgrade method, and activate the account.");
 	System.out.println();
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Selected Product = " + Selected_Product + " | Name = " + First_Name + " " + Last_Name + " | Email = " + Email + " | Company = " + Company_Name + " | Country Code = " + Country_Code + " | Phone Number = " + Phone_Number + " | Message = " + Message);
 	System.out.println("📥 Input: Selected Product = " + Selected_Product + " | Name = " + First_Name + " " + Last_Name + " | Email = " + Email + " | Company = " + Company_Name + " | Country Code = " + Country_Code + " | Phone Number = " + Phone_Number + " | Message = " + Message);
 	System.out.println();
 
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Lead Approval Plan Input:</b> Hire Plan = " + Hire_plan_name + " | Checkout Plan = " + Checkout_plan_name + " | HR Plan = " + Hr_plan_name + " | Spaces Plan = " + Spaces_plan_name);
-	System.out.println("📥 Lead Approval Plan Input: Hire Plan = " + Hire_plan_name + " | Checkout Plan = " + Checkout_plan_name + " | HR Plan = " + Hr_plan_name + " | Spaces Plan = " + Spaces_plan_name);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Lead Approval Plan Input:</b> Generated Checkout Plan = " + Checkout_plan_name + " | Hire Plan = " + Hire_plan_name + " | HR Plan = " + Hr_plan_name + " | Spaces Plan = " + Spaces_plan_name);
+	System.out.println("📥 Lead Approval Plan Input: Generated Checkout Plan = " + Checkout_plan_name + " | Hire Plan = " + Hire_plan_name + " | HR Plan = " + Hr_plan_name + " | Spaces Plan = " + Spaces_plan_name);
 	System.out.println();
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Plan Upgrade Input:</b> Target Upgrade Plan = " + Target_Upgrade_Plan_Name + " | Users = " + Upgrade_Users + " | Billing First Name = " + upgrade_plan_datas.get("First Name") + " | Billing Last Name = " + upgrade_plan_datas.get("Last Name") + " | Country = " + upgrade_plan_datas.get("Country") + " | City = " + upgrade_plan_datas.get("City") + " | State = " + upgrade_plan_datas.get("State") + " | Zip = " + upgrade_plan_datas.get("Zip"));
@@ -713,7 +700,7 @@ public void book_a_demo_form_fillup(TreeMap<String, String> form_data, TreeMap<S
 	Book_Demo_Account_Data.put("Hr Plan Name", Hr_plan_name);
 	Book_Demo_Account_Data.put("Users", Upgrade_Users);
 
-	TreeSet<String> Active_Plan_Names = Quick_Plan_Upgrade_Several_times(form_data, Book_Demo_Account_Data, upgrade_plan_datas, Target_Upgrade_Plan_Name);
+	TreeSet<String> Active_Plan_Names = Quick_Plan_Upgrade_Several_times(form_data, Book_Demo_Account_Data, upgrade_plan_datas, Checkout_Plan_data, Target_Upgrade_Plan_Name);
 	String Selected_Upgraded_Plan_Name = Book_Demo_Account_Data.get("Selected Upgrade Plan Name");
 
 	if (Active_Plan_Names == null || Active_Plan_Names.isEmpty()) {
