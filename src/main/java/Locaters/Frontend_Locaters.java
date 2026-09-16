@@ -38,30 +38,33 @@ public class Frontend_Locaters extends Repeat{
 		@FindBy(xpath="//span[contains(@class,'bookADemo_custom_checkbox__')]")
 		private List<WebElement> Product_check_boxes; 
 		@FindBy(id="book_demo_error_message")
-		private List <WebElement> New_Error_book_demo_form;/*
-		@FindBy(xpath="")
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
+		private List <WebElement> New_Error_book_demo_form;
+		@FindBy(xpath="//button[text()='Let’s Chat']")
+		private WebElement  Lets_Chat_button;
+		@FindBy(id="contactform7")
+		private WebElement Contact_form;
+		@FindBy(id="name")
+		private WebElement Full_Name;
+		@FindBy(id="email")
+		private WebElement email;
+		@FindBy(id="company")
+		private WebElement company;
+		@FindBy(id="message")
+		private WebElement message;
+		@FindBy(xpath="//button[@type='submit']")
+		private WebElement SubmitButton; 
+		@FindBy(xpath="//div[contains(@class,'contactform-success')]")
+		private WebElement  Form_Submission_Success_Message; 
+		@FindBy(xpath="//div[contains(@class,'contact_popup_spinner_border__KtU1Y')]")
+		private WebElement Loading_spinner; 
+		@FindBy(id="phone")
+		private WebElement phone_number;
+		@FindBy(xpath="//div[@class='ant-form-item-explain-error']")
+		public WebElement Error_message; 
+		@FindBy(xpath="//label[.//input[@id='privacy']]")
+		private WebElement Privacy_checkbox;
+		@FindBy(id="privacy")
+		private WebElement Privacy_checkbox_input;/*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -395,43 +398,43 @@ public class Frontend_Locaters extends Repeat{
 		return Product_check_boxes;}
 		public List <WebElement> New_Error_book_demo_form(){
 		wait_for_theElement(New_Error_book_demo_form);
-		return New_Error_book_demo_form;}/*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return New_Error_book_demo_form;}
+		public WebElement Lets_Chat_button(){
+		wait_for_theElement(Lets_Chat_button);
+		return Lets_Chat_button;}
+		public WebElement Contact_form(){
+		wait_for_theElement(Contact_form);
+		return Contact_form;}
+		public WebElement Full_Name(){
+		wait_for_theElement(Full_Name);
+		return Full_Name;}
+		public WebElement email(){
+		wait_for_theElement(email);
+		return email;}
+		public WebElement company(){
+		wait_for_theElement(company);
+		return company;}
+		public WebElement message(){
+		wait_for_theElement(message);
+		return message;}
+		public WebElement SubmitButton(){
+		wait_for_theElement(SubmitButton);
+		return SubmitButton;}
+		public WebElement Form_Submission_Success_Message(){
+		wait_for_theElement(Form_Submission_Success_Message);
+		return Form_Submission_Success_Message;}
+		public WebElement Loading_spinner(){
+		wait_for_theElement(Loading_spinner);
+		return Loading_spinner;}
+		public WebElement phone_number(){
+		wait_for_theElement(phone_number);
+		return phone_number;}
+		public WebElement Privacy_checkbox(){
+		wait_for_theElement(Privacy_checkbox);
+		return Privacy_checkbox;}
+		public WebElement Privacy_checkbox_input(){
+		wait_for_theElement(Privacy_checkbox_input);
+		return Privacy_checkbox_input;}/*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}

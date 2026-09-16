@@ -2,14 +2,19 @@ package Product_Codeclouds.Project.Simplified;
 
 import java.awt.AWTException;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.stream.IntStream;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -25,7 +30,7 @@ import Repeatative_codes.Repeat;
 public class Book_A_Demo_form_fillup extends Saas_Admin_Module {
 
 @Test(dataProvider = "combined_data_provider")
-public void book_a_demo_form_fillup(TreeMap<String, String> form_data, TreeMap<String, String> Plan_data, TreeMap<String, String> upgrade_plan_datas, TreeMap<String, String> account_create_data, TreeMap<String, String> Checkout_Plan_data) throws IOException, InterruptedException, AWTException {
+public void book_a_demo_form_fillup(TreeMap<String, String> form_data, TreeMap<String, String> Plan_data, TreeMap<String, String> upgrade_plan_datas, TreeMap<String, String> account_create_data) throws IOException, InterruptedException, AWTException {
 
 	int step = 1;
 	Data_Reader f = new Data_Reader();
@@ -43,23 +48,36 @@ public void book_a_demo_form_fillup(TreeMap<String, String> form_data, TreeMap<S
 	String Message = form_data.get("Message");
 	String URL = f.Data_Fetcher("Frontend_url");
 
-	String Checkout_plan_name = Checkout_Plan_data.get("Plan Name");
+	String Checkout_plan_name = Plan_data.get("Checkout Plan Name");
 	String Spaces_plan_name = Plan_data.get("Spaces Plan Name");
 	String Hire_plan_name = Plan_data.get("Hire Plan Name");
 	String Hr_plan_name = Plan_data.get("Hr Plan Name");
+	String Target_Upgrade_Plan_Name = null;
 
-	Plan_data.put("Checkout Plan Name", Checkout_plan_name);
-
-	String Target_Upgrade_Plan_Name;
-
-	if (Selected_Product.toLowerCase().contains("checkout")) {
+	if (Selected_Product != null && Selected_Product.toLowerCase().contains("checkout") && Checkout_plan_name != null && !Checkout_plan_name.trim().isEmpty()) {
 		Target_Upgrade_Plan_Name = Checkout_plan_name;
-	} else if (Selected_Product.toLowerCase().contains("hire")) {
+	} else if (Selected_Product != null && Selected_Product.toLowerCase().contains("hire") && Hire_plan_name != null && !Hire_plan_name.trim().isEmpty()) {
 		Target_Upgrade_Plan_Name = Hire_plan_name;
-	} else if (Selected_Product.toLowerCase().contains("hr")) {
+	} else if (Selected_Product != null && Selected_Product.toLowerCase().contains("hr") && Hr_plan_name != null && !Hr_plan_name.trim().isEmpty()) {
 		Target_Upgrade_Plan_Name = Hr_plan_name;
-	} else {
+	} else if (Selected_Product != null && Selected_Product.toLowerCase().contains("spaces") && Spaces_plan_name != null && !Spaces_plan_name.trim().isEmpty()) {
 		Target_Upgrade_Plan_Name = Spaces_plan_name;
+	}
+
+	if (Target_Upgrade_Plan_Name == null || Target_Upgrade_Plan_Name.trim().isEmpty()) {
+		if (Checkout_plan_name != null && !Checkout_plan_name.trim().isEmpty()) {
+			Target_Upgrade_Plan_Name = Checkout_plan_name;
+		} else if (Hire_plan_name != null && !Hire_plan_name.trim().isEmpty()) {
+			Target_Upgrade_Plan_Name = Hire_plan_name;
+		} else if (Hr_plan_name != null && !Hr_plan_name.trim().isEmpty()) {
+			Target_Upgrade_Plan_Name = Hr_plan_name;
+		} else if (Spaces_plan_name != null && !Spaces_plan_name.trim().isEmpty()) {
+			Target_Upgrade_Plan_Name = Spaces_plan_name;
+		}
+	}
+
+	if (Target_Upgrade_Plan_Name == null || Target_Upgrade_Plan_Name.trim().isEmpty()) {
+		Target_Upgrade_Plan_Name = "Ayan";
 	}
 
 	String Upgrade_Users = account_create_data.get("Users");
@@ -72,16 +90,16 @@ public void book_a_demo_form_fillup(TreeMap<String, String> form_data, TreeMap<S
 	System.out.println("🔹 Scenario Title: Validate Book a Demo form submission, field validation, lead approval, plan upgrade, Active-plan collection, and account activation");
 	System.out.println();
 
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Open the frontend URL, navigate to the Book a Demo page, select products according to the test data, validate First Name and Last Name fields, submit the form, handle CAPTCHA when displayed, verify the submitted lead, approve the lead with the supplied plans including the generated Checkout plan, upgrade one assigned plan, capture every Active plan returned by the upgrade method, and activate the account.");
-	System.out.println("📘 Description: Open the frontend URL, navigate to the Book a Demo page, select products according to the test data, validate First Name and Last Name fields, submit the form, handle CAPTCHA when displayed, verify the submitted lead, approve the lead with the supplied plans including the generated Checkout plan, upgrade one assigned plan, capture every Active plan returned by the upgrade method, and activate the account.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Open the frontend URL, navigate to the Book a Demo page, select products according to the test data, validate First Name and Last Name fields, submit the form, handle CAPTCHA when displayed, verify the submitted lead, approve the lead with the supplied plans, upgrade one assigned plan, capture every Active plan returned by the upgrade method, and activate the account.");
+	System.out.println("📘 Description: Open the frontend URL, navigate to the Book a Demo page, select products according to the test data, validate First Name and Last Name fields, submit the form, handle CAPTCHA when displayed, verify the submitted lead, approve the lead with the supplied plans, upgrade one assigned plan, capture every Active plan returned by the upgrade method, and activate the account.");
 	System.out.println();
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Selected Product = " + Selected_Product + " | Name = " + First_Name + " " + Last_Name + " | Email = " + Email + " | Company = " + Company_Name + " | Country Code = " + Country_Code + " | Phone Number = " + Phone_Number + " | Message = " + Message);
 	System.out.println("📥 Input: Selected Product = " + Selected_Product + " | Name = " + First_Name + " " + Last_Name + " | Email = " + Email + " | Company = " + Company_Name + " | Country Code = " + Country_Code + " | Phone Number = " + Phone_Number + " | Message = " + Message);
 	System.out.println();
 
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Lead Approval Plan Input:</b> Generated Checkout Plan = " + Checkout_plan_name + " | Hire Plan = " + Hire_plan_name + " | HR Plan = " + Hr_plan_name + " | Spaces Plan = " + Spaces_plan_name);
-	System.out.println("📥 Lead Approval Plan Input: Generated Checkout Plan = " + Checkout_plan_name + " | Hire Plan = " + Hire_plan_name + " | HR Plan = " + Hr_plan_name + " | Spaces Plan = " + Spaces_plan_name);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Lead Approval Plan Input:</b> Hire Plan = " + Hire_plan_name + " | Checkout Plan = " + Checkout_plan_name + " | HR Plan = " + Hr_plan_name + " | Spaces Plan = " + Spaces_plan_name);
+	System.out.println("📥 Lead Approval Plan Input: Hire Plan = " + Hire_plan_name + " | Checkout Plan = " + Checkout_plan_name + " | HR Plan = " + Hr_plan_name + " | Spaces Plan = " + Spaces_plan_name);
 	System.out.println();
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Plan Upgrade Input:</b> Target Upgrade Plan = " + Target_Upgrade_Plan_Name + " | Users = " + Upgrade_Users + " | Billing First Name = " + upgrade_plan_datas.get("First Name") + " | Billing Last Name = " + upgrade_plan_datas.get("Last Name") + " | Country = " + upgrade_plan_datas.get("Country") + " | City = " + upgrade_plan_datas.get("City") + " | State = " + upgrade_plan_datas.get("State") + " | Zip = " + upgrade_plan_datas.get("Zip"));
@@ -700,7 +718,7 @@ public void book_a_demo_form_fillup(TreeMap<String, String> form_data, TreeMap<S
 	Book_Demo_Account_Data.put("Hr Plan Name", Hr_plan_name);
 	Book_Demo_Account_Data.put("Users", Upgrade_Users);
 
-	TreeSet<String> Active_Plan_Names = Quick_Plan_Upgrade_Several_times(form_data, Book_Demo_Account_Data, upgrade_plan_datas, Checkout_Plan_data, Target_Upgrade_Plan_Name);
+	TreeSet<String> Active_Plan_Names = Quick_Plan_Upgrade_Several_times(form_data, Book_Demo_Account_Data, upgrade_plan_datas, Target_Upgrade_Plan_Name);
 	String Selected_Upgraded_Plan_Name = Book_Demo_Account_Data.get("Selected Upgrade Plan Name");
 
 	if (Active_Plan_Names == null || Active_Plan_Names.isEmpty()) {
@@ -744,130 +762,290 @@ public void book_a_demo_form_fillup(TreeMap<String, String> form_data, TreeMap<S
 	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 }
 
-	public boolean Captcha_Bypass(WebElement captcha_frame) throws InterruptedException {
+public boolean Captcha_Bypass(WebElement captcha_frame) throws InterruptedException {
 
-		Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
-		Repeat rp = new Repeat(d);
-		boolean iframe_switched = false;
-		String captcha_stage = "CAPTCHA handling started";
+	Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+	Repeat rp = new Repeat(d);
+	boolean iframe_switched = false;
+	String captcha_stage = "CAPTCHA handling started";
+	long Captcha_Start_Time = System.currentTimeMillis();
 
-		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
-		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Section:</b> CAPTCHA Validation");
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>📘 Description:</b> Switch into the visible CAPTCHA iframe, identify the checkbox control, complete the CAPTCHA interaction, verify the checked state, and return to the main page.");
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>✅ Expected:</b> CAPTCHA checkbox should be completed successfully and control should return to the default page content.");
-		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Section:</b> CAPTCHA Validation");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Complete CAPTCHA verification and wait for manual interaction only when an image challenge is presented.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> CAPTCHA verification should complete successfully before the form continues.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
 
-		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-		System.out.println("🔹 Scenario Section: CAPTCHA Validation");
-		System.out.println(
-				"📘 Description: Switch into the visible CAPTCHA iframe, identify the checkbox control, complete the CAPTCHA interaction, verify the checked state, and return to the main page.");
-		System.out.println(
-				"✅ Expected: CAPTCHA checkbox should be completed successfully and control should return to the default page content.");
-		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-		System.out.println();
+	System.out.println();
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println("🔹 Scenario Section: CAPTCHA Validation");
+	System.out.println("🧪 DEBUG | CAPTCHA method execution started.");
+	System.out.println("🧪 DEBUG | Current URL = " + d.getCurrentUrl());
+	System.out.println("🧪 DEBUG | Initial Stage = " + captcha_stage);
+	System.out.println();
+
+	try {
+
+		System.out.println("━━━━━━━━━━━━━━ 🔐 CAPTCHA CHECKBOX ━━━━━━━━━━━━━━");
+
+		captcha_stage = "Switch into size=normal CAPTCHA iframe";
+
+		System.out.println("🧪 DEBUG | Stage = " + captcha_stage);
+		System.out.println("🧪 DEBUG | CAPTCHA iframe title = " + captcha_frame.getAttribute("title"));
+		System.out.println("🧪 DEBUG | CAPTCHA iframe src = " + captcha_frame.getAttribute("src"));
+
+		rp.Scroll_to_element(captcha_frame);
+
+		long Step_Start_Time = System.currentTimeMillis();
+
+		d.switchTo().frame(captcha_frame);
+		iframe_switched = true;
+
+		System.out.println("⏱ DEBUG | Checkbox iframe switch duration = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
+		System.out.println("🧪 DEBUG | iframe_switched = true");
+
+		captcha_stage = "Find CAPTCHA checkbox inside size=normal iframe";
+
+		List<WebElement> checkbox_list = p.Captcha_checkbox_list();
+		List<WebElement> border_list = p.Captcha_checkbox_border_list();
+
+		System.out.println("🧪 DEBUG | Checkbox count = " + checkbox_list.size());
+		System.out.println("🧪 DEBUG | Border count = " + border_list.size());
+
+		if (checkbox_list.size() == 0 && border_list.size() == 0) {
+
+			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> CAPTCHA checkbox could not be identified.");
+			System.out.println("❌ CAPTCHA Failure: Checkbox/border element was not found.");
+
+			return false;
+		}
+
+		WebElement captcha_target = checkbox_list.size() > 0 ? checkbox_list.get(0) : border_list.get(0);
+
+		System.out.println("🧪 DEBUG | CAPTCHA target selected from = " + (checkbox_list.size() > 0 ? "Checkbox List" : "Border List"));
+		System.out.println("🧪 DEBUG | Target aria-checked before click = " + captcha_target.getAttribute("aria-checked"));
+
+		captcha_stage = "Click CAPTCHA checkbox";
+
+		Step_Start_Time = System.currentTimeMillis();
 
 		try {
-			Report_Listen.log_print_in_report().log(Status.INFO,
-					"<b>━━━━━━━━━━━━━━ 🔐 CAPTCHA CHECKBOX ━━━━━━━━━━━━━━</b>");
-			System.out.println("━━━━━━━━━━━━━━ 🔐 CAPTCHA CHECKBOX ━━━━━━━━━━━━━━");
 
-			Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step:</b> Handle visible checkbox CAPTCHA.");
-			System.out.println("Step: Handle visible checkbox CAPTCHA.");
+			captcha_target.click();
 
-			captcha_stage = "Switch into size=normal CAPTCHA iframe";
-			System.out.println("🟨 Debug: CAPTCHA iframe src = " + captcha_frame.getAttribute("src"));
+			System.out.println("⏱ DEBUG | Normal CAPTCHA click duration = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
+			System.out.println("🧪 DEBUG | Normal Selenium CAPTCHA click completed.");
 
-			rp.Scroll_to_element(captcha_frame);
-			d.switchTo().frame(captcha_frame);
-			iframe_switched = true;
+		} catch (Exception click_exception) {
 
-			Report_Listen.log_print_in_report().log(Status.INFO,
-					"<b>🟨 Actual:</b> Switched into visible checkbox CAPTCHA iframe successfully.");
-			System.out.println("🟨 Actual: Switched into visible checkbox CAPTCHA iframe successfully.");
+			System.out.println("🧪 DEBUG | Normal click failed.");
+			System.out.println("🧪 DEBUG | Exception = " + click_exception.getClass().getSimpleName());
+			System.out.println("🧪 DEBUG | Retrying with JavaScript click.");
 
-			captcha_stage = "Find CAPTCHA checkbox inside size=normal iframe";
-			List<WebElement> checkbox_list = p.Captcha_checkbox_list();
-			List<WebElement> border_list = p.Captcha_checkbox_border_list();
-
-			System.out.println(
-					"🟨 Debug: Checkbox count = " + checkbox_list.size() + " | Border count = " + border_list.size());
-
-			if (checkbox_list.size() == 0 && border_list.size() == 0) {
-				Report_Listen.log_print_in_report().log(Status.FAIL,
-						"<b>❌ CAPTCHA Failure Point:</b> size=normal iframe found, but checkbox/border element not found inside iframe.");
-				System.out.println(
-						"❌ CAPTCHA Failure Point: size=normal iframe found, but checkbox/border element not found inside iframe.");
-				return false;
-			}
-
-			WebElement captcha_target = checkbox_list.size() > 0 ? checkbox_list.get(0) : border_list.get(0);
-
-			System.out.println("🟨 Debug: CAPTCHA target | tag = " + captcha_target.getTagName() + " | id = "
-					+ captcha_target.getAttribute("id") + " | class = " + captcha_target.getAttribute("class")
-					+ " | role = " + captcha_target.getAttribute("role") + " | aria-checked = "
-					+ captcha_target.getAttribute("aria-checked"));
-
-			captcha_stage = "Click CAPTCHA checkbox";
-			try {
-				captcha_target.click();
-				Report_Listen.log_print_in_report().log(Status.INFO,
-						"<b>🟨 Actual:</b> CAPTCHA target clicked successfully.");
-				System.out.println("🟨 Actual: CAPTCHA target clicked successfully.");
-			} catch (Exception click_exception) {
-				Report_Listen.log_print_in_report().log(Status.WARNING,
-						"<b>⚠ Retry:</b> Normal CAPTCHA click failed. Retrying with JavaScript click. Reason = "
-								+ click_exception.getMessage());
-				System.out.println("⚠ Retry: Normal CAPTCHA click failed. Retrying with JavaScript click. Reason = "
-						+ click_exception.getMessage());
-				rp.Java_script_executor_CLICK(captcha_target);
-			}
-
-			Thread.sleep(1200);
-
-			captcha_stage = "Verify CAPTCHA checked state";
-			List<WebElement> anchor_list = d.findElements(By.xpath("//*[@id='recaptcha-anchor']"));
-			String captcha_status = anchor_list.size() > 0 ? anchor_list.get(0).getAttribute("aria-checked")
-					: "not-found";
-
-			System.out.println("🟨 Debug: CAPTCHA verification | anchor count = " + anchor_list.size()
-					+ " | aria-checked = " + captcha_status);
-
-			if (captcha_status.equals("true")) {
-				Report_Listen.log_print_in_report().log(Status.PASS,
-						"<b>✅ Actual:</b> CAPTCHA checkbox clicked and verified successfully.");
-				System.out.println("✅ Actual: CAPTCHA checkbox clicked and verified successfully.");
-				return true;
-			}
-
-			Report_Listen.log_print_in_report().log(Status.FAIL,
-					"<b>❌ CAPTCHA Failure Point:</b> CAPTCHA clicked but aria-checked was not true. Actual = "
-							+ captcha_status);
-			System.out.println("❌ CAPTCHA Failure Point: CAPTCHA clicked but aria-checked was not true. Actual = "
-					+ captcha_status);
-			return false;
-
-		} catch (Exception e) {
-			Report_Listen.log_print_in_report().log(Status.FAIL,
-					"<b>❌ CAPTCHA Failure Point:</b> CAPTCHA handling failed. Failed Stage = " + captcha_stage
-							+ " | Reason = " + e.getMessage());
-			System.out.println("❌ CAPTCHA Failure Point: CAPTCHA handling failed. Failed Stage = " + captcha_stage
-					+ " | Reason = " + e.getMessage());
-			return false;
-		} finally {
-			if (iframe_switched) {
-				d.switchTo().defaultContent();
-				Report_Listen.log_print_in_report().log(Status.INFO,
-						"<b>🟨 Actual:</b> Switched back to default content after CAPTCHA handling.");
-				System.out.println("🟨 Actual: Switched back to default content after CAPTCHA handling.");
-			}
-			Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
-			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+			rp.Java_script_executor_CLICK(captcha_target);
 		}
-		
-		
+
+		Thread.sleep(1200);
+
+		captcha_stage = "Verify immediate CAPTCHA checked state";
+
+		List<WebElement> anchor_list = d.findElements(By.xpath("//*[@id='recaptcha-anchor']"));
+
+		String captcha_status = anchor_list.size() > 0
+				? anchor_list.get(0).getAttribute("aria-checked")
+				: "not-found";
+
+		System.out.println("🧪 DEBUG | Immediate aria-checked = " + captcha_status);
+
+		if (captcha_status.equals("true")) {
+
+			Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> CAPTCHA verification completed successfully.");
+			System.out.println("✅ Actual: CAPTCHA completed immediately without image challenge.");
+			System.out.println("⏱ DEBUG | CAPTCHA total duration = " + (System.currentTimeMillis() - Captcha_Start_Time) + " ms");
+
+			return true;
+		}
+
+		System.out.println("🧪 DEBUG | Checkbox is not yet verified.");
+		System.out.println("🧪 DEBUG | Checking for image CAPTCHA challenge.");
+
+		d.switchTo().defaultContent();
+		iframe_switched = false;
+
+		captcha_stage = "Check for image CAPTCHA challenge";
+
+		WebElement Captcha_image_iframe = p.Image_pop_captcha_normal_iframe_Element;
+
+		Step_Start_Time = System.currentTimeMillis();
+
+		Boolean Image_frame_status = rp.check_element_visibility(Captcha_image_iframe, 3);
+
+		System.out.println("⏱ DEBUG | Image CAPTCHA detection duration = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
+		System.out.println("🧪 DEBUG | Image CAPTCHA detected = " + Image_frame_status);
+
+		if (Image_frame_status) {
+
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Additional CAPTCHA verification is required. Waiting for manual completion.");
+
+			System.out.println();
+			System.out.println("━━━━━━━━━━━━━━ 🖼️ MANUAL IMAGE CAPTCHA ━━━━━━━━━━━━━━");
+			System.out.println("👤 Complete the CAPTCHA manually.");
+			System.out.println("⏳ Multiple image rounds can be completed.");
+			System.out.println("⏳ Automation will continue automatically when the CAPTCHA closes.");
+
+			captcha_stage = "Wait for manual image CAPTCHA completion";
+
+			long Manual_Captcha_Start_Time = System.currentTimeMillis();
+
+			WebDriverWait Manual_Captcha_Wait = new WebDriverWait(d, Duration.ofSeconds(120));
+			Manual_Captcha_Wait.pollingEvery(Duration.ofSeconds(1));
+
+			System.out.println("🧪 DEBUG | Manual CAPTCHA dynamic wait started.");
+			System.out.println("🧪 DEBUG | Maximum wait = 120 seconds.");
+			System.out.println("🧪 DEBUG | Polling interval = 1 second.");
+
+			Manual_Captcha_Wait.until(driver -> {
+
+				long Elapsed_Seconds = (System.currentTimeMillis() - Manual_Captcha_Start_Time) / 1000;
+
+				try {
+
+					boolean Image_Captcha_Visible = Captcha_image_iframe.isDisplayed();
+
+					if (Elapsed_Seconds > 0 && Elapsed_Seconds % 5 == 0) {
+						System.out.println("⏳ DEBUG | Image CAPTCHA still active | Elapsed = " + Elapsed_Seconds + " seconds");
+					}
+
+					return !Image_Captcha_Visible;
+
+				} catch (NoSuchElementException | StaleElementReferenceException e) {
+
+					System.out.println("🧪 DEBUG | Image CAPTCHA iframe is no longer available.");
+					return true;
+				}
+			});
+
+			long Manual_Captcha_Duration = System.currentTimeMillis() - Manual_Captcha_Start_Time;
+
+			System.out.println("✅ DEBUG | Image CAPTCHA closed.");
+			System.out.println("⏱ DEBUG | Manual CAPTCHA total waiting time = " + Manual_Captcha_Duration + " ms");
+			System.out.println("⏱ DEBUG | Manual CAPTCHA total waiting time = " + String.format("%.2f", Manual_Captcha_Duration / 1000.0) + " seconds");
+
+			Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Additional CAPTCHA verification was completed successfully.");
+
+		} else {
+
+			System.out.println("🧪 DEBUG | No image challenge appeared.");
+			System.out.println("🧪 DEBUG | Continuing to final CAPTCHA verification.");
+		}
+
+		System.out.println();
+		System.out.println("━━━━━━━━━━━━━━ ✅ FINAL CAPTCHA VERIFICATION ━━━━━━━━━━━━━━");
+
+		captcha_stage = "Re-fetch CAPTCHA checkbox iframe";
+
+		Step_Start_Time = System.currentTimeMillis();
+
+		List<WebElement> Refetched_Captcha_Frames = p.captcha_normal_iframe_list();
+
+		System.out.println("⏱ DEBUG | CAPTCHA iframe refetch duration = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
+		System.out.println("🧪 DEBUG | Refetched iframe count = " + Refetched_Captcha_Frames.size());
+
+		if (Refetched_Captcha_Frames.size() == 0) {
+
+			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> CAPTCHA could not be verified after completion.");
+			System.out.println("❌ CAPTCHA Failure: Checkbox iframe unavailable for final verification.");
+
+			return false;
+		}
+
+		WebElement Refetched_Captcha_Frame = Refetched_Captcha_Frames.get(0);
+
+		rp.Scroll_to_element(Refetched_Captcha_Frame);
+
+		Step_Start_Time = System.currentTimeMillis();
+
+		d.switchTo().frame(Refetched_Captcha_Frame);
+		iframe_switched = true;
+
+		System.out.println("⏱ DEBUG | Final iframe switch duration = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
+
+		captcha_stage = "Verify final CAPTCHA checked state";
+
+		anchor_list = d.findElements(By.xpath("//*[@id='recaptcha-anchor']"));
+
+		captcha_status = anchor_list.size() > 0
+				? anchor_list.get(0).getAttribute("aria-checked")
+				: "not-found";
+
+		System.out.println("🧪 DEBUG | Final recaptcha-anchor count = " + anchor_list.size());
+		System.out.println("🧪 DEBUG | Final aria-checked = " + captcha_status);
+
+		if (captcha_status.equals("true")) {
+
+			long Captcha_Total_Duration = System.currentTimeMillis() - Captcha_Start_Time;
+
+			System.out.println("✅ DEBUG | FINAL CAPTCHA RESULT = PASS");
+			System.out.println("⏱ DEBUG | Total Captcha_Bypass() duration = " + Captcha_Total_Duration + " ms");
+			System.out.println("⏱ DEBUG | Total Captcha_Bypass() duration = " + String.format("%.2f", Captcha_Total_Duration / 1000.0) + " seconds");
+
+			Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> CAPTCHA verification completed successfully.");
+
+			return true;
+		}
+
+		System.out.println("❌ DEBUG | FINAL CAPTCHA RESULT = FAIL");
+		System.out.println("🧪 DEBUG | Expected aria-checked = true");
+		System.out.println("🧪 DEBUG | Actual aria-checked = " + captcha_status);
+
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> CAPTCHA verification was not completed successfully.");
+
+		return false;
+
+	} catch (TimeoutException e) {
+
+		System.out.println();
+		System.out.println("━━━━━━━━━━━━━━ ⏱ CAPTCHA TIMEOUT ━━━━━━━━━━━━━━");
+		System.out.println("❌ DEBUG | CAPTCHA manual completion exceeded the maximum wait.");
+		System.out.println("🧪 DEBUG | Failed Stage = " + captcha_stage);
+		System.out.println("⏱ DEBUG | Maximum manual wait = 120 seconds");
+		System.out.println("⏱ DEBUG | Total method duration = " + (System.currentTimeMillis() - Captcha_Start_Time) + " ms");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> CAPTCHA verification was not completed within the allowed time.");
+
+		return false;
+
+	} catch (Exception e) {
+
+		System.out.println();
+		System.out.println("━━━━━━━━━━━━━━ ❌ CAPTCHA EXCEPTION DEBUG ━━━━━━━━━━━━━━");
+		System.out.println("🧪 DEBUG | Failed Stage = " + captcha_stage);
+		System.out.println("🧪 DEBUG | Exception Type = " + e.getClass().getName());
+		System.out.println("🧪 DEBUG | Exception Message = " + e.getMessage());
+		System.out.println("🧪 DEBUG | iframe_switched = " + iframe_switched);
+		System.out.println("⏱ DEBUG | Method duration before exception = " + (System.currentTimeMillis() - Captcha_Start_Time) + " ms");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> CAPTCHA verification failed unexpectedly.");
+
+		return false;
+
+	} finally {
+
+		if (iframe_switched) {
+
+			d.switchTo().defaultContent();
+
+			System.out.println("🧪 DEBUG | Driver returned to default content.");
+		}
+
+		System.out.println("🧪 DEBUG | Final CAPTCHA Stage = " + captcha_stage);
+		System.out.println("⏱ DEBUG | Captcha_Bypass() final execution time = " + (System.currentTimeMillis() - Captcha_Start_Time) + " ms");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+		System.out.println();
 	}
+}
 
 	
 

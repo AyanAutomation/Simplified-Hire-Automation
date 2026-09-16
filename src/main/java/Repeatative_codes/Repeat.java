@@ -71,6 +71,35 @@ public class Repeat {
 		}
 		return allElements;
 	}
+   
+   public boolean check_element_visibility(WebElement element, int Wait_Time) {
+
+		try {
+
+			WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(Wait_Time));
+			w.until(ExpectedConditions.visibilityOf(element));
+
+			return true;
+
+		} catch(Exception e) {
+
+			return false;
+		}
+	}
+	public boolean check_element_visibility(List<WebElement> elements, int Wait_Time) {
+
+		try {
+
+			WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(Wait_Time));
+			w.until(ExpectedConditions.visibilityOfAllElements(elements));
+
+			return true;
+
+		} catch(Exception e) {
+
+			return false;
+		}
+	}
 	
    public List<WebElement> wait_for_optional_list(By by, int seconds) {
 		try {
