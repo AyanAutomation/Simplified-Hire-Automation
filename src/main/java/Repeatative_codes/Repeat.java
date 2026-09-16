@@ -3,14 +3,20 @@ package Repeatative_codes;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.google.common.base.Supplier;
 
 
 
@@ -23,6 +29,21 @@ public class Repeat {
 	public Repeat(WebDriver d){
 		
 		this.d=d;}
+	
+	
+	public List<WebElement> Fluent_Wait_For_Elements(Supplier<List<WebElement>> Element_Fetcher, long Timeout_Seconds, long Polling_Seconds) {
+
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(d)
+				.withTimeout(Duration.ofSeconds(Timeout_Seconds))
+				.pollingEvery(Duration.ofSeconds(Polling_Seconds))
+				.ignoring(NoSuchElementException.class)
+				.ignoring(StaleElementReferenceException.class);
+
+		return wait.until(driver -> {
+			List<WebElement> Elements = Element_Fetcher.get();
+			return Elements.size() > 0 ? Elements : null;
+		});
+	}
 	
 	
    public void wait_for_theElement(WebElement element){
