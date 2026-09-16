@@ -38,21 +38,28 @@ public class Candidate_module extends Side_menu_Handler {
 
 		Candidate_Module_Locaters p = new Candidate_Module_Locaters(d);
 
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>Step:</b> Navigate to Candidates module from side menu.");
-		System.out.println("Step: Navigate to Candidates module from side menu.");
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>━━━━━━━━━━━━━━ 📂 CANDIDATE MODULE ACCESS ━━━━━━━━━━━━━━</b>"
+		);
+		System.out.println("━━━━━━━━━━━━━━ 📂 CANDIDATE MODULE ACCESS ━━━━━━━━━━━━━━");
 
 		Menu_option_selector("Candidates");
 
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>Step:</b> Validate landing in Candidate list by identifying the Import CV button.");
-		System.out.println("Step: Validate landing in Candidate list by identifying the Import CV button.");
-
 		WebElement Add = p.Add_Button();
 
-		Report_Listen.log_print_in_report().log(Status.PASS,
-				"<b>🟨 Actual:</b> Candidate list opened successfully and Import CV button was identified.");
-		System.out.println("🟨 Actual: Candidate list opened successfully and Import CV button was identified.");
+		Report_Listen.log_print_in_report().log(
+				Status.PASS,
+				"<b>✅ Actual:</b> Candidate module opened successfully."
+		);
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>"
+		);
+
+		System.out.println("✅ Actual: Candidate module opened successfully.");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+		System.out.println();
 
 		return Add;
 	}
@@ -61,186 +68,151 @@ public class Candidate_module extends Side_menu_Handler {
 	public String Candidate_status_data_fetcher(String Time_Range, String status) throws IOException, InterruptedException {
 
 		int step = 1;
-
 		Candidate_Module_Locaters p = new Candidate_Module_Locaters(d);
 
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>Step " + (step++) + ":</b> Navigate to Candidate list page.");
-		System.out.println("Step " + (step - 1) + ": Navigate to Candidate list page.");
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>"
+		);
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>🔹 Scenario Title:</b> Fetch Candidate Count by Time Range and Status"
+		);
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>📥 Input:</b> Time Range = " + Time_Range + " | Status = " + status
+		);
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>✅ Expected:</b> Candidate filters should be applied successfully and the matching candidate count should be returned."
+		);
+
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+		System.out.println("🔹 Scenario Title: Fetch Candidate Count by Time Range and Status");
+		System.out.println("📥 Input: Time Range = " + Time_Range + " | Status = " + status);
+		System.out.println("✅ Expected: Candidate filters should be applied successfully and the matching candidate count should be returned.");
 		System.out.println();
 
 		Candidate_List_Accesor();
 
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>🟨 Actual:</b> Candidate list page opened successfully.");
-		System.out.println("🟨 Actual: Candidate list page opened successfully.");
-		System.out.println();
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>━━━━━━━━━━━━━━ 🔎 FILTER APPLICATION ━━━━━━━━━━━━━━</b>"
+		);
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>Step " + (step++) + ":</b> Apply Time Range = " + Time_Range + " and Status = " + status + "."
+		);
 
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>Step " + (step++) + ":</b> Fetch Candidate module filters.");
-		System.out.println("Step " + (step - 1) + ": Fetch Candidate module filters.");
-		System.out.println();
+		System.out.println("━━━━━━━━━━━━━━ 🔎 FILTER APPLICATION ━━━━━━━━━━━━━━");
+		System.out.println("Step " + (step - 1) + ": Apply Time Range = " + Time_Range + " and Status = " + status + ".");
 
 		List<WebElement> Filters = p.All_filters();
+		System.out.println("🟨 Debug: Candidate filter count = " + Filters.size());
 
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>🟨 Actual:</b> Candidate filters fetched successfully. Total filters found = " + Filters.size());
-		System.out.println("🟨 Actual: Candidate filters fetched successfully. Total filters found = " + Filters.size());
-		System.out.println();
-
-		if (Filters.size() <= 3) {
-
-			Report_Listen.log_print_in_report().log(Status.FAIL,
-					"<b>❌ Actual:</b> Required Candidate filters were not available. Expected at least 4 filters but found = "
-							+ Filters.size());
-			System.out.println("❌ Actual: Required Candidate filters were not available. Expected at least 4 filters but found = "
-					+ Filters.size());
-			System.out.println();
-
-			return "ERROR";
+		if(Filters.size() <= 3) {
+			String errorMessage = "Required Candidate filters were not available. Expected at least 4 filters but found = " + Filters.size();
+			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+			throw new IllegalStateException(errorMessage);
 		}
 
 		WebElement Date_Filter = Filters.get(1);
 		WebElement Status_Filter = Filters.get(3);
 
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>Step " + (step++) + ":</b> Apply Candidate time range filter = " + Time_Range);
-		System.out.println("Step " + (step - 1) + ": Apply Candidate time range filter = " + Time_Range);
-		System.out.println();
-
 		Date_Filter.click();
+		List<WebElement> date_options = p.time_filter_dropdown().findElements(
+				By.xpath(".//div[contains(@class,'ant-select-item') and contains(@class,'ant-select-item-option-content')]")
+		);
 
-		WebElement Date_Filter_Dropdown = p.time_filter_dropdown();
-
-		List<WebElement> date_options = Date_Filter_Dropdown.findElements(
-				By.xpath(".//div[contains(@class,'ant-select-item') and contains(@class,'ant-select-item-option-content')]"));
-
-		boolean date_filter_selected = false;
-
-		for (WebElement date_opt : date_options) {
-
+		WebElement Required_Date_Option = null;
+		for(WebElement date_opt : date_options) {
 			String date_opt_text = date_opt.getText().trim();
-
-			if (date_opt_text.contains(Time_Range)) {
-
-				date_opt.click();
-				date_filter_selected = true;
-
-				Report_Listen.log_print_in_report().log(Status.INFO,
-						"<b>🟨 Actual:</b> Candidate time range filter selected successfully = " + date_opt_text);
-				System.out.println("🟨 Actual: Candidate time range filter selected successfully = " + date_opt_text);
-				System.out.println();
-
+			System.out.println("🟨 Debug: Time range option found = " + date_opt_text);
+			if(date_opt_text.contains(Time_Range)) {
+				Required_Date_Option = date_opt;
 				break;
 			}
 		}
 
-		if (!date_filter_selected) {
-
-			Report_Listen.log_print_in_report().log(Status.FAIL,
-					"<b>❌ Actual:</b> Candidate time range filter option was not found = " + Time_Range);
-			System.out.println("❌ Actual: Candidate time range filter option was not found = " + Time_Range);
-			System.out.println();
-
-			return "ERROR";
+		if(Required_Date_Option == null) {
+			String errorMessage = "Candidate time range filter option was not found = " + Time_Range;
+			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+			throw new IllegalStateException(errorMessage);
 		}
+		Required_Date_Option.click();
 
 		Thread.sleep(500);
-
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>Step " + (step++) + ":</b> Apply Candidate status filter = " + status);
-		System.out.println("Step " + (step - 1) + ": Apply Candidate status filter = " + status);
-		System.out.println();
 
 		Status_Filter.click();
+		List<WebElement> stat_options = p.Status_filter_dropdown().findElements(
+				By.xpath(".//div[contains(@class,'ant-select-item') and contains(@class,'ant-select-item-option-content')]")
+		);
 
-		WebElement Status_Filter_Dropdown = p.Status_filter_dropdown();
-
-		List<WebElement> stat_options = Status_Filter_Dropdown.findElements(
-				By.xpath(".//div[contains(@class,'ant-select-item') and contains(@class,'ant-select-item-option-content')]"));
-
-		boolean status_filter_selected = false;
-
-		for (WebElement stat_opt : stat_options) {
-
+		WebElement Required_Status_Option = null;
+		for(WebElement stat_opt : stat_options) {
 			String stat_opt_text = stat_opt.getText().trim();
-
-			if (stat_opt_text.contains(status)) {
-
-				stat_opt.click();
-				status_filter_selected = true;
-
-				Report_Listen.log_print_in_report().log(Status.INFO,
-						"<b>🟨 Actual:</b> Candidate status filter selected successfully = " + stat_opt_text);
-				System.out.println("🟨 Actual: Candidate status filter selected successfully = " + stat_opt_text);
-				System.out.println();
-
+			System.out.println("🟨 Debug: Status option found = " + stat_opt_text);
+			if(stat_opt_text.contains(status)) {
+				Required_Status_Option = stat_opt;
 				break;
 			}
 		}
 
-		if (!status_filter_selected) {
-
-			Report_Listen.log_print_in_report().log(Status.FAIL,
-					"<b>❌ Actual:</b> Candidate status filter option was not found = " + status);
-			System.out.println("❌ Actual: Candidate status filter option was not found = " + status);
-			System.out.println();
-
-			return "ERROR";
+		if(Required_Status_Option == null) {
+			String errorMessage = "Candidate status filter option was not found = " + status;
+			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+			throw new IllegalStateException(errorMessage);
 		}
-
+		Required_Status_Option.click();
 		Thread.sleep(500);
 
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>Step " + (step++) + ":</b> Change Candidate list pagination to 100.");
-		System.out.println("Step " + (step - 1) + ": Change Candidate list pagination to 100.");
+		Report_Listen.log_print_in_report().log(
+				Status.PASS,
+				"<b>✅ Actual:</b> Candidate filters applied successfully. Time Range = " + Time_Range + " | Status = " + status
+		);
+		System.out.println("✅ Actual: Candidate filters applied successfully. Time Range = " + Time_Range + " | Status = " + status);
 		System.out.println();
+
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>━━━━━━━━━━━━━━ 🔢 COUNT VERIFICATION ━━━━━━━━━━━━━━</b>"
+		);
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>Step " + (step++) + ":</b> Display up to 100 candidates and fetch the exact matching count."
+		);
+
+		System.out.println("━━━━━━━━━━━━━━ 🔢 COUNT VERIFICATION ━━━━━━━━━━━━━━");
+		System.out.println("Step " + (step - 1) + ": Display up to 100 candidates and fetch the exact matching count.");
 
 		pagination_changer("100");
-
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>🟨 Actual:</b> Candidate list pagination changed successfully to 100.");
-		System.out.println("🟨 Actual: Candidate list pagination changed successfully to 100.");
-		System.out.println();
-
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>Step " + (step++) + ":</b> Open exact count view and fetch Candidate list count.");
-		System.out.println("Step " + (step - 1) + ": Open exact count view and fetch Candidate list count.");
-		System.out.println();
-
 		p.Exact_count_icon().click();
-
 		Thread.sleep(800);
 
 		List<WebElement> Candidate_count = p.pagination_count_text();
+		System.out.println("🟨 Debug: Candidate count element total = " + Candidate_count.size());
 
-		if (Candidate_count.size() <= 1) {
-
-			Report_Listen.log_print_in_report().log(Status.FAIL,
-					"<b>❌ Actual:</b> Candidate pagination count text was not available properly. Total count elements found = "
-							+ Candidate_count.size());
-			System.out.println("❌ Actual: Candidate pagination count text was not available properly. Total count elements found = "
-					+ Candidate_count.size());
-			System.out.println();
-
-			return "ERROR";
+		if(Candidate_count.size() <= 1) {
+			String errorMessage = "Candidate exact count was not available after applying filters.";
+			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+			throw new IllegalStateException(errorMessage);
 		}
 
 		String Candidate_count_text = Candidate_count.get(1).getText().trim();
 
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>🟨 Actual:</b> Candidate module count fetched successfully for Time Range = "
-						+ Time_Range
-						+ " | Status = "
-						+ status
-						+ " | Count = "
-						+ Candidate_count_text);
-		System.out.println("🟨 Actual: Candidate module count fetched successfully for Time Range = "
-				+ Time_Range
-				+ " | Status = "
-				+ status
-				+ " | Count = "
-				+ Candidate_count_text);
+		Report_Listen.log_print_in_report().log(
+				Status.PASS,
+				"<b>✅ Final Result:</b> Candidate count fetched successfully. Time Range = " + Time_Range
+				+ " | Status = " + status + " | Count = " + Candidate_count_text
+		);
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>"
+		);
+
+		System.out.println("✅ Final Result: Candidate count fetched successfully. Time Range = " + Time_Range
+				+ " | Status = " + status + " | Count = " + Candidate_count_text);
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 		System.out.println();
 
 		return Candidate_count_text;
@@ -252,7 +224,6 @@ public class Candidate_module extends Side_menu_Handler {
 public void Search_Check(TreeMap<String, String> candidate_data) throws IOException, InterruptedException {
 
 	int step = 1;
-
 	Candidate_Module_Locaters p = new Candidate_Module_Locaters(d);
 	Repeat rp = new Repeat(d);
 	Job_Module_locaters jb = new Job_Module_locaters(d);
@@ -261,113 +232,59 @@ public void Search_Check(TreeMap<String, String> candidate_data) throws IOExcept
 	String Last_Name = candidate_data.get("Last Name");
 	String Full_Name = First_Name.trim() + " " + Last_Name.trim();
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🔹 Scenario Title:</b> Validate candidate search using full name");
-	System.out.println();
-	System.out.println("🔹 Scenario Title: Validate candidate search using full name");
-	System.out.println();
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Validate Candidate Search by Full Name");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Candidate Full Name = " + Full_Name);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> The searched candidate should be displayed in the Candidate list.");
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>📘 Description:</b> Open the Candidate list, compose the candidate full name from first name and last name, search the candidate using the full name, wait for the list loader if visible, read the table result text, and log whether the searched candidate is displayed.");
-	System.out.println("📘 Description: Open the Candidate list, compose the candidate full name from first name and last name, search the candidate using the full name, wait for the list loader if visible, read the table result text, and log whether the searched candidate is displayed.");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>📥 Input:</b> First Name = " + First_Name
-					+ " | Last Name = " + Last_Name
-					+ " | Full Name = " + Full_Name);
-	System.out.println("📥 Input: First Name = " + First_Name
-			+ " | Last Name = " + Last_Name
-			+ " | Full Name = " + Full_Name);
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>✅ Expected:</b> Candidate list should open successfully, search should execute using the candidate full name, and the searched candidate should be visible in the result table.");
-	System.out.println("✅ Expected: Candidate list should open successfully, search should execute using the candidate full name, and the searched candidate should be visible in the result table.");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Open Candidate list page.");
-	System.out.println("Step " + (step - 1) + ": Open Candidate list page.");
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println("🔹 Scenario Title: Validate Candidate Search by Full Name");
+	System.out.println("📥 Input: Candidate Full Name = " + Full_Name);
+	System.out.println("✅ Expected: The searched candidate should be displayed in the Candidate list.");
 	System.out.println();
 
 	Candidate_List_Accesor();
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Candidate list page opened successfully.");
-	System.out.println("🟨 Actual: Candidate list page opened successfully.");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Search candidate using composed full name = " + Full_Name);
-	System.out.println("Step " + (step - 1) + ": Search candidate using composed full name = " + Full_Name);
-	System.out.println();
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🔍 CANDIDATE SEARCH ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Search Candidate using Full Name = " + Full_Name);
+	System.out.println("━━━━━━━━━━━━━━ 🔍 CANDIDATE SEARCH ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Search Candidate using Full Name = " + Full_Name);
 
 	WebElement search = jb.search_field();
+	search.clear();
 	search.sendKeys(Full_Name);
 	Thread.sleep(800);
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Candidate full name entered successfully in search field = " + Full_Name);
-	System.out.println("🟨 Actual: Candidate full name entered successfully in search field = " + Full_Name);
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Wait for candidate list loader to disappear after search.");
-	System.out.println("Step " + (step - 1) + ": Wait for candidate list loader to disappear after search.");
-	System.out.println();
-
 	try {
 		rp.wait_for_invisibilty_of_theElement(jb.List_loader());
-
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>🟨 Actual:</b> Candidate list loader disappeared successfully after search.");
-		System.out.println("🟨 Actual: Candidate list loader disappeared successfully after search.");
-		System.out.println();
-
-	} catch (Exception e) {
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>🟨 Actual:</b> Loader was not visible after search, so no loader wait was required.");
-		System.out.println("🟨 Actual: Loader was not visible after search, so no loader wait was required.");
-		System.out.println();
+		System.out.println("🟨 Debug: Candidate list loader disappeared after search.");
+	} catch(Exception e) {
+		System.out.println("🟨 Debug: Candidate list loader was not displayed after search.");
 	}
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Fetch candidate table text and validate search result.");
-	System.out.println("Step " + (step - 1) + ": Fetch candidate table text and validate search result.");
-	System.out.println();
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ ✅ RESULT VERIFICATION ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Verify the searched Candidate in the result table.");
+	System.out.println("━━━━━━━━━━━━━━ ✅ RESULT VERIFICATION ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Verify the searched Candidate in the result table.");
 
-	WebElement Table = p.table_body();
-	String table_text = Table.getText().trim();
+	String table_text = p.table_body().getText().trim();
+	System.out.println("🟨 Debug: Candidate table text = " + table_text);
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Candidate table text fetched successfully.");
-	System.out.println("🟨 Actual: Candidate table text fetched successfully.");
-	System.out.println();
-
-	System.out.println("Table Text: " + table_text);
-	System.out.println();
-
-	boolean candidateFound = !table_text.contains("No record were found");
-
-	if (candidateFound) {
-
-		Report_Listen.log_print_in_report().log(Status.PASS,
-				"<b>✅ Actual:</b> Searched candidate full name found successfully in candidate list = " + Full_Name);
-		System.out.println("✅ Actual: Searched candidate full name found successfully in candidate list = " + Full_Name);
-		System.out.println();
-
-	}else {
-
-		Report_Listen.log_print_in_report().log(Status.FAIL,
-				"<b>❌ Actual:</b> No records found for the searched candidate full name = " + Full_Name);
-		System.out.println("❌ Actual: No records found for the searched candidate full name = " + Full_Name);
-		System.out.println();
+	if(table_text.contains("No record were found")) {
+		String errorMessage = "Candidate was not found using Full Name = " + Full_Name;
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Final Result:</b> " + errorMessage);
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		throw new IllegalStateException(errorMessage);
 	}
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>📌 Final Status:</b> Candidate full-name search validation completed. Result was logged without throwing assertion failure.");
-	System.out.println("📌 Final Status: Candidate full-name search validation completed. Result was logged without throwing assertion failure.");
+	Report_Listen.log_print_in_report().log(
+			Status.PASS,
+			"<b>✅ Final Result:</b> Candidate was found successfully using Full Name = " + Full_Name
+	);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+
+	System.out.println("✅ Final Result: Candidate was found successfully using Full Name = " + Full_Name);
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 	System.out.println();
 }
 	
@@ -380,40 +297,14 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
 
 	String Job_Assign = job_data.get("Job Posting Name");
 	String Email = candidate_data.get("Email");
-	String Phone_Code = candidate_data.get("Phone Code");
 	String Phone_Number = candidate_data.get("Phone Number");
 	String First_Name = candidate_data.get("First Name");
 	String Last_Name = candidate_data.get("Last Name");
-	String Professional_Profile_Link = candidate_data.get("Professional Profile Link");
-
 	String Source = candidate_data.get("Source");
-	String Country = candidate_data.get("Country");
 	String State = candidate_data.get("State");
-
-	String Current_Salary_Currency = candidate_data.get("Current Salary Currency");
-	String Current_Salary = candidate_data.get("Current Salary");
-	String Current_Salary_Duration = candidate_data.get("Current Salary Duration");
-
-	String Expected_Salary_Currency = candidate_data.get("Expected Salary Currency");
-	String Expected_Salary = candidate_data.get("Expected Salary");
-	String Expected_Salary_Duration = candidate_data.get("Expected Salary Duration");
-
-	String CV_Resume = candidate_data.get("CV/Resume");
-	String Skills = candidate_data.get("Skills");
-
 	String Relevant_Experience = candidate_data.get("Relevant Experience");
-	String Relevant_Experience_Unit = candidate_data.get("Relevant Experience Unit");
-
 	String Total_Experience = candidate_data.get("Total Experience");
-	String Total_Experience_Unit = candidate_data.get("Total Experience Unit");
-
 	String Notice_Period = candidate_data.get("Notice Period");
-	String Notice_Period_Unit = candidate_data.get("Notice Period Unit");
-
-	String Work_Experience = candidate_data.get("Work Experience");
-	String Education = candidate_data.get("Education");
-	String Cover_Letter = candidate_data.get("Cover Letter");
-
 	String Owner = candidate_data.get("Owner");
 	String Recruiter = candidate_data.get("Recruiter");
 
@@ -422,99 +313,52 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
 	Job_Module_locaters jp = new Job_Module_locaters(d);
 	Robot r = new Robot();
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🔹 Scenario Title:</b> Add Candidate from Candidate module and assign candidate to a job");
-	System.out.println();
-	System.out.println("🔹 Scenario Title: Add Candidate from Candidate module and assign candidate to a job");
-	System.out.println();
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Add Candidate and Assign a Job");
+	Report_Listen.log_print_in_report().log(
+			Status.INFO,
+			"<b>📥 Input:</b> Candidate = " + First_Name + " " + Last_Name
+			+ " | Email = " + Email + " | Job = " + Job_Assign
+			+ " | Source = " + Source + " | State = " + State
+			+ " | Owner = " + Owner + " | Recruiter = " + Recruiter
+	);
+	Report_Listen.log_print_in_report().log(
+			Status.INFO,
+			"<b>✅ Expected:</b> Candidate details should be saved successfully with the required job, source, state, owner, and recruiter."
+	);
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>📘 Description:</b> Access the Candidate list, open the Add Candidate popup, assign the required job, enter candidate basic details, select source and state, enter experience details, select owner and recruiter, save the candidate, and validate the success toast message.");
-	System.out.println(
-			"📘 Description: Access the Candidate list, open the Add Candidate popup, assign the required job, enter candidate basic details, select source and state, enter experience details, select owner and recruiter, save the candidate, and validate the success toast message.");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>📥 Input:</b> Job Assign = " + Job_Assign
-					+ " | Email = " + Email
-					+ " | Phone Code = " + Phone_Code
-					+ " | Phone Number = " + Phone_Number
-					+ " | First Name = " + First_Name
-					+ " | Last Name = " + Last_Name
-					+ " | Source = " + Source
-					+ " | State = " + State
-					+ " | Relevant Experience = " + Relevant_Experience + " " + Relevant_Experience_Unit
-					+ " | Total Experience = " + Total_Experience + " " + Total_Experience_Unit
-					+ " | Notice Period = " + Notice_Period + " " + Notice_Period_Unit
-					+ " | Owner = " + Owner
-					+ " | Recruiter = " + Recruiter);
-	System.out.println("📥 Input: Job Assign = " + Job_Assign
-			+ " | Email = " + Email
-			+ " | Phone Code = " + Phone_Code
-			+ " | Phone Number = " + Phone_Number
-			+ " | First Name = " + First_Name
-			+ " | Last Name = " + Last_Name
-			+ " | Source = " + Source
-			+ " | State = " + State
-			+ " | Relevant Experience = " + Relevant_Experience + " " + Relevant_Experience_Unit
-			+ " | Total Experience = " + Total_Experience + " " + Total_Experience_Unit
-			+ " | Notice Period = " + Notice_Period + " " + Notice_Period_Unit
-			+ " | Owner = " + Owner
-			+ " | Recruiter = " + Recruiter);
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>✅ Expected:</b> Candidate Add popup should open successfully, required job and candidate details should be entered correctly, source/state/owner/recruiter should be selected successfully, candidate should be saved, popup should close, and success toast should appear.");
-	System.out.println(
-			"✅ Expected: Candidate Add popup should open successfully, required job and candidate details should be entered correctly, source/state/owner/recruiter should be selected successfully, candidate should be saved, popup should close, and success toast should appear.");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Access Candidate list page.");
-	System.out.println("Step " + (step - 1) + ": Access Candidate list page.");
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println("🔹 Scenario Title: Add Candidate and Assign a Job");
+	System.out.println("📥 Input: Candidate = " + First_Name + " " + Last_Name + " | Email = " + Email
+			+ " | Job = " + Job_Assign + " | Source = " + Source + " | State = " + State
+			+ " | Owner = " + Owner + " | Recruiter = " + Recruiter);
+	System.out.println("✅ Expected: Candidate details should be saved successfully with the required job, source, state, owner, and recruiter.");
 	System.out.println();
 
 	Candidate_List_Accesor();
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Candidate list page accessed successfully.");
-	System.out.println("🟨 Actual: Candidate list page accessed successfully.");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Click Add Candidate button to open the candidate popup.");
-	System.out.println("Step " + (step - 1) + ": Click Add Candidate button to open the candidate popup.");
-	System.out.println();
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 📝 CANDIDATE FORM ACCESS ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Open the Add Candidate form.");
+	System.out.println("━━━━━━━━━━━━━━ 📝 CANDIDATE FORM ACCESS ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Open the Add Candidate form.");
 
 	p.Add_Button().click();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Add Candidate button clicked successfully.");
-	System.out.println("🟨 Actual: Add Candidate button clicked successfully.");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Move to the candidate popup form and fetch visible field groups.");
-	System.out.println("Step " + (step - 1) + ": Move to the candidate popup form and fetch visible field groups.");
-	System.out.println();
-
 	WebElement Pop_up_body = p.Pop_up_form();
 	rp.movetoelement(Pop_up_body);
 
 	List<WebElement> inputs_boxes = p.name_ph_email_input_fieldsBox();
 	List<WebElement> dropdowns = p.Pop_Up_Form_Custom_Dropdown_fields();
+	System.out.println("🟨 Debug: Candidate input group count = " + inputs_boxes.size());
+	System.out.println("🟨 Debug: Candidate dropdown count = " + dropdowns.size());
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Candidate popup form located successfully. Input box groups found = " + inputs_boxes.size()
-					+ " | Custom dropdown fields found = " + dropdowns.size());
-	System.out.println("🟨 Actual: Candidate popup form located successfully. Input box groups found = " + inputs_boxes.size()
-			+ " | Custom dropdown fields found = " + dropdowns.size());
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Add Candidate form opened successfully.");
+	System.out.println("✅ Actual: Add Candidate form opened successfully.");
 	System.out.println();
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Open Assign Job dropdown and select the required job.");
-	System.out.println("Step " + (step - 1) + ": Open Assign Job dropdown and select the required job.");
-	System.out.println();
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 💼 JOB ASSIGNMENT ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Assign Candidate to Job = " + Job_Assign);
+	System.out.println("━━━━━━━━━━━━━━ 💼 JOB ASSIGNMENT ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Assign Candidate to Job = " + Job_Assign);
 
 	WebElement Assign_Job_Dropdown = dropdowns.get(0);
 	Assign_Job_Dropdown.click();
@@ -525,22 +369,35 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
 	rp.movetoelement(dropdown_list);
 	Thread.sleep(800);
 
-	jp.First_dropdown_Options().stream().peek(rp::Scroll_to_element)
-			.filter(jbopt -> jbopt.getText().trim().equalsIgnoreCase(Job_Assign)).findFirst()
-			.ifPresent(WebElement::click);
+	WebElement Required_Job_Option = null;
+	for(WebElement job_option : jp.First_dropdown_Options()) {
+		String Job_Option_Text = job_option.getText().trim();
+		System.out.println("🟨 Debug: Job option found = " + Job_Option_Text);
+		if(Job_Option_Text.equalsIgnoreCase(Job_Assign)) {
+			Required_Job_Option = job_option;
+			break;
+		}
+	}
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Required job selected successfully from Assign Job dropdown = " + Job_Assign);
-	System.out.println("🟨 Actual: Required job selected successfully from Assign Job dropdown = " + Job_Assign);
+	if(Required_Job_Option == null) {
+		String errorMessage = "Required Job was not found in Assign Job dropdown = " + Job_Assign;
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+		throw new IllegalStateException(errorMessage);
+	}
+
+	rp.Scroll_to_element(Required_Job_Option);
+	Required_Job_Option.click();
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Candidate assigned successfully to Job = " + Job_Assign);
+	System.out.println("✅ Actual: Candidate assigned successfully to Job = " + Job_Assign);
 	System.out.println();
 
 	p.form_scroll().click();
 	r.mouseWheel(6);
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Fetch candidate input fields and enter basic candidate details.");
-	System.out.println("Step " + (step - 1) + ": Fetch candidate input fields and enter basic candidate details.");
-	System.out.println();
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 👤 CANDIDATE DETAILS ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Enter Candidate details and select Source and State.");
+	System.out.println("━━━━━━━━━━━━━━ 👤 CANDIDATE DETAILS ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Enter Candidate details and select Source and State.");
 
 	List<WebElement> inputs = p.name_ph_email_input_fields();
 	inputs.get(0).sendKeys(Email);
@@ -548,96 +405,92 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
 	inputs.get(2).sendKeys(First_Name);
 	inputs.get(3).sendKeys(Last_Name);
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Candidate basic details entered successfully. Email = " + Email
-					+ " | Phone Number = " + Phone_Number
-					+ " | First Name = " + First_Name
-					+ " | Last Name = " + Last_Name);
-	System.out.println("🟨 Actual: Candidate basic details entered successfully. Email = " + Email
-			+ " | Phone Number = " + Phone_Number
-			+ " | First Name = " + First_Name
-			+ " | Last Name = " + Last_Name);
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Select Source from Source dropdown.");
-	System.out.println("Step " + (step - 1) + ": Select Source from Source dropdown.");
-	System.out.println();
-
 	r.mouseWheel(1);
 	Thread.sleep(800);
-	WebElement Source_field = p.Sourcefield();
-	Source_field.click();
+	p.Sourcefield().click();
 	p.source_input().sendKeys(Source);
-	WebElement Source_dropdown_list = p.Source_Dropdown();
 	Thread.sleep(500);
-	Source_dropdown_list
-			.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]")).stream()
-			.filter(sourceopt -> sourceopt.getText().trim().equalsIgnoreCase(Source)).findFirst()
-			.ifPresent(WebElement::click);
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Source selected successfully = " + Source);
-	System.out.println("🟨 Actual: Source selected successfully = " + Source);
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Select the required state from the State dropdown.");
-	System.out.println("Step " + (step - 1) + ": Select the required state from the State dropdown.");
-	System.out.println();
+	List<WebElement> Source_Options = p.Source_Dropdown().findElements(
+			By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]")
+	);
+	WebElement Required_Source_Option = null;
+	for(WebElement source_option : Source_Options) {
+		String Source_Option_Text = source_option.getText().trim();
+		System.out.println("🟨 Debug: Source option found = " + Source_Option_Text);
+		if(Source_Option_Text.equalsIgnoreCase(Source)) {
+			Required_Source_Option = source_option;
+			break;
+		}
+	}
+	if(Required_Source_Option == null) {
+		String errorMessage = "Required Candidate Source was not found = " + Source;
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+		throw new IllegalStateException(errorMessage);
+	}
+	Required_Source_Option.click();
 
 	WebElement State_field = p.State_field();
 	r.mouseWheel(1);
 	rp.movetoelement(State_field);
 	State_field.click();
-
-	WebElement state_input = p.State_input();
-	state_input.sendKeys(State);
+	p.State_input().sendKeys(State);
 	Thread.sleep(500);
-	WebElement state_dropdown_list = p.state_Dropdown();
-	state_dropdown_list.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"))
-			.stream().filter(stopt -> stopt.getText().trim().equalsIgnoreCase(State)).findFirst()
-			.ifPresent(WebElement::click);
 
-	WebElement state_option_selected = p.Selected_option();
-	String options_text = state_option_selected.getText().trim();
-//	Assert.assertTrue(options_text.equalsIgnoreCase(State),"State selection failed Expected " + State + " got " + options_text);
+	List<WebElement> State_Options = p.state_Dropdown().findElements(
+			By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]")
+	);
+	WebElement Required_State_Option = null;
+	for(WebElement state_option : State_Options) {
+		String State_Option_Text = state_option.getText().trim();
+		System.out.println("🟨 Debug: State option found = " + State_Option_Text);
+		if(State_Option_Text.equalsIgnoreCase(State)) {
+			Required_State_Option = state_option;
+			break;
+		}
+	}
+	if(Required_State_Option == null) {
+		String errorMessage = "Required Candidate State was not found = " + State;
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+		throw new IllegalStateException(errorMessage);
+	}
+	Required_State_Option.click();
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> State selected successfully = " + options_text);
-	System.out.println("🟨 Actual: State selected successfully = " + options_text);
+	String options_text = p.Selected_option().getText().trim();
+	Report_Listen.log_print_in_report().log(
+			Status.PASS,
+			"<b>✅ Actual:</b> Candidate details entered successfully. Candidate = " + First_Name + " " + Last_Name
+			+ " | Email = " + Email + " | Source = " + Source + " | State = " + options_text
+	);
+	System.out.println("✅ Actual: Candidate details entered successfully. Candidate = " + First_Name + " " + Last_Name
+			+ " | Email = " + Email + " | Source = " + Source + " | State = " + options_text);
 	System.out.println();
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Enter candidate experience and notice period details.");
-	System.out.println("Step " + (step - 1) + ": Enter candidate experience and notice period details.");
-	System.out.println();
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 📊 EXPERIENCE DETAILS ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Enter Candidate experience and notice-period details.");
+	System.out.println("━━━━━━━━━━━━━━ 📊 EXPERIENCE DETAILS ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Enter Candidate experience and notice-period details.");
 
 	WebElement RelevantExperience = inputs.get(4);
 	rp.Scroll_to_element(RelevantExperience);
 	RelevantExperience.sendKeys(Relevant_Experience);
-
-	WebElement TotalExperience = inputs.get(5);
-	TotalExperience.sendKeys(Total_Experience);
-
+	inputs.get(5).sendKeys(Total_Experience);
 	inputs_boxes.get(6).click();
+	inputs.get(6).sendKeys(Notice_Period);
 
-	WebElement NoticePeriod = inputs.get(6);
-	NoticePeriod.sendKeys(Notice_Period);
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Relevant Experience entered = " + Relevant_Experience
-					+ " | Total Experience entered = " + Total_Experience
-					+ " | Notice Period entered = " + Notice_Period);
-	System.out.println("🟨 Actual: Relevant Experience entered = " + Relevant_Experience
-			+ " | Total Experience entered = " + Total_Experience
-			+ " | Notice Period entered = " + Notice_Period);
+	Report_Listen.log_print_in_report().log(
+			Status.PASS,
+			"<b>✅ Actual:</b> Experience details entered successfully. Relevant Experience = " + Relevant_Experience
+			+ " | Total Experience = " + Total_Experience + " | Notice Period = " + Notice_Period
+	);
+	System.out.println("✅ Actual: Experience details entered successfully. Relevant Experience = " + Relevant_Experience
+			+ " | Total Experience = " + Total_Experience + " | Notice Period = " + Notice_Period);
 	System.out.println();
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Select Owner from Owner dropdown.");
-	System.out.println("Step " + (step - 1) + ": Select Owner from Owner dropdown.");
-	System.out.println();
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 👥 OWNER AND RECRUITER ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Assign Candidate Owner and Recruiter.");
+	System.out.println("━━━━━━━━━━━━━━ 👥 OWNER AND RECRUITER ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Assign Candidate Owner and Recruiter.");
 
 	WebElement Owner_field = p.Ownerfield();
 	rp.Scroll_to_element(Owner_field);
@@ -645,52 +498,67 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
 	Thread.sleep(800);
 	Owner_field.click();
 	Thread.sleep(800);
-
-	WebElement Owner_dropdown_list = p.Owner_Dropdown();
 	p.Owner_input().sendKeys(Owner);
 	Thread.sleep(800);
-	rp.movetoelement(Owner_dropdown_list);
 
-	Owner_dropdown_list.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"))
-			.stream().filter(owneropt -> owneropt.getText().trim().equalsIgnoreCase(Owner)).findFirst()
-			.ifPresent(WebElement::click);
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Owner selected successfully = " + Owner);
-	System.out.println("🟨 Actual: Owner selected successfully = " + Owner);
-	System.out.println();
+	List<WebElement> Owner_Options = p.Owner_Dropdown().findElements(
+			By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]")
+	);
+	WebElement Required_Owner_Option = null;
+	for(WebElement owner_option : Owner_Options) {
+		String Owner_Option_Text = owner_option.getText().trim();
+		System.out.println("🟨 Debug: Owner option found = " + Owner_Option_Text);
+		if(Owner_Option_Text.equalsIgnoreCase(Owner)) {
+			Required_Owner_Option = owner_option;
+			break;
+		}
+	}
+	if(Required_Owner_Option == null) {
+		String errorMessage = "Required Candidate Owner was not found = " + Owner;
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+		throw new IllegalStateException(errorMessage);
+	}
+	Required_Owner_Option.click();
 
 	p.form_scroll().click();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Select Recruiter from Recruiter dropdown.");
-	System.out.println("Step " + (step - 1) + ": Select Recruiter from Recruiter dropdown.");
-	System.out.println();
-
 	WebElement Recruiter_field = p.recruiterfield();
 	Recruiter_field.click();
 	p.recruiter_input().sendKeys(Recruiter);
 	Thread.sleep(500);
-	WebElement Recruiter_dropdown_list = p.recruiter_Dropdown();
-	Thread.sleep(500);
-	rp.movetoelement(Recruiter_dropdown_list);
-	Recruiter_dropdown_list
-			.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]")).stream()
-			.filter(recruiteropt -> recruiteropt.getText().trim().equalsIgnoreCase(Recruiter)).findFirst()
-			.ifPresent(WebElement::click);
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Recruiter selected successfully = " + Recruiter);
-	System.out.println("🟨 Actual: Recruiter selected successfully = " + Recruiter);
+	List<WebElement> Recruiter_Options = p.recruiter_Dropdown().findElements(
+			By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]")
+	);
+	WebElement Required_Recruiter_Option = null;
+	for(WebElement recruiter_option : Recruiter_Options) {
+		String Recruiter_Option_Text = recruiter_option.getText().trim();
+		System.out.println("🟨 Debug: Recruiter option found = " + Recruiter_Option_Text);
+		if(Recruiter_Option_Text.equalsIgnoreCase(Recruiter)) {
+			Required_Recruiter_Option = recruiter_option;
+			break;
+		}
+	}
+	if(Required_Recruiter_Option == null) {
+		String errorMessage = "Required Candidate Recruiter was not found = " + Recruiter;
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+		throw new IllegalStateException(errorMessage);
+	}
+	Required_Recruiter_Option.click();
+
+	Report_Listen.log_print_in_report().log(
+			Status.PASS,
+			"<b>✅ Actual:</b> Candidate Owner and Recruiter assigned successfully. Owner = " + Owner + " | Recruiter = " + Recruiter
+	);
+	System.out.println("✅ Actual: Candidate Owner and Recruiter assigned successfully. Owner = " + Owner + " | Recruiter = " + Recruiter);
 	System.out.println();
 
 	Thread.sleep(500);
 	p.form_scroll().click();
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Click Save on the candidate popup.");
-	System.out.println("Step " + (step - 1) + ": Click Save on the candidate popup.");
-	System.out.println();
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 💾 SAVE AND CONFIRMATION ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Save the Candidate and verify the confirmation message.");
+	System.out.println("━━━━━━━━━━━━━━ 💾 SAVE AND CONFIRMATION ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Save the Candidate and verify the confirmation message.");
 
 	WebElement Save = p.Modal_Save_Button();
 	rp.Scroll_to_element(Save);
@@ -698,373 +566,293 @@ public void Add_Candidate(TreeMap<String, String> candidate_data, TreeMap<String
 	Thread.sleep(800);
 	Save.click();
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Candidate popup Save button clicked successfully.");
-	System.out.println("🟨 Actual: Candidate popup Save button clicked successfully.");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Wait for candidate popup to close and validate success toast.");
-	System.out.println("Step " + (step - 1) + ": Wait for candidate popup to close and validate success toast.");
-	System.out.println();
-
 	rp.wait_for_invisibilty_of_theElement(Pop_up_body);
+	String success_toast_text = p.Success_Toast_Message().getText().trim();
 
-	WebElement Success_toast = p.Success_Toast_Message();
-	String success_toast_text = Success_toast.getText().trim();
+	Report_Listen.log_print_in_report().log(
+			Status.PASS,
+			"<b>✅ Final Result:</b> Candidate added successfully. Candidate = " + First_Name + " " + Last_Name
+			+ " | Job = " + Job_Assign + " | Confirmation = " + success_toast_text
+	);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
 
-	Report_Listen.log_print_in_report().log(Status.PASS,
-			"<b>🟨 Actual:</b> Candidate was added successfully and success toast appeared = " + success_toast_text);
-	System.out.println("🟨 Actual: Candidate was added successfully and success toast appeared = " + success_toast_text);
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>📌 Final Status:</b> Candidate Add flow completed successfully including source, state, owner, and recruiter selection.");
-	System.out.println("📌 Final Status: Candidate Add flow completed successfully including source, state, owner, and recruiter selection.");
+	System.out.println("✅ Final Result: Candidate added successfully. Candidate = " + First_Name + " " + Last_Name
+			+ " | Job = " + Job_Assign + " | Confirmation = " + success_toast_text);
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 	System.out.println();
 }
 	
 
-public void Load_Member_Names_For_Interview() throws IOException, InterruptedException {
+	public void Load_Member_Names_For_Interview() throws IOException, InterruptedException {
 
-	Member_Module mb = new Member_Module();
-	mb.d = this.d;
-	mb.Target_url = this.Target_url;
+		Member_Module mb = new Member_Module();
+		mb.d = this.d;
+		mb.Target_url = this.Target_url;
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🔹 Scenario Title:</b> Load member names for interview scheduling");
-	System.out.println();
-	System.out.println("🔹 Scenario Title: Load member names for interview scheduling");
-	System.out.println();
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>━━━━━━━━━━━━━━ 👥 MEMBER DATA PREPARATION ━━━━━━━━━━━━━━</b>"
+		);
+		System.out.println("━━━━━━━━━━━━━━ 👥 MEMBER DATA PREPARATION ━━━━━━━━━━━━━━");
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>📘 Description:</b> Open the Members list, collect all available member names, and store them into the shared member list so they can be used later as interview host and recruiter.");
-	System.out.println("📘 Description: Open the Members list, collect all available member names, and store them into the shared member list so they can be used later as interview host and recruiter.");
-	System.out.println();
+		Member_Names_List.clear();
+		mb.Member_List_Data_Collector();
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>✅ Expected:</b> Members page should open successfully, all visible member names should be collected without duplication, and the shared member list should be populated successfully.");
-	System.out.println("✅ Expected: Members page should open successfully, all visible member names should be collected without duplication, and the shared member list should be populated successfully.");
-	System.out.println();
+		System.out.println("🟨 Debug: Member names fetched = " + mb.Member_Names.size());
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step 1:</b> Clear previously stored member names from the shared list.");
-	System.out.println("Step 1: Clear previously stored member names from the shared list.");
-	System.out.println();
+		if(mb.Member_Names.isEmpty()) {
+			String errorMessage = "No member names were available for interview scheduling.";
+			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+			throw new IllegalStateException(errorMessage);
+		}
 
-	Member_Names_List.clear();
+		Member_Names_List.addAll(mb.Member_Names);
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Previously stored member names cleared successfully.");
-	System.out.println("🟨 Actual: Previously stored member names cleared successfully.");
-	System.out.println();
+		Report_Listen.log_print_in_report().log(
+				Status.PASS,
+				"<b>✅ Actual:</b> Member names loaded successfully for interview scheduling. Total Members = " + Member_Names_List.size()
+		);
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>"
+		);
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step 2:</b> Open Members page and collect all visible member names.");
-	System.out.println("Step 2: Open Members page and collect all visible member names.");
-	System.out.println();
-
-	mb.Member_List_Data_Collector();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Member names collected successfully from Members page. Total names found = " + mb.Member_Names.size());
-	System.out.println("🟨 Actual: Member names collected successfully from Members page. Total names found = " + mb.Member_Names.size());
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step 3:</b> Store collected member names into shared member list.");
-	System.out.println("Step 3: Store collected member names into shared member list.");
-	System.out.println();
-
-	Member_Names_List.addAll(mb.Member_Names);
-
-	Report_Listen.log_print_in_report().log(Status.PASS,
-			"<b>🟨 Actual:</b> Shared member list populated successfully. Total available members = " + Member_Names_List.size());
-	System.out.println("🟨 Actual: Shared member list populated successfully. Total available members = " + Member_Names_List.size());
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>📌 Final Status:</b> Member name loading flow completed successfully for interview scheduling.");
-	System.out.println("📌 Final Status: Member name loading flow completed successfully for interview scheduling.");
-	System.out.println();
-}
+		System.out.println("✅ Actual: Member names loaded successfully for interview scheduling. Total Members = " + Member_Names_List.size());
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+		System.out.println();
+	}
 
 @Test(dataProvider = "Candidate_Add_Data")
 public void Candidate_Interview_scheduling(TreeMap<String, String> candidate_data) throws IOException, InterruptedException {
 
 	int step = 1;
-
 	Candidate_Module_Locaters p = new Candidate_Module_Locaters(d);
 	Repeat rp = new Repeat(d);
 	Job_Module_locaters jb = new Job_Module_locaters(d);
-	
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🔹 Scenario Title:</b> Schedule candidate interview using member list mapping");
-	System.out.println();
-	System.out.println("🔹 Scenario Title: Schedule candidate interview using member list mapping");
+
+	String First_Name = candidate_data.get("First Name");
+	String Candidate_Index = candidate_data.get("Index");
+	String Candidate_Ph_number = candidate_data.get("Phone Number");
+	String Dial_in_number = Candidate_Ph_number.replace("1", "7");
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Schedule Candidate Phone Interview");
+	Report_Listen.log_print_in_report().log(
+			Status.INFO,
+			"<b>📥 Input:</b> Candidate = " + First_Name + " | Member Index = " + Candidate_Index
+			+ " | Interview Type = Phone Interview | End Time = 9:00 PM"
+	);
+	Report_Listen.log_print_in_report().log(
+			Status.INFO,
+			"<b>✅ Expected:</b> The Candidate interview should be scheduled successfully with a valid host, recruiter, dial-in number, and notification."
+	);
+
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println("🔹 Scenario Title: Schedule Candidate Phone Interview");
+	System.out.println("📥 Input: Candidate = " + First_Name + " | Member Index = " + Candidate_Index
+			+ " | Interview Type = Phone Interview | End Time = 9:00 PM");
+	System.out.println("✅ Expected: The Candidate interview should be scheduled successfully with a valid host, recruiter, dial-in number, and notification.");
 	System.out.println();
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>📘 Description:</b> Load available member names, pick a member using the configured candidate index, open the candidate list, search the candidate, open Events tab, schedule an interview, assign host and recruiter, send notification, and validate success toast after scheduling.");
-	System.out.println("📘 Description: Load available member names, pick a member using the configured candidate index, open the candidate list, search the candidate, open Events tab, schedule an interview, assign host and recruiter, send notification, and validate success toast after scheduling.");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>📥 Input:</b> Candidate First Name = " + candidate_data.get("First Name")
-					+ " | Candidate Index = " + candidate_data.get("Index")
-					+ " | Interview Platform = Google Meet"
-					+ " | Interview Mode = Organization"
-					+ " | End Time = 9:00 PM");
-	System.out.println("📥 Input: Candidate First Name = " + candidate_data.get("First Name")
-			+ " | Candidate Index = " + candidate_data.get("Index")
-			+ " | Interview Platform = Google Meet"
-			+ " | Interview Mode = Organization"
-			+ " | End Time = 9:00 PM");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>✅ Expected:</b> Member names should load successfully, selected member should be available for the given index, candidate should be opened successfully, interview details should be configured correctly, notification should be triggered, and interview scheduling should complete with a success toast.");
-	System.out.println("✅ Expected: Member names should load successfully, selected member should be available for the given index, candidate should be opened successfully, interview details should be configured correctly, notification should be triggered, and interview scheduling should complete with a success toast.");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Load member names required for interview host and recruiter mapping.");
-	System.out.println("Step " + (step - 1) + ": Load member names required for interview host and recruiter mapping.");
-	System.out.println();
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 👥 MEMBER MAPPING ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Load and select a member for interview host and recruiter mapping.");
+	System.out.println("━━━━━━━━━━━━━━ 👥 MEMBER MAPPING ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Load and select a member for interview host and recruiter mapping.");
 
 	Load_Member_Names_For_Interview();
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Member names loaded successfully. Total available members = " + Member_Names_List.size());
-	System.out.println("🟨 Actual: Member names loaded successfully. Total available members = " + Member_Names_List.size());
-	System.out.println();
-
-	int i = Integer.parseInt(candidate_data.get("Index"));
-	int total_members = Member_Names_List.size();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Validate whether the configured member index is available.");
-	System.out.println("Step " + (step - 1) + ": Validate whether the configured member index is available.");
-	System.out.println();
-
-	if (i >= total_members) {
-		String msg = "Not enough members in the list to assign as interview host and recruiter. Please add more members.";
-		Report_Listen.log_print_in_report().log(Status.FAIL,
-				"<b>❌ Actual:</b> " + msg + " Total members available = " + total_members + " | Required index = " + i);
-		System.out.println("❌ Actual: " + msg);
-		System.out.println("Total members available = " + total_members + " | Required index = " + i);
-		System.out.println();
-		return;
+	int i = Integer.parseInt(Candidate_Index);
+	if(i >= Member_Names_List.size()) {
+		String errorMessage = "Not enough members are available for Member Index = " + i
+				+ ". Total Members = " + Member_Names_List.size();
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+		throw new IllegalStateException(errorMessage);
 	}
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Total members in the list = " + total_members + " | Required index for interview scheduling = " + i);
-	System.out.println("🟨 Actual: Total members in the list = " + total_members + " | Required index for interview scheduling = " + i);
-	System.out.println();
-
 	String member_name = Member_Names_List.get(i);
-	String First_Name = candidate_data.get("First Name");
-	String Candidate_Ph_number = candidate_data.get("Phone Number");
-	String Dial_in_number=Candidate_Ph_number.replace("1", "7");
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Member selected successfully for host and recruiter = " + member_name);
-	System.out.println("🟨 Actual: Member selected successfully for host and recruiter = " + member_name);
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Open candidate list page before searching the candidate.");
-	System.out.println("Step " + (step - 1) + ": Open candidate list page before searching the candidate.");
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Interview host and recruiter selected from member data = " + member_name);
+	System.out.println("✅ Actual: Interview host and recruiter selected from member data = " + member_name);
 	System.out.println();
 
 	Candidate_List_Accesor();
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Candidate list page opened successfully.");
-	System.out.println("🟨 Actual: Candidate list page opened successfully.");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Search candidate in candidate list using first name.");
-	System.out.println("Step " + (step - 1) + ": Search candidate in candidate list using first name.");
-	System.out.println();
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🔍 CANDIDATE ACCESS ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Search and open Candidate = " + First_Name);
+	System.out.println("━━━━━━━━━━━━━━ 🔍 CANDIDATE ACCESS ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Search and open Candidate = " + First_Name);
 
 	WebElement search = jb.search_field();
+	search.clear();
 	search.sendKeys(First_Name);
 	Thread.sleep(800);
 
 	try {
 		rp.wait_for_invisibilty_of_theElement(jb.List_loader());
-
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>🟨 Actual:</b> Candidate list loader disappeared successfully after search.");
-		System.out.println("🟨 Actual: Candidate list loader disappeared successfully after search.");
-		System.out.println();
-
-	} catch (Exception e) {
-		System.out.println("Loader not visible.");
-		System.out.println();
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>🟨 Actual:</b> Loader was not visible.");
+		System.out.println("🟨 Debug: Candidate list loader disappeared after search.");
+	} catch(Exception e) {
+		System.out.println("🟨 Debug: Candidate list loader was not displayed after search.");
 	}
 
 	List<WebElement> searched_candidates = p.candidate_names_in_list();
+	System.out.println("🟨 Debug: Matching Candidate count = " + searched_candidates.size());
+	if(searched_candidates.isEmpty()) {
+		String errorMessage = "No Candidate was found using First Name = " + First_Name;
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+		throw new IllegalStateException(errorMessage);
+	}
+
 	WebElement First_candidate = searched_candidates.get(0);
 	rp.movetoelement(First_candidate);
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Candidate search completed successfully. Total matching candidate cards found = " + searched_candidates.size());
-	System.out.println("🟨 Actual: Candidate search completed successfully. Total matching candidate cards found = " + searched_candidates.size());
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Open the first searched candidate profile.");
-	System.out.println("Step " + (step - 1) + ": Open the first searched candidate profile.");
-	System.out.println();
-
-	WebElement Candidate_name_click = First_candidate.findElement(By.xpath(".//a"));
-	Candidate_name_click.click();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Candidate profile opened successfully for = " + First_Name);
-	System.out.println("🟨 Actual: Candidate profile opened successfully for = " + First_Name);
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Open Events tab and launch interview scheduling popup.");
-	System.out.println("Step " + (step - 1) + ": Open Events tab and launch interview scheduling popup.");
-	System.out.println();
+	First_candidate.findElement(By.xpath(".//a")).click();
 
 	List<WebElement> Candidate_tabs = p.Tab_Buttons();
-	WebElement Event_Tab = Candidate_tabs.get(2);
-	Event_Tab.click();
-
+	Candidate_tabs.get(2).click();
 	p.schedule_interview_button().click();
 	WebElement popup_form = p.Pop_up_form();
-    
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Events tab opened successfully and interview scheduling popup displayed.");
-	System.out.println("🟨 Actual: Events tab opened successfully and interview scheduling popup displayed.");
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Candidate profile opened and interview scheduling form displayed successfully.");
+	System.out.println("✅ Actual: Candidate profile opened and interview scheduling form displayed successfully.");
 	System.out.println();
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Configure interview date and time.");
-	System.out.println("Step " + (step - 1) + ": Configure interview date and time.");
-	System.out.println();
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 📅 INTERVIEW DETAILS ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Configure interview date, type, end time, and dial-in number.");
+	System.out.println("━━━━━━━━━━━━━━ 📅 INTERVIEW DETAILS ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Configure interview date, type, end time, and dial-in number.");
 
 	List<WebElement> interview_inputs = p.Pop_Up_Form_Custom_Dropdown_fields();
-	WebElement Date_field = p.Date_picker_field();
-	Date_field.click();
+	p.Date_picker_field().click();
 
-	List<WebElement> Job_Expiry_Date_options = jb.Job_Expiry_unselected_dates_in_calender();
-	for (WebElement date_option : Job_Expiry_Date_options) {
+	WebElement Required_Date_Option = null;
+	for(WebElement date_option : jb.Job_Expiry_unselected_dates_in_calender()) {
 		String date_text = date_option.getText().trim();
-		if (date_text.contains("30")) {
-			date_option.click();
+		System.out.println("🟨 Debug: Interview date option found = " + date_text);
+		if(date_text.contains("30")) {
+			Required_Date_Option = date_option;
 			break;
 		}
 	}
-	WebElement Interview_Type = interview_inputs.get(1);
-	Interview_Type.click();
-    WebElement Interview_Dropdown = p.Interview_Type_Dropdown();
-	List<WebElement> Interview_Type_options = Interview_Dropdown.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
-	Interview_Type_options.stream()
-	.filter(timeopt -> timeopt.getText().trim().equalsIgnoreCase("Phone Interview"))
-	.findFirst()
-	.ifPresent(WebElement::click);
-	
-	
-/*	WebElement To_time = interview_inputs.get(3);
-	To_time.click(); */
+	if(Required_Date_Option == null) {
+		String errorMessage = "Interview date option containing 30 was not available.";
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+		throw new IllegalStateException(errorMessage);
+	}
+	Required_Date_Option.click();
+
+	interview_inputs.get(1).click();
+	List<WebElement> Interview_Type_options = p.Interview_Type_Dropdown().findElements(
+			By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]")
+	);
+	WebElement Required_Interview_Type = null;
+	for(WebElement interview_type_option : Interview_Type_options) {
+		String Interview_Type_Text = interview_type_option.getText().trim();
+		System.out.println("🟨 Debug: Interview type option found = " + Interview_Type_Text);
+		if(Interview_Type_Text.equalsIgnoreCase("Phone Interview")) {
+			Required_Interview_Type = interview_type_option;
+			break;
+		}
+	}
+	if(Required_Interview_Type == null) {
+		String errorMessage = "Phone Interview option was not available.";
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+		throw new IllegalStateException(errorMessage);
+	}
+	Required_Interview_Type.click();
 
 	WebElement End_time = p.endTime_input();
 	End_time.clear();
 	End_time.sendKeys("9:00 PM");
 	Thread.sleep(500);
 
-	WebElement Time_Dropdown = p.state_Dropdown();
-	List<WebElement> time_options = Time_Dropdown
-			.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+	List<WebElement> time_options = p.state_Dropdown().findElements(
+			By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]")
+	);
+	WebElement Required_Time_Option = null;
+	for(WebElement time_option : time_options) {
+		String Time_Option_Text = time_option.getText().trim();
+		System.out.println("🟨 Debug: Interview end-time option found = " + Time_Option_Text);
+		if(Time_Option_Text.equalsIgnoreCase("9:00 PM")) {
+			Required_Time_Option = time_option;
+			break;
+		}
+	}
+	if(Required_Time_Option == null) {
+		String errorMessage = "Interview End Time option was not available = 9:00 PM";
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+		throw new IllegalStateException(errorMessage);
+	}
+	Required_Time_Option.click();
 
-	time_options.stream()
-			.filter(timeopt -> timeopt.getText().trim().equalsIgnoreCase("9:00 PM"))
-			.findFirst()
-			.ifPresent(WebElement::click);
+	p.Dial_in_number_input().sendKeys(Dial_in_number);
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Interview date selected successfully and time selected successfully = 9:00 PM.");
-	System.out.println("🟨 Actual: Interview date selected successfully and time selected successfully = 9:00 PM.");
+	Report_Listen.log_print_in_report().log(
+			Status.PASS,
+			"<b>✅ Actual:</b> Interview details configured successfully. Type = Phone Interview | End Time = 9:00 PM | Dial-in Number = " + Dial_in_number
+	);
+	System.out.println("✅ Actual: Interview details configured successfully. Type = Phone Interview | End Time = 9:00 PM | Dial-in Number = " + Dial_in_number);
 	System.out.println();
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Select interview mode and platform.");
-	System.out.println("Step " + (step - 1) + ": Select interview mode and platform.");
-	System.out.println();
-
-	WebElement Dial_input =p.Dial_in_number_input();
-	Dial_input.sendKeys(Dial_in_number);
-	
-/*	List<WebElement> Radio_Options = p.radio_options();
-	Radio_Options.stream()
-			.filter(option -> option.getText().trim().equalsIgnoreCase("Organization"))
-			.findFirst()
-			.ifPresent(option -> js.executeScript("arguments[0].click();", option));
-
-	WebElement Interview_platform = p.Meeting_link_dropdown_Field();
-	Interview_platform.click();
-
-	WebElement Meet_Dropdown = p.state_Dropdown();
-	List<WebElement> Meet_options = Meet_Dropdown
-			.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
-
-	Meet_options.stream()
-			.filter(meetopt -> meetopt.getText().trim().equalsIgnoreCase("Google Meet"))
-			.findFirst()
-			.ifPresent(WebElement::click); 
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Interview mode selected successfully = Organization | Interview platform selected successfully = Google Meet");
-	System.out.println("🟨 Actual: Interview mode selected successfully = Organization | Interview platform selected successfully = Google Meet");
-	System.out.println(); */
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Assign interview host and recruiter.");
-	System.out.println("Step " + (step - 1) + ": Assign interview host and recruiter.");
-	System.out.println();
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🧑‍💼 HOST AND RECRUITER ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Assign the interview host and recruiter.");
+	System.out.println("━━━━━━━━━━━━━━ 🧑‍💼 HOST AND RECRUITER ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Assign the interview host and recruiter.");
 
 	WebElement Host = interview_inputs.get(4);
 	Host.click();
 	p.interviewHost_input().sendKeys(member_name);
 
-	p.Owner_Dropdown_backup()
-			.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"))
-			.stream()
-			.filter(hostopt -> hostopt.getText().trim().equalsIgnoreCase(member_name))
-			.findFirst()
-			.ifPresent(WebElement::click);
+	List<WebElement> Host_Options = p.Owner_Dropdown_backup().findElements(
+			By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]")
+	);
+	WebElement Required_Host_Option = null;
+	for(WebElement host_option : Host_Options) {
+		String Host_Option_Text = host_option.getText().trim();
+		System.out.println("🟨 Debug: Host option found = " + Host_Option_Text);
+		if(Host_Option_Text.equalsIgnoreCase(member_name)) {
+			Required_Host_Option = host_option;
+			break;
+		}
+	}
+	if(Required_Host_Option == null) {
+		String errorMessage = "Required Interview Host was not found = " + member_name;
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+		throw new IllegalStateException(errorMessage);
+	}
+	Required_Host_Option.click();
 
 	WebElement Recruiter = interview_inputs.get(5);
 	rp.Scroll_to_element(Recruiter);
 	Recruiter.click();
 
-	p.recruiter_Dropdown_backup()
-			.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"))
-			.stream()
-			.filter(recruiteroption -> recruiteroption.getText().trim().equalsIgnoreCase(member_name))
-			.findFirst()
-			.ifPresent(WebElement::click);
+	List<WebElement> Recruiter_Options = p.recruiter_Dropdown_backup().findElements(
+			By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]")
+	);
+	WebElement Required_Recruiter_Option = null;
+	for(WebElement recruiter_option : Recruiter_Options) {
+		String Recruiter_Option_Text = recruiter_option.getText().trim();
+		System.out.println("🟨 Debug: Interview recruiter option found = " + Recruiter_Option_Text);
+		if(Recruiter_Option_Text.equalsIgnoreCase(member_name)) {
+			Required_Recruiter_Option = recruiter_option;
+			break;
+		}
+	}
+	if(Required_Recruiter_Option == null) {
+		String errorMessage = "Required Interview Recruiter was not found = " + member_name;
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+		throw new IllegalStateException(errorMessage);
+	}
+	Required_Recruiter_Option.click();
 
-	Recruiter.click();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Interview host selected successfully = " + member_name + " | Recruiter selected successfully = " + member_name);
-	System.out.println("🟨 Actual: Interview host selected successfully = " + member_name + " | Recruiter selected successfully = " + member_name);
+	Report_Listen.log_print_in_report().log(
+			Status.PASS,
+			"<b>✅ Actual:</b> Interview host and recruiter assigned successfully = " + member_name
+	);
+	System.out.println("✅ Actual: Interview host and recruiter assigned successfully = " + member_name);
 	System.out.println();
 
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step " + (step++) + ":</b> Save interview schedule and send notification.");
-	System.out.println("Step " + (step - 1) + ": Save interview schedule and send notification.");
-	System.out.println();
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 📩 SAVE AND NOTIFICATION ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Save the interview schedule and send the notification.");
+	System.out.println("━━━━━━━━━━━━━━ 📩 SAVE AND NOTIFICATION ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Save the interview schedule and send the notification.");
 
 	WebElement Save = p.Modal_Save_Button();
 	rp.Scroll_to_element(Save);
@@ -1075,85 +863,84 @@ public void Candidate_Interview_scheduling(TreeMap<String, String> candidate_dat
 	Notify_Button.click();
 
 	rp.wait_for_invisibilty_of_theElement(popup_form);
+	String success_toast_text = p.Success_Toast_Message().getText().trim();
 
-	WebElement Success_toast = p.Success_Toast_Message();
-	String success_toast_text = Success_toast.getText().trim();
+	Report_Listen.log_print_in_report().log(
+			Status.PASS,
+			"<b>✅ Final Result:</b> Candidate interview scheduled successfully. Candidate = " + First_Name
+			+ " | Host/Recruiter = " + member_name + " | Confirmation = " + success_toast_text
+	);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
 
-	Report_Listen.log_print_in_report().log(Status.PASS,
-			"<b>🟨 Actual:</b> Interview scheduled successfully and success toast appeared = " + success_toast_text);
-	System.out.println("🟨 Actual: Interview scheduled successfully and success toast appeared = " + success_toast_text);
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>📌 Final Status:</b> Candidate interview scheduling flow completed successfully.");
-	System.out.println("📌 Final Status: Candidate interview scheduling flow completed successfully.");
-	System.out.println();  
-}
-
-  public void Candidate_job_status_change(String Status_value) throws IOException, InterruptedException {
-
-	Candidate_Module_Locaters p = new Candidate_Module_Locaters(d);
-	Repeat rp = new Repeat(d);
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🔹 Scenario Title:</b> Change candidate job application status");
-	System.out.println();
-	System.out.println("🔹 Scenario Title: Change candidate job application status");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>📘 Description:</b> Open the Job Applied tab for the currently opened candidate, launch the application status dropdown, and change the candidate job application status to the required value.");
-	System.out.println("📘 Description: Open the Job Applied tab for the currently opened candidate, launch the application status dropdown, and change the candidate job application status to the required value.");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>📥 Input:</b> Required Status Value = " + Status_value);
-	System.out.println("📥 Input: Required Status Value = " + Status_value);
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>✅ Expected:</b> Job Applied tab should open successfully, application status dropdown should be accessible, and the required status value should be selected successfully.");
-	System.out.println("✅ Expected: Job Applied tab should open successfully, application status dropdown should be accessible, and the required status value should be selected successfully.");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step 1:</b> Open Job Applied tab.");
-	System.out.println("Step 1: Open Job Applied tab.");
-	System.out.println();
-
-	List<WebElement> Candidate_tabs = p.Tab_Buttons();
-	WebElement Job_Applied_Tab = Candidate_tabs.get(1);
-	rp.movetoelement(Job_Applied_Tab);
-	Job_Applied_Tab.click();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>🟨 Actual:</b> Job Applied tab opened successfully.");
-	System.out.println("🟨 Actual: Job Applied tab opened successfully.");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>Step 2:</b> Open application status dropdown and select required status.");
-	System.out.println("Step 2: Open application status dropdown and select required status.");
-	System.out.println();
-
-	p.Application_status_Dropdown().click();
-	WebElement Status_dropdown_list = p.Owner_Dropdown();
-	Status_dropdown_list.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"))
-			.stream()
-			.filter(statusopt -> statusopt.getText().trim().equalsIgnoreCase(Status_value))
-			.findFirst()
-			.ifPresent(WebElement::click);
-
-	Report_Listen.log_print_in_report().log(Status.PASS,
-			"<b>🟨 Actual:</b> Candidate job application status selected successfully = " + Status_value);
-	System.out.println("🟨 Actual: Candidate job application status selected successfully = " + Status_value);
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO,
-			"<b>📌 Final Status:</b> Candidate job status change flow completed successfully.");
-	System.out.println("📌 Final Status: Candidate job status change flow completed successfully.");
+	System.out.println("✅ Final Result: Candidate interview scheduled successfully. Candidate = " + First_Name
+			+ " | Host/Recruiter = " + member_name + " | Confirmation = " + success_toast_text);
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 	System.out.println();
 }
+
+	public void Candidate_job_status_change(String Status_value) throws IOException, InterruptedException {
+
+		Candidate_Module_Locaters p = new Candidate_Module_Locaters(d);
+		Repeat rp = new Repeat(d);
+
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>━━━━━━━━━━━━━━ 🔄 JOB APPLICATION STATUS UPDATE ━━━━━━━━━━━━━━</b>"
+		);
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>📥 Input:</b> Required Status = " + Status_value
+		);
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>✅ Expected:</b> Candidate job application status should be updated successfully."
+		);
+
+		System.out.println("━━━━━━━━━━━━━━ 🔄 JOB APPLICATION STATUS UPDATE ━━━━━━━━━━━━━━");
+		System.out.println("📥 Input: Required Status = " + Status_value);
+		System.out.println("✅ Expected: Candidate job application status should be updated successfully.");
+
+		List<WebElement> Candidate_tabs = p.Tab_Buttons();
+		WebElement Job_Applied_Tab = Candidate_tabs.get(1);
+		rp.movetoelement(Job_Applied_Tab);
+		Job_Applied_Tab.click();
+
+		p.Application_status_Dropdown().click();
+		List<WebElement> Status_Options = p.Owner_Dropdown().findElements(
+				By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]")
+		);
+
+		WebElement Required_Status_Option = null;
+		for(WebElement status_option : Status_Options) {
+			String Status_Option_Text = status_option.getText().trim();
+			System.out.println("🟨 Debug: Application status option found = " + Status_Option_Text);
+			if(Status_Option_Text.equalsIgnoreCase(Status_value)) {
+				Required_Status_Option = status_option;
+				break;
+			}
+		}
+
+		if(Required_Status_Option == null) {
+			String errorMessage = "Required Candidate job application status was not found = " + Status_value;
+			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+			throw new IllegalStateException(errorMessage);
+		}
+
+		Required_Status_Option.click();
+
+		Report_Listen.log_print_in_report().log(
+				Status.PASS,
+				"<b>✅ Final Result:</b> Candidate job application status updated successfully = " + Status_value
+		);
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>"
+		);
+
+		System.out.println("✅ Final Result: Candidate job application status updated successfully = " + Status_value);
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+		System.out.println();
+	}
 
 
    public void pagination_changer(String count) throws InterruptedException{
@@ -1184,26 +971,26 @@ public void Candidate_Interview_scheduling(TreeMap<String, String> candidate_dat
    }
 	
  
-      public TreeMap<String, String> Total_Candidate_Count_Fetcher(int step) throws IOException, InterruptedException, AWTException {
-	   
-	   
-	   
-	    Candidate_Module_Locaters cp = new Candidate_Module_Locaters(d);
+	public TreeMap<String, String> Total_Candidate_Count_Fetcher(int step) throws IOException, InterruptedException, AWTException {
+
+		Candidate_Module_Locaters cp = new Candidate_Module_Locaters(d);
 		Repeat rp = new Repeat(d);
 		Robot r = new Robot();
-	   
+
 		Overview_Cards_Data.clear();
 		Candidate_List_Accesor();
 
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>🟨 Actual:</b> Candidate list page accessed successfully after overview data capture.");
-		System.out.println("🟨 Actual: Candidate list page accessed successfully after overview data capture.");
-		System.out.println();
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>━━━━━━━━━━━━━━ 🔎 FILTER CONFIGURATION ━━━━━━━━━━━━━━</b>"
+		);
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>Step " + (step++) + ":</b> Select All Stages before fetching the total Candidate count."
+		);
 
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>Step " + (step++) + ":</b> Open All Stage filter and select All Stages option.");
-		System.out.println("Step " + (step - 1) + ": Open All Stage filter and select All Stages option.");
-		System.out.println();
+		System.out.println("━━━━━━━━━━━━━━ 🔎 FILTER CONFIGURATION ━━━━━━━━━━━━━━");
+		System.out.println("Step " + (step - 1) + ": Select All Stages before fetching the total Candidate count.");
 
 		List<WebElement> candidate_Filters = cp.Candidate_List_Filter_Dropdowns();
 		WebElement all_stage_filter = candidate_Filters.get(3);
@@ -1212,67 +999,89 @@ public void Candidate_Interview_scheduling(TreeMap<String, String> candidate_dat
 		rp.movetoelement(all_stage_filter);
 		all_stage_filter.click();
 
-		WebElement all_stage_filter_dropdown = cp.stages_Dropdown();
-		all_stage_filter_dropdown.findElements(
-				By.xpath(".//div[contains(@class,'ant-select-item') and contains(@class,'ant-select-item-option')]"))
-				.stream()
-				.filter(stage -> stage.getAttribute("title").trim().contains("All Stages"))
-				.findFirst()
-				.orElseThrow(() -> new NoSuchElementException("All Stages option not found"))
-				.findElement(By.xpath(".//div[contains(@class,'ant-select-item-option-content')]"))
-				.click();
+		List<WebElement> Stage_Options = cp.stages_Dropdown().findElements(
+				By.xpath(".//div[contains(@class,'ant-select-item') and contains(@class,'ant-select-item-option')]")
+		);
+
+		WebElement All_Stages_Option = null;
+		for(WebElement stage_option : Stage_Options) {
+			String Stage_Title = stage_option.getAttribute("title");
+			System.out.println("🟨 Debug: Stage option title = " + Stage_Title);
+			if(Stage_Title != null && Stage_Title.trim().contains("All Stages")) {
+				All_Stages_Option = stage_option;
+				break;
+			}
+		}
+
+		if(All_Stages_Option == null) {
+			String errorMessage = "All Stages option was not found in Candidate stage filter.";
+			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+			throw new NoSuchElementException(errorMessage);
+		}
+
+		All_Stages_Option.findElement(
+				By.xpath(".//div[contains(@class,'ant-select-item-option-content')]")
+		).click();
 
 		all_stage_filter.click();
 		Thread.sleep(800);
 
-		WebElement all_filter_selected_confirmation = all_stage_filter
-				.findElement(By.xpath(".//span[contains(@title,'5 Selected')]"));
+		String Selection_Confirmation = all_stage_filter
+				.findElement(By.xpath(".//span[contains(@title,'5 Selected')]"))
+				.getText().trim();
+		System.out.println("🟨 Debug: Stage selection confirmation = " + Selection_Confirmation);
 
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>🟨 Actual:</b> All Stages option selected successfully and multi-selection confirmation was displayed = "
-						+ all_filter_selected_confirmation.getText().trim());
-		System.out.println("🟨 Actual: All Stages option selected successfully and multi-selection confirmation was displayed = "
-				+ all_filter_selected_confirmation.getText().trim());
+		Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> All Candidate stages selected successfully.");
+		System.out.println("✅ Actual: All Candidate stages selected successfully.");
 		System.out.println();
 
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>Step " + (step++) + ":</b> Change candidate list pagination to 100 and open exact count details.");
-		System.out.println("Step " + (step - 1) + ": Change candidate list pagination to 100 and open exact count details.");
-		System.out.println();
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>━━━━━━━━━━━━━━ 🔢 CANDIDATE COUNT VERIFICATION ━━━━━━━━━━━━━━</b>"
+		);
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>Step " + (step++) + ":</b> Display up to 100 Candidates and fetch the exact total count."
+		);
+
+		System.out.println("━━━━━━━━━━━━━━ 🔢 CANDIDATE COUNT VERIFICATION ━━━━━━━━━━━━━━");
+		System.out.println("Step " + (step - 1) + ": Display up to 100 Candidates and fetch the exact total count.");
 
 		pagination_changer("100");
 		cp.Exact_count_icon().click();
 		Thread.sleep(800);
 
 		List<WebElement> candidates_count = cp.pagination_count_text();
+		System.out.println("🟨 Debug: Candidate count text element total = " + candidates_count.size());
 
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>🟨 Actual:</b> Candidate exact count values fetched successfully. Total count text elements found = "
-						+ candidates_count.size());
-		System.out.println("🟨 Actual: Candidate exact count values fetched successfully. Total count text elements found = "
-				+ candidates_count.size());
+		if(candidates_count.size() <= 1) {
+			String errorMessage = "Candidate exact count was not available.";
+			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+			throw new IllegalStateException(errorMessage);
+		}
+
+		for(WebElement count : candidates_count) {
+			System.out.println("🟨 Debug: Candidate count confirmation text = " + count.getText().trim());
+		}
+
+		String Total_Candidate_Count = candidates_count.get(1).getText().trim();
+		Overview_Cards_Data.put("Total Candidate Count", Total_Candidate_Count);
+
+		Report_Listen.log_print_in_report().log(
+				Status.PASS,
+				"<b>✅ Final Result:</b> Total Candidate count fetched successfully = " + Total_Candidate_Count
+		);
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>"
+		);
+
+		System.out.println("✅ Final Result: Total Candidate count fetched successfully = " + Total_Candidate_Count);
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 		System.out.println();
 
-		candidates_count.stream()
-				.map(count -> count.getText().trim())
-				.forEach(countText -> {
-					Report_Listen.log_print_in_report().log(Status.INFO,
-							"<b>🟨 Actual:</b> Candidate count confirmation text = " + countText);
-					System.out.println("Candidates count confirmation text: " + countText);
-				});
-
-		Report_Listen.log_print_in_report().log(Status.PASS,
-				"<b>📌 Final Status:</b> Overview section data captured successfully and candidate count verification flow completed. Total overview entries stored = "
-						+ Overview_Cards_Data.size());
-		System.out.println();
-		System.out.println(
-				"📌 Final Status: Overview section data captured successfully and candidate count verification flow completed. Total overview entries stored = "
-						+ Overview_Cards_Data.size());
-		System.out.println(); 
-	   
-	   return Overview_Cards_Data;
-	   
-   }
+		return Overview_Cards_Data;
+	}
    
       
 	
@@ -1953,92 +1762,113 @@ public Object[][] Candidate_Add_Data() {
    
 	public void Import_CV_Accessor() throws IOException, InterruptedException {
 
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>🔹 Scenario Title:</b> Access Candidate import CV section");
-		System.out.println("🔹 Scenario Title: Access Candidate import CV section");
-
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>📘 Description:</b> Open the Candidates module, validate landing in Candidate list using the Import CV button as the unique identifier, and click it to open the candidate CV import section.");
-		System.out.println("📘 Description: Open the Candidates module, validate landing in Candidate list using the Import CV button as the unique identifier, and click it to open the candidate CV import section.");
-
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>✅ Expected:</b> Candidates module should open successfully, Import CV button should be visible as the Candidate list identifier, and clicking it should open the candidate CV import section.");
-		System.out.println("✅ Expected: Candidates module should open successfully, Import CV button should be visible as the Candidate list identifier, and clicking it should open the candidate CV import section.");
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>━━━━━━━━━━━━━━ 📄 IMPORT CV ACCESS ━━━━━━━━━━━━━━</b>"
+		);
+		System.out.println("━━━━━━━━━━━━━━ 📄 IMPORT CV ACCESS ━━━━━━━━━━━━━━");
 
 		WebElement Import = Candidate_List_Accesor();
-
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>Step:</b> Click on Import CV button.");
-		System.out.println("Step: Click on Import CV button.");
 		Import.click();
 
-		Report_Listen.log_print_in_report().log(Status.PASS,
-				"<b>🟨 Actual:</b> Import CV button clicked successfully and candidate import flow was opened.");
-		System.out.println("🟨 Actual: Import CV button clicked successfully and candidate import flow was opened.");
+		Report_Listen.log_print_in_report().log(
+				Status.PASS,
+				"<b>✅ Actual:</b> Candidate Import CV section opened successfully."
+		);
+		Report_Listen.log_print_in_report().log(
+				Status.INFO,
+				"<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>"
+		);
 
-		Report_Listen.log_print_in_report().log(Status.INFO,
-				"<b>📌 Final Status:</b> Candidate Import CV access flow completed successfully.");
-		System.out.println("📌 Final Status: Candidate Import CV access flow completed successfully.");
+		System.out.println("✅ Actual: Candidate Import CV section opened successfully.");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+		System.out.println();
 	}
     
     @Test(dataProvider = "Candidate_CV_Upload_Files")
     public void CV_upload(TreeMap<String, String> file) throws IOException, InterruptedException {
 
     	int step = 1;
-
     	Candidate_Module_Locaters p = new Candidate_Module_Locaters(d);
 
-    	Report_Listen.log_print_in_report().log(Status.INFO,
-    			"<b>🔹 Scenario Title:</b> Validate candidate CV upload using different file types");
-    	System.out.println("🔹 Scenario Title: Validate candidate CV upload using different file types");
+    	String File_Type = file.get("File Type");
+    	String File_Path = file.get("File Path");
+    	String Expected_Result;
 
-    	Report_Listen.log_print_in_report().log(Status.INFO,
-    			"<b>📘 Description:</b> Open the Candidate Import CV section, upload the configured file from data provider, and validate CV parsing behavior for the selected file type.");
-    	System.out.println("📘 Description: Open the Candidate Import CV section, upload the configured file from data provider, and validate CV parsing behavior for the selected file type.");
+    	if(File_Type.toLowerCase().startsWith("valid")) {
+    		Expected_Result = "The CV should be accepted and parsed successfully.";
+    	} else {
+    		Expected_Result = "The unsupported file should be rejected and CV parsing should not complete.";
+    	}
 
-    	Report_Listen.log_print_in_report().log(Status.INFO,
-    			"<b>📥 Input:</b> File Type = " + file.get("File Type") + " | File Path = " + file.get("File Path"));
-    	System.out.println("📥 Input: File Type = " + file.get("File Type") + " | File Path = " + file.get("File Path"));
+    	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+    	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Validate Candidate CV Upload");
+    	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> File Type = " + File_Type);
+    	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> " + Expected_Result);
 
-    	Report_Listen.log_print_in_report().log(Status.INFO,
-    			"<b>✅ Expected:</b> Import CV section should open successfully, upload field should accept the configured file path, and the system should process the uploaded file according to the supported/unsupported file type behavior.");
-    	System.out.println("✅ Expected: Import CV section should open successfully, upload field should accept the configured file path, and the system should process the uploaded file according to the supported/unsupported file type behavior.");
+    	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+    	System.out.println("🔹 Scenario Title: Validate Candidate CV Upload");
+    	System.out.println("📥 Input: File Type = " + File_Type);
+    	System.out.println("✅ Expected: " + Expected_Result);
+    	System.out.println("🟨 Debug: Upload File Path = " + File_Path);
+    	System.out.println();
 
-    	Report_Listen.log_print_in_report().log(Status.INFO,
-    			"<b>Step " + (step++) + ":</b> Open Candidate Import CV section.");
-    	System.out.println("Step " + (step - 1) + ": Open Candidate Import CV section.");
     	Import_CV_Accessor();
-    	Report_Listen.log_print_in_report().log(Status.INFO,
-    			"<b>🟨 Actual:</b> Candidate Import CV section opened successfully.");
-    	System.out.println("🟨 Actual: Candidate Import CV section opened successfully.");
 
-    	Report_Listen.log_print_in_report().log(Status.INFO,
-    			"<b>Step " + (step++) + ":</b> Identify CV upload field.");
-    	System.out.println("Step " + (step - 1) + ": Identify CV upload field.");
-    	WebElement Upload_file_field = p.Upload_Field();
-    	Report_Listen.log_print_in_report().log(Status.INFO,
-    			"<b>🟨 Actual:</b> CV upload field identified successfully.");
-    	System.out.println("🟨 Actual: CV upload field identified successfully.");
+    	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ ⬆️ FILE UPLOAD ━━━━━━━━━━━━━━</b>");
+    	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Upload the configured Candidate CV file.");
+    	System.out.println("━━━━━━━━━━━━━━ ⬆️ FILE UPLOAD ━━━━━━━━━━━━━━");
+    	System.out.println("Step " + (step - 1) + ": Upload the configured Candidate CV file.");
 
-    	Report_Listen.log_print_in_report().log(Status.INFO,
-    			"<b>Step " + (step++) + ":</b> Upload file into CV upload field.");
-    	System.out.println("Step " + (step - 1) + ": Upload file into CV upload field.");
-    	Upload_file_field.sendKeys(file.get("File Path"));
-    	Report_Listen.log_print_in_report().log(Status.INFO,
-    			"<b>🟨 Actual:</b> File path sent successfully for upload = " + file.get("File Path"));
-    	System.out.println("🟨 Actual: File path sent successfully for upload = " + file.get("File Path"));
+    	p.Upload_Field().sendKeys(File_Path);
 
-    	Report_Listen.log_print_in_report().log(Status.INFO,
-    			"<b>Step " + (step++) + ":</b> Trigger/validate CV parsing process after upload.");
-    	System.out.println("Step " + (step - 1) + ": Trigger/validate CV parsing process after upload.");
-    	p.Parsing_cv();
-    	Report_Listen.log_print_in_report().log(Status.PASS,
-    			"<b>🟨 Actual:</b> CV parsing flow executed successfully for file type = " + file.get("File Type"));
-    	System.out.println("🟨 Actual: CV parsing flow executed successfully for file type = " + file.get("File Type"));
+    	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Candidate CV file submitted successfully. File Type = " + File_Type);
+    	System.out.println("✅ Actual: Candidate CV file submitted successfully. File Type = " + File_Type);
+    	System.out.println();
 
-    	Report_Listen.log_print_in_report().log(Status.INFO,
-    			"<b>📌 Final Status:</b> Candidate CV upload validation flow completed for file type = " + file.get("File Type"));
-    	System.out.println("📌 Final Status: Candidate CV upload validation flow completed for file type = " + file.get("File Type"));
+    	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ ✅ UPLOAD RESULT ━━━━━━━━━━━━━━</b>");
+    	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Verify the CV upload result.");
+    	System.out.println("━━━━━━━━━━━━━━ ✅ UPLOAD RESULT ━━━━━━━━━━━━━━");
+    	System.out.println("Step " + (step - 1) + ": Verify the CV upload result.");
+
+    	if(File_Type.toLowerCase().startsWith("valid")) {
+
+    		p.Parsing_cv();
+
+    		Report_Listen.log_print_in_report().log(
+    				Status.PASS,
+    				"<b>✅ Final Result:</b> Candidate CV was uploaded and parsed successfully. File Type = " + File_Type
+    		);
+    		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+
+    		System.out.println("✅ Final Result: Candidate CV was uploaded and parsed successfully. File Type = " + File_Type);
+    		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+    		System.out.println();
+    		return;
+    	}
+
+    	try {
+    		p.Parsing_cv();
+    	} catch(Exception expectedRejection) {
+
+    		System.out.println("🟨 Debug: Unsupported CV file was rejected. Reason = " + expectedRejection.getMessage());
+
+    		Report_Listen.log_print_in_report().log(
+    				Status.PASS,
+    				"<b>✅ Final Result:</b> Unsupported Candidate CV file was rejected successfully. File Type = " + File_Type
+    		);
+    		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+
+    		System.out.println("✅ Final Result: Unsupported Candidate CV file was rejected successfully. File Type = " + File_Type);
+    		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+    		System.out.println();
+    		return;
+    	}
+
+    	String errorMessage = "Unsupported Candidate CV file was accepted unexpectedly. File Type = " + File_Type;
+    	Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Final Result:</b> " + errorMessage);
+    	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+    	throw new IllegalStateException(errorMessage);
     }
     
     @DataProvider

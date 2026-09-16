@@ -28,6 +28,9 @@ public void login() throws IOException {
     Data_Reader f = new Data_Reader();
     Repeat rp = new Repeat(d);
 
+    Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+    System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
     Report_Listen.log_print_in_report().log(Status.INFO,
             "<b>🔹 Scenario Title:</b> Login with valid configured credentials and enter company portal");
     System.out.println();
@@ -52,6 +55,9 @@ public void login() throws IOException {
             "<b>✅ Expected:</b> Application should open successfully, login page should load properly, credentials should be accepted, password eye icon should be clickable, login should succeed, and user should enter the company portal either through company selection or direct landing.");
     System.out.println("✅ Expected: Application should open successfully, login page should load properly, credentials should be accepted, password eye icon should be clickable, login should succeed, and user should enter the company portal either through company selection or direct landing.");
     System.out.println();
+
+    Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🌐 APPLICATION ACCESS ━━━━━━━━━━━━━━</b>");
+    System.out.println("━━━━━━━━━━━━━━ 🌐 APPLICATION ACCESS ━━━━━━━━━━━━━━");
 
     Report_Listen.log_print_in_report().log(Status.INFO,
             "<b>Step " + (step++) + ":</b> Open target application URL and wait until login page is loaded.");
@@ -95,6 +101,9 @@ public void login() throws IOException {
             "<b>🟨 Actual:</b> Application URL opened successfully and login page loaded = " + Target_url);
     System.out.println("🟨 Actual: Application URL opened successfully and login page loaded = " + Target_url);
     System.out.println();
+
+    Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🔐 CREDENTIAL ENTRY ━━━━━━━━━━━━━━</b>");
+    System.out.println("━━━━━━━━━━━━━━ 🔐 CREDENTIAL ENTRY ━━━━━━━━━━━━━━");
 
     Report_Listen.log_print_in_report().log(Status.INFO,
             "<b>Step " + (step++) + ":</b> Enter Login ID into the login field.");
@@ -160,6 +169,9 @@ public void login() throws IOException {
             "<b>🟨 Actual:</b> Login button clicked successfully.");
     System.out.println("🟨 Actual: Login button clicked successfully.");
     System.out.println();
+
+    Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🏢 PORTAL ACCESS ━━━━━━━━━━━━━━</b>");
+    System.out.println("━━━━━━━━━━━━━━ 🏢 PORTAL ACCESS ━━━━━━━━━━━━━━");
 
     Report_Listen.log_print_in_report().log(Status.INFO,
             "<b>Step " + (step++) + ":</b> Validate post-login flow and enter the company portal.");
@@ -259,6 +271,9 @@ public void login() throws IOException {
         System.out.println();
     }
 
+    Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ ✅ LOGIN RESULT ━━━━━━━━━━━━━━</b>");
+    System.out.println("━━━━━━━━━━━━━━ ✅ LOGIN RESULT ━━━━━━━━━━━━━━");
+
     Report_Listen.log_print_in_report().log(Status.INFO,
             "<b>📌 Final Status:</b> Login flow completed successfully for URL = " + Target_url);
     System.out.println("📌 Final Status: Login flow completed successfully for URL = " + Target_url);
@@ -267,6 +282,9 @@ public void login() throws IOException {
     Report_Listen.log_print_in_report().log(Status.INFO,
             "<b>🔗 URL:</b> " + Target_url);
     System.out.println("🔗 URL: " + Target_url);
+    Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+    System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
     System.out.println();
 }
 }

@@ -50,7 +50,47 @@ public class Repeat {
 		}
 		return allElements;
 	}
+   
+   public boolean check_element_visibility(WebElement element, int Wait_Time) {
+
+		try {
+
+			WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(Wait_Time));
+			w.until(ExpectedConditions.visibilityOf(element));
+
+			return true;
+
+		} catch(Exception e) {
+
+			return false;
+		}
+	}
+	public boolean check_element_visibility(List<WebElement> elements, int Wait_Time) {
+
+		try {
+
+			WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(Wait_Time));
+			w.until(ExpectedConditions.visibilityOfAllElements(elements));
+
+			return true;
+
+		} catch(Exception e) {
+
+			return false;
+		}
+	}
 	
+   public List<WebElement> wait_for_optional_list(By by, int seconds) {
+		try {
+			WebDriverWait w = new WebDriverWait(d, Duration.ofSeconds(seconds));
+			return w.until(driver -> {
+				List<WebElement> elements = driver.findElements(by);
+				return elements.size() > 0 ? elements : null;
+			});
+		} catch (Exception e) {
+			return d.findElements(by);
+		}
+	}
 	
 	public void wait_for_theElement(List <WebElement> element){
 		 
@@ -74,6 +114,14 @@ public class Repeat {
 	   	 w.until(ExpectedConditions.invisibilityOf(element));
 	   	 
 		 }
+	
+	public void wait_for_invisibilty_of_theElement(List<WebElement> element){
+		 
+	     
+	   	 WebDriverWait w = new WebDriverWait(d,Duration.ofSeconds(10));
+	   	 w.until(ExpectedConditions.invisibilityOfAllElements(element));
+	   	 
+		 }
 		
     public void movetoelement(WebElement element){
 			
@@ -84,6 +132,15 @@ public class Repeat {
 			 
 			 JavascriptExecutor js = (JavascriptExecutor)d;
 			 js.executeScript("arguments[0].scrollIntoView(true);", element);}
+    
+    
+    public void Scroll_to_bottom_of_list(WebElement scrollable_listElement) {
+		JavascriptExecutor js = (JavascriptExecutor) d;
+		js.executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", scrollable_listElement);
+	}
+		 
+   
+    
 	
     public void Java_script_executor_CLICK(WebElement element){
 		 

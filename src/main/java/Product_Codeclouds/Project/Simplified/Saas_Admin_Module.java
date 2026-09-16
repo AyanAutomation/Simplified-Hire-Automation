@@ -1,237 +1,271 @@
 package Product_Codeclouds.Project.Simplified;
 
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.TreeMap;
+import java.util.TreeSet;
+import java.util.stream.IntStream;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WindowType;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 
 import Listerners.Report_Listen;
+import Locaters.Candidate_Module_Locaters;
 import Locaters.Login_Locaters;
 import Locaters.Saas_Admin_Locaters;
 import Repeatative_codes.Repeat;
 
 @Listeners(Listerners.Report_Listen.class)
-public class Saas_Admin_Module extends Base{
+public class Saas_Admin_Module extends Base {
 
+	public void Saas_Admin_Login() throws IOException, InterruptedException {
 
-	public void Saas_Admin_Login() throws IOException {
-		
 		int step = 1;
-		
+
 		Login_Locaters lg = new Login_Locaters(d);
 		Data_Reader f = new Data_Reader();
-	    Repeat rp = new Repeat(d);
-	    
-	    Report_Listen.log_print_in_report().log(Status.INFO,
-	            "<b>🔹 Scenario Title:</b> Login with valid configured credentials and enter company portal");
-	    System.out.println();
-	    System.out.println("🔹 Scenario Title: Login with valid configured credentials and enter company portal");
-	    System.out.println();
+		Repeat rp = new Repeat(d);
 
-	    Report_Listen.log_print_in_report().log(Status.INFO,
-	            "<b>📘 Description:</b> Open the application URL, wait until login page is loaded, enter configured credentials, verify password visibility interaction, click Login button, and validate successful entry into the company portal either through company selection flow or direct landing flow.");
-	    System.out.println("📘 Description: Open the application URL, wait until login page is loaded, enter configured credentials, verify password visibility interaction, click Login button, and validate successful entry into the company portal either through company selection flow or direct landing flow.");
-	    System.out.println();
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 
-	    Report_Listen.log_print_in_report().log(Status.INFO,
-	            "<b>📥 Input:</b> Target URL = " + Target_url
-	                    + " | Login ID = " + f.Data_Fetcher("Login_id")
-	                    + " | Password = " + f.Data_Fetcher("Pass"));
-	    System.out.println("📥 Input: Target URL = " + Target_url
-	            + " | Login ID = " + f.Data_Fetcher("Login_id")
-	            + " | Password = " + f.Data_Fetcher("Pass"));
-	    System.out.println();
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🔹 Scenario Title:</b> Login with valid configured credentials and enter company portal");
+		System.out.println();
+		System.out.println("🔹 Scenario Title: Login with valid configured credentials and enter company portal");
+		System.out.println();
 
-	    Report_Listen.log_print_in_report().log(Status.INFO,
-	            "<b>✅ Expected:</b> Application should open successfully, login page should load properly, credentials should be accepted, password eye icon should be clickable, login should succeed, and user should enter the company portal either through company selection or direct landing.");
-	    System.out.println("✅ Expected: Application should open successfully, login page should load properly, credentials should be accepted, password eye icon should be clickable, login should succeed, and user should enter the company portal either through company selection or direct landing.");
-	    System.out.println();
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>📘 Description:</b> Open the application URL, wait until login page is loaded, enter configured credentials, verify password visibility interaction, click Login button, and validate successful entry into the company portal either through company selection flow or direct landing flow.");
+		System.out.println(
+				"📘 Description: Open the application URL, wait until login page is loaded, enter configured credentials, verify password visibility interaction, click Login button, and validate successful entry into the company portal either through company selection flow or direct landing flow.");
+		System.out.println();
 
-	    Report_Listen.log_print_in_report().log(Status.INFO,
-	            "<b>Step " + (step++) + ":</b> Open target application URL and wait until login page is loaded.");
-	    System.out.println("Step " + (step - 1) + ": Open target application URL and wait until login page is loaded.");
-	    System.out.println();
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Target URL = " + Target_url
+				+ " | Login ID = " + f.Data_Fetcher("Login_id") + " | Password = " + f.Data_Fetcher("Pass"));
+		System.out.println("📥 Input: Target URL = " + Target_url + " | Login ID = " + f.Data_Fetcher("Login_id")
+				+ " | Password = " + f.Data_Fetcher("Pass"));
+		System.out.println();
 
-	    d.get(Target_url);
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>✅ Expected:</b> Application should open successfully, login page should load properly, credentials should be accepted, password eye icon should be clickable, login should succeed, and user should enter the company portal either through company selection or direct landing.");
+		System.out.println(
+				"✅ Expected: Application should open successfully, login page should load properly, credentials should be accepted, password eye icon should be clickable, login should succeed, and user should enter the company portal either through company selection or direct landing.");
+		System.out.println();
 
-	    try {
-	        FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d)
-	                .withTimeout(Duration.ofSeconds(120))
-	                .pollingEvery(Duration.ofMillis(500))
-	                .ignoring(NoSuchElementException.class)
-	                .ignoring(StaleElementReferenceException.class);
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>━━━━━━━━━━━━━━ 🌐 APPLICATION ACCESS ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 🌐 APPLICATION ACCESS ━━━━━━━━━━━━━━");
 
-	        wait.until(driver -> {
-	            lg.Landed_in_login_page();
-	            return true;
-	        });
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Open target application URL and wait until login page is loaded.");
+		System.out.println("Step " + (step - 1) + ": Open target application URL and wait until login page is loaded.");
+		System.out.println();
 
-	    } catch (Exception e) {
+		d.get(Target_url);
 
-	        Report_Listen.log_print_in_report().log(Status.WARNING,
-	                "<b>⚠ Retry:</b> Initial wait for login page load failed. Retrying the same operation again.");
-	        System.out.println("⚠ Retry: Initial wait for login page load failed. Retrying the same operation again.");
-	        System.out.println();
-
-	        FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d)
-	                .withTimeout(Duration.ofSeconds(120))
-	                .pollingEvery(Duration.ofMillis(500))
-	                .ignoring(NoSuchElementException.class)
-	                .ignoring(StaleElementReferenceException.class);
-
-	        wait.until(driver -> {
-	            lg.Landed_in_login_page();
-	            return true;
-	        });
-	    }
-
-	    Report_Listen.log_print_in_report().log(Status.INFO,
-	            "<b>🟨 Actual:</b> Application URL opened successfully and login page loaded = " + Target_url);
-	    System.out.println("🟨 Actual: Application URL opened successfully and login page loaded = " + Target_url);
-	    System.out.println();
-
-	    Report_Listen.log_print_in_report().log(Status.INFO,
-	            "<b>Step " + (step++) + ":</b> Enter Login ID into the login field.");
-	    System.out.println("Step " + (step - 1) + ": Enter Login ID into the login field.");
-	    System.out.println();
-
-	    try {
-	        WebElement id_field_initial = lg.id_field();
-	        rp.movetoelement(id_field_initial);
-	        id_field_initial.click();
-	        id_field_initial.sendKeys(f.Data_Fetcher("Admin_Login_id"));
-
-	    } catch (StaleElementReferenceException e) {
-
-	        Report_Listen.log_print_in_report().log(Status.WARNING,
-	                "<b>⚠ Retry:</b> Login ID field became stale. Refetching the element and retrying the operation.");
-	        System.out.println("⚠ Retry: Login ID field became stale. Refetching the element and retrying the operation.");
-	        System.out.println();
-
-	        WebElement id_field_refetched = lg.id_field();
-	        rp.movetoelement(id_field_refetched);
-	        id_field_refetched.click();
-	        id_field_refetched.sendKeys(f.Data_Fetcher("Admin_Login_id"));
-	    }
-
-	    Report_Listen.log_print_in_report().log(Status.INFO,
-	            "<b>🟨 Actual:</b> Login ID entered successfully = " + f.Data_Fetcher("Admin_Login_id"));
-	    System.out.println("🟨 Actual: Login ID entered successfully = " + f.Data_Fetcher("Admin_Login_id"));
-	    System.out.println();
-
-	    Report_Listen.log_print_in_report().log(Status.INFO,
-	            "<b>Step " + (step++) + ":</b> Enter Password into the password field.");
-	    System.out.println("Step " + (step - 1) + ": Enter Password into the password field.");
-	    System.out.println();
-
-	    lg.password_field().sendKeys(f.Data_Fetcher("Admin_Pass"));
-
-	    Report_Listen.log_print_in_report().log(Status.INFO,
-	            "<b>🟨 Actual:</b> Password entered successfully.");
-	    System.out.println("🟨 Actual: Password entered successfully.");
-	    System.out.println();
-
-	    Report_Listen.log_print_in_report().log(Status.INFO,
-	            "<b>Step " + (step++) + ":</b> Click password eye icon to verify password visibility functionality.");
-	    System.out.println("Step " + (step - 1) + ": Click password eye icon to verify password visibility functionality.");
-	    System.out.println();
-
-	    lg.password_eye_button().click();
-
-	    Report_Listen.log_print_in_report().log(Status.INFO,
-	            "<b>🟨 Actual:</b> Password eye icon clicked successfully.");
-	    System.out.println("🟨 Actual: Password eye icon clicked successfully.");
-	    System.out.println();
-
-	    Report_Listen.log_print_in_report().log(Status.INFO,
-	            "<b>Step " + (step++) + ":</b> Click on Login button.");
-	    System.out.println("Step " + (step - 1) + ": Click on Login button.");
-	    System.out.println();
-
-	    lg.Login_button().click();
-
-	    Report_Listen.log_print_in_report().log(Status.INFO,
-	            "<b>🟨 Actual:</b> Login button clicked successfully.");
-	    System.out.println("🟨 Actual: Login button clicked successfully.");
-	    System.out.println();
-
-	    Report_Listen.log_print_in_report().log(Status.INFO,
-	            "<b>Step " + (step++) + ":</b> Validate post-login flow and enter the company portal.");
-	    System.out.println("Step " + (step - 1) + ": Validate post-login flow and enter the company portal.");
-	    System.out.println();
-
-	    try {
-
-	        Report_Listen.log_print_in_report().log(Status.INFO,
-	                "<b>Step " + (step++) + ":</b> Validate whether the user was directly redirected inside the company portal.");
-	        System.out.println("Step " + (step - 1) + ": Validate whether the user was directly redirected inside the company portal.");
-	        System.out.println();
-	        FluentWait<WebDriver> wit = new FluentWait<WebDriver>(d)
-	                .withTimeout(Duration.ofSeconds(120))
-	                .pollingEvery(Duration.ofMillis(500))
-	                .ignoring(NoSuchElementException.class)
-	                .ignoring(StaleElementReferenceException.class);
-	        wit.until(driver -> {
-	        	lg.login_confirmation_inside_company_portal();
-	            return true;
-	        });
-	   
-	        
-
-	        Report_Listen.log_print_in_report().log(Status.PASS,
-	                "<b>🟨 Actual:</b> User was directly redirected and entered successfully inside the company portal without needing company selection.");
-	        System.out.println("🟨 Actual: User was directly redirected and entered successfully inside the company portal without needing company selection.");
-	        System.out.println();
-
-	    } catch (Exception e) {
-
-	        Report_Listen.log_print_in_report().log(Status.WARNING,
-	                "<b>⚠ Fallback:</b> Direct company portal landing was not detected. Proceeding with company selection flow.");
-	        System.out.println("⚠ Fallback: Direct company portal landing was not detected. Proceeding with company selection flow.");
-	        System.out.println();
-
-	        Report_Listen.log_print_in_report().log(Status.INFO,
-	                "<b>Step " + (step++) + ":</b> Validate initial login confirmation and confirm that company selection flow is available.");
-	        System.out.println("Step " + (step - 1) + ": Validate initial login confirmation and confirm that company selection flow is available.");
-	        System.out.println();
-
-	        lg.login_confirmation();
-
-	        Report_Listen.log_print_in_report().log(Status.INFO,
-	                "<b>🟨 Actual:</b> Initial login confirmation validated successfully. Company selection flow is available.");
-	        System.out.println("🟨 Actual: Initial login confirmation validated successfully. Company selection flow is available.");
-	        System.out.println();
-
-	        Report_Listen.log_print_in_report().log(Status.INFO,
-	                "<b>Step " + (step++) + ":</b> Identify company option from the company selection screen and move to it.");
-	        System.out.println("Step " + (step - 1) + ": Identify company option from the company selection screen and move to it.");
-	        System.out.println();}}
-	
-	
-	public void Saas_Admin_Menu_navigation(String opt_text) throws IOException {
-
-	    
-		Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
-	   
 		try {
-			p.Side_menu();
-		} catch (Exception mm) {
-			Saas_Admin_Login();
-			p.Side_menu();
+			FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d).withTimeout(Duration.ofSeconds(120))
+					.pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class)
+					.ignoring(StaleElementReferenceException.class);
+
+			wait.until(driver -> {
+				lg.Landed_in_login_page();
+				return true;
+			});
+
+		} catch (Exception e) {
+
+			Report_Listen.log_print_in_report().log(Status.WARNING,
+					"<b>⚠ Retry:</b> Initial wait for login page load failed. Retrying the same operation again.");
+			System.out.println("⚠ Retry: Initial wait for login page load failed. Retrying the same operation again.");
+			System.out.println();
+
+			FluentWait<WebDriver> wait = new FluentWait<WebDriver>(d).withTimeout(Duration.ofSeconds(120))
+					.pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class)
+					.ignoring(StaleElementReferenceException.class);
+
+			wait.until(driver -> {
+				lg.Landed_in_login_page();
+				return true;
+			});
 		}
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Application URL opened successfully and login page loaded = " + Target_url);
+		System.out.println("🟨 Actual: Application URL opened successfully and login page loaded = " + Target_url);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>━━━━━━━━━━━━━━ 🔐 CREDENTIAL ENTRY ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 🔐 CREDENTIAL ENTRY ━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Enter Login ID into the login field.");
+		System.out.println("Step " + (step - 1) + ": Enter Login ID into the login field.");
+		System.out.println();
+
+		try {
+			WebElement id_field_initial = lg.id_field();
+			rp.movetoelement(id_field_initial);
+			id_field_initial.click();
+			Thread.sleep(800);
+			id_field_initial.sendKeys(f.Data_Fetcher("Admin_Login_id"));
+
+		} catch (StaleElementReferenceException e) {
+
+			Report_Listen.log_print_in_report().log(Status.WARNING,
+					"<b>⚠ Retry:</b> Login ID field became stale. Refetching the element and retrying the operation.");
+			System.out.println(
+					"⚠ Retry: Login ID field became stale. Refetching the element and retrying the operation.");
+			System.out.println();
+
+			WebElement id_field_refetched = lg.id_field();
+			rp.movetoelement(id_field_refetched);
+			id_field_refetched.click();
+			id_field_refetched.sendKeys(f.Data_Fetcher("Admin_Login_id"));
+		}
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Login ID entered successfully = " + f.Data_Fetcher("Admin_Login_id"));
+		System.out.println("🟨 Actual: Login ID entered successfully = " + f.Data_Fetcher("Admin_Login_id"));
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Enter Password into the password field.");
+		System.out.println("Step " + (step - 1) + ": Enter Password into the password field.");
+		System.out.println();
+
+		lg.password_field().sendKeys(f.Data_Fetcher("Admin_Pass"));
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Password entered successfully.");
+		System.out.println("🟨 Actual: Password entered successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Click password eye icon to verify password visibility functionality.");
+		System.out.println(
+				"Step " + (step - 1) + ": Click password eye icon to verify password visibility functionality.");
+		System.out.println();
+
+		lg.password_eye_button().click();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Password eye icon clicked successfully.");
+		System.out.println("🟨 Actual: Password eye icon clicked successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Click on Login button.");
+		System.out.println("Step " + (step - 1) + ": Click on Login button.");
+		System.out.println();
+
+		lg.Login_button().click();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Login button clicked successfully.");
+		System.out.println("🟨 Actual: Login button clicked successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🏢 PORTAL ACCESS ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 🏢 PORTAL ACCESS ━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Validate post-login flow and enter the company portal.");
+		System.out.println("Step " + (step - 1) + ": Validate post-login flow and enter the company portal.");
+		System.out.println();
+
+		try {
+
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++)
+					+ ":</b> Validate whether the user was directly redirected inside the company portal.");
+			System.out.println("Step " + (step - 1)
+					+ ": Validate whether the user was directly redirected inside the company portal.");
+			System.out.println();
+			FluentWait<WebDriver> wit = new FluentWait<WebDriver>(d).withTimeout(Duration.ofSeconds(120))
+					.pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class)
+					.ignoring(StaleElementReferenceException.class);
+			wit.until(driver -> {
+				lg.login_confirmation_inside_company_portal();
+				return true;
+			});
+
+			Report_Listen.log_print_in_report().log(Status.PASS,
+					"<b>🟨 Actual:</b> User was directly redirected and entered successfully inside the company portal without needing company selection.");
+			System.out.println(
+					"🟨 Actual: User was directly redirected and entered successfully inside the company portal without needing company selection.");
+			System.out.println();
+
+		} catch (Exception e) {
+
+			Report_Listen.log_print_in_report().log(Status.WARNING,
+					"<b>⚠ Fallback:</b> Direct company portal landing was not detected. Proceeding with company selection flow.");
+			System.out.println(
+					"⚠ Fallback: Direct company portal landing was not detected. Proceeding with company selection flow.");
+			System.out.println();
+
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++)
+					+ ":</b> Validate initial login confirmation and confirm that company selection flow is available.");
+			System.out.println("Step " + (step - 1)
+					+ ": Validate initial login confirmation and confirm that company selection flow is available.");
+			System.out.println();
+
+			lg.login_confirmation();
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> Initial login confirmation validated successfully. Company selection flow is available.");
+			System.out.println(
+					"🟨 Actual: Initial login confirmation validated successfully. Company selection flow is available.");
+			System.out.println();
+
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++)
+					+ ":</b> Identify company option from the company selection screen and move to it.");
+			System.out.println("Step " + (step - 1)
+					+ ": Identify company option from the company selection screen and move to it.");
+			System.out.println();
+		}
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+		System.out.println();
+	}
+
+	public void Saas_Admin_Menu_navigation(String opt_text) throws IOException, InterruptedException {
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>━━━━━━━━━━━━━━ 🧭 SAAS ADMIN MENU NAVIGATION ━━━━━━━━━━━━━━</b>");
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Required Menu Option = " + opt_text);
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>✅ Expected:</b> Required SaaS Admin side menu option should be found and opened successfully.");
+		System.out.println("━━━━━━━━━━━━━━ 🧭 SAAS ADMIN MENU NAVIGATION ━━━━━━━━━━━━━━");
+		System.out.println("📥 Input: Required Menu Option = " + opt_text);
+		System.out.println("✅ Expected: Required SaaS Admin side menu option should be found and opened successfully.");
+		System.out.println();
+
+		Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+
+		/*
+		 * try { p.Side_menu(); } catch (Exception mm) {
+		 */
+		Saas_Admin_Login();
+		p.Side_menu();
+		// }
 		List<WebElement> menu_options = p.options();
-		boolean option_clicked = menu_options.stream().filter(menuop -> menuop.getText().trim().equalsIgnoreCase(opt_text))
-				.findFirst().map(menuop -> {
+		boolean option_clicked = menu_options.stream()
+				.filter(menuop -> menuop.getText().trim().equalsIgnoreCase(opt_text)).findFirst().map(menuop -> {
 					menuop.click();
 					return true;
 				}).orElse(false);
@@ -249,86 +283,5019 @@ public class Saas_Admin_Module extends Base{
 			System.out.println("❌ Actual: Required side menu option was not found = " + opt_text);
 			System.out.println();
 		}
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
 	}
-	
-	
-	public void Lead_Module_Accessor() throws IOException {
+
+	public void Lead_Module_Accessor() throws IOException, InterruptedException {
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>━━━━━━━━━━━━━━ 📂 LEADS MODULE ACCESS ━━━━━━━━━━━━━━</b>");
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step:</b> Open the SaaS Admin Leads module.");
+		System.out.println("━━━━━━━━━━━━━━ 📂 LEADS MODULE ACCESS ━━━━━━━━━━━━━━");
+		System.out.println("Step: Open the SaaS Admin Leads module.");
 
 		Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
-		
+
 		Saas_Admin_Menu_navigation("Leads");
 		p.Landed_in_Leads_page_confirmation();
-		
-		
-}
-	
-	
-	
-	
+		Report_Listen.log_print_in_report().log(Status.PASS,
+				"<b>✅ Actual:</b> SaaS Admin Leads module opened successfully.");
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		System.out.println("✅ Actual: SaaS Admin Leads module opened successfully.");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
+	}
+
 	public void list_threedot_dropdown_option_selector(String option) throws InterruptedException {
 
 		Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
 		Repeat rp = new Repeat(d);
-		
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ ⋮ ROW ACTION MENU ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ ⋮ ROW ACTION MENU ━━━━━━━━━━━━━━");
+
 		Report_Listen.log_print_in_report().log(Status.INFO,
 				"<b>Step:</b> Click on 3 dot button of the first lead in the list to view dropdown options.");
 		System.out.println("Step: Click on 3 dot button of the first lead in the list to view dropdown options.");
 		System.out.println();
-		List<WebElement> Three_dot_Button= p.List_threedots_button();
-		Three_dot_Button.get(0).click();
-		List<WebElement> Dropdown_Options = p.Action_menu_options();
+		Thread.sleep(1000);
+		List<WebElement> Three_dot_Button = p.List_threedots_button();
+		WebElement First_Rows_Three_dot_Button = Three_dot_Button.get(0);
+		rp.movetoelement(First_Rows_Three_dot_Button);
+		First_Rows_Three_dot_Button.click();
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step:</b> Open first row three-dot action menu.");
+		System.out.println("Step: Open first row three-dot action menu.");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> First row three-dot button clicked successfully.");
+		System.out.println("🟨 Actual: First row three-dot button clicked successfully.");
+
+		List<WebElement> Dropdown_Options = null;
+
+		try {
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>Step:</b> Fetch action menu dropdown options after first click.");
+			System.out.println("Step: Fetch action menu dropdown options after first click.");
+
+			Dropdown_Options = p.Action_menu_options();
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> Action menu options fetched successfully. Option count = "
+							+ Dropdown_Options.size());
+			System.out.println(
+					"🟨 Actual: Action menu options fetched successfully. Option count = " + Dropdown_Options.size());
+
+		} catch (Exception e) {
+			Report_Listen.log_print_in_report().log(Status.WARNING,
+					"<b>⚠ Actual:</b> Action menu options were not fetched after first click. Retrying by clicking first row three-dot button again.<br><b>Reason:</b> "
+							+ e.getMessage());
+			System.out.println(
+					"⚠ Actual: Action menu options were not fetched after first click. Retrying by clicking first row three-dot button again.");
+			System.out.println("Reason: " + e.getMessage());
+
+			Three_dot_Button = p.List_threedots_button();
+			First_Rows_Three_dot_Button = Three_dot_Button.get(0);
+
+			rp.movetoelement(First_Rows_Three_dot_Button);
+			First_Rows_Three_dot_Button.click();
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> First row three-dot button re-clicked successfully.");
+			System.out.println("🟨 Actual: First row three-dot button re-clicked successfully.");
+
+			Dropdown_Options = p.Action_menu_options();
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> Action menu options fetched successfully after retry. Option count = "
+							+ Dropdown_Options.size());
+			System.out.println("🟨 Actual: Action menu options fetched successfully after retry. Option count = "
+					+ Dropdown_Options.size());
+		}
+		System.out.println();
+
+		boolean Option_Selected = false;
+
 		for (WebElement ele : Dropdown_Options) {
 
 			String text = ele.getText().trim();
 
-			System.out.println("Dropdown option found = " + text);
+			System.out.println("🟨 Debug: Dropdown option found = " + text);
 
 			if (text.equalsIgnoreCase(option)) {
 
 				rp.movetoelement(ele);
 				ele.click();
 
+				Option_Selected = true;
+
 				Report_Listen.log_print_in_report().log(Status.INFO,
 						"<b>🟨 Actual:</b> Dropdown option selected successfully = " + text);
 				System.out.println("🟨 Actual: Dropdown option selected successfully = " + text);
 				System.out.println();
 
-				break;}}
+				break;
+			}
+		}
 
+		if (!Option_Selected) {
+			Report_Listen.log_print_in_report().log(Status.FAIL,
+					"<b>❌ Actual:</b> Required dropdown option was not found. Expected option = " + option);
+			System.out.println("❌ Actual: Required dropdown option was not found. Expected option = " + option);
+			System.out.println();
+		}
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 
 	}
 
+	@Test(dataProvider = "Account_Create_Data")
+	public void Draft_Account_Create(TreeMap<String, String> account_data) throws IOException, InterruptedException {
 
-public TreeMap<String, String> Leads_Details_fetcher() throws IOException, InterruptedException {
+		String Company_Name = account_data.get("Company Name");
+		String Plan_Name = account_data.get("Plan Name");
+		String Users = account_data.get("Users");
+
+		Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+		Repeat rp = new Repeat(d);
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>━━━━━━━━━━━━━━ 📝 DRAFT ACCOUNT CREATION ━━━━━━━━━━━━━━</b>");
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>📥 Input:</b> Company = " + Company_Name + " | Plan = " + Plan_Name + " | Users = " + Users);
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>✅ Expected:</b> Account form should be saved successfully as a draft and the account list should remain accessible.");
+		System.out.println("━━━━━━━━━━━━━━ 📝 DRAFT ACCOUNT CREATION ━━━━━━━━━━━━━━");
+		System.out.println("📥 Input: Company = " + Company_Name + " | Plan = " + Plan_Name + " | Users = " + Users);
+		System.out.println(
+				"✅ Expected: Account form should be saved successfully as a draft and the account list should remain accessible.");
+		System.out.println();
+
+		int Start_step = 1;
+		int step = Form_Filler(account_data, Start_step);
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Click Save Draft button.");
+		System.out.println("Step " + (step - 1) + ": Click Save Draft button.");
+		WebElement Save_draft_Button_Below = p.Save_Draft_Button();
+		rp.Scroll_to_element(Save_draft_Button_Below);
+		Save_draft_Button_Below.click();
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Save Draft button clicked successfully.");
+		System.out.println("🟨 Actual: Save Draft button clicked successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>━━━━━━━━━━━━━━ 📬 DRAFT CONFIRMATION ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 📬 DRAFT CONFIRMATION ━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Capture toast message after saving account draft.");
+		System.out.println("Step " + (step - 1) + ": Capture toast message after saving account draft.");
+		WebElement Toast = p.Toast_message();
+		String Toast_text = Toast.getText().trim();
+		Report_Listen.log_print_in_report().log(Status.PASS,
+				"<b>✅ Actual:</b> Account draft save action completed. Toast message = " + Toast_text);
+		System.out.println("✅ Actual: Account draft save action completed. Toast message = " + Toast_text);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++)
+				+ ":</b> Close toast message and validate Create Account button is available again.");
+		System.out.println(
+				"Step " + (step - 1) + ": Close toast message and validate Create Account button is available again.");
+		p.Toast_close_Button().click();
+		p.Create_Account_button();
+		Report_Listen.log_print_in_report().log(Status.PASS,
+				"<b>✅ Final Result:</b> Account creation draft flow completed successfully for company = "
+						+ Company_Name + " | Plan = " + Plan_Name + " | Users = " + Users);
+		System.out.println("✅ Final Result: Account creation draft flow completed successfully for company = "
+				+ Company_Name + " | Plan = " + Plan_Name + " | Users = " + Users);
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
+		System.out.println();
+	}
 	
+	
+	
+@Test(dataProvider = "Checkout_Plan_Create_Data")
+public void Plan_Add(TreeMap<String, String> Checkout_Data) throws IOException, InterruptedException {
+
 	Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
-	
-	
-	TreeMap<String, String> lead_details = new TreeMap<>();
-	
-   WebElement Approve_button;
-  try {
-	  Approve_button=  p.Leads_Approve_button();
-	  
-  } catch (Exception e) {
-	  
-	  Saas_Admin_Menu_navigation("Leads");
-      list_threedot_dropdown_option_selector("View Lead");
-      Approve_button=p.Leads_Approve_button();
-  }
-List<WebElement> Labels = p.Labels();
-List<WebElement> Values = p.values(); 
 
-for(int i=0;i<Math.min(Labels.size(), Values.size());i++) {
-	
-	String label = Labels.get(i).getText().trim();
-	String value = Values.get(i).getText().trim();
-	
-	lead_details.put(label, value);
+	String Plan_Name = Checkout_Data.get("Plan Name");
+	String Billing_Period = Checkout_Data.get("Billing Period");
+	String Plan_Pricing = Checkout_Data.get("Plan Pricing");
+	String Instance = Checkout_Data.get("Instance");
+	String Price_For_Instance = Checkout_Data.get("Price for Instance");
+
+	int step = 1;
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Create a new Simplified Checkout plan");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Navigate to the SaaS Admin Plans module, open the Checkout plan creation form, enter the supplied billing, pricing, instance, and feature-limit details, save the plan, and verify that the Plans page is displayed after creation.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Plan Name = " + Plan_Name + " | Billing Period = " + Billing_Period + " | Plan Pricing = " + Plan_Pricing + " | Instances = " + Instance + " | Price Per Instance = " + Price_For_Instance);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> The Checkout plan should be created successfully using the supplied plan configuration.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+
 	System.out.println();
-    System.out.println(label + " : " + value);
-    System.out.println();
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println("🔹 Scenario Title: Create a new Simplified Checkout plan");
+	System.out.println();
+	System.out.println("📘 Description: Navigate to the SaaS Admin Plans module, open the Checkout plan creation form, enter the supplied billing, pricing, instance, and feature-limit details, save the plan, and verify that the Plans page is displayed after creation.");
+	System.out.println();
+	System.out.println("📥 Input: Plan Name = " + Plan_Name + " | Billing Period = " + Billing_Period + " | Plan Pricing = " + Plan_Pricing + " | Instances = " + Instance + " | Price Per Instance = " + Price_For_Instance);
+	System.out.println();
+	System.out.println("✅ Expected: The Checkout plan should be created successfully using the supplied plan configuration.");
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println();
 
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 📋 PLANS MODULE ACCESS ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Navigate to the SaaS Admin Plans module.");
+
+	System.out.println("━━━━━━━━━━━━━━ 📋 PLANS MODULE ACCESS ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Navigate to the SaaS Admin Plans module.");
+
+	Saas_Admin_Menu_navigation("Plans");
+	p.Landed_in_plans_page();
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> SaaS Admin Plans page opened successfully.");
+	System.out.println("✅ Actual: SaaS Admin Plans page opened successfully.");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Fetch the available application-plan sections and select the Simplified Checkout section.");
+	System.out.println("Step " + (step - 1) + ": Fetch the available application-plan sections and select the Simplified Checkout section.");
+
+	List<WebElement> Plan_info_sections = p.Plans_Sections();
+	WebElement Checkout_plan_section = Plan_info_sections.get(1);
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Simplified Checkout plan section fetched successfully.");
+	System.out.println("✅ Actual: Simplified Checkout plan section fetched successfully.");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ ➕ CHECKOUT PLAN CREATION ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Create the Checkout plan using the supplied dataset.");
+
+	System.out.println("━━━━━━━━━━━━━━ ➕ CHECKOUT PLAN CREATION ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Create the Checkout plan using the supplied dataset.");
+
+	Checkout_Plan_Add(Checkout_plan_section, Checkout_Data);
+	p.Landed_in_plans_page();
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Final Result:</b> Simplified Checkout plan creation flow completed successfully. Plan Name = " + Plan_Name + " | Billing Period = " + Billing_Period + " | Plan Pricing = " + Plan_Pricing);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+
+	System.out.println("✅ Final Result: Simplified Checkout plan creation flow completed successfully. Plan Name = " + Plan_Name + " | Billing Period = " + Billing_Period + " | Plan Pricing = " + Plan_Pricing);
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println();
 }
-return lead_details;
-}}
+
+
+public void Checkout_Plan_Add(WebElement Plan_Section, TreeMap<String, String> Checkout_Data) throws InterruptedException {
+
+	Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+	Repeat rp = new Repeat(d);
+
+	String Plan_Name = Checkout_Data.get("Plan Name");
+	String Billing_Period = Checkout_Data.get("Billing Period");
+	String Custom_Billing_Value = Checkout_Data.get("Custom Billing Value");
+	String Custom_Billing_Unit = Checkout_Data.get("Custom Billing Unit");
+	String Plan_Pricing = Checkout_Data.get("Plan Pricing");
+	String Instance = Checkout_Data.get("Instance");
+	String Price_For_Instance = Checkout_Data.get("Price for Instance");
+	String Private_Instances = Checkout_Data.get("Private Instances");
+	String Events_Management = Checkout_Data.get("Events Management");
+	String Direct_Link_Checkout = Checkout_Data.get("Direct Link Checkout");
+	String Custom_Fields_Value = Checkout_Data.get("Custom Fields");
+	String One_Click_Upsells = Checkout_Data.get("1-Click Upsells");
+	String Cross_Sells = Checkout_Data.get("Cross-Sells");
+	String Bundles = Checkout_Data.get("Bundles");
+	String Shield = Checkout_Data.get("Shield");
+
+	int step = 1;
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Fill and submit the Simplified Checkout plan form");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Open the Checkout plan form, fetch the complete form structure, retry the form-element fetch when the initial reference fails, enter billing and pricing details, configure plan limits, and save the plan.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Plan Configuration:</b> Plan Name = " + Plan_Name + " | Billing Period = " + Billing_Period + " | Custom Billing Value = " + Custom_Billing_Value + " | Custom Billing Unit = " + Custom_Billing_Unit + " | Plan Pricing = " + Plan_Pricing);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Limit Configuration:</b> Instances = " + Instance + " | Price Per Instance = " + Price_For_Instance + " | Private Instances = " + Private_Instances + " | Events Management = " + Events_Management + " | Direct Link Checkout = " + Direct_Link_Checkout + " | Custom Fields = " + Custom_Fields_Value + " | 1-Click Upsells = " + One_Click_Upsells + " | Cross-Sells = " + Cross_Sells + " | Bundles = " + Bundles + " | Shield = " + Shield);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> The Checkout plan form should accept the supplied configuration and display a confirmation message after saving.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+
+	System.out.println();
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println("🔹 Scenario Title: Fill and submit the Simplified Checkout plan form");
+	System.out.println();
+	System.out.println("📘 Description: Open the Checkout plan form, fetch the complete form structure, retry the form-element fetch when the initial reference fails, enter billing and pricing details, configure plan limits, and save the plan.");
+	System.out.println();
+	System.out.println("📥 Plan Configuration: Plan Name = " + Plan_Name + " | Billing Period = " + Billing_Period + " | Custom Billing Value = " + Custom_Billing_Value + " | Custom Billing Unit = " + Custom_Billing_Unit + " | Plan Pricing = " + Plan_Pricing);
+	System.out.println();
+	System.out.println("📥 Limit Configuration: Instances = " + Instance + " | Price Per Instance = " + Price_For_Instance + " | Private Instances = " + Private_Instances + " | Events Management = " + Events_Management + " | Direct Link Checkout = " + Direct_Link_Checkout + " | Custom Fields = " + Custom_Fields_Value + " | 1-Click Upsells = " + One_Click_Upsells + " | Cross-Sells = " + Cross_Sells + " | Bundles = " + Bundles + " | Shield = " + Shield);
+	System.out.println();
+	System.out.println("✅ Expected: The Checkout plan form should accept the supplied configuration and display a confirmation message after saving.");
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 📝 CHECKOUT PLAN FORM ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Open the Checkout plan creation form.");
+
+	System.out.println("━━━━━━━━━━━━━━ 📝 CHECKOUT PLAN FORM ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Open the Checkout plan creation form.");
+
+	rp.Scroll_to_element(Plan_Section);
+	rp.movetoelement(Plan_Section);
+
+	WebElement Add_Button = Plan_Section.findElement(By.xpath(".//button"));
+	Add_Button.click();
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Checkout plan creation form opened successfully.");
+	System.out.println("✅ Actual: Checkout plan creation form opened successfully.");
+	System.out.println();
+
+	WebElement Form;
+	List<WebElement> Form_Fields;
+
+	WebElement Plan_name_field;
+	WebElement BillingPeriod_field;
+	WebElement Plan_price_field;
+	WebElement Instance_field;
+	WebElement Price_Per_Instances_field;
+	WebElement Private_Instances_field;
+
+	WebElement Plan_name_input;
+	WebElement Plan_price_input;
+	WebElement Instance_input;
+	WebElement Price_Per_Instances_input;
+	WebElement Private_instances_input;
+	WebElement EventsManagement_input;
+	WebElement Direct_link_checkout_input;
+	WebElement Custom_input;
+	WebElement One_click_input;
+	WebElement Cross_input;
+	WebElement Bundles_input;
+	WebElement Shield_input;
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Fetch the Checkout form fields and their corresponding input elements.");
+	System.out.println("Step " + (step - 1) + ": Fetch the Checkout form fields and their corresponding input elements.");
+
+	try {
+		Form = p.form();
+		Form_Fields = p.Form_Inputs(Form);
+
+		Plan_name_field = Form_Fields.get(0);
+		BillingPeriod_field = Form_Fields.get(2);
+		Plan_price_field = Form_Fields.get(3);
+		Instance_field = Form_Fields.get(5);
+		Price_Per_Instances_field = Form_Fields.get(6);
+		Private_Instances_field = Form_Fields.get(7);
+
+		Plan_name_input = p.plan_name_input();
+		Plan_price_input = p.Plan_price_input();
+		Instance_input = p.Instances_Input();
+		Price_Per_Instances_input = p.Price_Per_Instances_Input();
+		Private_instances_input = p.private_instances_input();
+		EventsManagement_input = p.Events_Management_input();
+		Direct_link_checkout_input = p.direct_link_checkout_input();
+		Custom_input = p.Custom_field_input();
+		One_click_input = p.One_click_upsell_input();
+		Cross_input = p.Cross_Sells_Input();
+		Bundles_input = p.Bundles_input();
+		Shield_input = p.shield_input();
+
+		Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Checkout plan form fields and input elements fetched successfully.");
+		System.out.println("✅ Actual: Checkout plan form fields and input elements fetched successfully.");
+
+	} catch (Exception Form_Field_Exception) {
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Retry:</b> Initial Checkout form-element fetch failed. The form and all required elements will be fetched again.");
+		System.out.println("🟨 Retry: Initial Checkout form-element fetch failed. The form and all required elements will be fetched again.");
+		System.out.println("🟨 Debug Reason: " + Form_Field_Exception.getMessage());
+
+		Form = p.form();
+		Form_Fields = p.Form_Inputs(Form);
+
+		Plan_name_field = Form_Fields.get(0);
+		BillingPeriod_field = Form_Fields.get(2);
+		Plan_price_field = Form_Fields.get(3);
+		Instance_field = Form_Fields.get(5);
+		Price_Per_Instances_field = Form_Fields.get(6);
+		Private_Instances_field = Form_Fields.get(7);
+
+		Plan_name_input = p.plan_name_input();
+		Plan_price_input = p.Plan_price_input();
+		Instance_input = p.Instances_Input();
+		Price_Per_Instances_input = p.Price_Per_Instances_Input();
+		Private_instances_input = p.private_instances_input();
+		EventsManagement_input = p.Events_Management_input();
+		Direct_link_checkout_input = p.direct_link_checkout_input();
+		Custom_input = p.Custom_field_input();
+		One_click_input = p.One_click_upsell_input();
+		Cross_input = p.Cross_Sells_Input();
+		Bundles_input = p.Bundles_input();
+		Shield_input = p.shield_input();
+
+		Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Checkout plan form fields and input elements fetched successfully during the retry.");
+		System.out.println("✅ Actual: Checkout plan form fields and input elements fetched successfully during the retry.");
+	}
+
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 💳 BILLING AND PRICING ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Enter the Checkout plan name and select its billing period.");
+
+	System.out.println("━━━━━━━━━━━━━━ 💳 BILLING AND PRICING ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Enter the Checkout plan name and select its billing period.");
+
+	Plan_name_field.click();
+	Plan_name_input.sendKeys(Plan_Name);
+
+	BillingPeriod_field.click();
+
+	WebElement Billing_Dropdown = p.rc_virtual_list_holder_one();
+	List<WebElement> Billing_options = Billing_Dropdown.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+
+	for (WebElement Billing_option : Billing_options) {
+		String Billing_Option_Text = Billing_option.getText().trim();
+
+		if (Billing_Option_Text.contains(Billing_Period)) {
+			Billing_option.click();
+			break;
+		}
+	}
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Plan name and billing period entered successfully. Plan Name = " + Plan_Name + " | Billing Period = " + Billing_Period);
+	System.out.println("✅ Actual: Plan name and billing period entered successfully. Plan Name = " + Plan_Name + " | Billing Period = " + Billing_Period);
+	System.out.println();
+
+	if (Billing_Period.contains("Custom")) {
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Configure the custom billing interval.");
+		System.out.println("Step " + (step - 1) + ": Configure the custom billing interval.");
+
+		p.Every_input_field().sendKeys(Custom_Billing_Value);
+		p.Every_fields_dropdown().click();
+
+		WebElement Custom_Billing_Dropdown = p.rc_virtual_list_holder_one();
+		List<WebElement> Custom_Billing_options = Custom_Billing_Dropdown.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+
+		for (WebElement Custom_Billing_option : Custom_Billing_options) {
+			String Custom_Billing_Option_Text = Custom_Billing_option.getText().trim();
+
+			if (Custom_Billing_Option_Text.contains(Custom_Billing_Unit)) {
+				Custom_Billing_option.click();
+				break;
+			}
+		}
+
+		Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Custom billing interval configured successfully. Every = " + Custom_Billing_Value + " | Unit = " + Custom_Billing_Unit);
+		System.out.println("✅ Actual: Custom billing interval configured successfully. Every = " + Custom_Billing_Value + " | Unit = " + Custom_Billing_Unit);
+		System.out.println();
+	}
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Enter the base plan price, instance count, and price per instance.");
+	System.out.println("Step " + (step - 1) + ": Enter the base plan price, instance count, and price per instance.");
+
+	Plan_price_field.click();
+	Plan_price_input.sendKeys(Plan_Pricing);
+
+	Instance_field.click();
+	Instance_input.sendKeys(Instance);
+
+	Price_Per_Instances_field.click();
+	Price_Per_Instances_input.sendKeys(Price_For_Instance);
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Pricing and instance details entered successfully. Plan Pricing = " + Plan_Pricing + " | Instances = " + Instance + " | Price Per Instance = " + Price_For_Instance);
+	System.out.println("✅ Actual: Pricing and instance details entered successfully. Plan Pricing = " + Plan_Pricing + " | Instances = " + Instance + " | Price Per Instance = " + Price_For_Instance);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ ⚙️ PLAN LIMIT CONFIGURATION ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Enter the Checkout plan's feature and usage limits.");
+
+	System.out.println("━━━━━━━━━━━━━━ ⚙️ PLAN LIMIT CONFIGURATION ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Enter the Checkout plan's feature and usage limits.");
+
+	rp.Scroll_to_element(Private_Instances_field);
+
+	Private_instances_input.sendKeys(Private_Instances);
+	EventsManagement_input.sendKeys(Events_Management);
+	Direct_link_checkout_input.sendKeys(Direct_Link_Checkout);
+	Custom_input.sendKeys(Custom_Fields_Value);
+	One_click_input.sendKeys(One_Click_Upsells);
+	Cross_input.sendKeys(Cross_Sells);
+	Bundles_input.sendKeys(Bundles);
+	Shield_input.sendKeys(Shield);
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Checkout plan limits entered successfully. Private Instances = " + Private_Instances + " | Events Management = " + Events_Management + " | Direct Link Checkout = " + Direct_Link_Checkout + " | Custom Fields = " + Custom_Fields_Value + " | 1-Click Upsells = " + One_Click_Upsells + " | Cross-Sells = " + Cross_Sells + " | Bundles = " + Bundles + " | Shield = " + Shield);
+	System.out.println("✅ Actual: Checkout plan limits entered successfully. Private Instances = " + Private_Instances + " | Events Management = " + Events_Management + " | Direct Link Checkout = " + Direct_Link_Checkout + " | Custom Fields = " + Custom_Fields_Value + " | 1-Click Upsells = " + One_Click_Upsells + " | Cross-Sells = " + Cross_Sells + " | Bundles = " + Bundles + " | Shield = " + Shield);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 💾 PLAN SUBMISSION ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Save the configured Checkout plan.");
+
+	System.out.println("━━━━━━━━━━━━━━ 💾 PLAN SUBMISSION ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Save the configured Checkout plan.");
+
+	WebElement Save_Button = p.Save_Button();
+	rp.Scroll_to_element(Save_Button);
+	rp.movetoelement(Save_Button);
+	Save_Button.click();
+
+	WebElement Toast = p.Toast_message();
+	String Toast_text = Toast.getText().trim();
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Checkout plan save confirmation displayed successfully. Message = " + Toast_text + " | Plan Name = " + Plan_Name);
+	System.out.println("✅ Actual: Checkout plan save confirmation displayed successfully. Message = " + Toast_text + " | Plan Name = " + Plan_Name);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Close the Checkout plan confirmation message.");
+	System.out.println("Step " + (step - 1) + ": Close the Checkout plan confirmation message.");
+
+	p.Toast_close_Button().click();
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Final Result:</b> Checkout plan form submission completed successfully. Plan Name = " + Plan_Name + " | Billing Period = " + Billing_Period + " | Plan Pricing = " + Plan_Pricing);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+
+	System.out.println("✅ Final Result: Checkout plan form submission completed successfully. Plan Name = " + Plan_Name + " | Billing Period = " + Billing_Period + " | Plan Pricing = " + Plan_Pricing);
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println();
+}
+	
+@DataProvider
+public Object[][] Checkout_Plan_Create_Data() {
+
+	TreeMap<String, String> data1 = new TreeMap<String, String>();
+	data1.put("Plan Name", "Ayan Checkout Custom Days Radiant Plan");
+	data1.put("Availability", "Public");
+	data1.put("Billing Period", "Custom");
+	data1.put("Custom Billing Value", "1");
+	data1.put("Custom Billing Unit", "days");
+	data1.put("Plan Pricing Currency", "USD");
+	data1.put("Plan Pricing", "331");
+	data1.put("Add Addons", "");
+	data1.put("Instance", "501");
+	data1.put("Price for Instance", "601");
+	data1.put("Private Instances", "701");
+	data1.put("Events Management", "801");
+	data1.put("Direct Link Checkout", "901");
+	data1.put("Custom Fields", "1001");
+	data1.put("1-Click Upsells", "1101");
+	data1.put("Cross-Sells", "1201");
+	data1.put("Bundles", "1301");
+	data1.put("Shield", "1401");
+	data1.put("Tax Calculation", "no");
+	data1.put("Direct Subscription", "Yes");
+
+	TreeMap<String, String> data2 = new TreeMap<String, String>();
+	data2.put("Plan Name", "Ayan Checkout Custom Days Helix Plan");
+	data2.put("Availability", "Public");
+	data2.put("Billing Period", "Custom");
+	data2.put("Custom Billing Value", "2");
+	data2.put("Custom Billing Unit", "days");
+	data2.put("Plan Pricing Currency", "USD");
+	data2.put("Plan Pricing", "337");
+	data2.put("Add Addons", "");
+	data2.put("Instance", "502");
+	data2.put("Price for Instance", "602");
+	data2.put("Private Instances", "702");
+	data2.put("Events Management", "802");
+	data2.put("Direct Link Checkout", "902");
+	data2.put("Custom Fields", "1002");
+	data2.put("1-Click Upsells", "1102");
+	data2.put("Cross-Sells", "1202");
+	data2.put("Bundles", "1302");
+	data2.put("Shield", "1402");
+	data2.put("Tax Calculation", "yes");
+	data2.put("Direct Subscription", "No");
+
+	TreeMap<String, String> data3 = new TreeMap<String, String>();
+	data3.put("Plan Name", "Ayan Checkout Custom Days Zephyr Plan");
+	data3.put("Availability", "Public");
+	data3.put("Billing Period", "Custom");
+	data3.put("Custom Billing Value", "3");
+	data3.put("Custom Billing Unit", "days");
+	data3.put("Plan Pricing Currency", "USD");
+	data3.put("Plan Pricing", "343");
+	data3.put("Add Addons", "");
+	data3.put("Instance", "503");
+	data3.put("Price for Instance", "603");
+	data3.put("Private Instances", "703");
+	data3.put("Events Management", "803");
+	data3.put("Direct Link Checkout", "903");
+	data3.put("Custom Fields", "1003");
+	data3.put("1-Click Upsells", "1103");
+	data3.put("Cross-Sells", "1203");
+	data3.put("Bundles", "1303");
+	data3.put("Shield", "1403");
+	data3.put("Tax Calculation", "no");
+	data3.put("Direct Subscription", "Yes");
+
+	TreeMap<String, String> data4 = new TreeMap<String, String>();
+	data4.put("Plan Name", "Ayan Checkout Custom Days Mariner Plan");
+	data4.put("Availability", "Public");
+	data4.put("Billing Period", "Custom");
+	data4.put("Custom Billing Value", "4");
+	data4.put("Custom Billing Unit", "days");
+	data4.put("Plan Pricing Currency", "USD");
+	data4.put("Plan Pricing", "349");
+	data4.put("Add Addons", "");
+	data4.put("Instance", "504");
+	data4.put("Price for Instance", "604");
+	data4.put("Private Instances", "704");
+	data4.put("Events Management", "804");
+	data4.put("Direct Link Checkout", "904");
+	data4.put("Custom Fields", "1004");
+	data4.put("1-Click Upsells", "1104");
+	data4.put("Cross-Sells", "1204");
+	data4.put("Bundles", "1304");
+	data4.put("Shield", "1404");
+	data4.put("Tax Calculation", "yes");
+	data4.put("Direct Subscription", "Yes");
+
+	TreeMap<String, String> data5 = new TreeMap<String, String>();
+	data5.put("Plan Name", "Ayan Checkout Custom Days Lattice Plan");
+	data5.put("Availability", "Public");
+	data5.put("Billing Period", "Custom");
+	data5.put("Custom Billing Value", "5");
+	data5.put("Custom Billing Unit", "days");
+	data5.put("Plan Pricing Currency", "USD");
+	data5.put("Plan Pricing", "353");
+	data5.put("Add Addons", "");
+	data5.put("Instance", "505");
+	data5.put("Price for Instance", "605");
+	data5.put("Private Instances", "705");
+	data5.put("Events Management", "805");
+	data5.put("Direct Link Checkout", "905");
+	data5.put("Custom Fields", "1005");
+	data5.put("1-Click Upsells", "1105");
+	data5.put("Cross-Sells", "1205");
+	data5.put("Bundles", "1305");
+	data5.put("Shield", "1405");
+	data5.put("Tax Calculation", "no");
+	data5.put("Direct Subscription", "No");
+
+	TreeMap<String, String> data6 = new TreeMap<String, String>();
+	data6.put("Plan Name", "Ayan Checkout Custom Days Solstice Plan");
+	data6.put("Availability", "Public");
+	data6.put("Billing Period", "Custom");
+	data6.put("Custom Billing Value", "1");
+	data6.put("Custom Billing Unit", "days");
+	data6.put("Plan Pricing Currency", "USD");
+	data6.put("Plan Pricing", "359");
+	data6.put("Add Addons", "");
+	data6.put("Instance", "506");
+	data6.put("Price for Instance", "606");
+	data6.put("Private Instances", "706");
+	data6.put("Events Management", "806");
+	data6.put("Direct Link Checkout", "906");
+	data6.put("Custom Fields", "1006");
+	data6.put("1-Click Upsells", "1106");
+	data6.put("Cross-Sells", "1206");
+	data6.put("Bundles", "1306");
+	data6.put("Shield", "1406");
+	data6.put("Tax Calculation", "yes");
+	data6.put("Direct Subscription", "Yes");
+
+	TreeMap<String, String> data7 = new TreeMap<String, String>();
+	data7.put("Plan Name", "Ayan Checkout Custom Days Axiom Plan");
+	data7.put("Availability", "Public");
+	data7.put("Billing Period", "Custom");
+	data7.put("Custom Billing Value", "2");
+	data7.put("Custom Billing Unit", "days");
+	data7.put("Plan Pricing Currency", "USD");
+	data7.put("Plan Pricing", "367");
+	data7.put("Add Addons", "");
+	data7.put("Instance", "507");
+	data7.put("Price for Instance", "607");
+	data7.put("Private Instances", "707");
+	data7.put("Events Management", "807");
+	data7.put("Direct Link Checkout", "907");
+	data7.put("Custom Fields", "1007");
+	data7.put("1-Click Upsells", "1107");
+	data7.put("Cross-Sells", "1207");
+	data7.put("Bundles", "1307");
+	data7.put("Shield", "1407");
+	data7.put("Tax Calculation", "no");
+	data7.put("Direct Subscription", "Yes");
+
+	TreeMap<String, String> data8 = new TreeMap<String, String>();
+	data8.put("Plan Name", "Ayan Checkout Custom Days Stratos Plan");
+	data8.put("Availability", "Public");
+	data8.put("Billing Period", "Custom");
+	data8.put("Custom Billing Value", "3");
+	data8.put("Custom Billing Unit", "days");
+	data8.put("Plan Pricing Currency", "USD");
+	data8.put("Plan Pricing", "373");
+	data8.put("Add Addons", "");
+	data8.put("Instance", "508");
+	data8.put("Price for Instance", "608");
+	data8.put("Private Instances", "708");
+	data8.put("Events Management", "808");
+	data8.put("Direct Link Checkout", "908");
+	data8.put("Custom Fields", "1008");
+	data8.put("1-Click Upsells", "1108");
+	data8.put("Cross-Sells", "1208");
+	data8.put("Bundles", "1308");
+	data8.put("Shield", "1408");
+	data8.put("Tax Calculation", "yes");
+	data8.put("Direct Subscription", "No");
+
+	TreeMap<String, String> data9 = new TreeMap<String, String>();
+	data9.put("Plan Name", "Ayan Checkout Custom Days Veridian Plan");
+	data9.put("Availability", "Public");
+	data9.put("Billing Period", "Custom");
+	data9.put("Custom Billing Value", "4");
+	data9.put("Custom Billing Unit", "days");
+	data9.put("Plan Pricing Currency", "USD");
+	data9.put("Plan Pricing", "379");
+	data9.put("Add Addons", "");
+	data9.put("Instance", "509");
+	data9.put("Price for Instance", "609");
+	data9.put("Private Instances", "709");
+	data9.put("Events Management", "809");
+	data9.put("Direct Link Checkout", "909");
+	data9.put("Custom Fields", "1009");
+	data9.put("1-Click Upsells", "1109");
+	data9.put("Cross-Sells", "1209");
+	data9.put("Bundles", "1309");
+	data9.put("Shield", "1409");
+	data9.put("Tax Calculation", "no");
+	data9.put("Direct Subscription", "Yes");
+
+	TreeMap<String, String> data10 = new TreeMap<String, String>();
+	data10.put("Plan Name", "Ayan Checkout Custom Days Equinox Plan");
+	data10.put("Availability", "Public");
+	data10.put("Billing Period", "Custom");
+	data10.put("Custom Billing Value", "5");
+	data10.put("Custom Billing Unit", "days");
+	data10.put("Plan Pricing Currency", "USD");
+	data10.put("Plan Pricing", "383");
+	data10.put("Add Addons", "");
+	data10.put("Instance", "510");
+	data10.put("Price for Instance", "610");
+	data10.put("Private Instances", "710");
+	data10.put("Events Management", "810");
+	data10.put("Direct Link Checkout", "910");
+	data10.put("Custom Fields", "1010");
+	data10.put("1-Click Upsells", "1110");
+	data10.put("Cross-Sells", "1210");
+	data10.put("Bundles", "1310");
+	data10.put("Shield", "1410");
+	data10.put("Tax Calculation", "yes");
+	data10.put("Direct Subscription", "Yes");
+
+	TreeMap<String, String> data11 = new TreeMap<String, String>();
+	data11.put("Plan Name", "Ayan Checkout Custom Days Luminary Plan");
+	data11.put("Availability", "Public");
+	data11.put("Billing Period", "Custom");
+	data11.put("Custom Billing Value", "1");
+	data11.put("Custom Billing Unit", "days");
+	data11.put("Plan Pricing Currency", "USD");
+	data11.put("Plan Pricing", "389");
+	data11.put("Add Addons", "");
+	data11.put("Instance", "511");
+	data11.put("Price for Instance", "611");
+	data11.put("Private Instances", "711");
+	data11.put("Events Management", "811");
+	data11.put("Direct Link Checkout", "911");
+	data11.put("Custom Fields", "1011");
+	data11.put("1-Click Upsells", "1111");
+	data11.put("Cross-Sells", "1211");
+	data11.put("Bundles", "1311");
+	data11.put("Shield", "1411");
+	data11.put("Tax Calculation", "no");
+	data11.put("Direct Subscription", "No");
+
+	TreeMap<String, String> data12 = new TreeMap<String, String>();
+	data12.put("Plan Name", "Ayan Checkout Custom Days Paragon Plan");
+	data12.put("Availability", "Public");
+	data12.put("Billing Period", "Custom");
+	data12.put("Custom Billing Value", "2");
+	data12.put("Custom Billing Unit", "days");
+	data12.put("Plan Pricing Currency", "USD");
+	data12.put("Plan Pricing", "397");
+	data12.put("Add Addons", "");
+	data12.put("Instance", "512");
+	data12.put("Price for Instance", "612");
+	data12.put("Private Instances", "712");
+	data12.put("Events Management", "812");
+	data12.put("Direct Link Checkout", "912");
+	data12.put("Custom Fields", "1012");
+	data12.put("1-Click Upsells", "1112");
+	data12.put("Cross-Sells", "1212");
+	data12.put("Bundles", "1312");
+	data12.put("Shield", "1412");
+	data12.put("Tax Calculation", "yes");
+	data12.put("Direct Subscription", "Yes");
+
+	TreeMap<String, String> data13 = new TreeMap<String, String>();
+	data13.put("Plan Name", "Ayan Checkout Custom Days Vortex Plan");
+	data13.put("Availability", "Public");
+	data13.put("Billing Period", "Custom");
+	data13.put("Custom Billing Value", "3");
+	data13.put("Custom Billing Unit", "days");
+	data13.put("Plan Pricing Currency", "USD");
+	data13.put("Plan Pricing", "401");
+	data13.put("Add Addons", "");
+	data13.put("Instance", "513");
+	data13.put("Price for Instance", "613");
+	data13.put("Private Instances", "713");
+	data13.put("Events Management", "813");
+	data13.put("Direct Link Checkout", "913");
+	data13.put("Custom Fields", "1013");
+	data13.put("1-Click Upsells", "1113");
+	data13.put("Cross-Sells", "1213");
+	data13.put("Bundles", "1313");
+	data13.put("Shield", "1413");
+	data13.put("Tax Calculation", "no");
+	data13.put("Direct Subscription", "Yes");
+
+	TreeMap<String, String> data14 = new TreeMap<String, String>();
+	data14.put("Plan Name", "Ayan Checkout Custom Days Mosaic Plan");
+	data14.put("Availability", "Public");
+	data14.put("Billing Period", "Custom");
+	data14.put("Custom Billing Value", "4");
+	data14.put("Custom Billing Unit", "days");
+	data14.put("Plan Pricing Currency", "USD");
+	data14.put("Plan Pricing", "409");
+	data14.put("Add Addons", "");
+	data14.put("Instance", "514");
+	data14.put("Price for Instance", "614");
+	data14.put("Private Instances", "714");
+	data14.put("Events Management", "814");
+	data14.put("Direct Link Checkout", "914");
+	data14.put("Custom Fields", "1014");
+	data14.put("1-Click Upsells", "1114");
+	data14.put("Cross-Sells", "1214");
+	data14.put("Bundles", "1314");
+	data14.put("Shield", "1414");
+	data14.put("Tax Calculation", "yes");
+	data14.put("Direct Subscription", "No");
+
+	TreeMap<String, String> data15 = new TreeMap<String, String>();
+	data15.put("Plan Name", "Ayan Checkout Custom Days Polaris Plan");
+	data15.put("Availability", "Public");
+	data15.put("Billing Period", "Custom");
+	data15.put("Custom Billing Value", "5");
+	data15.put("Custom Billing Unit", "days");
+	data15.put("Plan Pricing Currency", "USD");
+	data15.put("Plan Pricing", "419");
+	data15.put("Add Addons", "");
+	data15.put("Instance", "515");
+	data15.put("Price for Instance", "615");
+	data15.put("Private Instances", "715");
+	data15.put("Events Management", "815");
+	data15.put("Direct Link Checkout", "915");
+	data15.put("Custom Fields", "1015");
+	data15.put("1-Click Upsells", "1115");
+	data15.put("Cross-Sells", "1215");
+	data15.put("Bundles", "1315");
+	data15.put("Shield", "1415");
+	data15.put("Tax Calculation", "no");
+	data15.put("Direct Subscription", "Yes");
+
+	TreeMap<String, String> data16 = new TreeMap<String, String>();
+	data16.put("Plan Name", "Ayan Checkout Custom Days Cascade Plan");
+	data16.put("Availability", "Public");
+	data16.put("Billing Period", "Custom");
+	data16.put("Custom Billing Value", "1");
+	data16.put("Custom Billing Unit", "days");
+	data16.put("Plan Pricing Currency", "USD");
+	data16.put("Plan Pricing", "421");
+	data16.put("Add Addons", "");
+	data16.put("Instance", "516");
+	data16.put("Price for Instance", "616");
+	data16.put("Private Instances", "716");
+	data16.put("Events Management", "816");
+	data16.put("Direct Link Checkout", "916");
+	data16.put("Custom Fields", "1016");
+	data16.put("1-Click Upsells", "1116");
+	data16.put("Cross-Sells", "1216");
+	data16.put("Bundles", "1316");
+	data16.put("Shield", "1416");
+	data16.put("Tax Calculation", "yes");
+	data16.put("Direct Subscription", "Yes");
+
+	TreeMap<String, String> data17 = new TreeMap<String, String>();
+	data17.put("Plan Name", "Ayan Checkout Custom Days Meridianis Plan");
+	data17.put("Availability", "Public");
+	data17.put("Billing Period", "Custom");
+	data17.put("Custom Billing Value", "2");
+	data17.put("Custom Billing Unit", "days");
+	data17.put("Plan Pricing Currency", "USD");
+	data17.put("Plan Pricing", "431");
+	data17.put("Add Addons", "");
+	data17.put("Instance", "517");
+	data17.put("Price for Instance", "617");
+	data17.put("Private Instances", "717");
+	data17.put("Events Management", "817");
+	data17.put("Direct Link Checkout", "917");
+	data17.put("Custom Fields", "1017");
+	data17.put("1-Click Upsells", "1117");
+	data17.put("Cross-Sells", "1217");
+	data17.put("Bundles", "1317");
+	data17.put("Shield", "1417");
+	data17.put("Tax Calculation", "no");
+	data17.put("Direct Subscription", "No");
+
+	TreeMap<String, String> data18 = new TreeMap<String, String>();
+	data18.put("Plan Name", "Ayan Checkout Custom Days Zenithal Plan");
+	data18.put("Availability", "Public");
+	data18.put("Billing Period", "Custom");
+	data18.put("Custom Billing Value", "3");
+	data18.put("Custom Billing Unit", "days");
+	data18.put("Plan Pricing Currency", "USD");
+	data18.put("Plan Pricing", "433");
+	data18.put("Add Addons", "");
+	data18.put("Instance", "518");
+	data18.put("Price for Instance", "618");
+	data18.put("Private Instances", "718");
+	data18.put("Events Management", "818");
+	data18.put("Direct Link Checkout", "918");
+	data18.put("Custom Fields", "1018");
+	data18.put("1-Click Upsells", "1118");
+	data18.put("Cross-Sells", "1218");
+	data18.put("Bundles", "1318");
+	data18.put("Shield", "1418");
+	data18.put("Tax Calculation", "yes");
+	data18.put("Direct Subscription", "Yes");
+
+	TreeMap<String, String> data19 = new TreeMap<String, String>();
+	data19.put("Plan Name", "Ayan Checkout Custom Days Emberline Plan");
+	data19.put("Availability", "Public");
+	data19.put("Billing Period", "Custom");
+	data19.put("Custom Billing Value", "4");
+	data19.put("Custom Billing Unit", "days");
+	data19.put("Plan Pricing Currency", "USD");
+	data19.put("Plan Pricing", "439");
+	data19.put("Add Addons", "");
+	data19.put("Instance", "519");
+	data19.put("Price for Instance", "619");
+	data19.put("Private Instances", "719");
+	data19.put("Events Management", "819");
+	data19.put("Direct Link Checkout", "919");
+	data19.put("Custom Fields", "1019");
+	data19.put("1-Click Upsells", "1119");
+	data19.put("Cross-Sells", "1219");
+	data19.put("Bundles", "1319");
+	data19.put("Shield", "1419");
+	data19.put("Tax Calculation", "no");
+	data19.put("Direct Subscription", "Yes");
+
+	TreeMap<String, String> data20 = new TreeMap<String, String>();
+	data20.put("Plan Name", "Ayan Checkout Custom Days Novaris Plan");
+	data20.put("Availability", "Public");
+	data20.put("Billing Period", "Custom");
+	data20.put("Custom Billing Value", "5");
+	data20.put("Custom Billing Unit", "days");
+	data20.put("Plan Pricing Currency", "USD");
+	data20.put("Plan Pricing", "443");
+	data20.put("Add Addons", "");
+	data20.put("Instance", "520");
+	data20.put("Price for Instance", "620");
+	data20.put("Private Instances", "720");
+	data20.put("Events Management", "820");
+	data20.put("Direct Link Checkout", "920");
+	data20.put("Custom Fields", "1020");
+	data20.put("1-Click Upsells", "1120");
+	data20.put("Cross-Sells", "1220");
+	data20.put("Bundles", "1320");
+	data20.put("Shield", "1420");
+	data20.put("Tax Calculation", "yes");
+	data20.put("Direct Subscription", "No");
+
+	return new Object[][] {
+		{ data1 },
+		{ data2 },
+		{ data3 },
+		{ data4 },
+		{ data5 },
+		{ data6 },
+		{ data7 },
+		{ data8 },
+		{ data9 },
+		{ data10 },
+		{ data11 },
+		{ data12 },
+		{ data13 },
+		{ data14 },
+		{ data15 },
+		{ data16 },
+		{ data17 },
+		{ data18 },
+		{ data19 },
+		{ data20 }
+	};
+}
+	
+@Test(dataProvider = "combined_data_provider")
+public void Account_create(TreeMap<String, String> form_data, TreeMap<String, String> Plan_data, TreeMap<String, String> upgrade_plan_datas, TreeMap<String, String> account_create_data) throws InterruptedException, IOException {
+
+	Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+	Repeat rp = new Repeat(d);
+
+	int Start_step = 1;
+
+	String Selected_Product = form_data.get("Selected Product");
+	String Email = account_create_data.get("Email");
+	String Company_Name = account_create_data.get("Company Name");
+	String App_Type = account_create_data.get("App Type");
+	String App_Name = account_create_data.get("App Name");
+	String Users = account_create_data.get("Users");
+	String Group = account_create_data.get("Group");
+	String Account_Manager = account_create_data.get("Account Manager");
+	String Target_Upgrade_Plan_Name = account_create_data.get("Plan Name");
+
+	if (Target_Upgrade_Plan_Name == null || Target_Upgrade_Plan_Name.trim().isEmpty()) {
+
+		if (Selected_Product != null && Selected_Product.toLowerCase().contains("checkout") && account_create_data.get("Checkout Plan Name") != null && !account_create_data.get("Checkout Plan Name").trim().isEmpty()) {
+			Target_Upgrade_Plan_Name = account_create_data.get("Checkout Plan Name");
+		} else if (Selected_Product != null && Selected_Product.toLowerCase().contains("hire") && account_create_data.get("Hire Plan Name") != null && !account_create_data.get("Hire Plan Name").trim().isEmpty()) {
+			Target_Upgrade_Plan_Name = account_create_data.get("Hire Plan Name");
+		} else if (Selected_Product != null && Selected_Product.toLowerCase().contains("hr") && account_create_data.get("Hr Plan Name") != null && !account_create_data.get("Hr Plan Name").trim().isEmpty()) {
+			Target_Upgrade_Plan_Name = account_create_data.get("Hr Plan Name");
+		} else if (Selected_Product != null && Selected_Product.toLowerCase().contains("spaces") && account_create_data.get("Spaces Plan Name") != null && !account_create_data.get("Spaces Plan Name").trim().isEmpty()) {
+			Target_Upgrade_Plan_Name = account_create_data.get("Spaces Plan Name");
+		}
+	}
+
+	if (Target_Upgrade_Plan_Name == null || Target_Upgrade_Plan_Name.trim().isEmpty()) {
+
+		if (account_create_data.get("Checkout Plan Name") != null && !account_create_data.get("Checkout Plan Name").trim().isEmpty()) {
+			Target_Upgrade_Plan_Name = account_create_data.get("Checkout Plan Name");
+		} else if (account_create_data.get("Hire Plan Name") != null && !account_create_data.get("Hire Plan Name").trim().isEmpty()) {
+			Target_Upgrade_Plan_Name = account_create_data.get("Hire Plan Name");
+		} else if (account_create_data.get("Hr Plan Name") != null && !account_create_data.get("Hr Plan Name").trim().isEmpty()) {
+			Target_Upgrade_Plan_Name = account_create_data.get("Hr Plan Name");
+		} else if (account_create_data.get("Spaces Plan Name") != null && !account_create_data.get("Spaces Plan Name").trim().isEmpty()) {
+			Target_Upgrade_Plan_Name = account_create_data.get("Spaces Plan Name");
+		}
+	}
+
+	if (Target_Upgrade_Plan_Name == null || Target_Upgrade_Plan_Name.trim().isEmpty()) {
+		Target_Upgrade_Plan_Name = "Ayan";
+	}
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Create, upgrade, activate, impersonate, and verify a SaaS Admin account");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Create the account, upgrade its target application plan, collect every Active plan, verify the plans in the SaaS Admin account list, activate the account, log in as the client, and verify that every Active plan is displayed in the client account.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Account Input:</b> Company = " + Company_Name + " | Email = " + Email + " | App Type = " + App_Type + " | App Name = " + App_Name + " | Users = " + Users + " | Group = " + Group + " | Account Manager = " + Account_Manager);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Upgrade Input:</b> Target Plan Reference = " + Target_Upgrade_Plan_Name + " | Billing Name = " + upgrade_plan_datas.get("First Name") + " " + upgrade_plan_datas.get("Last Name") + " | Country = " + upgrade_plan_datas.get("Country") + " | City = " + upgrade_plan_datas.get("City") + " | State = " + upgrade_plan_datas.get("State") + " | Zip = " + upgrade_plan_datas.get("Zip"));
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> Account creation, plan upgrade, Active-plan verification, account activation, client impersonation, and client-side subscribed-plan verification should complete successfully.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+
+	System.out.println();
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println("🔹 Scenario Title: Create, upgrade, activate, impersonate, and verify a SaaS Admin account");
+	System.out.println();
+	System.out.println("📘 Description: Create the account, upgrade its target application plan, collect every Active plan, verify the plans in the SaaS Admin account list, activate the account, log in as the client, and verify that every Active plan is displayed in the client account.");
+	System.out.println();
+	System.out.println("📥 Account Input: Company = " + Company_Name + " | Email = " + Email + " | App Type = " + App_Type + " | App Name = " + App_Name + " | Users = " + Users + " | Group = " + Group + " | Account Manager = " + Account_Manager);
+	System.out.println();
+	System.out.println("📥 Upgrade Input: Target Plan Reference = " + Target_Upgrade_Plan_Name + " | Billing Name = " + upgrade_plan_datas.get("First Name") + " " + upgrade_plan_datas.get("Last Name") + " | Country = " + upgrade_plan_datas.get("Country") + " | City = " + upgrade_plan_datas.get("City") + " | State = " + upgrade_plan_datas.get("State") + " | Zip = " + upgrade_plan_datas.get("Zip"));
+	System.out.println();
+	System.out.println("✅ Expected: Account creation, plan upgrade, Active-plan verification, account activation, client impersonation, and client-side subscribed-plan verification should complete successfully.");
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 📝 ACCOUNT FORM FILLING ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + Start_step + ":</b> Fill the SaaS Admin account creation form.");
+
+	System.out.println("━━━━━━━━━━━━━━ 📝 ACCOUNT FORM FILLING ━━━━━━━━━━━━━━");
+	System.out.println("Step " + Start_step + ": Fill the SaaS Admin account creation form.");
+
+	int step = Form_Filler(account_create_data, Start_step);
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Account creation form filled successfully. Company = " + Company_Name + " | Email = " + Email);
+	System.out.println("✅ Actual: Account creation form filled successfully. Company = " + Company_Name + " | Email = " + Email);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 👤 ACCOUNT CREATION ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Submit the completed account form using Save & Invite.");
+
+	System.out.println("━━━━━━━━━━━━━━ 👤 ACCOUNT CREATION ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Submit the completed account form using Save & Invite.");
+
+	WebElement Save_Button_Below = p.Save_Invite_Button();
+	rp.Scroll_to_element(Save_Button_Below);
+	Save_Button_Below.click();
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Save & Invite clicked successfully. Company = " + Company_Name + " | Email = " + Email);
+	System.out.println("✅ Actual: Save & Invite clicked successfully. Company = " + Company_Name + " | Email = " + Email);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 📬 INVITATION CONFIRMATION ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Verify the Save & Invite confirmation message.");
+
+	System.out.println("━━━━━━━━━━━━━━ 📬 INVITATION CONFIRMATION ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Verify the Save & Invite confirmation message.");
+
+	WebElement Toast = p.Toast_message();
+	String Toast_text = Toast.getText().trim();
+
+	if (!Toast_text.isEmpty()) {
+		Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Save & Invite confirmation displayed successfully. Message = " + Toast_text);
+		System.out.println("✅ Actual: Save & Invite confirmation displayed successfully. Message = " + Toast_text);
+	} else {
+		String errorMessage = "Save & Invite confirmation message was empty. Email = " + Email;
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+		System.out.println("❌ Failure: " + errorMessage);
+		throw new AssertionError(errorMessage);
+	}
+
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Close the confirmation message and return to the account list.");
+	System.out.println("Step " + (step - 1) + ": Close the confirmation message and return to the account list.");
+
+	p.Toast_close_Button().click();
+	p.Create_Account_button();
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Confirmation message closed and the account list remains accessible.");
+	System.out.println("✅ Actual: Confirmation message closed and the account list remains accessible.");
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🔄 PLAN UPGRADE AND ACTIVE PLAN CAPTURE ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Upgrade the target application plan and collect every plan carrying the Active status.");
+
+	System.out.println("━━━━━━━━━━━━━━ 🔄 PLAN UPGRADE AND ACTIVE PLAN CAPTURE ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Upgrade the target application plan and collect every plan carrying the Active status.");
+
+	TreeSet<String> Active_Plan_Names = Quick_Plan_Upgrade_Several_times(form_data, account_create_data, upgrade_plan_datas, Target_Upgrade_Plan_Name);
+	String Selected_Upgraded_Plan_Name = account_create_data.get("Selected Upgrade Plan Name");
+
+	if (Active_Plan_Names == null || Active_Plan_Names.isEmpty()) {
+		String errorMessage = "No Active plan names were returned after the plan upgrade. Email = " + Email;
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+		System.out.println("❌ Failure: " + errorMessage);
+		throw new IllegalStateException(errorMessage);
+	}
+
+	if (Selected_Upgraded_Plan_Name == null || Selected_Upgraded_Plan_Name.trim().isEmpty()) {
+		String errorMessage = "Selected upgraded plan name was not returned after the plan upgrade. Email = " + Email;
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+		System.out.println("❌ Failure: " + errorMessage);
+		throw new IllegalStateException(errorMessage);
+	}
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Plan upgrade completed and Active plans were returned successfully. Active Plan Count = " + Active_Plan_Names.size() + " | Active Plans = " + Active_Plan_Names + " | Selected Upgraded Plan = " + Selected_Upgraded_Plan_Name);
+	System.out.println("✅ Actual: Plan upgrade completed and Active plans were returned successfully. Active Plan Count = " + Active_Plan_Names.size() + " | Active Plans = " + Active_Plan_Names + " | Selected Upgraded Plan = " + Selected_Upgraded_Plan_Name);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ ✅ ACCOUNT LIST PLAN VERIFICATION ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Search the created account and verify every returned Active plan using the visible plan text and additional-plan tooltip.");
+
+	System.out.println("━━━━━━━━━━━━━━ ✅ ACCOUNT LIST PLAN VERIFICATION ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Search the created account and verify every returned Active plan using the visible plan text and additional-plan tooltip.");
+
+	d.navigate().to("https://accounts.dev.besimplified.net/accounts");
+
+	try {
+		rp.wait_for_invisibilty_of_theElement(p.Loader());
+		System.out.println("🟨 Debug: Account-list loading completed successfully.");
+	} catch (Exception loaderException) {
+		System.out.println("🟨 Debug: Account-list loader was absent or had already disappeared.");
+		System.out.println("🟨 Debug Reason: " + loaderException.getMessage());
+	}
+
+	try {
+		p.filter_clear_button().click();
+		System.out.println("🟨 Debug: Existing account-list filters cleared successfully.");
+	} catch (Exception filterException) {
+		System.out.println("🟨 Debug: No existing account-list filter required clearing.");
+		System.out.println("🟨 Debug Reason: " + filterException.getMessage());
+	}
+
+	try {
+		rp.wait_for_invisibilty_of_theElement(p.Loader());
+		System.out.println("🟨 Debug: Account-list loading completed after clearing filters.");
+	} catch (Exception loaderException) {
+		System.out.println("🟨 Debug: Account-list loader was absent or had already disappeared after clearing filters.");
+		System.out.println("🟨 Debug Reason: " + loaderException.getMessage());
+	}
+
+	WebElement Search = p.search_field();
+	Search.clear();
+	Search.sendKeys(Email);
+
+	Thread.sleep(2000);
+
+	List<WebElement> Plan_Column_vals = p.Table_Third_Column_Plan_Column_Values();
+	TreeSet<String> Missing_Active_Plan_Names = new TreeSet<String>();
+
+	for (String Active_Plan_Name : Active_Plan_Names) {
+
+		boolean Active_Plan_Found = false;
+
+		for (WebElement value : Plan_Column_vals) {
+
+			String Plan_Column_Text = value.getText().replaceAll("\\s+", " ").trim();
+			String Complete_Plan_Column_Text = Plan_Column_Text;
+
+			if (Plan_Column_Text.toLowerCase().contains("more")) {
+
+				WebElement Tooltip_Area_for_hover = value.findElement(By.xpath(".//span[contains(@class,'ml-4')]"));
+				rp.movetoelement(Tooltip_Area_for_hover);
+
+				WebElement Tooltip = p.List_Area_Tooltip();
+				rp.movetoelement(Tooltip);
+
+				String Tooltip_text = Tooltip.getText().replaceAll("\\s+", " ").trim();
+				Complete_Plan_Column_Text = Plan_Column_Text + " " + Tooltip_text;
+
+				System.out.println("🟨 Debug: Additional-plan tooltip opened successfully.");
+				System.out.println("🟨 Debug: Visible Plan Column Text = " + Plan_Column_Text);
+				System.out.println("🟨 Debug: Tooltip Plan Text = " + Tooltip_text);
+			}
+
+			System.out.println("🟨 Debug: Comparing account-associated plans | Email = " + Email + " | Expected Active Plan = " + Active_Plan_Name + " | Complete Plan Text = " + Complete_Plan_Column_Text);
+
+			if (Complete_Plan_Column_Text.toLowerCase().contains(Active_Plan_Name.toLowerCase())) {
+				Active_Plan_Found = true;
+				Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Match:</b> Active plan is associated with the searched account. Active Plan = " + Active_Plan_Name);
+				System.out.println("✅ Match: Active plan is associated with the searched account. Active Plan = " + Active_Plan_Name);
+				break;
+			}
+		}
+
+		if (!Active_Plan_Found) {
+			Missing_Active_Plan_Names.add(Active_Plan_Name);
+			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Missing:</b> Active plan is not associated with the searched account. Missing Active Plan = " + Active_Plan_Name);
+			System.out.println("❌ Missing: Active plan is not associated with the searched account. Missing Active Plan = " + Active_Plan_Name);
+		}
+
+		System.out.println();
+	}
+
+	if (!Missing_Active_Plan_Names.isEmpty()) {
+		String errorMessage = "One or more returned Active plans are not associated with the created account. Email = " + Email + " | Returned Active Plans = " + Active_Plan_Names + " | Missing Active Plans = " + Missing_Active_Plan_Names;
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Verification Failed:</b> " + errorMessage);
+		System.out.println("❌ Verification Failed: " + errorMessage);
+		throw new IllegalStateException(errorMessage);
+	}
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Verification Result:</b> Every returned Active plan is associated with the searched account. Email = " + Email + " | Verified Active Plans = " + Active_Plan_Names);
+	System.out.println("✅ Verification Result: Every returned Active plan is associated with the searched account. Email = " + Email + " | Verified Active Plans = " + Active_Plan_Names);
+	System.out.println();
+
+	TreeMap<String, String> activation_data = new TreeMap<String, String>();
+	activation_data.putAll(account_create_data);
+	activation_data.put("Plan Name", Selected_Upgraded_Plan_Name);
+	activation_data.put("Users", Users);
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🔑 ACCOUNT ACTIVATION ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Activate the account after completing Active-plan verification.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Activation Input:</b> Email = " + Email + " | Selected Upgraded Plan = " + Selected_Upgraded_Plan_Name + " | Users = " + Users);
+
+	System.out.println("━━━━━━━━━━━━━━ 🔑 ACCOUNT ACTIVATION ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Activate the account after completing Active-plan verification.");
+	System.out.println("📥 Activation Input: Email = " + Email + " | Selected Upgraded Plan = " + Selected_Upgraded_Plan_Name + " | Users = " + Users);
+
+	Account_Activator(activation_data, step);
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Account activation completed successfully. Email = " + Email);
+	System.out.println("✅ Actual: Account activation completed successfully. Email = " + Email);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 👥 LOGIN AS CLIENT AND SUBSCRIPTION VERIFICATION ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Log in as the activated client and verify every Active plan in the client account.");
+
+	System.out.println("━━━━━━━━━━━━━━ 👥 LOGIN AS CLIENT AND SUBSCRIPTION VERIFICATION ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Log in as the activated client and verify every Active plan in the client account.");
+
+	Login_as_client_check(activation_data, Active_Plan_Names);
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Final Result:</b> Account creation, plan upgrade, SaaS Admin plan verification, activation, client impersonation, and client-side subscribed-plan verification completed successfully. Company = " + Company_Name + " | Email = " + Email + " | Active Plans = " + Active_Plan_Names + " | Selected Upgraded Plan = " + Selected_Upgraded_Plan_Name);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+
+	System.out.println("✅ Final Result: Account creation, plan upgrade, SaaS Admin plan verification, activation, client impersonation, and client-side subscribed-plan verification completed successfully. Company = " + Company_Name + " | Email = " + Email + " | Active Plans = " + Active_Plan_Names + " | Selected Upgraded Plan = " + Selected_Upgraded_Plan_Name);
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println();
+}
+
+
+
+
+   
+   public void Login_as_client_check(TreeMap<String, String> account_create_data, TreeSet<String> Active_Plan_Names) throws InterruptedException, IOException {
+
+	Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+	Repeat rp = new Repeat(d);
+
+	String Email = account_create_data.get("Email");
+	String Company_Name = account_create_data.get("Company Name");
+	String Users = account_create_data.get("Users");
+
+	int step = 1;
+
+	if (Active_Plan_Names == null || Active_Plan_Names.isEmpty()) {
+		String errorMessage = "Active-plan verification cannot start because no expected Active plan names were provided. Email = " + Email;
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+		System.out.println("❌ Failure: " + errorMessage);
+		throw new IllegalStateException(errorMessage);
+	}
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Log in as the client and verify subscribed application plans");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Search the activated account, use Login as Client, confirm successful client impersonation, collect every plan displayed in the client account, and verify that all plans previously identified as Active are available to the client.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Company = " + Company_Name + " | Email = " + Email + " | Users = " + Users + " | Expected Active Plans = " + Active_Plan_Names);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> Client impersonation should complete successfully and every expected Active plan should appear in the client account's subscribed-plan list.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+
+	System.out.println();
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println("🔹 Scenario Title: Log in as the client and verify subscribed application plans");
+	System.out.println();
+	System.out.println("📘 Description: Search the activated account, use Login as Client, confirm successful client impersonation, collect every plan displayed in the client account, and verify that all plans previously identified as Active are available to the client.");
+	System.out.println();
+	System.out.println("📥 Input: Company = " + Company_Name + " | Email = " + Email + " | Users = " + Users + " | Expected Active Plans = " + Active_Plan_Names);
+	System.out.println();
+	System.out.println("✅ Expected: Client impersonation should complete successfully and every expected Active plan should appear in the client account's subscribed-plan list.");
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println();
+
+	try {
+		p.Create_Account_button();
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> SaaS Admin account list is already accessible.");
+		System.out.println("🟨 Actual: SaaS Admin account list is already accessible.");
+	} catch (Exception accountPageException) {
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>⚠ Actual:</b> SaaS Admin session was not available. Login was performed again before client impersonation.");
+		System.out.println("⚠ Actual: SaaS Admin session was not available. Login was performed again before client impersonation.");
+		System.out.println("🟨 Debug Reason: " + accountPageException.getMessage());
+
+		Saas_Admin_Login();
+		p.Create_Account_button();
+
+		Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> SaaS Admin login completed and the account list is now accessible.");
+		System.out.println("✅ Actual: SaaS Admin login completed and the account list is now accessible.");
+	}
+
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🔍 ACCOUNT SEARCH ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Clear existing account-list filters.");
+
+	System.out.println("━━━━━━━━━━━━━━ 🔍 ACCOUNT SEARCH ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Clear existing account-list filters.");
+
+	try {
+		p.filter_clear_button().click();
+		Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Existing account-list filters cleared successfully.");
+		System.out.println("✅ Actual: Existing account-list filters cleared successfully.");
+	} catch (Exception filterException) {
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> No existing account-list filter required clearing.");
+		System.out.println("🟨 Actual: No existing account-list filter required clearing.");
+		System.out.println("🟨 Debug Reason: " + filterException.getMessage());
+	}
+
+	try {
+		List<WebElement> Loaders = p.Loader();
+
+		if (Loaders != null && !Loaders.isEmpty()) {
+			rp.wait_for_invisibilty_of_theElement(Loaders);
+		}
+	} catch (Exception loaderException) {
+		System.out.println("🟨 Debug: Account-list loader was absent or had already disappeared.");
+		System.out.println("🟨 Debug Reason: " + loaderException.getMessage());
+	}
+
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Search the activated account using its registered email.");
+	System.out.println("Step " + (step - 1) + ": Search the activated account using its registered email.");
+
+	WebElement Search = p.search_field();
+
+	Thread.sleep(750);
+
+	Search.clear();
+	Search.sendKeys(Email);
+
+	Thread.sleep(1000);
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Account search completed successfully. Email = " + Email);
+	System.out.println("✅ Actual: Account search completed successfully. Email = " + Email);
+	System.out.println();
+
+	try {
+		List<WebElement> Reloaders = p.Loader();
+
+		if (Reloaders != null && !Reloaders.isEmpty()) {
+			rp.wait_for_invisibilty_of_theElement(Reloaders);
+		}
+	} catch (Exception loaderException) {
+		System.out.println("🟨 Debug: Search-result loader was absent or had already disappeared.");
+		System.out.println("🟨 Debug Reason: " + loaderException.getMessage());
+	}
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 👥 CLIENT IMPERSONATION ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Open the searched account's action menu and select Login as Client.");
+
+	System.out.println("━━━━━━━━━━━━━━ 👥 CLIENT IMPERSONATION ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Open the searched account's action menu and select Login as Client.");
+
+	list_threedot_dropdown_option_selector("Login as Client");
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Login as Client option selected successfully for Email = " + Email);
+	System.out.println("✅ Actual: Login as Client option selected successfully for Email = " + Email);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Wait for client impersonation to complete.");
+	System.out.println("Step " + (step - 1) + ": Wait for client impersonation to complete.");
+
+	try {
+		WebElement Progress_Bar = p.Progress_Bar();
+		rp.wait_for_invisibilty_of_theElement(Progress_Bar);
+	} catch (Exception progressException) {
+		System.out.println("🟨 Debug: Client-login progress indicator was absent or had already disappeared.");
+		System.out.println("🟨 Debug Reason: " + progressException.getMessage());
+	}
+
+	p.impersonated_box();
+    Thread.sleep(800);
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Client impersonation completed successfully. Company = " + Company_Name + " | Email = " + Email);
+	System.out.println("✅ Actual: Client impersonation completed successfully. Company = " + Company_Name + " | Email = " + Email);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 📦 SUBSCRIBED PLAN COLLECTION ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Collect all plans displayed in the client account.");
+
+	System.out.println("━━━━━━━━━━━━━━ 📦 SUBSCRIBED PLAN COLLECTION ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Collect all plans displayed in the client account.");
+
+	List<WebElement> Plans_Subscribed_to_as_listed = p.Listed_Plans_Elements();
+	TreeSet<String> Client_Subscribed_Plan_Names = new TreeSet<String>();
+
+	for (WebElement plans_subbs : Plans_Subscribed_to_as_listed) {
+
+		String Plan_Name_String = plans_subbs.getText().replaceAll("\\s+", " ").trim();
+
+		if (Plan_Name_String.isEmpty()) {
+			continue;
+		}
+
+		String Plan_Name_Text = Plan_Name_String.contains(":") ? Plan_Name_String.split(":", 2)[1].trim() : Plan_Name_String.replaceFirst("^-\\s*", "").trim();
+
+		if (!Plan_Name_Text.isEmpty()) {
+			Client_Subscribed_Plan_Names.add(Plan_Name_Text);
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>📌 Subscribed Plan:</b> " + Plan_Name_Text);
+			System.out.println("📌 Subscribed Plan: " + Plan_Name_Text);
+		}
+
+		System.out.println("🟨 Debug: Original Client Plan Text = " + Plan_Name_String);
+		System.out.println();
+	}
+
+	if (Client_Subscribed_Plan_Names.isEmpty()) {
+		String errorMessage = "No subscribed plans were displayed after logging in as the client. Email = " + Email;
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+		System.out.println("❌ Failure: " + errorMessage);
+		throw new IllegalStateException(errorMessage);
+	}
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Client subscribed plans collected successfully. Subscribed Plan Count = " + Client_Subscribed_Plan_Names.size() + " | Subscribed Plans = " + Client_Subscribed_Plan_Names);
+	System.out.println("✅ Actual: Client subscribed plans collected successfully. Subscribed Plan Count = " + Client_Subscribed_Plan_Names.size() + " | Subscribed Plans = " + Client_Subscribed_Plan_Names);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ ✅ ACTIVE PLAN VERIFICATION ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Verify every expected Active plan against the client's subscribed-plan list.");
+
+	System.out.println("━━━━━━━━━━━━━━ ✅ ACTIVE PLAN VERIFICATION ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Verify every expected Active plan against the client's subscribed-plan list.");
+
+	TreeSet<String> Missing_Client_Plan_Names = new TreeSet<String>();
+
+	for (String Active_Plan_Name : Active_Plan_Names) {
+
+		boolean Active_Plan_Found = false;
+
+		for (String Subscribed_Plan_Name : Client_Subscribed_Plan_Names) {
+
+			System.out.println("🟨 Debug: Comparing client subscription | Expected Active Plan = " + Active_Plan_Name + " | Actual Subscribed Plan = " + Subscribed_Plan_Name);
+
+			if (Subscribed_Plan_Name.equalsIgnoreCase(Active_Plan_Name) || Subscribed_Plan_Name.toLowerCase().contains(Active_Plan_Name.toLowerCase()) || Active_Plan_Name.toLowerCase().contains(Subscribed_Plan_Name.toLowerCase())) {
+				Active_Plan_Found = true;
+				Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Match:</b> Active plan is available in the client account. Plan = " + Active_Plan_Name);
+				System.out.println("✅ Match: Active plan is available in the client account. Plan = " + Active_Plan_Name);
+				break;
+			}
+		}
+
+		if (!Active_Plan_Found) {
+			Missing_Client_Plan_Names.add(Active_Plan_Name);
+			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Missing:</b> Active plan is not displayed in the client account. Missing Plan = " + Active_Plan_Name);
+			System.out.println("❌ Missing: Active plan is not displayed in the client account. Missing Plan = " + Active_Plan_Name);
+		}
+
+		System.out.println();
+	}
+
+	if (!Missing_Client_Plan_Names.isEmpty()) {
+		String errorMessage = "One or more Active plans are missing from the client account. Email = " + Email + " | Expected Active Plans = " + Active_Plan_Names + " | Client Subscribed Plans = " + Client_Subscribed_Plan_Names + " | Missing Plans = " + Missing_Client_Plan_Names;
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Verification Failed:</b> " + errorMessage);
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		System.out.println("❌ Verification Failed: " + errorMessage);
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+		System.out.println();
+		throw new IllegalStateException(errorMessage);
+	}
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Final Result:</b> Client impersonation and subscribed-plan verification completed successfully. Company = " + Company_Name + " | Email = " + Email + " | Expected Active Plans = " + Active_Plan_Names + " | Client Subscribed Plans = " + Client_Subscribed_Plan_Names);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+
+	System.out.println("✅ Final Result: Client impersonation and subscribed-plan verification completed successfully.");
+	System.out.println("Company = " + Company_Name);
+	System.out.println("Email = " + Email);
+	System.out.println("Expected Active Plans = " + Active_Plan_Names);
+	System.out.println("Client Subscribed Plans = " + Client_Subscribed_Plan_Names);
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println();
+}
+
+
+
+
+	public int Account_Activator(TreeMap<String, String> account_create_data, int step)throws IOException, InterruptedException {
+
+		Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+		Repeat rp = new Repeat(d);
+		Data_Reader f = new Data_Reader();
+
+		String Email = account_create_data.get("Email");
+		String Company_Name = account_create_data.get("Company Name");
+		String Plan_Name = account_create_data.get("Plan Name");
+		String Users = account_create_data.get("Users");
+
+		WebElement Create_Button;
+		String Admin_Window = d.getWindowHandle();
+		String Activation_Window = "";
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🔹 Scenario Section:</b> Validate account activation using generated invite link.");
+		System.out.println("🔹 Scenario Section: Validate account activation using generated invite link.");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>📘 Description:</b> Search the newly invited account in SaaS Admin, open Get Invite Link action, copy invite link, open it in a new tab, set password, submit activation form, validate account verified success message, and switch back to SaaS Admin tab for further operations.");
+		System.out.println(
+				"📘 Description: Search the newly invited account in SaaS Admin, open Get Invite Link action, copy invite link, open it in a new tab, set password, submit activation form, validate account verified success message, and switch back to SaaS Admin tab for further operations.");
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Email = " + Email + " | Company = "
+				+ Company_Name + " | Plan = " + Plan_Name + " | Users = " + Users);
+		System.out.println("📥 Input: Email = " + Email + " | Company = " + Company_Name + " | Plan = " + Plan_Name
+				+ " | Users = " + Users);
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>✅ Expected:</b> Account invite link should open successfully, password should be set, account verified success message should be displayed, and control should return to the SaaS Admin account list tab without closing any browser tab.");
+		System.out.println(
+				"✅ Expected: Account invite link should open successfully, password should be set, account verified success message should be displayed, and control should return to the SaaS Admin account list tab without closing any browser tab.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>━━━━━━━━━━━━━━ 🗂️ ACTIVATION SETUP ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 🗂️ ACTIVATION SETUP ━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Store current SaaS Admin tab/window before opening invite link.");
+		System.out.println("Step " + (step - 1) + ": Store current SaaS Admin tab/window before opening invite link.");
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> SaaS Admin window stored successfully. Window Handle = " + Admin_Window);
+		System.out.println("🟨 Actual: SaaS Admin window stored successfully. Window Handle = " + Admin_Window);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Check whether SaaS Admin account list page is already accessible.");
+		System.out
+				.println("Step " + (step - 1) + ": Check whether SaaS Admin account list page is already accessible.");
+
+		try {
+			Create_Button = p.Create_Account_button();
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> Create Account button found. SaaS Admin account list page is already accessible.");
+			System.out.println(
+					"🟨 Actual: Create Account button found. SaaS Admin account list page is already accessible.");
+		} catch (Exception r) {
+			Report_Listen.log_print_in_report().log(Status.WARNING,
+					"<b>⚠ Actual:</b> Create Account button was not found. SaaS Admin login will be performed again.<br><b>Reason:</b> "
+							+ r.getMessage());
+			System.out.println(
+					"⚠ Actual: Create Account button was not found. SaaS Admin login will be performed again.");
+			System.out.println("Reason: " + r.getMessage());
+
+			Saas_Admin_Login();
+			Create_Button = p.Create_Account_button();
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> SaaS Admin login completed and Create Account button is now available.");
+			System.out.println("🟨 Actual: SaaS Admin login completed and Create Account button is now available.");
+		}
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++)
+				+ ":</b> Wait for account list loader to disappear before searching invited account.");
+		System.out.println(
+				"Step " + (step - 1) + ": Wait for account list loader to disappear before searching invited account.");
+		WebElement Filter_Clear_Button = p.filter_clear_button();
+		Filter_Clear_Button.click();
+		try {
+			List<WebElement> Loaders = p.Loader();
+
+			if (Loaders != null && Loaders.size() > 0) {
+				rp.wait_for_invisibilty_of_theElement(Loaders);
+
+				Report_Listen.log_print_in_report().log(Status.INFO,
+						"<b>🟨 Actual:</b> Account list loading completed successfully.");
+				System.out.println("🟨 Actual: Account list loading completed successfully.");
+			} else {
+				Report_Listen.log_print_in_report().log(Status.INFO,
+						"<b>🟨 Actual:</b> Account list was already available. Loader was not displayed.");
+				System.out.println("🟨 Actual: Account list was already available. Loader was not displayed.");
+			}
+
+		} catch (Exception e) {
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> Account list was already available. Loader wait was skipped.");
+			System.out.println("🟨 Actual: Account list was already available. Loader wait was skipped.");
+		}
+
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Search invited account using email = " + Email);
+		System.out.println("Step " + (step - 1) + ": Search invited account using email = " + Email);
+
+		WebElement Search = p.search_field();
+
+		Thread.sleep(750);
+		Search.sendKeys(Email);
+		Thread.sleep(1000);
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Email entered successfully in account search field = " + Email);
+		System.out.println("🟨 Actual: Email entered successfully in account search field = " + Email);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Wait for account list reload after search.");
+		System.out.println("Step " + (step - 1) + ": Wait for account list reload after search.");
+		List<WebElement> Reloaders = p.Loader();
+		rp.wait_for_invisibilty_of_theElement(Reloaders);
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Account list reload completed after search.");
+		System.out.println("🟨 Actual: Account list reload completed after search.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🔗 INVITE LINK ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 🔗 INVITE LINK ━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Open row action menu and select Get Invite Link option.");
+		System.out.println("Step " + (step - 1) + ": Open row action menu and select Get Invite Link option.");
+		list_threedot_dropdown_option_selector("Get Invite Link");
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Get Invite Link option selected successfully for searched account.");
+		System.out.println("🟨 Actual: Get Invite Link option selected successfully for searched account.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Validate invite link popup modal and capture invite link.");
+		System.out.println("Step " + (step - 1) + ": Validate invite link popup modal and capture invite link.");
+		WebElement popupmodal=p.pop_up_modal();
+		WebElement Ok_Button=popupmodal.findElement(By.xpath(".//button[@class='ant-btn ant-btn-default strock-btn gray-text']"));
+		WebElement Invite = p.Invite_link();
+		String Invite_link = Invite.getText().trim();
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Invite link popup opened and invite link captured successfully.");
+		System.out.println("🟨 Actual: Invite link popup opened and invite link captured successfully.");
+		System.out.println("Invite Link Is ------> " + Invite_link);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Open invite link in a new browser tab.");
+		System.out.println("Step " + (step - 1) + ": Open invite link in a new browser tab.");
+		d.switchTo().newWindow(WindowType.TAB);
+		Activation_Window = d.getWindowHandle();
+		d.navigate().to(Invite_link);
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Invite link opened successfully in new tab. Activation Window Handle = "
+						+ Activation_Window);
+		System.out.println("🟨 Actual: Invite link opened successfully in new tab. Activation Window Handle = "
+				+ Activation_Window);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>━━━━━━━━━━━━━━ 🔐 PASSWORD ACTIVATION ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 🔐 PASSWORD ACTIVATION ━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Validate user landed on Set Password page.");
+		System.out.println("Step " + (step - 1) + ": Validate user landed on Set Password page.");
+		p.Landed_in_Set_Password_page();
+		Report_Listen.log_print_in_report().log(Status.PASS,
+				"<b>✅ Actual:</b> User landed successfully on Set Password page.");
+		System.out.println("✅ Actual: User landed successfully on Set Password page.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Enter password and confirm password.");
+		System.out.println("Step " + (step - 1) + ": Enter password and confirm password.");
+		String Pass = f.Data_Fetcher("Pass");
+		WebElement passfield = p.password();
+		WebElement Confirm_pass_field = p.confirm_password();
+		passfield.sendKeys(Pass);
+		Confirm_pass_field.sendKeys(Pass);
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Password and confirm password entered successfully.");
+		System.out.println("🟨 Actual: Password and confirm password entered successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Submit Set Password form to activate account.");
+		System.out.println("Step " + (step - 1) + ": Submit Set Password form to activate account.");
+		WebElement Submit = p.Submit_Button();
+		rp.movetoelement(Submit);
+		Submit.click();
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Set Password form submitted successfully.");
+		System.out.println("🟨 Actual: Set Password form submitted successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Capture account verified success message.");
+		System.out.println("Step " + (step - 1) + ": Capture account verified success message.");
+		WebElement Success = p.Account_Verified_Success_Message();
+		String Success_Message = Success.getText().trim();
+		Report_Listen.log_print_in_report().log(Status.PASS,
+				"<b>✅ Actual:</b> Account activation completed successfully. Success message = " + Success_Message);
+		System.out.println("✅ Actual: Account activation completed successfully. Success message = " + Success_Message);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>━━━━━━━━━━━━━━ ↩️ RETURN TO SAAS ADMIN ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ ↩️ RETURN TO SAAS ADMIN ━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++)
+				+ ":</b> Switch back to previous SaaS Admin tab/window after account activation.");
+		System.out.println(
+				"Step " + (step - 1) + ": Switch back to previous SaaS Admin tab/window after account activation.");
+		d.switchTo().window(Admin_Window);
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Control switched back to SaaS Admin window successfully without closing any browser tab. Current Window Handle = "
+						+ d.getWindowHandle());
+		System.out.println(
+				"🟨 Actual: Control switched back to SaaS Admin window successfully without closing any browser tab. Current Window Handle = "
+						+ d.getWindowHandle());
+		System.out.println();
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+		Ok_Button.click();
+		return step;
+	}
+
+	@Test(dataProvider = "Account_Create_Data")
+	public void check_for_added_Account(TreeMap<String, String> account_data) throws InterruptedException, IOException {
+
+		Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+		Repeat rp = new Repeat(d);
+
+		String Email = account_data.get("Email");
+		String Company_Name = account_data.get("Company Name");
+		String Plan_Name = account_data.get("Plan Name");
+		String Users = account_data.get("Users");
+
+		int step = 1;
+		boolean account_found = false;
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🔹 Scenario Title:</b> Validate created draft account is available in SaaS Admin account list.");
+		System.out
+				.println("🔹 Scenario Title: Validate created draft account is available in SaaS Admin account list.");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>📘 Description:</b> Open SaaS Admin account list, search the newly created account by email, fetch the listed account data, and verify that the expected email is displayed in the account list.");
+		System.out.println(
+				"📘 Description: Open SaaS Admin account list, search the newly created account by email, fetch the listed account data, and verify that the expected email is displayed in the account list.");
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Email = " + Email + " | Company = "
+				+ Company_Name + " | Plan = " + Plan_Name + " | Users = " + Users);
+		System.out.println("📥 Input: Email = " + Email + " | Company = " + Company_Name + " | Plan = " + Plan_Name
+				+ " | Users = " + Users);
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>✅ Expected:</b> The newly created draft account should be searchable and the account email should be visible in the SaaS Admin account list.");
+		System.out.println(
+				"✅ Expected: The newly created draft account should be searchable and the account email should be visible in the SaaS Admin account list.");
+		System.out.println();
+
+		WebElement Create_Button;
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Check whether SaaS Admin account list page is already accessible.");
+		System.out
+				.println("Step " + (step - 1) + ": Check whether SaaS Admin account list page is already accessible.");
+
+		try {
+			Create_Button = p.Create_Account_button();
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> Create Account button found. SaaS Admin account list page is already accessible.");
+			System.out.println(
+					"🟨 Actual: Create Account button found. SaaS Admin account list page is already accessible.");
+		} catch (Exception r) {
+			Report_Listen.log_print_in_report().log(Status.WARNING,
+					"<b>⚠ Actual:</b> Create Account button was not found. SaaS Admin login will be performed again.<br><b>Reason:</b> "
+							+ r.getMessage());
+			System.out.println(
+					"⚠ Actual: Create Account button was not found. SaaS Admin login will be performed again.");
+			System.out.println("Reason: " + r.getMessage());
+
+			Saas_Admin_Login();
+			Create_Button = p.Create_Account_button();
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> SaaS Admin login completed and Create Account button is now available.");
+			System.out.println("🟨 Actual: SaaS Admin login completed and Create Account button is now available.");
+		}
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🔍 ACCOUNT SEARCH ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 🔍 ACCOUNT SEARCH ━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Search created account using email = " + Email);
+		System.out.println("Step " + (step - 1) + ": Search created account using email = " + Email);
+		List<WebElement> Loaders = p.Loader();
+		rp.wait_for_invisibilty_of_theElement(Loaders);
+		WebElement Search = p.search_field();
+		Search.sendKeys(Email);
+		Thread.sleep(1000);
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Email entered successfully in account search field = " + Email);
+		System.out.println("🟨 Actual: Email entered successfully in account search field = " + Email);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Fetch account list data after search.");
+		System.out.println("Step " + (step - 1) + ": Fetch account list data after search.");
+		List<WebElement> Reloaders = p.Loader();
+		rp.wait_for_invisibilty_of_theElement(Reloaders);
+		List<WebElement> truncated_datas = p.Truncated_data_in_list();
+
+		System.out.println("🟨 Debug: Account list truncated data count after search = " + truncated_datas.size());
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>━━━━━━━━━━━━━━ ✅ ACCOUNT VERIFICATION ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ ✅ ACCOUNT VERIFICATION ━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Verify searched email is present in account list.");
+		System.out.println("Step " + (step - 1) + ": Verify searched email is present in account list.");
+
+		for (WebElement truncated_data : truncated_datas) {
+			String Text = truncated_data.getText().trim();
+
+			System.out.println("🟨 Debug: Account list visible text checked = " + Text);
+
+			if (Text.contains(Email)) {
+				account_found = true;
+				Report_Listen.log_print_in_report().log(Status.PASS,
+						"<b>✅ Actual:</b> Created account email found in account list = " + Email);
+				System.out.println("✅ Actual: Created account email found in account list = " + Email);
+				break;
+			}
+		}
+
+		if (account_found) {
+			Report_Listen.log_print_in_report().log(Status.PASS,
+					"<b>✅ Final Result:</b> Draft account verification completed successfully. Account found for Email = "
+							+ Email + " | Company = " + Company_Name);
+			System.out.println(
+					"✅ Final Result: Draft account verification completed successfully. Account found for Email = "
+							+ Email + " | Company = " + Company_Name);
+		} else {
+			Report_Listen.log_print_in_report().log(Status.FAIL,
+					"<b>❌ Final Result:</b> Draft account verification failed. Account email was not found in the account list after search. Expected Email = "
+							+ Email);
+			System.out.println(
+					"❌ Final Result: Draft account verification failed. Account email was not found in the account list after search. Expected Email = "
+							+ Email);
+		}
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
+		System.out.println();
+	}
+
+	public int Form_Filler(TreeMap<String, String> Form_Data, int step) throws InterruptedException, IOException {
+
+		String First_Name = Form_Data.get("First Name");
+		String Middle_Name = Form_Data.get("Middle Name");
+		String Last_Name = Form_Data.get("Last Name");
+		String Company_Name = Form_Data.get("Company Name");
+		String Country = Form_Data.get("Country");
+		String Email = Form_Data.get("Email");
+		String Subscribe_News = Form_Data.get("Subscribe News");
+		String Country_Code = Form_Data.get("Country Code");
+		String Phone_Number = Form_Data.get("Phone Number");
+
+		String App_Name = Form_Data.get("App Name");
+		String App_Enabled = Form_Data.get("App Enabled");
+		String Plan_Name = Form_Data.get("Plan Name");
+		String Users = Form_Data.get("Users");
+
+		String Group = Form_Data.get("Group");
+		String Account_Manager = Form_Data.get("Account Manager");
+
+		String Staff_Notes = Form_Data.get("Staff Notes");
+
+		boolean Subscribe_News_Status = Subscribe_News.equalsIgnoreCase("Yes");
+		boolean App_Enabled_Status = App_Enabled.equalsIgnoreCase("Yes");
+
+		Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+		Repeat rp = new Repeat(d);
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🔹 Scenario Title:</b> Validate SaaS Admin Account creation with app plan, account manager, group, and staff notes assignment.");
+		System.out.println(
+				"🔹 Scenario Title: Validate SaaS Admin Account creation with app plan, account manager, group, and staff notes assignment.");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>📘 Description:</b> Login into SaaS Admin, open Create Account form, enter account holder details, select country, fill contact information, assign app plan, enter limit/user value, select account manager, assign group, enter staff notes, and continue account creation flow.");
+		System.out.println(
+				"📘 Description: Login into SaaS Admin, open Create Account form, enter account holder details, select country, fill contact information, assign app plan, enter limit/user value, select account manager, assign group, enter staff notes, and continue account creation flow.");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>📥 Input:</b> Name = " + First_Name + " " + Middle_Name + " " + Last_Name + " | Company = "
+						+ Company_Name + " | Country = " + Country + " | Email = " + Email + " | Country Code = "
+						+ Country_Code + " | Phone Number = " + Phone_Number + " | Subscribe News = " + Subscribe_News
+						+ " | Subscribe Status = " + Subscribe_News_Status + " | App Name = " + App_Name
+						+ " | App Enabled = " + App_Enabled + " | App Enabled Status = " + App_Enabled_Status
+						+ " | Plan Name = " + Plan_Name + " | Users = " + Users + " | Group = " + Group
+						+ " | Account Manager = " + Account_Manager);
+		System.out.println("📥 Input: Name = " + First_Name + " " + Middle_Name + " " + Last_Name + " | Company = "
+				+ Company_Name + " | Country = " + Country + " | Email = " + Email + " | Country Code = " + Country_Code
+				+ " | Phone Number = " + Phone_Number + " | Subscribe News = " + Subscribe_News
+				+ " | Subscribe Status = " + Subscribe_News_Status + " | App Name = " + App_Name + " | App Enabled = "
+				+ App_Enabled + " | App Enabled Status = " + App_Enabled_Status + " | Plan Name = " + Plan_Name
+				+ " | Users = " + Users + " | Group = " + Group + " | Account Manager = " + Account_Manager);
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>✅ Expected:</b> Admin should be able to fill the account creation form, assign the selected app plan, select account manager, assign group, and enter staff notes successfully.");
+		System.out.println(
+				"✅ Expected: Admin should be able to fill the account creation form, assign the selected app plan, select account manager, assign group, and enter staff notes successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🌐 FORM ACCESS ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 🌐 FORM ACCESS ━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Login into SaaS Admin portal.");
+		System.out.println("Step " + (step - 1) + ": Login into SaaS Admin portal.");
+		Saas_Admin_Login();
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> SaaS Admin login completed successfully.");
+		System.out.println("🟨 Actual: SaaS Admin login completed successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Click Create Account button.");
+		System.out.println("Step " + (step - 1) + ": Click Create Account button.");
+		WebElement Create_Button = p.Create_Account_button();
+		Create_Button.click();
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Create Account button clicked successfully.");
+		System.out.println("🟨 Actual: Create Account button clicked successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Fetch account form input fields and dropdown fields.");
+		System.out.println("Step " + (step - 1) + ": Fetch account form input fields and dropdown fields.");
+		List<WebElement> input = p.Customer_form_inputs();
+		List<WebElement> dropdowns = p.Customer_form_dropdowns();
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Account form fields fetched successfully. Input count = " + input.size()
+						+ " | Dropdown count = " + dropdowns.size());
+		System.out.println("🟨 Actual: Account form fields fetched successfully. Input count = " + input.size()
+				+ " | Dropdown count = " + dropdowns.size());
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 👤 ACCOUNT DETAILS ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 👤 ACCOUNT DETAILS ━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Fill account holder name and company details.");
+		System.out.println("Step " + (step - 1) + ": Fill account holder name and company details.");
+		input.get(0).sendKeys(First_Name);
+		input.get(1).sendKeys(Middle_Name);
+		input.get(2).sendKeys(Last_Name);
+		input.get(3).sendKeys(Company_Name);
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Name and company details entered successfully. Name = " + First_Name + " "
+						+ Middle_Name + " " + Last_Name + " | Company = " + Company_Name);
+		System.out.println("🟨 Actual: Name and company details entered successfully. Name = " + First_Name + " "
+				+ Middle_Name + " " + Last_Name + " | Company = " + Company_Name);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Select country from country dropdown. Country = " + Country);
+		System.out.println("Step " + (step - 1) + ": Select country from country dropdown. Country = " + Country);
+		WebElement Country_dropdown_field = dropdowns.get(4);
+		Country_dropdown_field.click();
+		p.Country_input().sendKeys(Country);
+		Thread.sleep(800);
+		WebElement country_list = p.Country_dropdown();
+		List<WebElement> country_options = country_list
+				.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+		System.out.println("🟨 Debug: Country dropdown option count = " + country_options.size());
+
+		if (country_options.size() > 0) {
+			country_options.get(0).click();
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> Country selected successfully = " + Country);
+			System.out.println("🟨 Actual: Country selected successfully = " + Country);
+		} else {
+			Report_Listen.log_print_in_report().log(Status.FAIL,
+					"<b>❌ Actual:</b> Country option was not found after searching country = " + Country);
+			System.out.println("❌ Actual: Country option was not found after searching country = " + Country);
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
+			return step;
+		}
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Fill email and phone number details.");
+		System.out.println("Step " + (step - 1) + ": Fill email and phone number details.");
+		input.get(4).sendKeys(Email);
+		input.get(5).sendKeys(Phone_Number);
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Contact details entered successfully. Email = " + Email + " | Phone Number = "
+						+ Phone_Number);
+		System.out.println("🟨 Actual: Contact details entered successfully. Email = " + Email + " | Phone Number = "
+				+ Phone_Number);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>━━━━━━━━━━━━━━ 📦 APP PLAN ASSIGNMENT ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 📦 APP PLAN ASSIGNMENT ━━━━━━━━━━━━━━");
+
+		step = App_Plan_Assigner(Form_Data, step);
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>━━━━━━━━━━━━━━ 🧑‍💼 ACCOUNT MAPPING ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 🧑‍💼 ACCOUNT MAPPING ━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Select account manager. Account Manager = " + Account_Manager);
+		System.out.println("Step " + (step - 1) + ": Select account manager. Account Manager = " + Account_Manager);
+		WebElement AccManager_feild = p.Account_manager_field();
+		rp.movetoelement(AccManager_feild);
+		AccManager_feild.click();
+		p.Account_Manager_input().sendKeys(Account_Manager);
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Account manager name entered in dropdown search field = " + Account_Manager);
+		System.out.println("🟨 Actual: Account manager name entered in dropdown search field = " + Account_Manager);
+
+		WebElement accdrpdwn = p.Account_Manager_Dropdown();
+		rp.movetoelement(accdrpdwn);
+		List<WebElement> opts = accdrpdwn.findElements(By.xpath(".//div[@class='ant-select-item-option-content']"));
+		boolean account_manager_selected = false;
+
+		System.out.println("🟨 Debug: Account manager dropdown option count = " + opts.size());
+
+		for (WebElement opt : opts) {
+			String Text = opt.getText().trim();
+			System.out.println("Account manager option found = " + Text);
+
+			if (Text.contains(Account_Manager)) {
+				rp.movetoelement(opt);
+				opt.click();
+				account_manager_selected = true;
+				Report_Listen.log_print_in_report().log(Status.INFO,
+						"<b>🟨 Actual:</b> Account manager selected successfully = " + Text);
+				System.out.println("🟨 Actual: Account manager selected successfully = " + Text);
+				break;
+			}
+		}
+
+		if (!account_manager_selected) {
+			Report_Listen.log_print_in_report().log(Status.FAIL,
+					"<b>❌ Actual:</b> Required account manager was not found in dropdown. Expected Account Manager = "
+							+ Account_Manager);
+			System.out
+					.println("❌ Actual: Required account manager was not found in dropdown. Expected Account Manager = "
+							+ Account_Manager);
+			return step;
+		}
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Select account group. Group = " + Group);
+		System.out.println("Step " + (step - 1) + ": Select account group. Group = " + Group);
+		WebElement Group_feild = p.Group_Field();
+		rp.movetoelement(Group_feild);
+		Group_feild.click();
+		Thread.sleep(800);
+		p.Group_input().sendKeys(Group);
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Group name entered in dropdown search field = " + Group);
+		System.out.println("🟨 Actual: Group name entered in dropdown search field = " + Group);
+
+		WebElement group_dpdwn = p.Account_Manager_Dropdown();
+		rp.movetoelement(group_dpdwn);
+		List<WebElement> gpopts = group_dpdwn.findElements(By.xpath(".//div[@class='ant-select-item-option-content']"));
+		boolean group_selected = false;
+
+		System.out.println("🟨 Debug: Group dropdown option count = " + gpopts.size());
+
+		for (WebElement gpopt : gpopts) {
+			String Group_Text = gpopt.getText().trim();
+			System.out.println("Group option found = " + Group_Text);
+
+			if (Group_Text.contains(Group)) {
+				rp.movetoelement(gpopt);
+				gpopt.click();
+				group_selected = true;
+				Report_Listen.log_print_in_report().log(Status.INFO,
+						"<b>🟨 Actual:</b> Group selected successfully = " + Group_Text);
+				System.out.println("🟨 Actual: Group selected successfully = " + Group_Text);
+				break;
+			}
+		}
+
+		if (!group_selected) {
+			Report_Listen.log_print_in_report().log(Status.FAIL,
+					"<b>❌ Actual:</b> Required group was not found in dropdown. Expected Group = " + Group);
+			System.out.println("❌ Actual: Required group was not found in dropdown. Expected Group = " + Group);
+			return step;
+		}
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 📝 STAFF NOTES ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 📝 STAFF NOTES ━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Enter staff notes.");
+		System.out.println("Step " + (step - 1) + ": Enter staff notes.");
+		WebElement Staff_Note_feild = p.Text_Area_Field();
+		rp.movetoelement(Staff_Note_feild);
+		Staff_Note_feild.click();
+		Staff_Note_feild.sendKeys(Staff_Notes);
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Staff notes entered successfully. Notes = " + Staff_Notes);
+		System.out.println("🟨 Actual: Staff notes entered successfully. Notes = " + Staff_Notes);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.PASS,
+				"<b>✅ Actual:</b> Account form filling completed successfully with app plan, account manager, group, and staff notes. Company = "
+						+ Company_Name + " | Email = " + Email);
+		System.out.println(
+				"✅ Actual: Account form filling completed successfully with app plan, account manager, group, and staff notes. Company = "
+						+ Company_Name + " | Email = " + Email);
+		System.out.println();
+
+		return step;
+	}
+
+	public int App_Plan_Assigner(TreeMap<String, String> Form_Data, int step) throws InterruptedException, IOException {
+
+		String App_Name = Form_Data.get("App Name");
+		String App_Enabled = Form_Data.get("App Enabled");
+		String Plan_Name = Form_Data.get("Plan Name");
+		String Users = Form_Data.get("Users");
+		String App_Type = Form_Data.get("App Type");
+
+		boolean App_Enabled_Status = App_Enabled != null && App_Enabled.equalsIgnoreCase("Yes");
+		String App_Type_Lower = App_Type == null ? "" : App_Type.toLowerCase().trim();
+
+		Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+		Repeat rp = new Repeat(d);
+		JavascriptExecutor js = (JavascriptExecutor) d;
+
+		List<String> Apps_To_Assign = new ArrayList<String>();
+
+		if (App_Type_Lower.contains("all")) {
+			Apps_To_Assign.add("hr");
+			Apps_To_Assign.add("checkout");
+			Apps_To_Assign.add("hire");
+			Apps_To_Assign.add("spaces");
+		} else {
+			if (App_Type_Lower.contains("hr")) {
+				Apps_To_Assign.add("hr");
+			}
+			if (App_Type_Lower.contains("checkout")) {
+				Apps_To_Assign.add("checkout");
+			}
+			if (App_Type_Lower.contains("hire")) {
+				Apps_To_Assign.add("hire");
+			}
+			if (App_Type_Lower.contains("spaces")) {
+				Apps_To_Assign.add("spaces");
+			}
+		}
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>━━━━━━━━━━━━━━ 📦 APP PLAN ASSIGNMENT ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 📦 APP PLAN ASSIGNMENT ━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Navigate to app plan assignment section.");
+		System.out.println("Step " + (step - 1) + ": Navigate to app plan assignment section.");
+		WebElement Plan_Tab = p.Plan_Tab();
+		rp.Scroll_to_element(Plan_Tab);
+		js.executeScript("window.scrollBy(0, -180);");
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> App plan assignment section reached successfully.");
+		System.out.println("🟨 Actual: App plan assignment section reached successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Validate app plan assignment test data.");
+		System.out.println("Step " + (step - 1) + ": Validate app plan assignment test data.");
+		System.out.println("🟨 Debug: App Name = " + App_Name + " | App Type = " + App_Type + " | App Enabled = "
+				+ App_Enabled + " | Boolean Status = " + App_Enabled_Status + " | Apps To Assign = " + Apps_To_Assign);
+
+		if (!App_Enabled_Status) {
+			Report_Listen.log_print_in_report().log(Status.WARNING,
+					"<b>⚠ Actual:</b> App plan assignment skipped because App Enabled data = " + App_Enabled
+							+ " | App Type = " + App_Type);
+			System.out.println("⚠ Actual: App plan assignment skipped because App Enabled data = " + App_Enabled
+					+ " | App Type = " + App_Type);
+			System.out.println();
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
+			return step;
+		}
+
+		if (Apps_To_Assign.size() == 0) {
+			Report_Listen.log_print_in_report().log(Status.FAIL,
+					"<b>❌ Actual:</b> No valid app type found for app plan assignment. App Type = " + App_Type);
+			System.out.println("❌ Actual: No valid app type found for app plan assignment. App Type = " + App_Type);
+			System.out.println();
+			return step;
+		}
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>━━━━━━━━━━━━━━ 🔘 APPLICATION ENABLEMENT ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 🔘 APPLICATION ENABLEMENT ━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Enable required app toggles based on App Type.");
+		System.out.println("Step " + (step - 1) + ": Enable required app toggles based on App Type.");
+		List<WebElement> Plan_Toggles = p.Plan_toggle_Buttons();
+		System.out.println("🟨 Debug: App toggle count fetched = " + Plan_Toggles.size());
+
+		for (String Current_App : Apps_To_Assign) {
+
+			int Toggle_Index = -1;
+			String App_Display_Name = "";
+
+			if (Current_App.equals("hr")) {
+				Toggle_Index = 0;
+				App_Display_Name = "Simplified HR";
+			}
+			if (Current_App.equals("checkout")) {
+				Toggle_Index = 1;
+				App_Display_Name = "Simplified Checkout";
+			}
+			if (Current_App.equals("hire")) {
+				Toggle_Index = 2;
+				App_Display_Name = "Simplified Hire";
+			}
+			if (Current_App.equals("spaces")) {
+				Toggle_Index = 3;
+				App_Display_Name = "Simplified Spaces";
+			}
+
+			if (Toggle_Index >= 0 && Plan_Toggles.size() > Toggle_Index) {
+				WebElement App_Toggle = Plan_Toggles.get(Toggle_Index);
+				App_Toggle.click();
+				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> " + App_Display_Name
+						+ " toggle clicked successfully. Toggle Index = " + Toggle_Index);
+				System.out.println("🟨 Actual: " + App_Display_Name + " toggle clicked successfully. Toggle Index = "
+						+ Toggle_Index);
+			} else {
+				Report_Listen.log_print_in_report().log(Status.FAIL,
+						"<b>❌ Actual:</b> Toggle was not available for app = " + App_Display_Name
+								+ " | Required Toggle Index = " + Toggle_Index + " | Actual Toggle Count = "
+								+ Plan_Toggles.size());
+				System.out.println("❌ Actual: Toggle was not available for app = " + App_Display_Name
+						+ " | Required Toggle Index = " + Toggle_Index + " | Actual Toggle Count = "
+						+ Plan_Toggles.size());
+				System.out.println();
+				return step;
+			}
+		}
+
+		Thread.sleep(800);
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Required app toggle actions completed. App Name = " + App_Name + " | App Type = "
+						+ App_Type + " | Apps Enabled = " + Apps_To_Assign);
+		System.out.println("🟨 Actual: Required app toggle actions completed. App Name = " + App_Name + " | App Type = "
+				+ App_Type + " | Apps Enabled = " + Apps_To_Assign);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🗂️ PLAN SELECTION ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 🗂️ PLAN SELECTION ━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Fetch app plan dropdown fields.");
+		System.out.println("Step " + (step - 1) + ": Fetch app plan dropdown fields.");
+		List<WebElement> Plan_Select = p.Plan_select_dropdowm();
+		System.out.println("🟨 Debug: Plan dropdown field count fetched = " + Plan_Select.size()
+				+ " | Required App Count = " + Apps_To_Assign.size());
+		System.out.println();
+
+		for (int i = 0; i < Apps_To_Assign.size(); i++) {
+
+			String Current_App = Apps_To_Assign.get(i);
+			String App_Display_Name = "";
+			String Current_Plan_Name = Plan_Name;
+			WebElement Plan_Input_Field = null;
+			int Dropdown_Holder_Index = 3 + (i * 2);
+
+			if (Current_App.equals("hr")) {
+				App_Display_Name = "Simplified HR";
+				Plan_Input_Field = p.Hr_Plan_Input_feild();
+				if (App_Type_Lower.contains("all")) {
+					Current_Plan_Name = Form_Data.get("Hr Plan Name");
+				}
+			}
+			if (Current_App.equals("checkout")) {
+				App_Display_Name = "Simplified Checkout";
+				Plan_Input_Field = p.Checkout_Plan_Input_feild();
+				if (App_Type_Lower.contains("all")) {
+					Current_Plan_Name = Form_Data.get("Checkout Plan Name");
+				}
+			}
+			if (Current_App.equals("hire")) {
+				App_Display_Name = "Simplified Hire";
+				Plan_Input_Field = p.Hire_Plan_Input_feild();
+				if (App_Type_Lower.contains("all")) {
+					Current_Plan_Name = Form_Data.get("Hire Plan Name");
+				}
+			}
+			if (Current_App.equals("spaces")) {
+				App_Display_Name = "Simplified Spaces";
+				Plan_Input_Field = p.Spaces_Plan_Input_feild();
+				if (App_Type_Lower.contains("all")) {
+					Current_Plan_Name = Form_Data.get("Spaces Plan Name");
+				}
+			}
+
+			if (Current_Plan_Name == null || Current_Plan_Name.trim().length() == 0) {
+				Report_Listen.log_print_in_report().log(Status.FAIL,
+						"<b>❌ Actual:</b> Plan name is missing for " + App_Display_Name + ". App Type = " + App_Type);
+				System.out
+						.println("❌ Actual: Plan name is missing for " + App_Display_Name + ". App Type = " + App_Type);
+				System.out.println();
+				return step;
+			}
+
+			if (Plan_Select.size() <= i) {
+				Report_Listen.log_print_in_report().log(Status.FAIL,
+						"<b>❌ Actual:</b> Plan dropdown field was not available for " + App_Display_Name
+								+ ". Required Index = " + i + " | Actual Dropdown Count = " + Plan_Select.size());
+				System.out.println("❌ Actual: Plan dropdown field was not available for " + App_Display_Name
+						+ ". Required Index = " + i + " | Actual Dropdown Count = " + Plan_Select.size());
+				System.out.println();
+				return step;
+			}
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>Step " + (step++) + ":</b> Open " + App_Display_Name + " plan dropdown and search plan.");
+			System.out.println("Step " + (step - 1) + ": Open " + App_Display_Name + " plan dropdown and search plan.");
+			System.out.println("🟨 Debug: App = " + App_Display_Name + " | Plan Dropdown Index = " + i
+					+ " | Dropdown Holder Index = " + Dropdown_Holder_Index + " | Plan Name = " + Current_Plan_Name);
+
+			WebElement Plan_select_field = Plan_Select.get(i);
+			rp.movetoelement(Plan_select_field);
+			Plan_select_field.click();
+			Plan_Input_Field.sendKeys(Current_Plan_Name);
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> " + App_Display_Name
+					+ " plan search field used and plan name entered = " + Current_Plan_Name);
+			System.out.println("🟨 Actual: " + App_Display_Name + " plan search field used and plan name entered = "
+					+ Current_Plan_Name);
+
+			WebElement Dropdown_List = d.findElement(
+					By.xpath("(//*[contains(@class,'rc-virtual-list-holder')])[" + Dropdown_Holder_Index + "]"));
+			rp.wait_for_theElement(Dropdown_List);
+			Thread.sleep(800);
+			rp.movetoelement(Dropdown_List);
+
+			List<WebElement> plan_options = Dropdown_List
+					.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+			System.out.println("🟨 Debug: " + App_Display_Name + " plan option count after search = "
+					+ plan_options.size() + " | Searched Plan = " + Current_Plan_Name);
+
+			if (plan_options.size() > 0) {
+				plan_options.get(0).click();
+				Report_Listen.log_print_in_report().log(Status.INFO,
+						"<b>🟨 Actual:</b> " + App_Display_Name + " plan selected successfully = " + Current_Plan_Name);
+				System.out.println(
+						"🟨 Actual: " + App_Display_Name + " plan selected successfully = " + Current_Plan_Name);
+			} else {
+				Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> No plan option found for "
+						+ App_Display_Name + " after searching plan = " + Current_Plan_Name);
+				System.out.println("❌ Actual: No plan option found for " + App_Display_Name + " after searching plan = "
+						+ Current_Plan_Name);
+				System.out.println();
+				return step;
+			}
+			System.out.println();
+		}
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🔢 APP LIMITS ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 🔢 APP LIMITS ━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Enter limit/user value for assigned app plans.");
+		System.out.println("Step " + (step - 1) + ": Enter limit/user value for assigned app plans.");
+		System.out.println(
+				"🟨 Debug: Limit/user value will be entered for Apps = " + Apps_To_Assign + " | Value = " + Users);
+
+		for (String Current_App : Apps_To_Assign) {
+
+			String App_Display_Name = "";
+			WebElement Limit_Field = null;
+			String Field_Name = "";
+
+			if (Current_App.equals("hr")) {
+				App_Display_Name = "Simplified HR";
+				Limit_Field = p.hr_number_of_users_input_field();
+				Field_Name = "Number of Users";
+			}
+			if (Current_App.equals("checkout")) {
+				App_Display_Name = "Simplified Checkout";
+				Limit_Field = p.checkout_number_of_shared_instances_input_field();
+				Field_Name = "Shared Instances";
+			}
+			if (Current_App.equals("hire")) {
+				App_Display_Name = "Simplified Hire";
+				Limit_Field = p.hire_number_of_users_input_field();
+				Field_Name = "Number of Users";
+			}
+			if (Current_App.equals("spaces")) {
+				App_Display_Name = "Simplified Spaces";
+				Limit_Field = p.spaces_number_of_locations_input_field();
+				Field_Name = "Number of Locations";
+			}
+
+			Limit_Field.sendKeys(Users);
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> " + App_Display_Name + " "
+					+ Field_Name + " field filled successfully. Value = " + Users);
+			System.out.println("🟨 Actual: " + App_Display_Name + " " + Field_Name
+					+ " field filled successfully. Value = " + Users);
+		}
+
+		Report_Listen.log_print_in_report().log(Status.PASS,
+				"<b>✅ Actual:</b> App plan assignment completed successfully. App Name = " + App_Name + " | App Type = "
+						+ App_Type + " | Assigned Apps = " + Apps_To_Assign + " | Entered Value = " + Users);
+		System.out.println("✅ Actual: App plan assignment completed successfully. App Name = " + App_Name
+				+ " | App Type = " + App_Type + " | Assigned Apps = " + Apps_To_Assign + " | Entered Value = " + Users);
+		System.out.println();
+
+		return step;
+	}
+
+	
+	
+@DataProvider
+public Object[][] Account_Create_Data() {
+
+	TreeMap<String, String> data1 = new TreeMap<String, String>();
+	data1.put("First Name", "Alwin");
+	data1.put("Middle Name", "Casimir");
+	data1.put("Last Name", "Kaffenberger");
+	data1.put("Company Name", "Kaffenberger Integrated SaaS GmbH");
+	data1.put("Country", "Germany");
+	data1.put("Email", "alwin.casimir.kaffenberger.account346@yopmail.com");
+	data1.put("Subscribe News", "Yes");
+	data1.put("Country Code", "+49");
+	data1.put("Phone Number", "15764029381");
+	data1.put("App Type", "all");
+	data1.put("App Name", "Simplified Checkout, Simplified Spaces, Simplified HR, Simplified Hire");
+	data1.put("App Enabled", "Yes");
+	data1.put("Checkout Plan Name", "Ayan Monthly Checkout Business Plan");
+	data1.put("Spaces Plan Name", "Ayan Monthly Spaces Business Plan");
+	data1.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
+	data1.put("Hr Plan Name", "Ayan Monthly HR Business Plan");
+	data1.put("Users", "54");
+	data1.put("Group", "Gold II");
+	data1.put("Account Manager", "Ayan Test Manager");
+	data1.put("Staff Notes", "Creating this Germany-based all app account to validate monthly Checkout, Spaces, Hire, and HR plans with newsletter subscription, user allocation, group selection, and account manager mapping.");
+
+	TreeMap<String, String> data2 = new TreeMap<String, String>();
+	data2.put("First Name", "Zelie");
+	data2.put("Middle Name", "Constance");
+	data2.put("Last Name", "Aubertin");
+	data2.put("Company Name", "Aubertin Checkout Advisory SAS");
+	data2.put("Country", "France");
+	data2.put("Email", "zelie.constance.aubertin.account347@yopmail.com");
+	data2.put("Subscribe News", "No");
+	data2.put("Country Code", "+33");
+	data2.put("Phone Number", "741682935");
+	data2.put("App Type", "checkout");
+	data2.put("App Name", "Simplified Checkout");
+	data2.put("App Enabled", "Yes");
+	data2.put("Plan Name", "Ayan Yearly Checkout Enterprise Plan");
+	data2.put("Users", "28");
+	data2.put("Group", "Diamond");
+	data2.put("Account Manager", "Ayan Test Manager");
+	data2.put("Staff Notes", "Testing this France-based Checkout account with the yearly enterprise plan, newsletter disabled state, user allocation, Diamond group selection, and newly generated customer contact details.");
+
+	TreeMap<String, String> data3 = new TreeMap<String, String>();
+	data3.put("First Name", "Torgeir");
+	data3.put("Middle Name", "Halvdan");
+	data3.put("Last Name", "Myklebust");
+	data3.put("Company Name", "Myklebust Unified Operations AS");
+	data3.put("Country", "Norway");
+	data3.put("Email", "torgeir.halvdan.myklebust.account348@yopmail.com");
+	data3.put("Subscribe News", "Yes");
+	data3.put("Country Code", "+47");
+	data3.put("Phone Number", "47512863");
+	data3.put("App Type", "all");
+	data3.put("App Name", "Simplified Checkout, Simplified Spaces, Simplified HR, Simplified Hire");
+	data3.put("App Enabled", "Yes");
+	data3.put("Checkout Plan Name", "AYan 5 day billing plan");
+	data3.put("Spaces Plan Name", "Ayan Weekly Spaces Growth Plan");
+	data3.put("Hire Plan Name", "Ayan Custom Weeks Hire Flex Plan");
+	data3.put("Hr Plan Name", "Ayan Yearly HR Enterprise Plan");
+	data3.put("Users", "63");
+	data3.put("Group", "Silver");
+	data3.put("Account Manager", "Ayan Test Manager");
+	data3.put("Staff Notes", "Validating this Norway-based all app account with five-day Checkout billing, weekly Spaces, custom-weeks Hire, and yearly HR plans together with newsletter subscription, user allocation, and group mapping.");
+
+	TreeMap<String, String> data4 = new TreeMap<String, String>();
+	data4.put("First Name", "Leonzio");
+	data4.put("Middle Name", "Arturo");
+	data4.put("Last Name", "Casagrande");
+	data4.put("Company Name", "Casagrande Workspace Management SRL");
+	data4.put("Country", "Italy");
+	data4.put("Email", "leonzio.arturo.casagrande.account349@yopmail.com");
+	data4.put("Subscribe News", "No");
+	data4.put("Country Code", "+39");
+	data4.put("Phone Number", "3526409187");
+	data4.put("App Type", "spaces");
+	data4.put("App Name", "Simplified Spaces");
+	data4.put("App Enabled", "Yes");
+	data4.put("Plan Name", "Ayan New Professional Diamond Plan");
+	data4.put("Users", "38");
+	data4.put("Group", "Gold");
+	data4.put("Account Manager", "Ayan Test Manager");
+	data4.put("Staff Notes", "Creating this Italy-based Spaces account to verify professional plan assignment, newsletter disabled state, user allocation, Gold group selection, and staff note storage.");
+
+	TreeMap<String, String> data5 = new TreeMap<String, String>();
+	data5.put("First Name", "Bertram");
+	data5.put("Middle Name", "Osric");
+	data5.put("Last Name", "Weatherford");
+	data5.put("Company Name", "Weatherford Multi Application Services Ltd");
+	data5.put("Country", "United Kingdom");
+	data5.put("Email", "bertram.osric.weatherford.account350@yopmail.com");
+	data5.put("Subscribe News", "Yes");
+	data5.put("Country Code", "+44");
+	data5.put("Phone Number", "7468201953");
+	data5.put("App Type", "all");
+	data5.put("App Name", "Simplified Checkout, Simplified Spaces, Simplified HR, Simplified Hire");
+	data5.put("App Enabled", "Yes");
+	data5.put("Checkout Plan Name", "5 Days Checkout Plan");
+	data5.put("Spaces Plan Name", "Ayan Yearly Spaces Enterprise Plan");
+	data5.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
+	data5.put("Hr Plan Name", "Ayan Yearly HR Enterprise Plan");
+	data5.put("Users", "82");
+	data5.put("Group", "Gold II");
+	data5.put("Account Manager", "Ayan Test Manager");
+	data5.put("Staff Notes", "Testing this UK-based all app account with five-day Checkout, yearly Spaces, custom-months Hire, and yearly HR plans together with newsletter subscription, users value, and Gold II group selection.");
+
+	TreeMap<String, String> data6 = new TreeMap<String, String>();
+	data6.put("First Name", "Madelief");
+	data6.put("Middle Name", "Corine");
+	data6.put("Last Name", "Van Zuylen");
+	data6.put("Company Name", "Van Zuylen Employee Systems BV");
+	data6.put("Country", "Netherlands");
+	data6.put("Email", "madelief.corine.vanzuylen.account351@yopmail.com");
+	data6.put("Subscribe News", "No");
+	data6.put("Country Code", "+31");
+	data6.put("Phone Number", "682460917");
+	data6.put("App Type", "hr");
+	data6.put("App Name", "Simplified HR");
+	data6.put("App Enabled", "Yes");
+	data6.put("Plan Name", "Ayan Custom Days HR Flex Plan");
+	data6.put("Users", "48");
+	data6.put("Group", "Diamond");
+	data6.put("Account Manager", "Ayan Test Manager");
+	data6.put("Staff Notes", "Creating this Netherlands-based HR account to validate the custom-days HR plan, newsletter disabled state, user allocation, Diamond group assignment, and account manager mapping.");
+
+	TreeMap<String, String> data7 = new TreeMap<String, String>();
+	data7.put("First Name", "Hartmann");
+	data7.put("Middle Name", "Alois");
+	data7.put("Last Name", "Eberharter");
+	data7.put("Company Name", "Eberharter Complete Business GmbH");
+	data7.put("Country", "Austria");
+	data7.put("Email", "hartmann.alois.eberharter.account352@yopmail.com");
+	data7.put("Subscribe News", "Yes");
+	data7.put("Country Code", "+43");
+	data7.put("Phone Number", "6772409168");
+	data7.put("App Type", "all");
+	data7.put("App Name", "Simplified Checkout, Simplified Spaces, Simplified HR, Simplified Hire");
+	data7.put("App Enabled", "Yes");
+	data7.put("Checkout Plan Name", "Ayan checkout weekly Starter");
+	data7.put("Spaces Plan Name", "Ayan Daily Spaces Starter Plan");
+	data7.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
+	data7.put("Hr Plan Name", "Ayan Weekly HR Growth Plan");
+	data7.put("Users", "60");
+	data7.put("Group", "Silver");
+	data7.put("Account Manager", "Ayan Test Manager");
+	data7.put("Staff Notes", "Testing this Austria-based all app account with weekly Checkout, daily Spaces, monthly Hire, and weekly HR plans together with newsletter subscription, users value, and Silver group validation.");
+
+	TreeMap<String, String> data8 = new TreeMap<String, String>();
+	data8.put("First Name", "Jaroslawa");
+	data8.put("Middle Name", "Dagmara");
+	data8.put("Last Name", "Milewska");
+	data8.put("Company Name", "Milewska Recruitment Platforms Sp z oo");
+	data8.put("Country", "Poland");
+	data8.put("Email", "jaroslawa.dagmara.milewska.account353@yopmail.com");
+	data8.put("Subscribe News", "No");
+	data8.put("Country Code", "+48");
+	data8.put("Phone Number", "513680294");
+	data8.put("App Type", "hire");
+	data8.put("App Name", "Simplified Hire");
+	data8.put("App Enabled", "Yes");
+	data8.put("Plan Name", "Ayan Custom Weeks Hire Flex Plan");
+	data8.put("Users", "47");
+	data8.put("Group", "Gold");
+	data8.put("Account Manager", "Ayan Test Manager");
+	data8.put("Staff Notes", "Creating this Poland-based Hire account to validate the custom-weeks Hire plan, newsletter disabled state, user allocation, Gold group assignment, and account manager mapping.");
+
+	TreeMap<String, String> data9 = new TreeMap<String, String>();
+	data9.put("First Name", "Faustino");
+	data9.put("Middle Name", "Inaki");
+	data9.put("Last Name", "Cervera");
+	data9.put("Company Name", "Cervera Enterprise Operations SL");
+	data9.put("Country", "Spain");
+	data9.put("Email", "faustino.inaki.cervera.account354@yopmail.com");
+	data9.put("Subscribe News", "Yes");
+	data9.put("Country Code", "+34");
+	data9.put("Phone Number", "632406918");
+	data9.put("App Type", "all");
+	data9.put("App Name", "Simplified Checkout, Simplified Spaces, Simplified HR, Simplified Hire");
+	data9.put("App Enabled", "Yes");
+	data9.put("Checkout Plan Name", "Ayan checkout weekly Pro");
+	data9.put("Spaces Plan Name", "Ayan Monthly Spaces Business Plan");
+	data9.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
+	data9.put("Hr Plan Name", "Ayan Monthly HR Business Plan");
+	data9.put("Users", "75");
+	data9.put("Group", "Gold II");
+	data9.put("Account Manager", "Ayan Test Manager");
+	data9.put("Staff Notes", "Verifying this Spain-based all app account with weekly Checkout, monthly Spaces, custom-months Hire, and monthly HR plans along with newsletter subscription, user allocation, and Gold II group selection.");
+
+	TreeMap<String, String> data10 = new TreeMap<String, String>();
+	data10.put("First Name", "Nives");
+	data10.put("Middle Name", "Corina");
+	data10.put("Last Name", "Haldimann");
+	data10.put("Company Name", "Haldimann Checkout Platforms AG");
+	data10.put("Country", "Switzerland");
+	data10.put("Email", "nives.corina.haldimann.account355@yopmail.com");
+	data10.put("Subscribe News", "No");
+	data10.put("Country Code", "+41");
+	data10.put("Phone Number", "764820193");
+	data10.put("App Type", "checkout");
+	data10.put("App Name", "Simplified Checkout");
+	data10.put("App Enabled", "Yes");
+	data10.put("Plan Name", "Ayan Monthly Checkout Business Plan");
+	data10.put("Users", "34");
+	data10.put("Group", "Diamond");
+	data10.put("Account Manager", "Ayan Test Manager");
+	data10.put("Staff Notes", "Creating this Switzerland-based Checkout account to validate the monthly business plan, newsletter disabled condition, user allocation, Diamond group selection, and staff note capture.");
+
+	TreeMap<String, String> data11 = new TreeMap<String, String>();
+	data11.put("First Name", "Algot");
+	data11.put("Middle Name", "Edvin");
+	data11.put("Last Name", "Lindroth");
+	data11.put("Company Name", "Lindroth Unified People Systems AB");
+	data11.put("Country", "Sweden");
+	data11.put("Email", "algot.edvin.lindroth.account356@yopmail.com");
+	data11.put("Subscribe News", "Yes");
+	data11.put("Country Code", "+46");
+	data11.put("Phone Number", "706820193");
+	data11.put("App Type", "all");
+	data11.put("App Name", "Simplified Checkout, Simplified Spaces, Simplified HR, Simplified Hire");
+	data11.put("App Enabled", "Yes");
+	data11.put("Checkout Plan Name", "Ayan Yearly Checkout Enterprise Plan");
+	data11.put("Spaces Plan Name", "Ayan Weekly Spaces Growth Plan");
+	data11.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
+	data11.put("Hr Plan Name", "Ayan Weekly HR Growth Plan");
+	data11.put("Users", "59");
+	data11.put("Group", "Silver");
+	data11.put("Account Manager", "Ayan Test Manager");
+	data11.put("Staff Notes", "Testing this Sweden-based all app account with yearly Checkout, weekly Spaces, monthly Hire, and weekly HR plans together with newsletter subscription, users value, and Silver group mapping.");
+
+	TreeMap<String, String> data12 = new TreeMap<String, String>();
+	data12.put("First Name", "Ondine");
+	data12.put("Middle Name", "Clemencia");
+	data12.put("Last Name", "Rousselot");
+	data12.put("Company Name", "Rousselot Flexible Workspace SAS");
+	data12.put("Country", "France");
+	data12.put("Email", "ondine.clemencia.rousselot.account357@yopmail.com");
+	data12.put("Subscribe News", "No");
+	data12.put("Country Code", "+33");
+	data12.put("Phone Number", "758640291");
+	data12.put("App Type", "spaces");
+	data12.put("App Name", "Simplified Spaces");
+	data12.put("App Enabled", "Yes");
+	data12.put("Plan Name", "Ayan Daily Spaces Starter Plan");
+	data12.put("Users", "32");
+	data12.put("Group", "Gold");
+	data12.put("Account Manager", "Ayan Test Manager");
+	data12.put("Staff Notes", "Creating this France-based Spaces account to validate the daily starter plan, newsletter disabled condition, user allocation, Gold group selection, and newly generated contact details.");
+
+	TreeMap<String, String> data13 = new TreeMap<String, String>();
+	data13.put("First Name", "Ilario");
+	data13.put("Middle Name", "Augusto");
+	data13.put("Last Name", "Benvenuti");
+	data13.put("Company Name", "Benvenuti Enterprise SaaS SRL");
+	data13.put("Country", "Italy");
+	data13.put("Email", "ilario.augusto.benvenuti.account358@yopmail.com");
+	data13.put("Subscribe News", "Yes");
+	data13.put("Country Code", "+39");
+	data13.put("Phone Number", "3496208175");
+	data13.put("App Type", "all");
+	data13.put("App Name", "Simplified Checkout, Simplified Spaces, Simplified HR, Simplified Hire");
+	data13.put("App Enabled", "Yes");
+	data13.put("Checkout Plan Name", "AYan 5 day billing plan");
+	data13.put("Spaces Plan Name", "Ayan New Professional Diamond Plan");
+	data13.put("Hire Plan Name", "Ayan Custom Weeks Hire Flex Plan");
+	data13.put("Hr Plan Name", "Ayan Custom Days HR Flex Plan");
+	data13.put("Users", "68");
+	data13.put("Group", "Gold II");
+	data13.put("Account Manager", "Ayan Test Manager");
+	data13.put("Staff Notes", "Validating this Italy-based all app account with five-day Checkout, professional Spaces, custom-weeks Hire, and custom-days HR plans, including users value and newsletter subscription.");
+
+	TreeMap<String, String> data14 = new TreeMap<String, String>();
+	data14.put("First Name", "Rijk");
+	data14.put("Middle Name", "Florent");
+	data14.put("Last Name", "Van Aken");
+	data14.put("Company Name", "Van Aken Human Resources BV");
+	data14.put("Country", "Netherlands");
+	data14.put("Email", "rijk.florent.vanaken.account359@yopmail.com");
+	data14.put("Subscribe News", "No");
+	data14.put("Country Code", "+31");
+	data14.put("Phone Number", "687260914");
+	data14.put("App Type", "hr");
+	data14.put("App Name", "Simplified HR");
+	data14.put("App Enabled", "Yes");
+	data14.put("Plan Name", "Ayan Daily HR Starter Plan");
+	data14.put("Users", "45");
+	data14.put("Group", "Diamond");
+	data14.put("Account Manager", "Ayan Test Manager");
+	data14.put("Staff Notes", "Testing this Netherlands-based HR account with the daily starter plan, newsletter disabled state, user allocation, Diamond group assignment, and internal staff notes.");
+
+	TreeMap<String, String> data15 = new TreeMap<String, String>();
+	data15.put("First Name", "Dacian");
+	data15.put("Middle Name", "Ionut");
+	data15.put("Last Name", "Serbanescu");
+	data15.put("Company Name", "Serbanescu Unified Business SRL");
+	data15.put("Country", "Romania");
+	data15.put("Email", "dacian.ionut.serbanescu.account360@yopmail.com");
+	data15.put("Subscribe News", "Yes");
+	data15.put("Country Code", "+40");
+	data15.put("Phone Number", "735620894");
+	data15.put("App Type", "all");
+	data15.put("App Name", "Simplified Checkout, Simplified Spaces, Simplified HR, Simplified Hire");
+	data15.put("App Enabled", "Yes");
+	data15.put("Checkout Plan Name", "5 Days Checkout Plan");
+	data15.put("Spaces Plan Name", "Ayan Monthly Spaces Business Plan");
+	data15.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
+	data15.put("Hr Plan Name", "Ayan Monthly HR Business Plan");
+	data15.put("Users", "83");
+	data15.put("Group", "Silver");
+	data15.put("Account Manager", "Ayan Test Manager");
+	data15.put("Staff Notes", "Creating this Romania-based all app account with five-day Checkout and monthly Spaces, Hire, and HR plans, including newsletter subscription, user allocation, and Silver group selection.");
+
+	TreeMap<String, String> data16 = new TreeMap<String, String>();
+	data16.put("First Name", "Lechoslawa");
+	data16.put("Middle Name", "Cecylia");
+	data16.put("Last Name", "Urbanska");
+	data16.put("Company Name", "Urbanska Talent Management Sp z oo");
+	data16.put("Country", "Poland");
+	data16.put("Email", "lechoslawa.cecylia.urbanska.account361@yopmail.com");
+	data16.put("Subscribe News", "No");
+	data16.put("Country Code", "+48");
+	data16.put("Phone Number", "519680243");
+	data16.put("App Type", "hire");
+	data16.put("App Name", "Simplified Hire");
+	data16.put("App Enabled", "Yes");
+	data16.put("Plan Name", "Ayan Custom Months Hire Premium Plan");
+	data16.put("Users", "49");
+	data16.put("Group", "Gold");
+	data16.put("Account Manager", "Ayan Test Manager");
+	data16.put("Staff Notes", "Creating this Poland-based Hire account to verify the custom-months premium plan, newsletter disabled state, user allocation, Gold group mapping, and account manager assignment.");
+
+	TreeMap<String, String> data17 = new TreeMap<String, String>();
+	data17.put("First Name", "Thaddeus");
+	data17.put("Middle Name", "Crispian");
+	data17.put("Last Name", "Everleigh");
+	data17.put("Company Name", "Everleigh Multi Product Services Ltd");
+	data17.put("Country", "United Kingdom");
+	data17.put("Email", "thaddeus.crispian.everleigh.account362@yopmail.com");
+	data17.put("Subscribe News", "Yes");
+	data17.put("Country Code", "+44");
+	data17.put("Phone Number", "7526409183");
+	data17.put("App Type", "all");
+	data17.put("App Name", "Simplified Checkout, Simplified Spaces, Simplified HR, Simplified Hire");
+	data17.put("App Enabled", "Yes");
+	data17.put("Checkout Plan Name", "Ayan checkout weekly Starter");
+	data17.put("Spaces Plan Name", "Ayan Yearly Spaces Enterprise Plan");
+	data17.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
+	data17.put("Hr Plan Name", "Ayan HR New Weekly Plan");
+	data17.put("Users", "66");
+	data17.put("Group", "Gold II");
+	data17.put("Account Manager", "Ayan Test Manager");
+	data17.put("Staff Notes", "Testing this UK-based all app account with weekly Checkout, yearly Spaces, custom-months Hire, and weekly HR plans together with newsletter subscription, users value, and Gold II group selection.");
+
+	TreeMap<String, String> data18 = new TreeMap<String, String>();
+	data18.put("First Name", "Torgrim");
+	data18.put("Middle Name", "Asmund");
+	data18.put("Last Name", "Fjelstad");
+	data18.put("Company Name", "Fjelstad Complete Operations AS");
+	data18.put("Country", "Norway");
+	data18.put("Email", "torgrim.asmund.fjelstad.account363@yopmail.com");
+	data18.put("Subscribe News", "No");
+	data18.put("Country Code", "+47");
+	data18.put("Phone Number", "47812065");
+	data18.put("App Type", "all");
+	data18.put("App Name", "Simplified Checkout, Simplified Spaces, Simplified HR, Simplified Hire");
+	data18.put("App Enabled", "Yes");
+	data18.put("Checkout Plan Name", "Ayan checkout weekly Pro");
+	data18.put("Spaces Plan Name", "Ayan Daily Spaces Starter Plan");
+	data18.put("Hire Plan Name", "Ayan Custom Weeks Hire Flex Plan");
+	data18.put("Hr Plan Name", "Ayan Daily HR Starter Plan");
+	data18.put("Users", "51");
+	data18.put("Group", "Diamond");
+	data18.put("Account Manager", "Ayan Test Manager");
+	data18.put("Staff Notes", "Creating this Norway-based all app account with weekly Checkout, daily Spaces, custom-weeks Hire, and daily HR plans, newsletter disabled state, users value, and Diamond group selection.");
+
+	TreeMap<String, String> data19 = new TreeMap<String, String>();
+	data19.put("First Name", "Emmeran");
+	data19.put("Middle Name", "Silvester");
+	data19.put("Last Name", "Grafenauer");
+	data19.put("Company Name", "Grafenauer Enterprise Platforms GmbH");
+	data19.put("Country", "Germany");
+	data19.put("Email", "emmeran.silvester.grafenauer.account364@yopmail.com");
+	data19.put("Subscribe News", "Yes");
+	data19.put("Country Code", "+49");
+	data19.put("Phone Number", "15264091837");
+	data19.put("App Type", "all");
+	data19.put("App Name", "Simplified Checkout, Simplified Spaces, Simplified HR, Simplified Hire");
+	data19.put("App Enabled", "Yes");
+	data19.put("Checkout Plan Name", "Ayan Monthly Checkout Business Plan");
+	data19.put("Spaces Plan Name", "Ayan Weekly Spaces Growth Plan");
+	data19.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
+	data19.put("Hr Plan Name", "Ayan Weekly HR Growth Plan");
+	data19.put("Users", "77");
+	data19.put("Group", "Silver");
+	data19.put("Account Manager", "Ayan Test Manager");
+	data19.put("Staff Notes", "Validating this Germany-based all app account with monthly Checkout, weekly Spaces, custom-months Hire, and weekly HR plans together with newsletter subscription and user allocation.");
+
+	TreeMap<String, String> data20 = new TreeMap<String, String>();
+	data20.put("First Name", "Mirette");
+	data20.put("Middle Name", "Celandine");
+	data20.put("Last Name", "Vercors");
+	data20.put("Company Name", "Vercors Enterprise Coordination SAS");
+	data20.put("Country", "France");
+	data20.put("Email", "mirette.celandine.vercors.account365@yopmail.com");
+	data20.put("Subscribe News", "No");
+	data20.put("Country Code", "+33");
+	data20.put("Phone Number", "763820491");
+	data20.put("App Type", "all");
+	data20.put("App Name", "Simplified Checkout, Simplified Spaces, Simplified HR, Simplified Hire");
+	data20.put("App Enabled", "Yes");
+	data20.put("Checkout Plan Name", "Ayan Yearly Checkout Enterprise Plan");
+	data20.put("Spaces Plan Name", "Ayan New Professional Diamond Plan");
+	data20.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
+	data20.put("Hr Plan Name", "Ayan Custom Days HR Flex Plan");
+	data20.put("Users", "61");
+	data20.put("Group", "Gold");
+	data20.put("Account Manager", "Ayan Test Manager");
+	data20.put("Staff Notes", "Creating this France-based all app account with yearly Checkout, professional Spaces, monthly Hire, and custom-days HR plans, newsletter disabled state, users value, and Gold group selection.");
+
+	TreeMap<String, String> data21 = new TreeMap<String, String>();
+	data21.put("First Name", "Ruy");
+	data21.put("Middle Name", "Celso");
+	data21.put("Last Name", "Echeverri");
+	data21.put("Company Name", "Echeverri Integrated Business SL");
+	data21.put("Country", "Spain");
+	data21.put("Email", "ruy.celso.echeverri.account366@yopmail.com");
+	data21.put("Subscribe News", "Yes");
+	data21.put("Country Code", "+34");
+	data21.put("Phone Number", "635420918");
+	data21.put("App Type", "all");
+	data21.put("App Name", "Simplified Checkout, Simplified Spaces, Simplified HR, Simplified Hire");
+	data21.put("App Enabled", "Yes");
+	data21.put("Checkout Plan Name", "AYan 5 day billing plan");
+	data21.put("Spaces Plan Name", "Ayan Monthly Spaces Business Plan");
+	data21.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
+	data21.put("Hr Plan Name", "Ayan Yearly HR Enterprise Plan");
+	data21.put("Users", "71");
+	data21.put("Group", "Gold II");
+	data21.put("Account Manager", "Ayan Test Manager");
+	data21.put("Staff Notes", "Testing this Spain-based all app account with five-day Checkout, monthly Spaces, custom-months Hire, and yearly HR plans, newsletter subscription, user allocation, and Gold II group selection.");
+
+	TreeMap<String, String> data22 = new TreeMap<String, String>();
+	data22.put("First Name", "Tullio");
+	data22.put("Middle Name", "Lazzaro");
+	data22.put("Last Name", "Ferretti");
+	data22.put("Company Name", "Ferretti Complete SaaS SRL");
+	data22.put("Country", "Italy");
+	data22.put("Email", "tullio.lazzaro.ferretti.account367@yopmail.com");
+	data22.put("Subscribe News", "No");
+	data22.put("Country Code", "+39");
+	data22.put("Phone Number", "3476209185");
+	data22.put("App Type", "all");
+	data22.put("App Name", "Simplified Checkout, Simplified Spaces, Simplified HR, Simplified Hire");
+	data22.put("App Enabled", "Yes");
+	data22.put("Checkout Plan Name", "5 Days Checkout Plan");
+	data22.put("Spaces Plan Name", "Ayan Yearly Spaces Enterprise Plan");
+	data22.put("Hire Plan Name", "Ayan Custom Weeks Hire Flex Plan");
+	data22.put("Hr Plan Name", "Ayan Monthly HR Business Plan");
+	data22.put("Users", "57");
+	data22.put("Group", "Diamond");
+	data22.put("Account Manager", "Ayan Test Manager");
+	data22.put("Staff Notes", "Creating this Italy-based all app account with five-day Checkout, yearly Spaces, custom-weeks Hire, and monthly HR plans, newsletter disabled state, users value, and Diamond group selection.");
+
+	TreeMap<String, String> data23 = new TreeMap<String, String>();
+	data23.put("First Name", "Ysaline");
+	data23.put("Middle Name", "Marlies");
+	data23.put("Last Name", "Zumbrunnen");
+	data23.put("Company Name", "Zumbrunnen Checkout Solutions AG");
+	data23.put("Country", "Switzerland");
+	data23.put("Email", "ysaline.marlies.zumbrunnen.account368@yopmail.com");
+	data23.put("Subscribe News", "Yes");
+	data23.put("Country Code", "+41");
+	data23.put("Phone Number", "769520184");
+	data23.put("App Type", "checkout");
+	data23.put("App Name", "Simplified Checkout");
+	data23.put("App Enabled", "Yes");
+	data23.put("Plan Name", "Ayan checkout weekly Starter");
+	data23.put("Users", "31");
+	data23.put("Group", "Silver");
+	data23.put("Account Manager", "Ayan Test Manager");
+	data23.put("Staff Notes", "Testing this Switzerland-based Checkout account with the weekly starter plan, newsletter subscription, user allocation, Silver group assignment, and account manager mapping.");
+
+	TreeMap<String, String> data24 = new TreeMap<String, String>();
+	data24.put("First Name", "Meindert");
+	data24.put("Middle Name", "Douwe");
+	data24.put("Last Name", "Van Ommen");
+	data24.put("Company Name", "Van Ommen Workspace Operations BV");
+	data24.put("Country", "Netherlands");
+	data24.put("Email", "meindert.douwe.vanommen.account369@yopmail.com");
+	data24.put("Subscribe News", "No");
+	data24.put("Country Code", "+31");
+	data24.put("Phone Number", "689420175");
+	data24.put("App Type", "spaces");
+	data24.put("App Name", "Simplified Spaces");
+	data24.put("App Enabled", "Yes");
+	data24.put("Plan Name", "Ayan Weekly Spaces Growth Plan");
+	data24.put("Users", "40");
+	data24.put("Group", "Gold");
+	data24.put("Account Manager", "Ayan Test Manager");
+	data24.put("Staff Notes", "Creating this Netherlands-based Spaces account to validate the weekly growth plan, newsletter disabled state, user allocation, Gold group selection, and staff note entry.");
+
+	TreeMap<String, String> data25 = new TreeMap<String, String>();
+	data25.put("First Name", "Tindra");
+	data25.put("Middle Name", "Lovis");
+	data25.put("Last Name", "Fagerlund");
+	data25.put("Company Name", "Fagerlund Strategic Business Systems AB");
+	data25.put("Country", "Sweden");
+	data25.put("Email", "tindra.lovis.fagerlund.account370@yopmail.com");
+	data25.put("Subscribe News", "Yes");
+	data25.put("Country Code", "+46");
+	data25.put("Phone Number", "709620184");
+	data25.put("App Type", "all");
+	data25.put("App Name", "Simplified Checkout, Simplified Spaces, Simplified HR, Simplified Hire");
+	data25.put("App Enabled", "Yes");
+	data25.put("Checkout Plan Name", "Ayan checkout weekly Pro");
+	data25.put("Spaces Plan Name", "Ayan Daily Spaces Starter Plan");
+	data25.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
+	data25.put("Hr Plan Name", "Ayan Yearly HR Enterprise Plan");
+	data25.put("Users", "73");
+	data25.put("Group", "Gold II");
+	data25.put("Account Manager", "Ayan Test Manager");
+	data25.put("Staff Notes", "Validating this Sweden-based all app account with weekly Checkout, daily Spaces, monthly Hire, and yearly HR plans, including newsletter subscription, users value, and Gold II group selection.");
+
+	return new Object[][] { 
+		
+/*		{ data1 },
+		{ data2 },
+		{ data3 },
+		{ data4 },
+		{ data5 },*/
+		{ data6 },
+		{ data7 },
+		{ data8 },
+		{ data9 },
+		{ data10 },
+		{ data11 },
+		{ data12 },/*
+		{ data13 },
+		{ data14 },
+		{ data15 },
+		{ data16 },
+		{ data17 },
+		{ data18 },
+		{ data19 },
+		{ data20 },
+		{ data21 },
+		{ data22 },
+		{ data23 },
+		{ data24 },
+		{ data25 } */
+	};
+}
+
+	public TreeMap<String, String> Leads_Details_fetcher() throws IOException, InterruptedException {
+
+		Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+		Repeat rp = new Repeat(d);
+
+		TreeMap<String, String> lead_details = new TreeMap<String, String>();
+
+		int step = 1;
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Section:</b> Lead Details Validation");
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>📘 Description:</b> Open the lead details page and capture the available lead information before performing further lead actions.");
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>✅ Expected:</b> Lead details should be available and important lead field values should be captured successfully.");
+
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+		System.out.println("🔹 Scenario Section: Lead Details Validation");
+		System.out.println(
+				"📘 Description: Open the lead details page and capture the available lead information before performing further lead actions.");
+		System.out.println(
+				"✅ Expected: Lead details should be available and important lead field values should be captured successfully.");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+		System.out.println();
+
+		WebElement Approve_button;
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Validate whether the lead details page is already open.");
+		System.out.println("Step " + (step - 1) + ": Validate whether the lead details page is already open.");
+
+		try {
+			Approve_button = p.Leads_Approve_button();
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> Lead details page is already open and approval action is available.");
+			System.out.println("🟨 Actual: Lead details page is already open and approval action is available.");
+		} catch (Exception e) {
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> Lead details page was not open. Navigating to Leads module and opening the first lead details.");
+			System.out.println(
+					"🟨 Actual: Lead details page was not open. Navigating to Leads module and opening the first lead details.");
+
+			Saas_Admin_Menu_navigation("Leads");
+
+			try {
+				List<WebElement> loaders = p.Loader();
+				rp.wait_for_invisibilty_of_theElement(loaders);
+
+				Report_Listen.log_print_in_report().log(Status.INFO,
+						"<b>🟨 Actual:</b> Leads list loader disappeared successfully.");
+				System.out.println("🟨 Actual: Leads list loader disappeared successfully.");
+			} catch (Exception loaderException) {
+				Report_Listen.log_print_in_report().log(Status.INFO,
+						"<b>🟨 Actual:</b> Leads list loader was not displayed or already disappeared.");
+				System.out.println("🟨 Actual: Leads list loader was not displayed or already disappeared.");
+			}
+
+			list_threedot_dropdown_option_selector("View Lead");
+
+			try {
+				Approve_button = p.Leads_Approve_button();
+
+				Report_Listen.log_print_in_report().log(Status.INFO,
+						"<b>🟨 Actual:</b> Lead details page opened successfully from Leads list.");
+				System.out.println("🟨 Actual: Lead details page opened successfully from Leads list.");
+			} catch (Exception openLeadException) {
+
+				String errorMessage = "Lead details page did not open properly after selecting View Lead.";
+
+				Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure Point:</b> " + errorMessage
+						+ "<br><b>Exception:</b> " + openLeadException.getMessage());
+				System.out.println("❌ Failure Point: " + errorMessage);
+				System.out.println("Exception Reason: " + openLeadException.getMessage());
+				openLeadException.printStackTrace();
+				System.out.println();
+
+				throw new RuntimeException(errorMessage, openLeadException);
+			}
+		}
+		System.out.println();
+
+		Thread.sleep(1200);
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Fetch lead detail labels.");
+		System.out.println("Step " + (step - 1) + ": Fetch lead detail labels.");
+
+		List<WebElement> Labels;
+
+		try {
+			Labels = p.Labels();
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> Lead detail labels fetched successfully. Label count = " + Labels.size());
+			System.out.println("🟨 Actual: Lead detail labels fetched successfully. Label count = " + Labels.size());
+		} catch (Exception e) {
+
+			Report_Listen.log_print_in_report().log(Status.WARNING,
+					"<b>⚠ Retry:</b> Lead detail labels were not ready. Retrying once.");
+			System.out.println("⚠ Retry: Lead detail labels were not ready. Retrying once.");
+
+			try {
+				Thread.sleep(1000);
+				Labels = p.Labels();
+
+				Report_Listen.log_print_in_report().log(Status.INFO,
+						"<b>🟨 Actual:</b> Lead detail labels fetched successfully after retry. Label count = "
+								+ Labels.size());
+				System.out.println("🟨 Actual: Lead detail labels fetched successfully after retry. Label count = "
+						+ Labels.size());
+			} catch (Exception retryEx) {
+
+				String errorMessage = "Lead detail labels could not be fetched from lead details page.";
+
+				Report_Listen.log_print_in_report().log(Status.FAIL,
+						"<b>❌ Failure Point:</b> " + errorMessage + "<br><b>Exception:</b> " + retryEx.getMessage());
+				System.out.println("❌ Failure Point: " + errorMessage);
+				System.out.println("Exception Reason: " + retryEx.getMessage());
+				retryEx.printStackTrace();
+				System.out.println();
+
+				throw new RuntimeException(errorMessage, retryEx);
+			}
+		}
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Fetch lead detail values.");
+		System.out.println("Step " + (step - 1) + ": Fetch lead detail values.");
+
+		List<WebElement> Values;
+
+		try {
+			Values = p.values();
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> Lead detail values fetched successfully. Value count = " + Values.size());
+			System.out.println("🟨 Actual: Lead detail values fetched successfully. Value count = " + Values.size());
+		} catch (Exception e) {
+
+			Report_Listen.log_print_in_report().log(Status.WARNING,
+					"<b>⚠ Retry:</b> Lead detail values were not ready. Retrying once.");
+			System.out.println("⚠ Retry: Lead detail values were not ready. Retrying once.");
+
+			try {
+				Thread.sleep(1000);
+				Values = p.values();
+
+				Report_Listen.log_print_in_report().log(Status.INFO,
+						"<b>🟨 Actual:</b> Lead detail values fetched successfully after retry. Value count = "
+								+ Values.size());
+				System.out.println("🟨 Actual: Lead detail values fetched successfully after retry. Value count = "
+						+ Values.size());
+			} catch (Exception retryEx) {
+
+				String errorMessage = "Lead detail values could not be fetched from lead details page.";
+
+				Report_Listen.log_print_in_report().log(Status.FAIL,
+						"<b>❌ Failure Point:</b> " + errorMessage + "<br><b>Exception:</b> " + retryEx.getMessage());
+				System.out.println("❌ Failure Point: " + errorMessage);
+				System.out.println("Exception Reason: " + retryEx.getMessage());
+				retryEx.printStackTrace();
+				System.out.println();
+
+				throw new RuntimeException(errorMessage, retryEx);
+			}
+		}
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Capture available lead details.");
+		System.out.println("Step " + (step - 1) + ": Capture available lead details.");
+
+		int Label_Count = Labels.size();
+		int Value_Index = 0;
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Debug:</b> Lead label count = " + Labels.size() + " | Lead value count = " + Values.size());
+		System.out.println("🟨 Debug: Lead label count = " + Labels.size() + " | Lead value count = " + Values.size());
+		System.out.println();
+
+		for (int i = 0; i < Label_Count; i++) {
+
+			String label = Labels.get(i).getText().trim();
+
+			if (label.toLowerCase().contains("requested demo")) {
+
+				String tooltip_values = "";
+
+				try {
+
+					List<WebElement> cards = p.App_cards();
+
+					Report_Listen.log_print_in_report().log(Status.INFO,
+							"<b>🟨 Debug:</b> Requested Demo App icon/card count = " + cards.size());
+					System.out.println("🟨 Debug: Requested Demo App icon/card count = " + cards.size());
+
+					if (cards == null || cards.size() == 0) {
+
+						String errorMessage = "Requested Demo App cards/icons were not found on lead details page. Label = "
+								+ label;
+
+						Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure Point:</b> " + errorMessage);
+						System.out.println("❌ Failure Point: " + errorMessage);
+						System.out.println();
+
+						throw new IllegalStateException(errorMessage);
+					}
+
+					for (WebElement card : cards) {
+
+						rp.movetoelement(card);
+						Thread.sleep(800);
+
+						WebElement Tooltip = p.Visibile_tooltip();
+						String tooltip_text = Tooltip.getText().trim();
+
+						if (tooltip_text.length() > 0) {
+
+							if (tooltip_values.length() > 0) {
+								tooltip_values = tooltip_values + ", ";
+							}
+
+							tooltip_values = tooltip_values + tooltip_text;
+
+							Report_Listen.log_print_in_report().log(Status.INFO,
+									"<b>🟨 Debug:</b> Requested Demo App tooltip captured = " + tooltip_text);
+							System.out.println("🟨 Debug: Requested Demo App tooltip captured = " + tooltip_text);
+						}
+					}
+
+					if (tooltip_values.trim().length() == 0) {
+
+						String errorMessage = "Requested Demo App tooltip text was not captured even though app cards/icons were found. Card Count = "
+								+ cards.size() + " | Label = " + label;
+
+						Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure Point:</b> " + errorMessage);
+						System.out.println("❌ Failure Point: " + errorMessage);
+						System.out.println();
+
+						throw new IllegalStateException(errorMessage);
+					}
+
+					lead_details.put(label, tooltip_values);
+
+					Report_Listen.log_print_in_report().log(Status.INFO,
+							"<b>📌 Lead Detail:</b> " + label + " = " + tooltip_values);
+					System.out.println("📌 Lead Detail: " + label + " = " + tooltip_values);
+
+				} catch (Exception e) {
+
+					String errorMessage = "Failed to capture Requested Demo App tooltip values. Label = " + label;
+
+					Report_Listen.log_print_in_report().log(Status.FAIL,
+							"<b>❌ Failure Point:</b> " + errorMessage + "<br><b>Exception:</b> " + e.getMessage());
+					System.out.println("❌ Failure Point: " + errorMessage);
+					System.out.println("Exception Reason: " + e.getMessage());
+					e.printStackTrace();
+					System.out.println();
+
+					throw new RuntimeException(errorMessage, e);
+				}
+
+			} else {
+
+				if (Value_Index >= Values.size()) {
+
+					String errorMessage = "Lead value is missing for label. Label = " + label + " | Label Index = " + i
+							+ " | Current Value Index = " + Value_Index + " | Total Values = " + Values.size();
+
+					Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure Point:</b> " + errorMessage);
+					System.out.println("❌ Failure Point: " + errorMessage);
+					System.out.println();
+
+					throw new IllegalStateException(errorMessage);
+				}
+
+				String value = Values.get(Value_Index).getText().trim();
+				Value_Index++;
+
+				lead_details.put(label, value);
+
+				Report_Listen.log_print_in_report().log(Status.INFO, "<b>📌 Lead Detail:</b> " + label + " = " + value);
+				System.out.println("📌 Lead Detail: " + label + " = " + value);
+			}
+		}
+
+		System.out.println();
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Debug:</b> Final consumed normal value count = "
+				+ Value_Index + " | Total normal values available = " + Values.size());
+		System.out.println("🟨 Debug: Final consumed normal value count = " + Value_Index
+				+ " | Total normal values available = " + Values.size());
+		System.out.println();
+
+		if (lead_details.size() > 0) {
+			Report_Listen.log_print_in_report().log(Status.PASS,
+					"<b>✅ Actual:</b> Lead details captured successfully. Total captured fields = "
+							+ lead_details.size());
+			System.out.println(
+					"✅ Actual: Lead details captured successfully. Total captured fields = " + lead_details.size());
+		} else {
+
+			String errorMessage = "No lead details were captured from the lead details page.";
+
+			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure Point:</b> " + errorMessage);
+			System.out.println("❌ Failure Point: " + errorMessage);
+			System.out.println();
+
+			throw new IllegalStateException(errorMessage);
+		}
+
+		System.out.println();
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+
+		return lead_details;
+	}
+
+	@Test(dataProvider = "Contact_Form_Data")
+	public void Leads_Delete(TreeMap<String, String> form_data) throws IOException, InterruptedException {
+
+		Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+		Repeat rp = new Repeat(d);
+
+		String Email = form_data.get("Email");
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Delete SaaS Admin Lead");
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>📘 Description:</b> Open the Leads module, search the required lead by email, select Delete from the row action menu, confirm deletion, and validate the confirmation message.");
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Lead Email = " + Email);
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>✅ Expected:</b> Required lead should be deleted successfully and a deletion confirmation message should be displayed.");
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+		System.out.println("🔹 Scenario Title: Delete SaaS Admin Lead");
+		System.out.println(
+				"📘 Description: Open the Leads module, search the required lead by email, select Delete from the row action menu, confirm deletion, and validate the confirmation message.");
+		System.out.println("📥 Input: Lead Email = " + Email);
+		System.out.println(
+				"✅ Expected: Required lead should be deleted successfully and a deletion confirmation message should be displayed.");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+		System.out.println();
+
+		WebElement Lead_module_Heading;
+
+		try {
+			Lead_module_Heading = p.Leads_page_heading_title();
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> Lead details page is already open and approval action is available.");
+			System.out.println("🟨 Actual: Lead details page is already open and approval action is available.");
+		} catch (Exception e) {
+
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> Lead details page was not open. Navigating to Leads module and opening the first lead details.");
+			System.out.println(
+					"🟨 Actual: Lead details page was not open. Navigating to Leads module and opening the first lead details.");
+
+			Saas_Admin_Menu_navigation("Leads");
+
+			try {
+				List<WebElement> Loaders = p.Loader();
+
+				if (Loaders != null && Loaders.size() > 0) {
+					rp.wait_for_invisibilty_of_theElement(Loaders);
+
+					Report_Listen.log_print_in_report().log(Status.INFO,
+							"<b>🟨 Actual:</b> Account list loading completed successfully.");
+					System.out.println("🟨 Actual: Account list loading completed successfully.");
+				} else {
+					Report_Listen.log_print_in_report().log(Status.INFO,
+							"<b>🟨 Actual:</b> Account list was already available. Loader was not displayed.");
+					System.out.println("🟨 Actual: Account list was already available. Loader was not displayed.");
+				}
+
+			} catch (Exception emk) {
+				Report_Listen.log_print_in_report().log(Status.INFO,
+						"<b>🟨 Actual:</b> Account list was already available. Loader wait was skipped.");
+				System.out.println("🟨 Actual: Account list was already available. Loader wait was skipped.");
+			}
+
+			System.out.println();
+		}
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🔍 LEAD SEARCH ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 🔍 LEAD SEARCH ━━━━━━━━━━━━━━");
+
+		WebElement Search = p.search_field();
+		Search.sendKeys(Email);
+		Thread.sleep(1000);
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Email entered successfully in account search field = " + Email);
+		System.out.println("🟨 Actual: Email entered successfully in account search field = " + Email);
+		System.out.println();
+
+		try {
+			List<WebElement> Reloaders = p.Loader();
+
+			if (Reloaders != null && Reloaders.size() > 0) {
+				rp.wait_for_invisibilty_of_theElement(Reloaders);
+
+				Report_Listen.log_print_in_report().log(Status.INFO,
+						"<b>🟨 Actual:</b> Account list loading completed successfully.");
+				System.out.println("🟨 Actual: Account list loading completed successfully.");
+			} else {
+				Report_Listen.log_print_in_report().log(Status.INFO,
+						"<b>🟨 Actual:</b> Account list was already available. Loader was not displayed.");
+				System.out.println("🟨 Actual: Account list was already available. Loader was not displayed.");
+			}
+
+		} catch (Exception emkm) {
+			Report_Listen.log_print_in_report().log(Status.INFO,
+					"<b>🟨 Actual:</b> Account list was already available. Loader wait was skipped.");
+			System.out.println("🟨 Actual: Account list was already available. Loader wait was skipped.");
+		}
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>━━━━━━━━━━━━━━ 🗑️ DELETE CONFIRMATION ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 🗑️ DELETE CONFIRMATION ━━━━━━━━━━━━━━");
+
+		list_threedot_dropdown_option_selector("Delete");
+		WebElement Delete_popup_button = p.Delete_button_red();
+		rp.movetoelement(Delete_popup_button);
+		Delete_popup_button.click();
+		WebElement Delete_Confirm_Popup = p.Toast_();
+		String Delete_Confirm_Popup_Text = Delete_Confirm_Popup.getText().trim();
+		Report_Listen.log_print_in_report().log(Status.PASS,
+				"<b>✅ Actual:</b> Lead deleted successfully. Confirmation message = " + Delete_Confirm_Popup_Text);
+		System.out.println("✅ Actual: Lead deleted successfully. Confirmation message = " + Delete_Confirm_Popup_Text);
+		System.out.println();
+		rp.wait_for_invisibilty_of_theElement(Delete_Confirm_Popup);
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
+	}
+
+	@Test(dataProvider = "Plan_Type_Name_Data")
+	public void Leads_Approve(TreeMap<String, String> Plan_data)
+			throws IOException, InterruptedException, AWTException {
+
+		Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+		Repeat rp = new Repeat(d);
+		Candidate_Module_Locaters ca = new Candidate_Module_Locaters(d);
+
+		JavascriptExecutor js = (JavascriptExecutor) d;
+
+		String Checkout_plan_name = Plan_data.get("Checkout Plan Name");
+		String Spaces_plan_name = Plan_data.get("Spaces Plan Name");
+		String Hire_plan_name = Plan_data.get("Hire Plan Name");
+		String Hr_plan_name = Plan_data.get("Hr Plan Name");
+
+		String App_type_id = null;
+		int step = 1;
+		int Enabled_App_Count = 0;
+		int Selected_Plan_Count = 0;
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🔹 Scenario Title:</b> Validate Lead Approval with App Plan Assignment");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+		System.out.println("🔹 Scenario Title: Validate Lead Approval with App Plan Assignment");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>📘 Description:</b> Review the lead, approve it, assign the correct plan for each enabled application, and create the account successfully.");
+		System.out.println(
+				"📘 Description: Review the lead, approve it, assign the correct plan for each enabled application, and create the account successfully.");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>📥 Input:</b> Hire Plan = " + Hire_plan_name + " | Checkout Plan = " + Checkout_plan_name
+						+ " | HR Plan = " + Hr_plan_name + " | Spaces Plan = " + Spaces_plan_name);
+		System.out.println("📥 Input: Hire Plan = " + Hire_plan_name + " | Checkout Plan = " + Checkout_plan_name
+				+ " | HR Plan = " + Hr_plan_name + " | Spaces Plan = " + Spaces_plan_name);
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>✅ Expected:</b> Every enabled application should receive the correct plan and the lead should be converted into an account successfully.");
+		System.out.println(
+				"✅ Expected: Every enabled application should receive the correct plan and the lead should be converted into an account successfully.");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Open and verify lead details before approval.");
+		System.out.println("Step " + (step - 1) + ": Open and verify lead details before approval.");
+		Leads_Details_fetcher();
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Lead details reviewed successfully.");
+		System.out.println("🟨 Actual: Lead details reviewed successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Start lead approval process.");
+		System.out.println("Step " + (step - 1) + ": Start lead approval process.");
+		WebElement Approve_button = p.Leads_Approve_button();
+		rp.movetoelement(Approve_button);
+		Approve_button.click();
+		Thread.sleep(800);
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Lead approval plan assignment popup opened successfully.");
+		System.out.println("🟨 Actual: Lead approval plan assignment popup opened successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Identify enabled applications for plan assignment.");
+		System.out.println("Step " + (step - 1) + ": Identify enabled applications for plan assignment.");
+		List<WebElement> Plan_Toggles = p.Approve_Plan_toggle_Buttons();
+		System.out.println();
+
+		int[] Plan_Assign_Result = Leads_Approve_Plan_Assigner(Plan_data, Plan_Toggles, step);
+		step = Plan_Assign_Result[0];
+		Enabled_App_Count = Plan_Assign_Result[1];
+		Selected_Plan_Count = Plan_Assign_Result[2];
+		int Plan_Assign_Status = Plan_Assign_Result[3];
+
+		if (Plan_Assign_Status == 0) {
+			return;
+		}
+
+		if (Enabled_App_Count == 0) {
+			Report_Listen.log_print_in_report().log(Status.WARNING,
+					"<b>⚠ Actual:</b> No enabled application was found for plan assignment.");
+			System.out.println("⚠ Actual: No enabled application was found for plan assignment.");
+			System.out.println();
+			return;
+		}
+
+		if (Selected_Plan_Count != Enabled_App_Count) {
+			Report_Listen.log_print_in_report().log(Status.FAIL,
+					"<b>❌ Actual:</b> Plan assignment was incomplete. Enabled Applications = " + Enabled_App_Count
+							+ " | Plans Selected = " + Selected_Plan_Count);
+			System.out.println("❌ Actual: Plan assignment was incomplete. Enabled Applications = " + Enabled_App_Count
+					+ " | Plans Selected = " + Selected_Plan_Count);
+			System.out.println();
+			return;
+		}
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Confirm lead approval and account creation.");
+		System.out.println("Step " + (step - 1) + ": Confirm lead approval and account creation.");
+		WebElement Approve_Confirm_button = p.Assign_Create_Account_button();
+		rp.Scroll_to_element(Approve_Confirm_button);
+		Approve_Confirm_button.click();
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>🟨 Actual:</b> Lead approval confirmation submitted successfully.");
+		System.out.println("🟨 Actual: Lead approval confirmation submitted successfully.");
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Verify approval confirmation message.");
+		System.out.println("Step " + (step - 1) + ": Verify approval confirmation message.");
+		WebElement Approve_Confirm_Popup = p.Toast_();
+		String Approve_Confirm_Popup_Text = Approve_Confirm_Popup.getText().trim();
+		Report_Listen.log_print_in_report().log(Status.PASS,
+				"<b>✅ Actual:</b> Lead approved successfully. Confirmation message = " + Approve_Confirm_Popup_Text);
+		System.out
+				.println("✅ Actual: Lead approved successfully. Confirmation message = " + Approve_Confirm_Popup_Text);
+		System.out.println();
+		rp.wait_for_invisibilty_of_theElement(Approve_Confirm_Popup);
+
+		Report_Listen.log_print_in_report().log(Status.PASS,
+				"<b>✅ Final Result:</b> Lead approval flow completed successfully. Enabled Applications = "
+						+ Enabled_App_Count + " | Plans Assigned = " + Selected_Plan_Count);
+		System.out.println("✅ Final Result: Lead approval flow completed successfully. Enabled Applications = "
+				+ Enabled_App_Count + " | Plans Assigned = " + Selected_Plan_Count);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
+	}
+
+	public int[] Leads_Approve_Plan_Assigner(TreeMap<String, String> Plan_data, List<WebElement> Plan_Toggles, int step)
+			throws InterruptedException {
+
+		Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+		Repeat rp = new Repeat(d);
+
+		String Checkout_plan_name = Plan_data.get("Checkout Plan Name");
+		String Spaces_plan_name = Plan_data.get("Spaces Plan Name");
+		String Hire_plan_name = Plan_data.get("Hire Plan Name");
+		String Hr_plan_name = Plan_data.get("Hr Plan Name");
+
+		String App_type_id = null;
+		int Enabled_App_Count = 0;
+		int Selected_Plan_Count = 0;
+		int Plan_Assign_Status = 1;
+
+		WebElement Plan_Input_Field = null;
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>━━━━━━━━━━━━━━ 📦 ENABLED APP PLAN ASSIGNMENT ━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━ 📦 ENABLED APP PLAN ASSIGNMENT ━━━━━━━━━━━━━━");
+
+		Report_Listen.log_print_in_report().log(Status.INFO,
+				"<b>Step " + (step++) + ":</b> Assign matching plans to enabled applications.");
+		System.out.println("Step " + (step - 1) + ": Assign matching plans to enabled applications.");
+
+		for (WebElement toggle : Plan_Toggles) {
+
+			String Toggle_Status = toggle.getAttribute("aria-checked") == null ? ""
+					: toggle.getAttribute("aria-checked").trim();
+
+			if (Toggle_Status.contains("true")) {
+
+				Enabled_App_Count++;
+
+				WebElement Plan_Input_box = toggle.findElement(
+						By.xpath("./../../..//*[text()='Select Plan']/../..//*[@class='ant-form-item-control-input']"));
+				WebElement App_type = toggle.findElement(By.xpath("./../../..//input[contains(@id,'select_plan_')]"));
+				App_type_id = App_type.getAttribute("id").trim();
+
+				String Expected_Plan_Name = "";
+				String App_Display_Name = "";
+
+				if (App_type_id.contains("select_plan_hire")) {
+					Expected_Plan_Name = Hire_plan_name;
+					App_Display_Name = "Simplified Hire";
+				}
+				if (App_type_id.contains("select_plan_checkout")) {
+					Expected_Plan_Name = Checkout_plan_name;
+					App_Display_Name = "Simplified Checkout";
+				}
+				if (App_type_id.contains("select_plan_hr")) {
+					Expected_Plan_Name = Hr_plan_name;
+					App_Display_Name = "Simplified HR";
+				}
+				if (App_type_id.contains("select_plan_spaces")) {
+					Expected_Plan_Name = Spaces_plan_name;
+					App_Display_Name = "Simplified Spaces";
+				}
+
+				Report_Listen.log_print_in_report().log(Status.INFO, "<b>📌 Enabled Application:</b> "
+						+ App_Display_Name + " | Required Plan = " + Expected_Plan_Name);
+				System.out.println(
+						"📌 Enabled Application: " + App_Display_Name + " | Required Plan = " + Expected_Plan_Name);
+				System.out.println();
+
+				if (Expected_Plan_Name == null || Expected_Plan_Name.trim().length() == 0) {
+					Report_Listen.log_print_in_report().log(Status.FAIL,
+							"<b>❌ Actual:</b> Plan assignment could not continue because the required plan name is missing for "
+									+ App_Display_Name);
+					System.out.println(
+							"❌ Actual: Plan assignment could not continue because the required plan name is missing for "
+									+ App_Display_Name);
+					System.out.println();
+					Plan_Assign_Status = 0;
+					Report_Listen.log_print_in_report().log(Status.INFO,
+							"<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+					System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
+					return new int[] { step, Enabled_App_Count, Selected_Plan_Count, Plan_Assign_Status };
+				}
+
+				Report_Listen.log_print_in_report().log(Status.INFO,
+						"<b>Step " + (step++) + ":</b> Select required plan for " + App_Display_Name + ".");
+				System.out.println("Step " + (step - 1) + ": Select required plan for " + App_Display_Name + ".");
+
+				Plan_Input_Field = Plan_Input_box;
+				rp.Scroll_to_element(Plan_Input_Field);
+				Thread.sleep(800);
+				rp.movetoelement(Plan_Input_Field);
+				Plan_Input_Field.click();
+				Thread.sleep(800);
+
+				try {
+					App_type.sendKeys(Expected_Plan_Name);
+				} catch (Exception searchIssue) {
+					Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Plan list opened for "
+							+ App_Display_Name + ". Proceeding with available plan options.");
+					System.out.println("🟨 Actual: Plan list opened for " + App_Display_Name
+							+ ". Proceeding with available plan options.");
+				}
+
+				WebElement Dropdown_List = d.findElement(By.xpath(
+						"//div[contains(@class,'ant-select-dropdown') and not(contains(@class,'ant-select-dropdown-hidden'))]//div[contains(@class,'rc-virtual-list-holder')]"));
+				rp.wait_for_theElement(Dropdown_List);
+				Thread.sleep(800);
+				rp.movetoelement(Dropdown_List);
+
+				List<WebElement> Options = Dropdown_List
+						.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+
+				boolean Plan_Selected = false;
+
+				for (WebElement Option : Options) {
+
+					String Option_Text = Option.getText().trim();
+
+					if (Option_Text.equalsIgnoreCase(Expected_Plan_Name.trim())
+							|| Option_Text.contains(Expected_Plan_Name.trim())) {
+
+						rp.movetoelement(Option);
+						Option.click();
+						Plan_Selected = true;
+						Selected_Plan_Count++;
+
+						Report_Listen.log_print_in_report().log(Status.INFO,
+								"<b>🟨 Actual:</b> Plan selected successfully for " + App_Display_Name + " = "
+										+ Option_Text);
+						System.out.println(
+								"🟨 Actual: Plan selected successfully for " + App_Display_Name + " = " + Option_Text);
+						System.out.println();
+						break;
+					}
+				}
+
+				if (!Plan_Selected) {
+
+					Report_Listen.log_print_in_report().log(Status.INFO,
+							"<b>🟨 Actual:</b> Required plan was not visible immediately for " + App_Display_Name
+									+ ". Checking additional plan options.");
+					System.out.println("🟨 Actual: Required plan was not visible immediately for " + App_Display_Name
+							+ ". Checking additional plan options.");
+
+					rp.Scroll_to_bottom_of_list(Dropdown_List);
+					Thread.sleep(800);
+
+					Options = Dropdown_List.findElements(
+							By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]"));
+
+					for (WebElement Option : Options) {
+
+						String Option_Text = Option.getText().trim();
+
+						if (Option_Text.equalsIgnoreCase(Expected_Plan_Name.trim())
+								|| Option_Text.contains(Expected_Plan_Name.trim())) {
+
+							rp.movetoelement(Option);
+							Option.click();
+							Plan_Selected = true;
+							Selected_Plan_Count++;
+
+							Report_Listen.log_print_in_report().log(Status.INFO,
+									"<b>🟨 Actual:</b> Plan selected successfully for " + App_Display_Name + " = "
+											+ Option_Text);
+							System.out.println("🟨 Actual: Plan selected successfully for " + App_Display_Name + " = "
+									+ Option_Text);
+							System.out.println();
+							break;
+						}
+					}
+				}
+
+				if (!Plan_Selected) {
+					Report_Listen.log_print_in_report().log(Status.FAIL,
+							"<b>❌ Actual:</b> Required plan was not found for " + App_Display_Name
+									+ ". Expected Plan = " + Expected_Plan_Name);
+					System.out.println("❌ Actual: Required plan was not found for " + App_Display_Name
+							+ ". Expected Plan = " + Expected_Plan_Name);
+					System.out.println();
+					Plan_Assign_Status = 0;
+					return new int[] { step, Enabled_App_Count, Selected_Plan_Count, Plan_Assign_Status };
+				}
+
+				Report_Listen.log_print_in_report().log(Status.INFO,
+						"<b>✅ Completed:</b> Plan assignment completed for " + App_Display_Name);
+				System.out.println("✅ Completed: Plan assignment completed for " + App_Display_Name);
+				System.out.println();
+			}
+		}
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
+		return new int[] { step, Enabled_App_Count, Selected_Plan_Count, Plan_Assign_Status };
+	}
+
+	
+	
+	
+@DataProvider
+public Object[][] Plan_Type_Name_Data() {
+
+	TreeMap<String, String> data1 = new TreeMap<String, String>();
+	data1.put("Checkout App Type", "checkout");
+	data1.put("Checkout Plan Name", "Ayan Monthly Checkout Business Plan");
+	data1.put("Spaces App Type", "spaces");
+	data1.put("Spaces Plan Name", "Ayan New Professional Diamond Plan");
+	data1.put("Hr App Type", "hr");
+	data1.put("Hr Plan Name", "Ayan HR New Weekly Plan");
+	data1.put("Hire App Type", "hire");
+	data1.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
+
+	TreeMap<String, String> data2 = new TreeMap<String, String>();
+	data2.put("Checkout App Type", "checkout");
+	data2.put("Checkout Plan Name", "Ayan Yearly Checkout Enterprise Plan");
+	data2.put("Spaces App Type", "spaces");
+	data2.put("Spaces Plan Name", "Ayan Monthly Spaces Business Plan");
+	data2.put("Hr App Type", "hr");
+	data2.put("Hr Plan Name", "Ayan Daily HR Starter Plan");
+	data2.put("Hire App Type", "hire");
+	data2.put("Hire Plan Name", "Ayan Custom Weeks Hire Flex Plan");
+
+	TreeMap<String, String> data3 = new TreeMap<String, String>();
+	data3.put("Checkout App Type", "checkout");
+	data3.put("Checkout Plan Name", "AYan 5 day billing plan");
+	data3.put("Spaces App Type", "spaces");
+	data3.put("Spaces Plan Name", "Ayan Daily Spaces Starter Plan");
+	data3.put("Hr App Type", "hr");
+	data3.put("Hr Plan Name", "Ayan Weekly HR Growth Plan");
+	data3.put("Hire App Type", "hire");
+	data3.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
+
+	TreeMap<String, String> data4 = new TreeMap<String, String>();
+	data4.put("Checkout App Type", "checkout");
+	data4.put("Checkout Plan Name", "5 Days Checkout Plan");
+	data4.put("Spaces App Type", "spaces");
+	data4.put("Spaces Plan Name", "Ayan Weekly Spaces Growth Plan");
+	data4.put("Hr App Type", "hr");
+	data4.put("Hr Plan Name", "Ayan Monthly HR Business Plan");
+	data4.put("Hire App Type", "hire");
+	data4.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
+
+	TreeMap<String, String> data5 = new TreeMap<String, String>();
+	data5.put("Checkout App Type", "checkout");
+	data5.put("Checkout Plan Name", "Ayan checkout weekly Starter");
+	data5.put("Spaces App Type", "spaces");
+	data5.put("Spaces Plan Name", "Ayan Yearly Spaces Enterprise Plan");
+	data5.put("Hr App Type", "hr");
+	data5.put("Hr Plan Name", "Ayan Yearly HR Enterprise Plan");
+	data5.put("Hire App Type", "hire");
+	data5.put("Hire Plan Name", "Ayan Custom Weeks Hire Flex Plan");
+
+	TreeMap<String, String> data6 = new TreeMap<String, String>();
+	data6.put("Checkout App Type", "checkout");
+	data6.put("Checkout Plan Name", "Ayan checkout weekly Pro");
+	data6.put("Spaces App Type", "spaces");
+	data6.put("Spaces Plan Name", "Ayan New Professional Diamond Plan");
+	data6.put("Hr App Type", "hr");
+	data6.put("Hr Plan Name", "Ayan Custom Days HR Flex Plan");
+	data6.put("Hire App Type", "hire");
+	data6.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
+
+	TreeMap<String, String> data7 = new TreeMap<String, String>();
+	data7.put("Checkout App Type", "checkout");
+	data7.put("Checkout Plan Name", "Ayan Monthly Checkout Business Plan");
+	data7.put("Spaces App Type", "spaces");
+	data7.put("Spaces Plan Name", "Ayan Monthly Spaces Business Plan");
+	data7.put("Hr App Type", "hr");
+	data7.put("Hr Plan Name", "Ayan HR New Weekly Plan");
+	data7.put("Hire App Type", "hire");
+	data7.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
+
+	TreeMap<String, String> data8 = new TreeMap<String, String>();
+	data8.put("Checkout App Type", "checkout");
+	data8.put("Checkout Plan Name", "Ayan Yearly Checkout Enterprise Plan");
+	data8.put("Spaces App Type", "spaces");
+	data8.put("Spaces Plan Name", "Ayan Daily Spaces Starter Plan");
+	data8.put("Hr App Type", "hr");
+	data8.put("Hr Plan Name", "Ayan Daily HR Starter Plan");
+	data8.put("Hire App Type", "hire");
+	data8.put("Hire Plan Name", "Ayan Custom Weeks Hire Flex Plan");
+
+	TreeMap<String, String> data9 = new TreeMap<String, String>();
+	data9.put("Checkout App Type", "checkout");
+	data9.put("Checkout Plan Name", "AYan 5 day billing plan");
+	data9.put("Spaces App Type", "spaces");
+	data9.put("Spaces Plan Name", "Ayan Weekly Spaces Growth Plan");
+	data9.put("Hr App Type", "hr");
+	data9.put("Hr Plan Name", "Ayan Weekly HR Growth Plan");
+	data9.put("Hire App Type", "hire");
+	data9.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
+
+	TreeMap<String, String> data10 = new TreeMap<String, String>();
+	data10.put("Checkout App Type", "checkout");
+	data10.put("Checkout Plan Name", "5 Days Checkout Plan");
+	data10.put("Spaces App Type", "spaces");
+	data10.put("Spaces Plan Name", "Ayan Yearly Spaces Enterprise Plan");
+	data10.put("Hr App Type", "hr");
+	data10.put("Hr Plan Name", "Ayan Monthly HR Business Plan");
+	data10.put("Hire App Type", "hire");
+	data10.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
+
+	TreeMap<String, String> data11 = new TreeMap<String, String>();
+	data11.put("Checkout App Type", "checkout");
+	data11.put("Checkout Plan Name", "Ayan checkout weekly Starter");
+	data11.put("Spaces App Type", "spaces");
+	data11.put("Spaces Plan Name", "Ayan New Professional Diamond Plan");
+	data11.put("Hr App Type", "hr");
+	data11.put("Hr Plan Name", "Ayan Yearly HR Enterprise Plan");
+	data11.put("Hire App Type", "hire");
+	data11.put("Hire Plan Name", "Ayan Custom Weeks Hire Flex Plan");
+
+	TreeMap<String, String> data12 = new TreeMap<String, String>();
+	data12.put("Checkout App Type", "checkout");
+	data12.put("Checkout Plan Name", "Ayan checkout weekly Pro");
+	data12.put("Spaces App Type", "spaces");
+	data12.put("Spaces Plan Name", "Ayan Monthly Spaces Business Plan");
+	data12.put("Hr App Type", "hr");
+	data12.put("Hr Plan Name", "Ayan Custom Days HR Flex Plan");
+	data12.put("Hire App Type", "hire");
+	data12.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
+
+	TreeMap<String, String> data13 = new TreeMap<String, String>();
+	data13.put("Checkout App Type", "checkout");
+	data13.put("Checkout Plan Name", "Ayan Monthly Checkout Business Plan");
+	data13.put("Spaces App Type", "spaces");
+	data13.put("Spaces Plan Name", "Ayan Daily Spaces Starter Plan");
+	data13.put("Hr App Type", "hr");
+	data13.put("Hr Plan Name", "Ayan HR New Weekly Plan");
+	data13.put("Hire App Type", "hire");
+	data13.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
+
+	TreeMap<String, String> data14 = new TreeMap<String, String>();
+	data14.put("Checkout App Type", "checkout");
+	data14.put("Checkout Plan Name", "Ayan Yearly Checkout Enterprise Plan");
+	data14.put("Spaces App Type", "spaces");
+	data14.put("Spaces Plan Name", "Ayan Weekly Spaces Growth Plan");
+	data14.put("Hr App Type", "hr");
+	data14.put("Hr Plan Name", "Ayan Daily HR Starter Plan");
+	data14.put("Hire App Type", "hire");
+	data14.put("Hire Plan Name", "Ayan Custom Weeks Hire Flex Plan");
+
+	TreeMap<String, String> data15 = new TreeMap<String, String>();
+	data15.put("Checkout App Type", "checkout");
+	data15.put("Checkout Plan Name", "AYan 5 day billing plan");
+	data15.put("Spaces App Type", "spaces");
+	data15.put("Spaces Plan Name", "Ayan Yearly Spaces Enterprise Plan");
+	data15.put("Hr App Type", "hr");
+	data15.put("Hr Plan Name", "Ayan Weekly HR Growth Plan");
+	data15.put("Hire App Type", "hire");
+	data15.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
+
+	TreeMap<String, String> data16 = new TreeMap<String, String>();
+	data16.put("Checkout App Type", "checkout");
+	data16.put("Checkout Plan Name", "5 Days Checkout Plan");
+	data16.put("Spaces App Type", "spaces");
+	data16.put("Spaces Plan Name", "Ayan New Professional Diamond Plan");
+	data16.put("Hr App Type", "hr");
+	data16.put("Hr Plan Name", "Ayan Monthly HR Business Plan");
+	data16.put("Hire App Type", "hire");
+	data16.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
+
+	TreeMap<String, String> data17 = new TreeMap<String, String>();
+	data17.put("Checkout App Type", "checkout");
+	data17.put("Checkout Plan Name", "Ayan checkout weekly Starter");
+	data17.put("Spaces App Type", "spaces");
+	data17.put("Spaces Plan Name", "Ayan Monthly Spaces Business Plan");
+	data17.put("Hr App Type", "hr");
+	data17.put("Hr Plan Name", "Ayan Yearly HR Enterprise Plan");
+	data17.put("Hire App Type", "hire");
+	data17.put("Hire Plan Name", "Ayan Custom Weeks Hire Flex Plan");
+
+	TreeMap<String, String> data18 = new TreeMap<String, String>();
+	data18.put("Checkout App Type", "checkout");
+	data18.put("Checkout Plan Name", "Ayan checkout weekly Pro");
+	data18.put("Spaces App Type", "spaces");
+	data18.put("Spaces Plan Name", "Ayan Daily Spaces Starter Plan");
+	data18.put("Hr App Type", "hr");
+	data18.put("Hr Plan Name", "Ayan Custom Days HR Flex Plan");
+	data18.put("Hire App Type", "hire");
+	data18.put("Hire Plan Name", "Ayan Custom Months Hire Premium Plan");
+
+	TreeMap<String, String> data19 = new TreeMap<String, String>();
+	data19.put("Checkout App Type", "checkout");
+	data19.put("Checkout Plan Name", "Ayan Monthly Checkout Business Plan");
+	data19.put("Spaces App Type", "spaces");
+	data19.put("Spaces Plan Name", "Ayan Weekly Spaces Growth Plan");
+	data19.put("Hr App Type", "hr");
+	data19.put("Hr Plan Name", "Ayan HR New Weekly Plan");
+	data19.put("Hire App Type", "hire");
+	data19.put("Hire Plan Name", "Ayan Monthly Hire Business Plan");
+
+	TreeMap<String, String> data20 = new TreeMap<String, String>();
+	data20.put("Checkout App Type", "checkout");
+	data20.put("Checkout Plan Name", "Ayan Yearly Checkout Enterprise Plan");
+	data20.put("Spaces App Type", "spaces");
+	data20.put("Spaces Plan Name", "Ayan Yearly Spaces Enterprise Plan");
+	data20.put("Hr App Type", "hr");
+	data20.put("Hr Plan Name", "Ayan Monthly HR Business Plan");
+	data20.put("Hire App Type", "hire");
+	data20.put("Hire Plan Name", "Ayan Custom Weeks Hire Flex Plan");
+
+	return new Object[][] {
+		{ data1 },
+		{ data2 },
+		{ data3 },
+		{ data4 },
+		{ data5 },
+		{ data6 },
+		{ data7 },
+		{ data8 },
+		{ data9 },
+		{ data10 },
+		{ data11 },
+		{ data12 },
+		{ data13 },
+		{ data14 },
+		{ data15 },
+		{ data16 },
+		{ data17 },
+		{ data18 },
+		{ data19 },
+		{ data20 }
+	};
+}
+	
+	
+	
+	
+
+public TreeSet<String> Quick_Plan_Upgrade_Several_times(TreeMap<String, String> form_data, TreeMap<String, String> Account_data, TreeMap<String, String> Plan_Data, String Target_Upgrade_Plan_Name) throws IOException, InterruptedException {
+
+	Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+	Repeat rp = new Repeat(d);
+
+	String First_Name = Plan_Data.get("First Name");
+	String Last_Name = Plan_Data.get("Last Name");
+	String Address = Plan_Data.get("Address");
+	String Country = Plan_Data.get("Country");
+	String City = Plan_Data.get("City");
+	String State = Plan_Data.get("State");
+	String Zip = Plan_Data.get("Zip");
+	String Email = Account_data.get("Email");
+
+	if (Target_Upgrade_Plan_Name == null || Target_Upgrade_Plan_Name.trim().isEmpty()) {
+		Target_Upgrade_Plan_Name = Account_data.get("Plan Name");
+	}
+
+	if (Target_Upgrade_Plan_Name == null || Target_Upgrade_Plan_Name.trim().isEmpty()) {
+
+		if (Account_data.get("Checkout Plan Name") != null && !Account_data.get("Checkout Plan Name").trim().isEmpty()) {
+			Target_Upgrade_Plan_Name = Account_data.get("Checkout Plan Name");
+		} else if (Account_data.get("Hire Plan Name") != null && !Account_data.get("Hire Plan Name").trim().isEmpty()) {
+			Target_Upgrade_Plan_Name = Account_data.get("Hire Plan Name");
+		} else if (Account_data.get("Hr Plan Name") != null && !Account_data.get("Hr Plan Name").trim().isEmpty()) {
+			Target_Upgrade_Plan_Name = Account_data.get("Hr Plan Name");
+		} else if (Account_data.get("Spaces Plan Name") != null && !Account_data.get("Spaces Plan Name").trim().isEmpty()) {
+			Target_Upgrade_Plan_Name = Account_data.get("Spaces Plan Name");
+		}
+	}
+
+	if (Target_Upgrade_Plan_Name == null || Target_Upgrade_Plan_Name.trim().isEmpty()) {
+		Target_Upgrade_Plan_Name = "Ayan";
+	}
+
+	int step = 1;
+	String Selected_Upgrade_Plan_Name = "";
+
+	TreeSet<String> Active_Plan_Names = new TreeSet<String>();
+	TreeSet<String> Scheduled_Plan_Names = new TreeSet<String>();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Upgrade an assigned application plan and return all active account plans");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Search the account, identify the application plan matching the target reference, upgrade the plan using billing details, collect every plan marked Active, and return the complete active-plan set.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Email = " + Email + " | Target Plan Reference = " + Target_Upgrade_Plan_Name + " | Billing Name = " + First_Name + " " + Last_Name + " | Address = " + Address + " | Country = " + Country + " | State = " + State + " | City = " + City + " | Zip = " + Zip);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> The target application plan should be upgraded successfully and every plan carrying the Active status should be returned to the calling method.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+
+	System.out.println();
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println("🔹 Scenario Title: Upgrade an assigned application plan and return all active account plans");
+	System.out.println();
+	System.out.println("📘 Description: Search the account, identify the application plan matching the target reference, upgrade the plan using billing details, collect every plan marked Active, and return the complete active-plan set.");
+	System.out.println();
+	System.out.println("📥 Input: Email = " + Email + " | Target Plan Reference = " + Target_Upgrade_Plan_Name + " | Billing Name = " + First_Name + " " + Last_Name + " | Address = " + Address + " | Country = " + Country + " | State = " + State + " | City = " + City + " | Zip = " + Zip);
+	System.out.println();
+	System.out.println("✅ Expected: The target application plan should be upgraded successfully and every plan carrying the Active status should be returned to the calling method.");
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println();
+
+	try {
+		p.Create_Account_button();
+		System.out.println("🟨 Debug: Account list page is already available.");
+	} catch (Exception accountPageException) {
+		System.out.println("🟨 Debug: Account list page was unavailable. Performing SaaS Admin login.");
+		System.out.println("🟨 Debug Reason: " + accountPageException.getMessage());
+		Saas_Admin_Login();
+		p.Create_Account_button();
+	}
+
+	try {
+		rp.wait_for_invisibilty_of_theElement(p.Loader());
+		System.out.println("🟨 Debug: Account list loader disappeared successfully.");
+	} catch (Exception loaderException) {
+		System.out.println("🟨 Debug: Account list loader was absent or already disappeared.");
+		System.out.println("🟨 Debug Reason: " + loaderException.getMessage());
+	}
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🔍 ACCOUNT DETAILS ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Search the created account using its registered email.");
+
+	System.out.println("━━━━━━━━━━━━━━ 🔍 ACCOUNT DETAILS ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Search the created account using its registered email.");
+
+	WebElement Search = p.search_field();
+	Search.clear();
+	Search.sendKeys(Email);
+
+	Thread.sleep(2000);
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Account searched successfully using Email = " + Email);
+	System.out.println("✅ Actual: Account searched successfully using Email = " + Email);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Open the account and identify the application plan matching the target reference.");
+	System.out.println("Step " + (step - 1) + ": Open the account and identify the application plan matching the target reference.");
+
+	list_threedot_dropdown_option_selector("View Account");
+	p.Action_button();
+
+	WebElement Billing_section = p.Billing_Tab();
+	rp.Scroll_to_element(Billing_section);
+
+	Thread.sleep(1200);
+
+	List<WebElement> Plan_section = Billing_section.findElements(By.xpath(".//div[@class='wrap-panel-row px-3 py-4 cursor-pointer border-bottom']"));
+
+	if (Plan_section.isEmpty()) {
+		String errorMessage = "No application plan cards were found in Plans & Billing. Email = " + Email;
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+		System.out.println("❌ Failure: " + errorMessage);
+		throw new IllegalStateException(errorMessage);
+	}
+
+	WebElement Target_Plan_Section = null;
+	WebElement First_Active_Plan_Section = null;
+
+	String Current_Plan_Name = "";
+	String Target_Plan_Reference = Target_Upgrade_Plan_Name.trim();
+
+	for (WebElement plan : Plan_section) {
+
+		WebElement Plan_Name_Element = plan.findElement(By.xpath(".//div[@class='ant-col ant-col-12']//p"));
+		String Plan_Full_Text = Plan_Name_Element.getText().trim();
+		String Plan_Name = Plan_Full_Text.split("\\|")[0].trim();
+
+		List<WebElement> Plan_Tags = plan.findElements(By.xpath(".//span[contains(@class,'ant-tag')]"));
+		String Plan_Status = "";
+
+		for (WebElement tag : Plan_Tags) {
+
+			String Tag_Text = tag.getText().trim();
+
+			if (Tag_Text.toLowerCase().contains("active")) {
+				Plan_Status = "Active";
+				break;
+			}
+
+			if (Tag_Text.toLowerCase().contains("scheduled")) {
+				Plan_Status = "Scheduled";
+			}
+		}
+
+		System.out.println("🟨 Debug: Plan card found | Plan = " + Plan_Name + " | Status = " + Plan_Status);
+
+		if (Plan_Status.equalsIgnoreCase("Active") && First_Active_Plan_Section == null) {
+			First_Active_Plan_Section = plan;
+		}
+
+		if (Plan_Name.equalsIgnoreCase(Target_Plan_Reference) || Plan_Name.toLowerCase().contains(Target_Plan_Reference.toLowerCase()) || Target_Plan_Reference.toLowerCase().contains(Plan_Name.toLowerCase())) {
+			Target_Plan_Section = plan;
+			Current_Plan_Name = Plan_Name;
+			break;
+		}
+	}
+
+	if (Target_Plan_Section == null && First_Active_Plan_Section != null) {
+		Target_Plan_Section = First_Active_Plan_Section;
+		String Active_Plan_Full_Text = Target_Plan_Section.findElement(By.xpath(".//div[@class='ant-col ant-col-12']//p")).getText().trim();
+		Current_Plan_Name = Active_Plan_Full_Text.split("\\|")[0].trim();
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Exact target-plan card was not found. The first Active plan was selected instead = " + Current_Plan_Name);
+		System.out.println("🟨 Actual: Exact target-plan card was not found. The first Active plan was selected instead = " + Current_Plan_Name);
+	}
+
+	if (Target_Plan_Section == null) {
+		Target_Plan_Section = Plan_section.get(0);
+		String First_Plan_Full_Text = Target_Plan_Section.findElement(By.xpath(".//div[@class='ant-col ant-col-12']//p")).getText().trim();
+		Current_Plan_Name = First_Plan_Full_Text.split("\\|")[0].trim();
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Target and Active plan cards were unavailable. The first plan card was selected = " + Current_Plan_Name);
+		System.out.println("🟨 Actual: Target and Active plan cards were unavailable. The first plan card was selected = " + Current_Plan_Name);
+	}
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Application plan selected for upgrade. Target Reference = " + Target_Upgrade_Plan_Name + " | Current Plan = " + Current_Plan_Name);
+	System.out.println("✅ Actual: Application plan selected for upgrade. Target Reference = " + Target_Upgrade_Plan_Name + " | Current Plan = " + Current_Plan_Name);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🔄 PLAN SELECTION ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Open Change Plan for the identified application plan.");
+
+	System.out.println("━━━━━━━━━━━━━━ 🔄 PLAN SELECTION ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Open Change Plan for the identified application plan.");
+
+	Target_Plan_Section.findElement(By.xpath(".//span[@aria-label='setting']")).click();
+
+	List<WebElement> Plan_Action_Options = p.Plan_Dropdown().findElements(By.xpath(".//li"));
+	WebElement Change_Plan_Option = null;
+
+	for (WebElement option : Plan_Action_Options) {
+
+		String Option_Text = option.getText().trim();
+		System.out.println("🟨 Debug: Plan action option found = " + Option_Text);
+
+		if (Option_Text.contains("Change Plan")) {
+			Change_Plan_Option = option;
+			break;
+		}
+	}
+
+	if (Change_Plan_Option == null) {
+		String errorMessage = "Change Plan option was not found. Current Plan = " + Current_Plan_Name + " | Email = " + Email;
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+		System.out.println("❌ Failure: " + errorMessage);
+		throw new IllegalStateException(errorMessage);
+	}
+
+	Change_Plan_Option.click();
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Change Plan option opened successfully for Current Plan = " + Current_Plan_Name);
+	System.out.println("✅ Actual: Change Plan option opened successfully for Current Plan = " + Current_Plan_Name);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Search and select another available plan.");
+	System.out.println("Step " + (step - 1) + ": Search and select another available plan.");
+
+	WebElement Pop_up = p.pop_up_modal();
+	WebElement Modal_dropdown = Pop_up.findElement(By.xpath(".//*[contains(@class,'ant-select-single') and contains(@class,'ant-select-show-arrow')]"));
+
+	rp.movetoelement(Modal_dropdown);
+	Modal_dropdown.click();
+
+	Thread.sleep(800);
+
+	try {
+		WebElement input_search_box = d.findElement(By.xpath("//div[contains(@class,'ant-select-open')]//input[@type='search']"));
+		input_search_box.click();
+		input_search_box.clear();
+		input_search_box.sendKeys("Ayan");
+		System.out.println("🟨 Debug: Plan search text entered using visible search input = Ayan");
+	} catch (Exception searchInputException) {
+		System.out.println("🟨 Debug: Visible plan-search input was unavailable. Using the active element.");
+		System.out.println("🟨 Debug Reason: " + searchInputException.getMessage());
+		d.switchTo().activeElement().sendKeys("Ayan");
+	} 
+
+	Thread.sleep(1000);
+
+	WebElement Visible_Dropdown = d.findElement(By.xpath("//div[contains(@class,'ant-select-dropdown') and not(contains(@class,'ant-select-dropdown-hidden'))]"));
+	WebElement Plan_List = Visible_Dropdown.findElement(By.xpath(".//div[contains(@class,'rc-virtual-list-holder')]"));
+	List<WebElement> planoptions = Visible_Dropdown.findElements(By.xpath(".//div[contains(@class,'ant-select-item-option')]"));
+
+	WebElement Upgrade_Plan_Option = null;
+
+	for (WebElement planoption : planoptions) {
+
+		String planoption_text = planoption.getText().trim();
+		System.out.println("🟨 Debug: Plan option found = " + planoption_text);
+
+		if (planoption_text.toLowerCase().contains("ayan") && !planoption_text.equalsIgnoreCase(Current_Plan_Name) && planoption_text.toLowerCase().contains("weekly")) {
+			Upgrade_Plan_Option = planoption;
+			break;
+		}
+	}
+
+	if (Upgrade_Plan_Option == null) {
+
+		rp.Scroll_to_bottom_of_list(Plan_List);
+		Thread.sleep(800);
+		rp.Scroll_to_bottom_of_list(Plan_List);
+		Thread.sleep(800);
+		planoptions = Visible_Dropdown.findElements(By.xpath(".//div[contains(@class,'ant-select-item-option')]"));
+
+		for (WebElement planoption : planoptions) {
+
+			String planoption_text = planoption.getText().trim();
+			System.out.println("🟨 Debug: Plan option found after scroll = " + planoption_text);
+
+			if (planoption_text.toLowerCase().contains("ayan") && !planoption_text.equalsIgnoreCase(Current_Plan_Name)&& planoption_text.toLowerCase().contains("weekly")) {
+				Upgrade_Plan_Option = planoption;
+				break;
+			}
+		}
+	}
+
+	if (Upgrade_Plan_Option == null) {
+		String errorMessage = "No alternative Ayan plan was found. Current Plan = " + Current_Plan_Name + " | Email = " + Email;
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+		System.out.println("❌ Failure: " + errorMessage);
+		throw new IllegalStateException(errorMessage);
+	}
+
+	Selected_Upgrade_Plan_Name = Upgrade_Plan_Option.getText().trim();
+
+	rp.movetoelement(Upgrade_Plan_Option);
+	Upgrade_Plan_Option.click();
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Upgrade plan selected successfully = " + Selected_Upgrade_Plan_Name);
+	System.out.println("✅ Actual: Upgrade plan selected successfully = " + Selected_Upgrade_Plan_Name);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🧾 BILLING CONFIGURATION ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Continue with the selected upgrade plan.");
+
+	System.out.println("━━━━━━━━━━━━━━ 🧾 BILLING CONFIGURATION ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Continue with the selected upgrade plan.");
+
+	p.Continue_button().click();
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Continued successfully with Upgrade Plan = " + Selected_Upgrade_Plan_Name);
+	System.out.println("✅ Actual: Continued successfully with Upgrade Plan = " + Selected_Upgrade_Plan_Name);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Select billing frequency and plan start date.");
+	System.out.println("Step " + (step - 1) + ": Select billing frequency and plan start date.");
+
+	WebElement Upgrade_Popup = p.Plan_change_popup();
+	List<WebElement> inputfields = Upgrade_Popup.findElements(By.xpath("./../../../../.." + "//div[@class='ant-form-item-control-input-content']"));
+
+	inputfields.get(0).click();
+
+	WebElement Billing_Frequency_List = p.rc_virtual_list_holder_two();
+	rp.Scroll_to_bottom_of_list(Billing_Frequency_List);
+
+	WebElement Billing_Frequency_First_Option = Billing_Frequency_List.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]")).get(0);
+	String Selected_Billing_Frequency = Billing_Frequency_First_Option.getText().trim();
+
+	Billing_Frequency_First_Option.click();
+	inputfields.get(1).click();
+
+	WebElement Start_Date_List = p.rc_virtual_list_holder_three();
+	rp.Scroll_to_bottom_of_list(Start_Date_List);
+
+	WebElement Start_Date_second_Option = Start_Date_List.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]")).get(0);
+	String Selected_Start_Date = Start_Date_second_Option.getText().trim();
+
+	Start_Date_second_Option.click();
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Billing configuration selected successfully. Billing Frequency = " + Selected_Billing_Frequency + " | Start Date = " + Selected_Start_Date);
+	System.out.println("✅ Actual: Billing configuration selected successfully. Billing Frequency = " + Selected_Billing_Frequency + " | Start Date = " + Selected_Start_Date);
+	System.out.println();
+
+	p.Submit_button().click();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 📍 BILLING ADDRESS ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Enter the billing address details.");
+
+	System.out.println("━━━━━━━━━━━━━━ 📍 BILLING ADDRESS ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Enter the billing address details.");
+
+	WebElement Last_Popup = p.form_original();
+	WebElement FirstName = p.first_name();
+	WebElement LastName = p.last_name();
+	WebElement Address_Field = p.address();
+	WebElement Country_Feild = p.country();
+	WebElement State_Feild = p.state();
+	WebElement City_Feild = p.city();
+	WebElement Zip_Feild = p.zipcode();
+
+	FirstName.clear();
+	FirstName.sendKeys(First_Name);
+
+	LastName.clear();
+	LastName.sendKeys(Last_Name);
+
+	Address_Field.clear();
+	Address_Field.sendKeys(Address);
+
+	List<WebElement> popup_inputs = Last_Popup.findElements(By.xpath(".//*[@class='ant-form-item-control-input']"));
+	popup_inputs.get(3).click();
+
+	Country_Feild.clear();
+	Country_Feild.sendKeys(Country);
+
+	WebElement Country_List = p.rc_virtual_list_holder_two();
+	rp.Scroll_to_bottom_of_list(Country_List);
+	Country_List.findElements(By.xpath(".//div[contains(@class,'ant-select-item ant-select-item-option')]")).get(0).click();
+
+	State_Feild.clear();
+	State_Feild.sendKeys(State);
+
+	City_Feild.clear();
+	City_Feild.sendKeys(City);
+
+	Zip_Feild.clear();
+	Zip_Feild.sendKeys(Zip);
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Billing address entered successfully. Country = " + Country + " | State = " + State + " | City = " + City + " | Zip = " + Zip);
+	System.out.println("✅ Actual: Billing address entered successfully. Country = " + Country + " | State = " + State + " | City = " + City + " | Zip = " + Zip);
+	System.out.println();
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🚀 PLAN UPGRADE ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Submit and verify the plan upgrade.");
+
+	System.out.println("━━━━━━━━━━━━━━ 🚀 PLAN UPGRADE ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Submit and verify the plan upgrade.");
+
+	WebElement Subscribe_button = p.Submit_button();
+	rp.Scroll_to_element(Subscribe_button);
+	Subscribe_button.click();
+
+	p.Upgrade_Successful_message();
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Plan upgrade confirmation displayed successfully. Previous Plan = " + Current_Plan_Name + " | Selected Upgrade Plan = " + Selected_Upgrade_Plan_Name);
+	System.out.println("✅ Actual: Plan upgrade confirmation displayed successfully. Previous Plan = " + Current_Plan_Name + " | Selected Upgrade Plan = " + Selected_Upgrade_Plan_Name);
+	System.out.println();
+
+	WebElement Close_button = d.findElement(By.xpath("(//*[@aria-modal='true']//*[@aria-label='Close'])[2]"));
+	rp.wait_for_theElement(Close_button);
+	Close_button.click();
+
+	Thread.sleep(1000);
+
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 🟢 ACTIVE PLAN COLLECTION ━━━━━━━━━━━━━━</b>");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>Step " + (step++) + ":</b> Collect every account plan carrying the Active status.");
+
+	System.out.println("━━━━━━━━━━━━━━ 🟢 ACTIVE PLAN COLLECTION ━━━━━━━━━━━━━━");
+	System.out.println("Step " + (step - 1) + ": Collect every account plan carrying the Active status.");
+
+	Billing_section = p.Billing_Tab();
+	rp.Scroll_to_element(Billing_section);
+
+	Plan_section = Billing_section.findElements(By.xpath(".//div[@class='wrap-panel-row px-3 py-4 cursor-pointer border-bottom']"));
+
+	for (WebElement plan : Plan_section) {
+
+		List<WebElement> Plan_Tags = plan.findElements(By.xpath(".//span[contains(@class,'ant-tag')]"));
+
+		if (Plan_Tags.isEmpty()) {
+			System.out.println("🟨 Debug: No status tag was found inside this plan card.");
+			continue;
+		}
+
+		WebElement Plan_Name_Element = plan.findElement(By.xpath(".//div[@class='ant-col ant-col-12']//p"));
+		String Plan_Full_Text = Plan_Name_Element.getText().trim();
+		String Plan_Name = Plan_Full_Text.split("\\|")[0].trim();
+
+		for (WebElement tag : Plan_Tags) {
+
+			String Tag_Text = tag.getText().trim();
+
+			if (Tag_Text.toLowerCase().contains("active")) {
+				Active_Plan_Names.add(Plan_Name);
+				Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Active Plan Collected:</b> " + Plan_Name);
+				System.out.println("✅ Active Plan Collected: " + Plan_Name);
+			}
+
+			if (Tag_Text.toLowerCase().contains("scheduled")) {
+				Scheduled_Plan_Names.add(Plan_Name);
+				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🗓 Scheduled Plan:</b> " + Plan_Name);
+				System.out.println("🗓 Scheduled Plan: " + Plan_Name);
+			}
+		}
+
+		System.out.println("🟨 Debug: Plan Full Text = " + Plan_Full_Text);
+		System.out.println();
+	}
+
+	if (Active_Plan_Names.isEmpty()) {
+		String errorMessage = "No account plan carrying the Active status was found after the plan upgrade. Email = " + Email;
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Failure:</b> " + errorMessage);
+		System.out.println("❌ Failure: " + errorMessage);
+		throw new IllegalStateException(errorMessage);
+	}
+
+	Account_data.put("Selected Upgrade Plan Name", Selected_Upgrade_Plan_Name);
+
+	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Final Result:</b> Plan upgrade completed and all Active plan names were collected successfully. Active Plan Count = " + Active_Plan_Names.size() + " | Active Plans = " + Active_Plan_Names + " | Scheduled Plans = " + Scheduled_Plan_Names + " | Selected Upgrade Plan = " + Selected_Upgrade_Plan_Name);
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
+
+	System.out.println("✅ Final Result: Plan upgrade completed and all Active plan names were collected successfully.");
+	System.out.println("Active Plan Count = " + Active_Plan_Names.size());
+	System.out.println("Active Plans = " + Active_Plan_Names);
+	System.out.println("Scheduled Plans = " + Scheduled_Plan_Names);
+	System.out.println("Selected Upgrade Plan = " + Selected_Upgrade_Plan_Name);
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println();
+
+	return Active_Plan_Names;
+}
+
+	
+	
+	
+	@DataProvider
+	public Object[][] Account_create_and_Plan_Upgrade_combined_data_provider() {
+
+		Object[][] Create_Account_datas = Account_Create_Data();
+		Object[][] Plan_upgrade_datas = Plan_Upgrade_Billing_Data();
+
+		int n = IntStream.of(Create_Account_datas.length, Plan_upgrade_datas.length).min().orElse(0);
+
+		Object[][] combined_data = new Object[n][2];
+		int i = 0;
+		while (i < n) {
+			combined_data[i][0] = Create_Account_datas[i][0]; // Account Create datas
+			combined_data[i][1] = Plan_upgrade_datas[i][0]; // Upgrade Plan Datas
+
+			i++;
+		}
+		return combined_data;
+
+	}
+
+	@DataProvider
+	public Object[][] Acount_Create_and_Form_data_combined_data_provider() {
+
+		Object[][] Create_Account_datas = Account_Create_Data();
+		Object[][] Form_datas = Contact_Form_Data();
+
+		int n = IntStream.of(Create_Account_datas.length, Form_datas.length).min().orElse(0);
+
+		Object[][] combined_data = new Object[n][2];
+		int i = 0;
+		while (i < n) {
+			combined_data[i][0] = Create_Account_datas[i][0]; // Account Create datas
+			combined_data[i][1] = Form_datas[i][0]; // Upgrade Plan Datas
+
+			i++;
+		}
+		return combined_data;
+
+	}
+
+	@DataProvider
+	public Object[][] Plan_Upgrade_Billing_Data() {
+
+		TreeMap<String, String> data1 = new TreeMap<String, String>();
+		data1.put("First Name", "Adrian");
+		data1.put("Last Name", "Keller");
+		data1.put("Address", "18 Lindenstrasse, Business Tower 4");
+		data1.put("Country", "Germany");
+		data1.put("City", "Berlin");
+		data1.put("State", "Berlin");
+		data1.put("Zip", "10115");
+
+		TreeMap<String, String> data2 = new TreeMap<String, String>();
+		data2.put("First Name", "Claire");
+		data2.put("Last Name", "Morel");
+		data2.put("Address", "42 Rue Lafayette, Suite 305");
+		data2.put("Country", "France");
+		data2.put("City", "Paris");
+		data2.put("State", "Ile-de-France");
+		data2.put("Zip", "75009");
+
+		TreeMap<String, String> data3 = new TreeMap<String, String>();
+		data3.put("First Name", "Matteo");
+		data3.put("Last Name", "Ricci");
+		data3.put("Address", "27 Via Torino, Floor 2");
+		data3.put("Country", "Italy");
+		data3.put("City", "Milan");
+		data3.put("State", "Lombardy");
+		data3.put("Zip", "20123");
+
+		TreeMap<String, String> data4 = new TreeMap<String, String>();
+		data4.put("First Name", "Sophie");
+		data4.put("Last Name", "Van Dijk");
+		data4.put("Address", "64 Herengracht, Office 12B");
+		data4.put("Country", "Netherlands");
+		data4.put("City", "Amsterdam");
+		data4.put("State", "North Holland");
+		data4.put("Zip", "1015BN");
+
+		TreeMap<String, String> data5 = new TreeMap<String, String>();
+		data5.put("First Name", "Oliver");
+		data5.put("Last Name", "Whitfield");
+		data5.put("Address", "91 King Street, Unit 7");
+		data5.put("Country", "United Kingdom");
+		data5.put("City", "London");
+		data5.put("State", "England");
+		data5.put("Zip", "SW1A 1AA");
+
+		TreeMap<String, String> data6 = new TreeMap<String, String>();
+		data6.put("First Name", "Isabella");
+		data6.put("Last Name", "Martinez");
+		data6.put("Address", "35 Calle de Alcala, Planta 4");
+		data6.put("Country", "Spain");
+		data6.put("City", "Madrid");
+		data6.put("State", "Community of Madrid");
+		data6.put("Zip", "28014");
+
+		TreeMap<String, String> data7 = new TreeMap<String, String>();
+		data7.put("First Name", "Erik");
+		data7.put("Last Name", "Lundgren");
+		data7.put("Address", "22 Drottninggatan, Workspace 8");
+		data7.put("Country", "Sweden");
+		data7.put("City", "Stockholm");
+		data7.put("State", "Stockholm County");
+		data7.put("Zip", "11151");
+
+		TreeMap<String, String> data8 = new TreeMap<String, String>();
+		data8.put("First Name", "Nora");
+		data8.put("Last Name", "Bergheim");
+		data8.put("Address", "14 Karl Johans Gate, Office 6");
+		data8.put("Country", "Norway");
+		data8.put("City", "Oslo");
+		data8.put("State", "Oslo");
+		data8.put("Zip", "0154");
+
+		TreeMap<String, String> data9 = new TreeMap<String, String>();
+		data9.put("First Name", "Lukas");
+		data9.put("Last Name", "Meier");
+		data9.put("Address", "58 Bahnhofstrasse, Level 3");
+		data9.put("Country", "Switzerland");
+		data9.put("City", "Zurich");
+		data9.put("State", "Zurich");
+		data9.put("Zip", "8001");
+
+		TreeMap<String, String> data10 = new TreeMap<String, String>();
+		data10.put("First Name", "Emily");
+		data10.put("Last Name", "Anderson");
+		data10.put("Address", "120 Madison Avenue, Suite 904");
+		data10.put("Country", "United States");
+		data10.put("City", "New York");
+		data10.put("State", "New York");
+		data10.put("Zip", "10016");
+
+		TreeMap<String, String> data11 = new TreeMap<String, String>();
+		data11.put("First Name", "Henrik");
+		data11.put("Last Name", "Schneider");
+		data11.put("Address", "73 Maximilianstrasse, Office 210");
+		data11.put("Country", "Germany");
+		data11.put("City", "Munich");
+		data11.put("State", "Bavaria");
+		data11.put("Zip", "80539");
+
+		TreeMap<String, String> data12 = new TreeMap<String, String>();
+		data12.put("First Name", "Juliette");
+		data12.put("Last Name", "Bernard");
+		data12.put("Address", "16 Rue Victor Hugo, Batiment B");
+		data12.put("Country", "France");
+		data12.put("City", "Lyon");
+		data12.put("State", "Auvergne-Rhone-Alpes");
+		data12.put("Zip", "69002");
+
+		TreeMap<String, String> data13 = new TreeMap<String, String>();
+		data13.put("First Name", "Alessandro");
+		data13.put("Last Name", "Ferrari");
+		data13.put("Address", "49 Via Nazionale, Scala A");
+		data13.put("Country", "Italy");
+		data13.put("City", "Rome");
+		data13.put("State", "Lazio");
+		data13.put("Zip", "00184");
+
+		TreeMap<String, String> data14 = new TreeMap<String, String>();
+		data14.put("First Name", "Mila");
+		data14.put("Last Name", "Jansen");
+		data14.put("Address", "31 Coolsingel, Business Center");
+		data14.put("Country", "Netherlands");
+		data14.put("City", "Rotterdam");
+		data14.put("State", "South Holland");
+		data14.put("Zip", "3012AD");
+
+		TreeMap<String, String> data15 = new TreeMap<String, String>();
+		data15.put("First Name", "George");
+		data15.put("Last Name", "Harrington");
+		data15.put("Address", "77 Deansgate, Floor 5");
+		data15.put("Country", "United Kingdom");
+		data15.put("City", "Manchester");
+		data15.put("State", "England");
+		data15.put("Zip", "M3 2BW");
+
+		TreeMap<String, String> data16 = new TreeMap<String, String>();
+		data16.put("First Name", "Lucia");
+		data16.put("Last Name", "Navarro");
+		data16.put("Address", "88 Passeig de Gracia, Oficina 9");
+		data16.put("Country", "Spain");
+		data16.put("City", "Barcelona");
+		data16.put("State", "Catalonia");
+		data16.put("Zip", "08008");
+
+		TreeMap<String, String> data17 = new TreeMap<String, String>();
+		data17.put("First Name", "Astrid");
+		data17.put("Last Name", "Nyström");
+		data17.put("Address", "45 Sodra Forstadsgatan, Unit 11");
+		data17.put("Country", "Sweden");
+		data17.put("City", "Malmo");
+		data17.put("State", "Skane County");
+		data17.put("Zip", "21143");
+
+		TreeMap<String, String> data18 = new TreeMap<String, String>();
+		data18.put("First Name", "Magnus");
+		data18.put("Last Name", "Haukeland");
+		data18.put("Address", "9 Bryggen, Office 3");
+		data18.put("Country", "Norway");
+		data18.put("City", "Bergen");
+		data18.put("State", "Vestland");
+		data18.put("Zip", "5003");
+
+		TreeMap<String, String> data19 = new TreeMap<String, String>();
+		data19.put("First Name", "Elena");
+		data19.put("Last Name", "Vogel");
+		data19.put("Address", "26 Rue du Rhone, Suite 15");
+		data19.put("Country", "Switzerland");
+		data19.put("City", "Geneva");
+		data19.put("State", "Geneva");
+		data19.put("Zip", "1204");
+
+		TreeMap<String, String> data20 = new TreeMap<String, String>();
+		data20.put("First Name", "Daniel");
+		data20.put("Last Name", "Carter");
+		data20.put("Address", "430 North Michigan Avenue, Suite 1200");
+		data20.put("Country", "United States");
+		data20.put("City", "Chicago");
+		data20.put("State", "Illinois");
+		data20.put("Zip", "60611");
+
+		return new Object[][] { { data1 }, { data2 }, { data3 }, { data4 }, { data5 }, { data6 }, { data7 }, { data8 },
+				{ data9 }, { data10 }, { data11 }, { data12 }, { data13 }, { data14 }, { data15 }, { data16 },
+				{ data17 }, { data18 }, { data19 }, { data20 } };
+	}
+
+	@DataProvider
+	public Object[][] Contact_Form_Data() {
+
+		TreeMap<String, String> data1 = new TreeMap<String, String>();
+		data1.put("Selected Product", "Simplified Checkout");
+		data1.put("First Name", "Jost Adalbert");
+		data1.put("Last Name", "Rosenkranz");
+		data1.put("Email", "jost.adalbert.rosenkranz.checkout346@yopmail.com");
+		data1.put("Company Name", "Rosenkranz Digital Commerce GmbH");
+		data1.put("Country Code", "+49");
+		data1.put("Phone Number", "15784629310");
+		data1.put("Message",
+				"We are evaluating Simplified Checkout to improve payment completion, reduce abandoned purchases, monitor transaction activity, simplify customer checkout experiences, and strengthen digital commerce reporting.");
+
+		TreeMap<String, String> data2 = new TreeMap<String, String>();
+		data2.put("Selected Product", "Simplified Hire");
+		data2.put("First Name", "Berenice Odile");
+		data2.put("Last Name", "Villedieu");
+		data2.put("Email", "berenice.odile.villedieu.hire347@yopmail.com");
+		data2.put("Company Name", "Villedieu Talent Operations SAS");
+		data2.put("Country Code", "+33");
+		data2.put("Phone Number", "749315826");
+		data2.put("Message",
+				"Our recruitment team wants to evaluate Simplified Hire for vacancy administration, candidate tracking, recruiter collaboration, interview feedback, hiring-stage updates, and recruitment performance reporting.");
+
+		TreeMap<String, String> data3 = new TreeMap<String, String>();
+		data3.put("Selected Product", "Simplified HR");
+		data3.put("First Name", "Taavi Ensio");
+		data3.put("Last Name", "Paavolainen");
+		data3.put("Email", "taavi.ensio.paavolainen.hr348@yopmail.com");
+		data3.put("Company Name", "Paavolainen People Management Oy");
+		data3.put("Country Code", "+358");
+		data3.put("Phone Number", "457963182");
+		data3.put("Message",
+				"We are exploring Simplified HR for employee profile management, attendance monitoring, leave approvals, department administration, role permissions, internal communication, and workforce reporting.");
+
+		TreeMap<String, String> data4 = new TreeMap<String, String>();
+		data4.put("Selected Product", "Simplified Spaces");
+		data4.put("First Name", "Amedeo Saverio");
+		data4.put("Last Name", "Cattaneo");
+		data4.put("Email", "amedeo.saverio.cattaneo.spaces349@yopmail.com");
+		data4.put("Company Name", "Cattaneo Workspace Services SRL");
+		data4.put("Country Code", "+39");
+		data4.put("Phone Number", "3528196470");
+		data4.put("Message",
+				"We manage flexible office locations and want to review Simplified Spaces for desk reservations, meeting-room scheduling, customer inquiries, branch availability, space allocation, and utilization reporting.");
+
+		TreeMap<String, String> data5 = new TreeMap<String, String>();
+		data5.put("Selected Product", "Simplified Checkout, Simplified Hire");
+		data5.put("First Name", "Crispin Jasper");
+		data5.put("Last Name", "Marlowe");
+		data5.put("Email", "crispin.jasper.marlowe.checkout.hire350@yopmail.com");
+		data5.put("Company Name", "Marlowe Commerce and Talent Ltd");
+		data5.put("Country Code", "+44");
+		data5.put("Phone Number", "7452819360");
+		data5.put("Message",
+				"Our UK-based company wants to combine checkout operations with recruitment workflows, including transaction monitoring, applicant tracking, recruiter coordination, hiring decisions, and centralized reporting.");
+
+		TreeMap<String, String> data6 = new TreeMap<String, String>();
+		data6.put("Selected Product", "Simplified HR, Simplified Spaces");
+		data6.put("First Name", "Lianne Petra");
+		data6.put("Last Name", "Boshuizen");
+		data6.put("Email", "lianne.petra.boshuizen.hrspaces351@yopmail.com");
+		data6.put("Company Name", "Boshuizen People and Workspace BV");
+		data6.put("Country Code", "+31");
+		data6.put("Phone Number", "683746192");
+		data6.put("Message",
+				"We need an integrated HR and workspace platform for employee records, attendance, leave requests, desk reservations, meeting rooms, office availability, and internal operational reporting.");
+
+		TreeMap<String, String> data7 = new TreeMap<String, String>();
+		data7.put("Selected Product", "Simplified Checkout, Simplified HR");
+		data7.put("First Name", "Wolfram Hanno");
+		data7.put("Last Name", "Tiefenbach");
+		data7.put("Email", "wolfram.hanno.tiefenbach.checkouthr352@yopmail.com");
+		data7.put("Company Name", "Tiefenbach Business Systems GmbH");
+		data7.put("Country Code", "+43");
+		data7.put("Phone Number", "6769382415");
+		data7.put("Message",
+				"We want to evaluate Simplified Checkout and Simplified HR for payment processing, transaction visibility, employee administration, attendance management, leave approvals, and consolidated business reporting.");
+
+		TreeMap<String, String> data8 = new TreeMap<String, String>();
+		data8.put("Selected Product", "Simplified Hire, Simplified HR");
+		data8.put("First Name", "Grazyna Urszula");
+		data8.put("Last Name", "Szymanska");
+		data8.put("Email", "grazyna.urszula.szymanska.hirehr353@yopmail.com");
+		data8.put("Company Name", "Szymanska Workforce Platforms Sp z oo");
+		data8.put("Country Code", "+48");
+		data8.put("Phone Number", "514837296");
+		data8.put("Message",
+				"Our organization needs connected recruitment and HR workflows covering candidate applications, interviews, hiring decisions, onboarding, employee records, attendance monitoring, and leave administration.");
+
+		TreeMap<String, String> data9 = new TreeMap<String, String>();
+		data9.put("Selected Product", "Simplified Checkout, Simplified Hire, Simplified HR");
+		data9.put("First Name", "Tijn Valentijn");
+		data9.put("Last Name", "Vanderlinde");
+		data9.put("Email", "tijn.valentijn.vanderlinde.enterprise354@yopmail.com");
+		data9.put("Company Name", "Vanderlinde Enterprise Operations BV");
+		data9.put("Country Code", "+31");
+		data9.put("Phone Number", "637482915");
+		data9.put("Message",
+				"Our enterprise team is comparing platforms for checkout operations, recruitment management, and HR administration, including module access, workflow configuration, reporting, and implementation support.");
+
+		TreeMap<String, String> data10 = new TreeMap<String, String>();
+		data10.put("Selected Product", "Simplified Checkout, Simplified Hire, Simplified HR, Simplified Spaces");
+		data10.put("First Name", "Ilse Adelgunde");
+		data10.put("Last Name", "Freudenberger");
+		data10.put("Email", "ilse.adelgunde.freudenberger.fullsuite355@yopmail.com");
+		data10.put("Company Name", "Freudenberger Integrated Solutions GmbH");
+		data10.put("Country Code", "+49");
+		data10.put("Phone Number", "16384729510");
+		data10.put("Message",
+				"We are evaluating the complete Simplified product suite for checkout processing, recruitment workflows, HR administration, workspace booking, branch coordination, user access, and cross-department reporting.");
+
+		TreeMap<String, String> data11 = new TreeMap<String, String>();
+		data11.put("Selected Product", "Simplified Checkout");
+		data11.put("First Name", "Inigo Celestino");
+		data11.put("Last Name", "Montoro");
+		data11.put("Email", "inigo.celestino.montoro.checkout356@yopmail.com");
+		data11.put("Company Name", "Montoro Digital Transactions SL");
+		data11.put("Country Code", "+34");
+		data11.put("Phone Number", "611938274");
+		data11.put("Message",
+				"Our digital commerce team wants to improve checkout reliability, increase successful payments, reduce purchase friction, monitor transactions, and gain clearer visibility into online sales performance.");
+
+		TreeMap<String, String> data12 = new TreeMap<String, String>();
+		data12.put("Selected Product", "Simplified Hire");
+		data12.put("First Name", "Nerissa Flavia");
+		data12.put("Last Name", "Orlandini");
+		data12.put("Email", "nerissa.flavia.orlandini.hire357@yopmail.com");
+		data12.put("Company Name", "Orlandini Recruitment Advisory SRL");
+		data12.put("Country Code", "+39");
+		data12.put("Phone Number", "3489316250");
+		data12.put("Message",
+				"We are managing multiple recruitment campaigns and want Simplified Hire for candidate profiles, vacancy pipelines, interview coordination, recruiter assignments, hiring-stage updates, and recruitment analytics.");
+
+		TreeMap<String, String> data13 = new TreeMap<String, String>();
+		data13.put("Selected Product", "Simplified HR");
+		data13.put("First Name", "Gosta Arne");
+		data13.put("Last Name", "Westermark");
+		data13.put("Email", "gosta.arne.westermark.hr358@yopmail.com");
+		data13.put("Company Name", "Westermark People Operations AB");
+		data13.put("Country Code", "+46");
+		data13.put("Phone Number", "704826319");
+		data13.put("Message",
+				"We are looking for an HR platform to manage employee profiles, organizational structures, attendance records, leave workflows, administrator permissions, internal communication, and workforce analytics.");
+
+		TreeMap<String, String> data14 = new TreeMap<String, String>();
+		data14.put("Selected Product", "Simplified Spaces");
+		data14.put("First Name", "Lander Wout");
+		data14.put("Last Name", "Vermeersch");
+		data14.put("Email", "lander.wout.vermeersch.spaces359@yopmail.com");
+		data14.put("Company Name", "Vermeersch Flexible Offices BV");
+		data14.put("Country Code", "+32");
+		data14.put("Phone Number", "473819625");
+		data14.put("Message",
+				"We operate shared-office locations and want Simplified Spaces for desk booking, room scheduling, customer requests, resource availability, location coordination, and workspace performance analysis.");
+
+		TreeMap<String, String> data15 = new TreeMap<String, String>();
+		data15.put("Selected Product", "Simplified Checkout, Simplified Hire");
+		data15.put("First Name", "Morgane Estelle");
+		data15.put("Last Name", "Bovet");
+		data15.put("Email", "morgane.estelle.bovet.checkout.hire360@yopmail.com");
+		data15.put("Company Name", "Bovet Commerce Talent AG");
+		data15.put("Country Code", "+41");
+		data15.put("Phone Number", "767381924");
+		data15.put("Message",
+				"Our business wants to connect checkout operations with recruitment management for improved transaction visibility, applicant tracking, recruiter collaboration, hiring decisions, and centralized reporting.");
+
+		TreeMap<String, String> data16 = new TreeMap<String, String>();
+		data16.put("Selected Product", "Simplified HR, Simplified Spaces");
+		data16.put("First Name", "Tillmann Bodo");
+		data16.put("Last Name", "Wachenfeld");
+		data16.put("Email", "tillmann.bodo.wachenfeld.hrspaces361@yopmail.com");
+		data16.put("Company Name", "Wachenfeld Corporate Services GmbH");
+		data16.put("Country Code", "+49");
+		data16.put("Phone Number", "15483926710");
+		data16.put("Message",
+				"We require HR and workspace modules to manage employee information, attendance, leave requests, desk reservations, meeting-room availability, office utilization, and internal reports.");
+
+		TreeMap<String, String> data17 = new TreeMap<String, String>();
+		data17.put("Selected Product", "Simplified Checkout, Simplified HR");
+		data17.put("First Name", "Hedvig Majken");
+		data17.put("Last Name", "Blomstrand");
+		data17.put("Email", "hedvig.majken.blomstrand.checkouthr362@yopmail.com");
+		data17.put("Company Name", "Blomstrand Business Platforms AB");
+		data17.put("Country Code", "+46");
+		data17.put("Phone Number", "735284916");
+		data17.put("Message",
+				"We are evaluating Checkout and HR modules for payment operations, transaction monitoring, employee profile administration, attendance visibility, leave approvals, and consolidated reporting.");
+
+		TreeMap<String, String> data18 = new TreeMap<String, String>();
+		data18.put("Selected Product", "Simplified Hire, Simplified HR");
+		data18.put("First Name", "Zita Ilaria");
+		data18.put("Last Name", "Falcone");
+		data18.put("Email", "zita.ilaria.falcone.hirehr363@yopmail.com");
+		data18.put("Company Name", "Falcone Workforce Solutions SRL");
+		data18.put("Country Code", "+39");
+		data18.put("Phone Number", "3458172930");
+		data18.put("Message",
+				"Our workforce team wants an integrated recruitment and HR system supporting candidate tracking, interview feedback, onboarding, employee records, attendance management, leave approvals, and HR reporting.");
+
+		TreeMap<String, String> data19 = new TreeMap<String, String>();
+		data19.put("Selected Product", "Simplified Spaces");
+		data19.put("First Name", "Troels Bjarne");
+		data19.put("Last Name", "Munkholm");
+		data19.put("Email", "troels.bjarne.munkholm.spaces364@yopmail.com");
+		data19.put("Company Name", "Munkholm Workspace Services ApS");
+		data19.put("Country Code", "+45");
+		data19.put("Phone Number", "42179538");
+		data19.put("Message",
+				"We manage shared workspaces and want to review Simplified Spaces for desk allocation, meeting-room scheduling, customer requests, branch availability, multi-location coordination, and utilization reporting.");
+
+		TreeMap<String, String> data20 = new TreeMap<String, String>();
+		data20.put("Selected Product", "Simplified Checkout, Simplified Hire, Simplified HR, Simplified Spaces");
+		data20.put("First Name", "Amandine Laure");
+		data20.put("Last Name", "Guggisberg");
+		data20.put("Email", "amandine.laure.guggisberg.allmodules365@yopmail.com");
+		data20.put("Company Name", "Guggisberg Strategic Operations AG");
+		data20.put("Country Code", "+41");
+		data20.put("Phone Number", "796284351");
+		data20.put("Message",
+				"We are comparing complete business platforms and would like a demonstration of all Simplified modules covering checkout, recruitment, HR administration, workspace operations, pricing, configuration, and implementation.");
+
+		return new Object[][] 
+	    { 
+	     { data1 },
+	     { data2 },
+	     { data3 },
+	     { data4 },
+	     { data5 },
+	     { data6 },
+	     { data7 },
+	     { data8 },
+	     { data9 },
+	     { data10 },
+	     { data11 },
+	     { data12 },
+	     { data13 }, 
+	     { data14 },
+	     { data15 },
+		 { data16 }, 
+		 { data17 },
+		 { data18 },
+		 { data19 },
+		 { data20 } 
+		};
+	}
+
+	
+	@DataProvider
+	public Object[][] combined_data_provider() {
+
+		Object[][] book_demo_form_datas = Contact_Form_Data();
+		Object[][] Plan_datas = Plan_Type_Name_Data();
+		Object[][] Plan_Upgrade_datas = Plan_Upgrade_Billing_Data();
+		Object[][] Account_Create_datas = Account_Create_Data();
+
+		int n = IntStream.of(book_demo_form_datas.length, Plan_datas.length, Plan_Upgrade_datas.length,
+				Account_Create_datas.length).min().orElse(0);
+
+		Object[][] combined_data = new Object[n][4];
+
+		int i = 0;
+		while (i < n) {
+			combined_data[i][0] = book_demo_form_datas[i][0]; // Frontend Book a Demo form data
+			combined_data[i][1] = Plan_datas[i][0]; // Lead Plan Assigner Data
+			combined_data[i][2] = Plan_Upgrade_datas[i][0]; // Plan Upgrade Billing Data
+			combined_data[i][3] = Account_Create_datas[i][0]; // Account data for target upgrade plan name
+
+			i++;
+		}
+		return combined_data;
+	}
+	
+	
+	
+	
+	
+	
+}

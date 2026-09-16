@@ -19,7 +19,7 @@ public class Simplified_hire_login extends Login{
 	
 	
 @Test
-public void Simplified_Hire_Accessor() throws IOException, InterruptedException {
+public void Simplified_Apps_Accessor(int a) throws IOException, InterruptedException {
 
 	int step = 1;
 
@@ -97,7 +97,7 @@ public void Simplified_Hire_Accessor() throws IOException, InterruptedException 
 		System.out.println("Step " + (step - 1) + ": Identify the Simplified Hire application from the internal applications list.");
 		System.out.println();
 
-		WebElement Simplified_Hire = internal_apps.get(1);
+		WebElement Simplified_Hire = internal_apps.get(a);
 
 		Report_Listen.log_print_in_report().log(Status.INFO,
 				"<b>🟨 Actual:</b> Simplified Hire application identified successfully from the internal applications list.");
@@ -121,12 +121,32 @@ public void Simplified_Hire_Accessor() throws IOException, InterruptedException 
 		System.out.println("Step " + (step - 1) + ": Validate landing on the Simplified Hire dashboard through the standard flow.");
 		System.out.println();
 
-		p.Landed_in_Dashboard();
+		if(a==1) {
+			p.Landed_in_Dashboard();
 
-		Report_Listen.log_print_in_report().log(Status.PASS,
-				"<b>🟨 Actual:</b> User landed successfully on the Simplified Hire dashboard through the standard portal flow.");
-		System.out.println("🟨 Actual: User landed successfully on the Simplified Hire dashboard through the standard portal flow.");
-		System.out.println();
+			Report_Listen.log_print_in_report().log(Status.PASS,
+					"<b>🟨 Actual:</b> User was directly redirected and landed successfully on the Simplified Hire dashboard without needing the standard internal app selection flow.");
+			System.out.println("🟨 Actual: User was directly redirected and landed successfully on the Simplified Hire dashboard without needing the standard internal app selection flow.");
+			System.out.println();
+			Report_Listen.log_print_in_report().log(Status.PASS,
+					"<b>🟨 Actual:</b> User landed successfully on the Simplified Hire dashboard through the standard portal flow.");
+			System.out.println("🟨 Actual: User landed successfully on the Simplified Hire dashboard through the standard portal flow.");
+			System.out.println();
+		}
+		if(a==0) {
+			p.Simplified_HR_Dashboard();
+
+			Report_Listen.log_print_in_report().log(Status.PASS,
+					"<b>🟨 Actual:</b> User was directly redirected and landed successfully on the Simplified HR dashboard without needing the standard internal app selection flow.");
+			System.out.println("🟨 Actual: User was directly redirected and landed successfully on the Simplified HR dashboard without needing the standard internal app selection flow.");
+			System.out.println();
+			Report_Listen.log_print_in_report().log(Status.PASS,
+					"<b>🟨 Actual:</b> User landed successfully on the Simplified HR  dashboard through the standard portal flow.");
+			System.out.println("🟨 Actual: User landed successfully on the Simplified HR  dashboard through the standard portal flow.");
+			System.out.println();
+		}
+
+		
 
 	} catch (Exception e) {
 
@@ -140,20 +160,16 @@ public void Simplified_Hire_Accessor() throws IOException, InterruptedException 
 		System.out.println("Step " + (step - 1) + ": Validate direct landing on the Simplified Hire dashboard.");
 		System.out.println();
 
-		p.Landed_in_Dashboard();
-
-		Report_Listen.log_print_in_report().log(Status.PASS,
-				"<b>🟨 Actual:</b> User was directly redirected and landed successfully on the Simplified Hire dashboard without needing the standard internal app selection flow.");
-		System.out.println("🟨 Actual: User was directly redirected and landed successfully on the Simplified Hire dashboard without needing the standard internal app selection flow.");
-		System.out.println();
+		
 	}
+	
+	
 
 	Report_Listen.log_print_in_report().log(Status.INFO,
 			"<b>📌 Final Status:</b> Simplified Hire application access flow completed successfully.");
 	System.out.println("📌 Final Status: Simplified Hire application access flow completed successfully.");
 	System.out.println();
 }
-
 
 public void check_for_payment_pop_up(){
 	

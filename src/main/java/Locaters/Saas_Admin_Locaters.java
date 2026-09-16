@@ -39,184 +39,204 @@ public class Saas_Admin_Locaters extends Repeat{
 		private List<WebElement> Product_check_boxes; 
 		@FindBy(id="search_search_input")
 		private WebElement search_field; 
-		@FindBy(xpath="//div[@class='text-right '] ")
+		@FindBy(xpath="//div[@class='text-right ']")
 		private List<WebElement> List_threedots_button; 
 		@FindBy(xpath="//*[local-name()='rect' and @role='presentation']")
 		private WebElement Loader_element; 
 		@FindBy(xpath="//*[text()='Approve ']/..")
 		private WebElement  Leads_Approve_button; 
 		@FindBy(xpath="//*[@role='tooltip']")
-		private WebElement ToolTip; 
+		private WebElement ToolTip;
 		@FindBy(xpath="(//iframe[@title='reCAPTCHA'])[1]")
 		private WebElement iframe;
-		@FindBy(xpath="//div[@id='rc-anchor-container']")
-		private WebElement Captcha_checkbox; /*
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
+        @FindBy(xpath="(//iframe[@title='reCAPTCHA'])[1]")
+		private List<WebElement> iframe_list;
+        @FindBy(xpath="//span[@id='recaptcha-anchor' and @role='checkbox']")
+        private List<WebElement> Captcha_checkbox_list;
+        @FindBy(xpath="//span[@id='recaptcha-anchor']//div[contains(@class,'recaptcha-checkbox-border')]")
+        private List<WebElement> Captcha_checkbox_border_list;
+		@FindBy(xpath="//*[contains(text(),'Form submitted successfully')]")
+        private List<WebElement> success_message_list;
+        @FindBy(xpath="//*[contains(@id,'error_message')]")
+        private List<WebElement> error_message_list; 
+        By captcha_normal_iframe_by = By.xpath("//iframe[@title='reCAPTCHA' and contains(@src,'size=normal')]");
+        @FindBy(xpath="//iframe[@title='reCAPTCHA' and contains(@src,'size=normal')]")
+        private List<WebElement> captcha_normal_iframe_list;
+        
+        By Image_pop_captcha_normal_iframe_by = By.xpath("//iframe[@title='recaptcha challenge expires in two minutes'and contains(@src,'https:')]");
+        @FindBy(xpath="//iframe[@title='recaptcha challenge expires in two minutes'and contains(@src,'https:')]")
+        public WebElement Image_pop_captcha_normal_iframe_Element;
+      
+        @FindBy(xpath="//form//p[2]")
+		private WebElement Section_below_submit_button; 
+		@FindBy(xpath="//*[text()='Create Account']/..")
+		private WebElement Create_Account_button; 
+		@FindBy(xpath="//*[text()='Customer Information']/..")
+		private WebElement Customer_Add_form;
+		@FindBy(xpath="//*[@class='app-plan-tab']")
+		private WebElement Plan_Tab; 
+		@FindBy(id="select_plan_hr")
+		private WebElement Hr_Plan_Input_feild; 
+		@FindBy(id="select_plan_checkout")
+		private WebElement Checkout_Plan_Input_feild;
+		@FindBy(id="select_plan_hire")
+		private WebElement Hire_Plan_Input_feild;
+		@FindBy(id="select_plan_spaces")
+		private WebElement Spaces_Plan_Input_feild;
+		@FindBy(id="hr_number_of_users")
+		private WebElement hr_number_of_users_input_field; 
+		@FindBy(id="checkout_number_of_shared_instances")
+		private WebElement checkout_number_of_shared_instances_input_field;
+		@FindBy(id="hire_number_of_users")
+		private WebElement hire_number_of_users_input_field;
+		@FindBy(id="spaces_number_of_locations")
+		private WebElement spaces_number_of_locations_input_field;
+		@FindBy(xpath="(//*[text()='Save as Draft']/..)[2]")
+		private WebElement Save_Draft_Button; 
+		@FindBy(xpath="(//*[text()='Save & Invite']/..)[2]")
+		private WebElement Save_Invite_Button; 
+		@FindBy(xpath="(//*[text()='Save']/..)[2]")
+	    private WebElement Save_Button; 
+		@FindBy(id="company_country")
+		private WebElement Country_input;
+		@FindBy(xpath="//*[contains(@class,'ant-select-dropdown-placement-bottomLeft')]")
+		private WebElement Country_dropdown; 
+		@FindBy(xpath="//*[contains(@class,'ant-notification-notice notify-box')]")
+		private WebElement Toast_message; 
+		@FindBy(xpath="//*[contains(@class,'ant-notification-notice-close-x')]")
+		private WebElement Toast_close_Button;
+		@FindBy(xpath="//div[@class='text-truncate']")
+		private List<WebElement> Truncated_data_in_list; 
+		@FindBy(xpath="//tbody[contains(@class,'ant-table-tbody')]//tr[contains(@class,'ant-table-placeholder')]//*[local-name()='svg' and @role='img']")
+		private List<WebElement> Loader; 
+		@FindBy(xpath="//*[contains(@class,'d-block line-heigh-2')]")
+		private WebElement Invite_link; 
+		@FindBy(xpath="//*[contains(@class,'ant-modal-header')]/..")
+		private WebElement pop_up_modal; 
+		@FindBy(id="password")
+		private WebElement password;
+		@FindBy(id="confirm_password")
+		private WebElement confirm_password; 
+		@FindBy(xpath="//*[text()='Almost there…']")
+		private WebElement Landed_in_Set_Password_page; 
+		@FindBy(xpath="//button[@type='Submit']")
+		private WebElement Submit_Button; 
+		@FindBy(xpath="//form[contains(@class,'ant-form')]//div[@role='alert' and @data-show='true' and contains(@class,'ant-alert-success')]")
+        private WebElement Account_Verified_Success_Message; 
+		@FindBy(xpath="//*[text()='Account Manager']/../..//*[@class='ant-form-item-control-input']")
+		private WebElement Account_manager_field; 
+		@FindBy(id="assigned_to")
+		private WebElement Account_Manager_input;
+		@FindBy(xpath="//*[text()='Group']/../..//*[@class='ant-form-item-control-input']")
+		private WebElement Group_Field;
+		@FindBy(id="group_ids")
+		private WebElement Group_input; 
+		@FindBy(xpath="//*[@class='ant-select-dropdown ant-select-dropdown-placement-bottomLeft ']")
+		private WebElement Account_Manager_Dropdown; 
+		@FindBy(xpath="//textarea")
+		private WebElement Text_Area_Field; 
+		@FindBy(xpath="//*[text()='Actions']/../..")
+		private WebElement  Action_button; 
+		@FindBy(xpath="//h3[text()='Plans & Billing']/../..")
+		private WebElement Billing_Tab; 
+		@FindBy(xpath="//*[text()='View All']")
+		private WebElement  view_all_button; 
+		@FindBy(xpath="//ul[@class='ant-dropdown-menu ant-dropdown-menu-root ant-dropdown-menu-vertical ant-dropdown-menu-light']")
+		private WebElement Plan_Dropdown; 
+		@FindBy(xpath="//*[@class='d-flex flex-column']")
+		private WebElement Leads_plan_Approver_section;
+		@FindBy(xpath="(//*[@class='rc-virtual-list-holder'])[2]")
+		private WebElement rc_virtual_list_holder_two;
+	    @FindBy(xpath="(//*[@class='rc-virtual-list-holder'])[1]")
+		private WebElement rc_virtual_list_holder_one;
+		@FindBy(xpath="(//*[@class='rc-virtual-list-holder'])[3]")
+		private WebElement rc_virtual_list_holder_three;
+		@FindBy(xpath="(//*[@class='rc-virtual-list-holder'])[4]")
+		private WebElement rc_virtual_list_holder_four; 
+		@FindBy(xpath="//*[text()='Assign & Create Account']/..")
+		private WebElement Assign_Create_Account_button; 
+		@FindBy(xpath="//div[@role='alert']//div[@class='ant-notification-notice-description']")
+		private WebElement Toast_; 
+		@FindBy(xpath="//h2//span[text()='Leads']")
+		private WebElement Leads_page_heading_title; 
+		@FindBy(xpath="//button[@color='danger']")
+		private WebElement Delete_button_red; 
+		@FindBy(xpath="//div[contains(@class, 'ant-spin-spinning')]")
+		private WebElement inner_loader;
+		@FindBy(xpath="//*[text()='Continue']/..")
+		private WebElement Continue_button; 
+		@FindBy(xpath="//*[contains(@class,'ant-modal-content')]//*[@class='ant-form ant-form-vertical']/../..//*[contains(@class,'text-secondary')]")
+		private WebElement Plan_change_popup; 
+		@FindBy(id="first_name")
+		private WebElement first_name;
+		@FindBy(id="last_name")
+		private WebElement last_name;
+		@FindBy(id="address")
+		private WebElement address;
+		@FindBy(id="city")
+		private WebElement city;
+		@FindBy(xpath="//div[contains(@class,'ant-modal organization-modal modal-title-center')]//form")
+		private WebElement form_original; 
+		@FindBy(id="zip")
+		private WebElement zipcode;
+		@FindBy(id="state")
+		private WebElement state;
+		@FindBy(id="country")
+		private WebElement country;
+		@FindBy(xpath="//*[text()='Upgrade Successful']")
+		private WebElement Upgrade_Successful_message; 
+		@FindBy(xpath="//*[@class='ant-card-body']//div[@class='d-flex align-items-center']//span[@style='box-sizing: border-box; display: block; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; max-width: 100%;']")
+		private List<WebElement> App_cards;
+		@FindBy(xpath="//div[@class='ant-tooltip ant-tooltip-placement-top ']//div[@role='tooltip']")
+		private WebElement Visibile_tooltip;
+		@FindBy(xpath="//button[@class='ant-btn ant-btn-default filter-btn']")
+		private WebElement filter_clear_button; 
+		@FindBy(xpath="//table//td[4]")
+		private List<WebElement> Table_Third_Column_Plan_Column_Values;
+		@FindBy(xpath="//span[contains(@class,'ant-tag ant-tag')]")
+		private List<WebElement> plan_status_tag;
+		@FindBy(xpath="//div[@class='ant-tooltip ant-tooltip-placement-top ']")
+		private WebElement List_Area_Tooltip;
+		@FindBy(xpath="//div[@role='progressbar']")
+		private WebElement Progress_Bar;
+		@FindBy(xpath="//div[@class='screen-edit-cell ']")
+		private WebElement impersonated_box; 
+		@FindBy(xpath="(//div[@class='ant-card-body']//ul)[1]")
+		private WebElement  Account_Owner_Plan_List_Section;
+		@FindBy(xpath="(//div[contains(@class,'plansPage_planInfo__')])[1]")
+		private WebElement Landed_in_plans_page;
+		@FindBy(xpath="(//div[contains(@class,'plansPage_planInfo__')])")
+		private List<WebElement> Plans_Sections;
+		@FindBy(xpath="//form")
+		private WebElement form;
+		@FindBy(id="plan_name")
+		private WebElement plan_name_input;
+		@FindBy(id="plan_price")
+		private WebElement Plan_price_input; 
+		@FindBy(id="number_of_shared_instances")
+		private WebElement Instances_Input;
+		@FindBy(id="price_number_of_shared_instances")
+		private WebElement Price_Per_Instances_Input;
+		@FindBy(id="number_of_private_instances")
+		private WebElement private_instances;
+		@FindBy(id="no_of_events_can_manage")
+		private WebElement  Events_Management;
+		@FindBy(id="direct_link_checkout")
+		private WebElement direct_link_checkout;
+		@FindBy(id="custom_fields")
+		private WebElement Custom_field_input;
+		@FindBy(id="1_click_upsell")
+		private WebElement One_click_upsell;
+		@FindBy(id="no_of_cross_sell")
+		private WebElement Cross_Sells_Input;
+		@FindBy(id="no_of_bundles")
+		private WebElement Bundles;
+		@FindBy(id="shield")
+		private WebElement shield_input;
+		@FindBy(xpath="//*[text()='Every']/../../../../..//input[@class='ant-input']")
+		private WebElement Every_input_field;
+		@FindBy(xpath="//*[text()='Every']/../../../../..//*[@class='ant-select ant-select-single ant-select-show-arrow']")
+		private WebElement Every_fields_dropdown;/*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -408,294 +428,312 @@ public class Saas_Admin_Locaters extends Repeat{
 		public WebElement iframe(){ 
 		wait_for_theElement(iframe);
 		return iframe;}
-		public WebElement Captcha_checkbox(){
-		wait_for_theElement(Captcha_checkbox);
-		return Captcha_checkbox;}/*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+        public List<WebElement> iframe_list(){ 
+		return iframe_list;}
+		public List<WebElement> Captcha_checkbox_list(){
+		wait_for_theElement(Captcha_checkbox_list);
+		//wait_for_element_to_be_clickable(Captcha_checkbox);
+		return Captcha_checkbox_list;}
+		public List<WebElement> Captcha_checkbox_border_list() {
+	    wait_for_theElement(Captcha_checkbox_border_list);
+		//wait_for_element_to_be_clickable(Captcha_checkbox_border);
+	    return Captcha_checkbox_border_list;}
+		public List<WebElement> success_message_list(){
+		wait_for_theElement(success_message_list);
+	    return success_message_list;}
+        public List<WebElement> error_message_list(){
+        wait_for_theElement(error_message_list);
+	    return error_message_list;}
+        public List<WebElement> captcha_normal_iframe_list(){
+        return wait_for_optional_list(captcha_normal_iframe_by, 3);
+        } 
+		public WebElement Section_below_submit_button(){
+		wait_for_theElement(Section_below_submit_button);
+		return Section_below_submit_button;} 
+		public WebElement Create_Account_button(){
+		wait_for_theElement(Create_Account_button);
+		return Create_Account_button;}
+		public WebElement Customer_Add_form(){
+		wait_for_theElement(Customer_Add_form);
+		return Customer_Add_form;}
+		public List<WebElement> Customer_form_inputs(){
+		List<WebElement> Customer_form_inputs = Customer_Add_form().findElements(By.xpath(".//input[@type='text']"));
+		wait_for_theElement(Customer_form_inputs);
+		return Customer_form_inputs;}
+		public List<WebElement> Customer_form_dropdowns(){
+		List<WebElement> Customer_form_dropdowns = Customer_Add_form().findElements(By.xpath(".//*[@class='ant-form-item-control-input']"));
+		wait_for_theElement(Customer_form_dropdowns);
+		return Customer_form_dropdowns;}
+		public WebElement Plan_Tab(){
+		wait_for_theElement(Plan_Tab);
+		return Plan_Tab;}
+		public List<WebElement> Plan_toggle_Buttons(){
+		List<WebElement> Plan_toggle_Buttons = Plan_Tab().findElements(By.xpath(".//button"));
+		wait_for_theElement(Plan_toggle_Buttons);
+		return Plan_toggle_Buttons;}
+		public List<WebElement> Plan_select_dropdowm(){
+		List<WebElement> Plan_select_dropdowm = Plan_Tab().findElements(By.xpath(".//*[@class='ant-form-item-control-input']"));
+		wait_for_theElement(Plan_select_dropdowm);
+		return Plan_select_dropdowm;}
+		public WebElement Hr_Plan_Input_feild(){
+		wait_for_theElement(Hr_Plan_Input_feild);
+		return Hr_Plan_Input_feild;} 
+		public WebElement Checkout_Plan_Input_feild(){
+		wait_for_theElement(Checkout_Plan_Input_feild);
+		return Checkout_Plan_Input_feild;} 
+		public WebElement Hire_Plan_Input_feild(){
+		wait_for_theElement(Hire_Plan_Input_feild);
+		return Hire_Plan_Input_feild;} 
+		public WebElement Spaces_Plan_Input_feild(){
+		wait_for_theElement(Spaces_Plan_Input_feild);
+		return Spaces_Plan_Input_feild;} 
+		public WebElement hr_number_of_users_input_field(){
+		wait_for_theElement(hr_number_of_users_input_field);
+		return hr_number_of_users_input_field;} 
+		public WebElement checkout_number_of_shared_instances_input_field(){
+		wait_for_theElement(checkout_number_of_shared_instances_input_field);
+		return checkout_number_of_shared_instances_input_field;} 
+		public WebElement hire_number_of_users_input_field(){
+		wait_for_theElement(hire_number_of_users_input_field);
+		return hire_number_of_users_input_field;} 
+		public WebElement spaces_number_of_locations_input_field(){
+		wait_for_theElement(spaces_number_of_locations_input_field);
+		return spaces_number_of_locations_input_field;} 
+		public WebElement Save_Draft_Button(){
+		wait_for_theElement(Save_Draft_Button);
+		return Save_Draft_Button;}
+		public WebElement Country_input(){
+		wait_for_theElement(Country_input);
+		return Country_input;} 
+		public WebElement Country_dropdown(){
+		wait_for_theElement(Country_dropdown);
+		return Country_dropdown;}
+		public WebElement Toast_message(){
+		wait_for_theElement(Toast_message);
+		return Toast_message;} 
+		public WebElement Toast_close_Button(){
+		wait_for_theElement(Toast_close_Button);
+		return Toast_close_Button;}  
+		public WebElement Save_Invite_Button(){
+		wait_for_theElement(Save_Invite_Button);
+		return Save_Invite_Button;}
+		public List<WebElement> Truncated_data_in_list(){
+		wait_for_theElement(Truncated_data_in_list);
+		return Truncated_data_in_list;} 
+		public List<WebElement> Loader(){
+		wait_for_theElement(Loader);
+		return Loader;} 
+		public WebElement Invite_link(){
+		wait_for_theElement(Invite_link);
+		return Invite_link;} 
+		public WebElement pop_up_modal(){
+		wait_for_theElement(pop_up_modal);
+		return pop_up_modal;} 
+		public WebElement password(){
+		wait_for_theElement(password);
+		return password;}
+		public WebElement confirm_password(){
+		wait_for_theElement(confirm_password);
+		return confirm_password;} 
+		public WebElement Landed_in_Set_Password_page(){
+		wait_for_theElement(Landed_in_Set_Password_page);
+		return Landed_in_Set_Password_page;}
+		public WebElement Submit_Button(){
+		wait_for_theElement(Submit_Button);
+		return Submit_Button;}  
+		public WebElement Account_Verified_Success_Message(){
+		wait_for_theElement(Account_Verified_Success_Message);
+		return Account_Verified_Success_Message;} 
+		public WebElement Account_manager_field(){
+		wait_for_theElement(Account_manager_field);
+		return Account_manager_field;}
+		public WebElement Account_Manager_input(){
+		wait_for_theElement(Account_Manager_input);
+		return Account_Manager_input;}
+		public WebElement Group_Field(){
+		wait_for_theElement(Group_Field);
+		return Group_Field;}
+		public WebElement Group_input(){
+		wait_for_theElement(Group_input);
+		return Group_input;} 
+		public WebElement Account_Manager_Dropdown(){
+		wait_for_theElement(Account_Manager_Dropdown);
+		return Account_Manager_Dropdown;} 
+		public WebElement Text_Area_Field(){
+		wait_for_theElement(Text_Area_Field);
+		return Text_Area_Field;} 
+		public WebElement Action_button(){
+		wait_for_theElement(Action_button);
+		return Action_button;} 
+		public WebElement Billing_Tab(){
+		wait_for_theElement(Billing_Tab);
+		return Billing_Tab;} 
+		public WebElement view_all_button(){
+		wait_for_theElement(view_all_button);
+		return view_all_button;} 
+		public WebElement Plan_Dropdown(){
+		wait_for_theElement(Plan_Dropdown);
+		return Plan_Dropdown;}
+		public WebElement Leads_plan_Approver(){
+		wait_for_theElement(Leads_plan_Approver_section);
+		return Leads_plan_Approver_section;}
+		public List<WebElement> Approve_Plan_toggle_Buttons(){
+		List<WebElement> Approve_Plan_toggle_Buttons = Leads_plan_Approver().findElements(By.xpath(".//button"));
+		wait_for_theElement(Approve_Plan_toggle_Buttons);
+		return Approve_Plan_toggle_Buttons;}
+		public List<WebElement> Leads_plan_select_dropdowm(){
+		List<WebElement> Leads_plan_select_dropdowm = Leads_plan_Approver().findElements(By.xpath(".//*[text()='Select Plan']/../..//*[@class='ant-form-item-control-input']"));
+		wait_for_theElement(Leads_plan_select_dropdowm);
+		return Leads_plan_select_dropdowm;}
+		public WebElement rc_virtual_list_holder_two(){
+		wait_for_theElement(rc_virtual_list_holder_two);
+		return rc_virtual_list_holder_two;}
+		public WebElement rc_virtual_list_holder_one(){
+		wait_for_theElement(rc_virtual_list_holder_one);
+		return rc_virtual_list_holder_one;}
+		public WebElement rc_virtual_list_holder_three(){
+		wait_for_theElement(rc_virtual_list_holder_three);
+		return rc_virtual_list_holder_three;}
+		public WebElement rc_virtual_list_holder_four(){
+		wait_for_theElement(rc_virtual_list_holder_four);
+		return rc_virtual_list_holder_four;} 
+		public WebElement Assign_Create_Account_button(){
+		wait_for_theElement(Assign_Create_Account_button);
+		return Assign_Create_Account_button;}
+		public WebElement Toast_(){
+		wait_for_theElement(Toast_);
+		return Toast_;}
+		public WebElement Leads_page_heading_title(){
+		wait_for_theElement(Leads_page_heading_title);
+		return Leads_page_heading_title;} 
+		public WebElement Delete_button_red(){
+		wait_for_theElement(Delete_button_red);
+		return Delete_button_red;}
+		public WebElement inner_loader(){
+		wait_for_theElement(inner_loader);
+		return inner_loader;}
+		public WebElement Continue_button(){
+		wait_for_theElement(Continue_button);
+		return Continue_button;}
+		public WebElement Plan_change_popup(){
+		wait_for_theElement(Plan_change_popup);
+		return Plan_change_popup;}
+		public WebElement first_name(){
+		wait_for_theElement(first_name);
+		return first_name;}
+		public WebElement last_name(){
+		wait_for_theElement(last_name);
+		return last_name;}
+		public WebElement address(){
+		wait_for_theElement(address);
+		return address;}
+		public WebElement form_original(){
+		wait_for_theElement(form_original);
+		return form_original;}
+		public WebElement city(){
+		wait_for_theElement(city);
+		return city;}
+		public WebElement zipcode(){
+		wait_for_theElement(zipcode);
+		return zipcode;}
+		public WebElement state(){
+		wait_for_theElement(state);
+		return state;}
+		public WebElement country(){
+		wait_for_theElement(country);
+		return country;}
+		public WebElement Upgrade_Successful_message(){
+		wait_for_theElement(Upgrade_Successful_message);
+		return Upgrade_Successful_message;}
+		public List<WebElement> App_cards(){
+		wait_for_theElement(App_cards);
+		return App_cards;}
+		public WebElement Visibile_tooltip(){
+		wait_for_theElement(Visibile_tooltip);
+		return Visibile_tooltip;}
+		public WebElement filter_clear_button(){
+		wait_for_theElement(filter_clear_button);
+		return filter_clear_button;}
+		public List<WebElement> Table_Third_Column_Plan_Column_Values(){
+		wait_for_theElement(Table_Third_Column_Plan_Column_Values);
+		return Table_Third_Column_Plan_Column_Values;}
+		public List<WebElement> plan_status_tag(){
+		wait_for_theElement(plan_status_tag);
+		return plan_status_tag;}
+		public WebElement List_Area_Tooltip(){
+		wait_for_theElement(List_Area_Tooltip);
+		return List_Area_Tooltip;} 
+		public WebElement Progress_Bar(){
+		wait_for_theElement(Progress_Bar);
+		return Progress_Bar;} 
+		public WebElement impersonated_box(){
+		wait_for_theElement(impersonated_box);
+		return impersonated_box;} 
+		public WebElement Account_Owner_Plan_List_Section(){
+		wait_for_theElement(Account_Owner_Plan_List_Section);
+		return Account_Owner_Plan_List_Section;} 
+		public List<WebElement> Listed_Plans_Elements(){
+		List<WebElement> Listed_Plans_Elements = Account_Owner_Plan_List_Section().findElements(By.xpath(".//li"));
+		wait_for_theElement(Listed_Plans_Elements);
+		return Listed_Plans_Elements;}
+		public WebElement Landed_in_plans_page(){
+		wait_for_theElement(Landed_in_plans_page);
+		return Landed_in_plans_page;}
+		public List<WebElement> Plans_Sections(){
+		wait_for_theElement(Plans_Sections);
+		return Plans_Sections;}
+		public WebElement form(){
+		wait_for_theElement(form);
+		return form;} 
+		public List<WebElement> Form_Inputs(WebElement Form_element){
+		List<WebElement> Form_Inputs = Form_element.findElements(By.xpath(".//*[@class='ant-form-item-control-input']"));
+		wait_for_theElement(Form_Inputs);
+		return Form_Inputs;} 
+		public WebElement plan_name_input(){
+		wait_for_theElement(plan_name_input);
+		return plan_name_input;}
+		public WebElement Plan_price_input(){
+		wait_for_theElement(Plan_price_input);
+		return Plan_price_input;} 
+		public WebElement Instances_Input(){
+		wait_for_theElement(Instances_Input);
+		return Instances_Input;}
+		public WebElement Price_Per_Instances_Input(){
+		wait_for_theElement(Price_Per_Instances_Input);
+		return Price_Per_Instances_Input;}
+		public WebElement private_instances_input(){
+		wait_for_theElement(private_instances);
+		return private_instances;}
+		public WebElement Events_Management_input(){
+		wait_for_theElement(Events_Management);
+		return Events_Management;}
+		public WebElement direct_link_checkout_input(){
+		wait_for_theElement(direct_link_checkout);
+		return direct_link_checkout;}
+		public WebElement Custom_field_input(){
+		wait_for_theElement(Custom_field_input);
+		return Custom_field_input;}
+		public WebElement One_click_upsell_input(){
+		wait_for_theElement(One_click_upsell);
+		return One_click_upsell;}
+		public WebElement Cross_Sells_Input(){
+		wait_for_theElement(Cross_Sells_Input);
+		return Cross_Sells_Input;}
+		public WebElement Bundles_input(){
+		wait_for_theElement(Bundles);
+		return Bundles;}
+		public WebElement shield_input(){
+		wait_for_theElement(shield_input);
+		return shield_input;}
+		public WebElement Every_input_field(){
+		wait_for_theElement(Every_input_field);
+		return Every_input_field;}
+		public WebElement Every_fields_dropdown(){
+		wait_for_theElement(Every_fields_dropdown);
+		return Every_fields_dropdown;}
+		public WebElement Save_Button(){
+		wait_for_theElement(Save_Button);
+		return Save_Button;}/*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}
