@@ -28,35 +28,64 @@ public void form_fill_up() throws IOException, InterruptedException {
 	String URL = f.Data_Fetcher("Beta_Url");
 
 	String[] Email_Names = {
-			"Vivek Sharma",
-			"Vivek Jain",
-			"Ravindra Kaushik",
-			"Simpson Matthews",
-			"Hrithik Sen"
+			"Alexei Morozov",
+			"Dmitri Volkov",
+			"Nikolai Sokolov",
+			"Mikhail Petrov",
+			"Anastasia Ivanova",
+			"Elena Kuznetsova",
+			"Lukas Schneider",
+			"Jonas Weber",
+			"Felix Wagner",
+			"Maximilian Fischer",
+			"Sophie Becker",
+			"Anna Hoffmann"
 	};
 
 	String[] Emails = {
-			"vivek.sharma@gmail.com",
-			"vivek.jain@gmail.com",
-			"ravindra.kaushik@gmail.com",
-			"simpson.matthews@gmail.com",
-			"hrithik.sen@gmail.com"
+			"alexei.morozov@gmail.com",
+			"dmitri.volkov@gmail.com",
+			"nikolai.sokolov@gmail.com",
+			"mikhail.petrov@gmail.com",
+			"anastasia.ivanova@gmail.com",
+			"elena.kuznetsova@gmail.com",
+			"lukas.schneider@gmail.com",
+			"jonas.weber@gmail.com",
+			"felix.wagner@gmail.com",
+			"maximilian.fischer@gmail.com",
+			"sophie.becker@gmail.com",
+			"anna.hoffmann@gmail.com"
 	};
 
-	int Total_Repetition = 5;
+	String[] Company_Values = {
+			"Neva Digital Systems",
+			"VolgaTech Solutions",
+			"Baltic Software Group",
+			"Orion Business Systems",
+			"Vertex Digital Services",
+			"NorthBridge Technologies",
+			"Nordlicht Digital GmbH",
+			"RheinWerk Solutions GmbH",
+			"AlpenCore Systems GmbH",
+			"Berlin Cloud Works GmbH",
+			"Hanseatic Software Labs GmbH",
+			"Munich Data Solutions GmbH"
+	};
+
+	int Total_Repetition = 3;
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Repeated frontend contact-form submission validation");
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Submit the frontend contact form multiple times using different contact details, handle privacy validation and CAPTCHA when required, and verify successful submission.");
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Unique Emails = " + Emails.length + " | Repetition Per Email = " + Total_Repetition + " | Total Submissions = " + (Emails.length * Total_Repetition));
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> Every configured form submission should complete successfully and display the confirmation message.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Submit the frontend contact form using multiple customer contact details, handle privacy confirmation and CAPTCHA when required, and verify successful submission.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Contact Sets = " + Emails.length + " | Repetition Per Contact = " + Total_Repetition + " | Total Submissions = " + (Emails.length * Total_Repetition));
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> Every configured contact-form submission should complete successfully and display the confirmation message.");
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
 
 	System.out.println();
 	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 	System.out.println("🔹 Scenario: Repeated frontend contact-form submission validation");
-	System.out.println("📥 Unique Emails = " + Emails.length);
-	System.out.println("📥 Repetition Per Email = " + Total_Repetition);
+	System.out.println("📥 Contact Sets = " + Emails.length);
+	System.out.println("📥 Repetition Per Contact = " + Total_Repetition);
 	System.out.println("📥 Total Submissions = " + (Emails.length * Total_Repetition));
 	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 	System.out.println();
@@ -70,6 +99,7 @@ public void form_fill_up() throws IOException, InterruptedException {
 
 		String Full_Name_Value = Email_Names[Email_Index];
 		String Email_Value = Emails[Email_Index];
+		String Company_Value = Company_Values[Email_Index];
 
 		for (int Repeat_Count = 1; Repeat_Count <= Total_Repetition; Repeat_Count++) {
 
@@ -80,15 +110,29 @@ public void form_fill_up() throws IOException, InterruptedException {
 			Phone_Number_Builder.append(String.format("%02d", Repeat_Count));
 
 			String Phone_Number_Value = Phone_Number_Builder.toString();
-			String Company_Value = "CodeClouds Bot Simulation";
-			String Message_Value = "Automated frontend form simulation using Email = " + Email_Value + " | Submission = " + Repeat_Count + " of " + Total_Repetition;
+
+			String Message_Value;
+
+			if (Repeat_Count == 1) {
+
+				Message_Value = "Hello, we are currently exploring options to improve our web platform and would like to understand more about your development services, estimated timelines, and engagement process.";
+
+			} else if (Repeat_Count == 2) {
+
+				Message_Value = "Hi, our team is reviewing potential technology partners for an upcoming software project. Please share some information about your development process, available services, and how we can discuss our requirements.";
+
+			} else {
+
+				Message_Value = "Hello, I would like to speak with your team regarding a custom software requirement for our company. Please let me know a suitable time to discuss the project scope, estimated delivery timeline, and next steps.";
+			}
 
 			Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 📋 FORM SUBMISSION ━━━━━━━━━━━━━━</b>");
-			Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Name = " + Full_Name_Value + " | Email = " + Email_Value + " | Phone = " + Phone_Number_Value + " | Repeat = " + Repeat_Count + "/" + Total_Repetition);
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Name = " + Full_Name_Value + " | Email = " + Email_Value + " | Company = " + Company_Value + " | Phone = " + Phone_Number_Value + " | Submission = " + Repeat_Count + "/" + Total_Repetition);
 
 			System.out.println("━━━━━━━━━━━━━━ 🤖 FORM SUBMISSION ━━━━━━━━━━━━━━");
 			System.out.println("Name = " + Full_Name_Value);
 			System.out.println("Email = " + Email_Value);
+			System.out.println("Company = " + Company_Value);
 			System.out.println("Phone = " + Phone_Number_Value);
 			System.out.println("Repeat = " + Repeat_Count + "/" + Total_Repetition);
 			System.out.println();
@@ -115,7 +159,6 @@ public void form_fill_up() throws IOException, InterruptedException {
 
 			Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Contact details were entered successfully.");
 			System.out.println("✅ Actual: Form data entered successfully.");
-
 			System.out.println();
 
 			Step_Start_Time = System.currentTimeMillis();
@@ -149,7 +192,7 @@ public void form_fill_up() throws IOException, InterruptedException {
 
 				long Privacy_Start_Time = System.currentTimeMillis();
 
-				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Privacy confirmation was required. The privacy confirmation was refreshed before submitting the form again.");
+				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Privacy confirmation was required. The confirmation was refreshed before submitting the form again.");
 				System.out.println("🟨 Actual: Privacy validation appeared.");
 
 				Step_Start_Time = System.currentTimeMillis();
@@ -315,10 +358,12 @@ public void form_fill_up() throws IOException, InterruptedException {
 
 			System.out.println("⏱ DEBUG | Success message text read = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
 
-			Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Form submitted successfully. Email = " + Email_Value + " | Repeat = " + Repeat_Count + "/" + Total_Repetition + " | Confirmation = " + Success_Message_Text);
+			Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Form submitted successfully. Name = " + Full_Name_Value + " | Email = " + Email_Value + " | Company = " + Company_Value + " | Submission = " + Repeat_Count + "/" + Total_Repetition + " | Confirmation = " + Success_Message_Text);
 
 			System.out.println("✅ Actual: Form submitted successfully.");
+			System.out.println("Name = " + Full_Name_Value);
 			System.out.println("Email = " + Email_Value);
+			System.out.println("Company = " + Company_Value);
 			System.out.println("Phone Number = " + Phone_Number_Value);
 			System.out.println("Repeat = " + Repeat_Count + "/" + Total_Repetition);
 			System.out.println("Confirmation = " + Success_Message_Text);
@@ -340,6 +385,7 @@ public void form_fill_up() throws IOException, InterruptedException {
 			System.out.println("━━━━━━━━━━━━━━ ⏱ ITERATION TIMING SUMMARY ━━━━━━━━━━━━━━");
 			System.out.println("Name = " + Full_Name_Value);
 			System.out.println("Email = " + Email_Value);
+			System.out.println("Company = " + Company_Value);
 			System.out.println("Repeat = " + Repeat_Count + "/" + Total_Repetition);
 			System.out.println("⏱ Total iteration duration = " + Iteration_Total_Duration + " ms");
 			System.out.println("⏱ Total iteration duration = " + String.format("%.2f", Iteration_Total_Duration / 1000.0) + " seconds");
@@ -352,8 +398,8 @@ public void form_fill_up() throws IOException, InterruptedException {
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
 
 	System.out.println("✅ Final Result: Frontend contact-form simulation completed successfully.");
-	System.out.println("Unique Emails = " + Emails.length);
-	System.out.println("Repetition Per Email = " + Total_Repetition);
+	System.out.println("Contact Sets = " + Emails.length);
+	System.out.println("Repetition Per Contact = " + Total_Repetition);
 	System.out.println("Total Submissions = " + (Emails.length * Total_Repetition));
 	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 	System.out.println();
