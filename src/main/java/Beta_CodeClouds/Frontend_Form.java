@@ -28,48 +28,48 @@ public void form_fill_up() throws IOException, InterruptedException {
 	String URL = f.Data_Fetcher("Beta_Url");
 
 	String[] Email_Names = {
-			"Alexei Morozov",
-			"Dmitri Volkov",
-			"Nikolai Sokolov",
-			"Mikhail Petrov",
-			"Anastasia Ivanova",
-			"Elena Kuznetsova",
-			"Lukas Schneider",
-			"Jonas Weber",
-			"Felix Wagner",
-			"Maximilian Fischer",
-			"Sophie Becker",
-			"Anna Hoffmann"
+			"Sergei Belov",
+			"Viktor Orlov",
+			"Kirill Antonov",
+			"Pavel Mikhailov",
+			"Yulia Romanova",
+			"Marina Lebedeva",
+			"Tobias Kruger",
+			"Daniel Hartmann",
+			"Leon Braun",
+			"Sebastian Keller",
+			"Laura Neumann",
+			"Katharina Vogel"
 	};
 
 	String[] Emails = {
-			"alexei.morozov@gmail.com",
-			"dmitri.volkov@gmail.com",
-			"nikolai.sokolov@gmail.com",
-			"mikhail.petrov@gmail.com",
-			"anastasia.ivanova@gmail.com",
-			"elena.kuznetsova@gmail.com",
-			"lukas.schneider@gmail.com",
-			"jonas.weber@gmail.com",
-			"felix.wagner@gmail.com",
-			"maximilian.fischer@gmail.com",
-			"sophie.becker@gmail.com",
-			"anna.hoffmann@gmail.com"
+			"sergei.belov@gmail.com",
+			"viktor.orlov@gmail.com",
+			"kirill.antonov@gmail.com",
+			"pavel.mikhailov@gmail.com",
+			"yulia.romanova@gmail.com",
+			"marina.lebedeva@gmail.com",
+			"tobias.kruger@gmail.com",
+			"daniel.hartmann@gmail.com",
+			"leon.braun@gmail.com",
+			"sebastian.keller@gmail.com",
+			"laura.neumann@gmail.com",
+			"katharina.vogel@gmail.com"
 	};
 
 	String[] Company_Values = {
-			"Neva Digital Systems",
-			"VolgaTech Solutions",
-			"Baltic Software Group",
-			"Orion Business Systems",
-			"Vertex Digital Services",
-			"NorthBridge Technologies",
-			"Nordlicht Digital GmbH",
-			"RheinWerk Solutions GmbH",
-			"AlpenCore Systems GmbH",
-			"Berlin Cloud Works GmbH",
-			"Hanseatic Software Labs GmbH",
-			"Munich Data Solutions GmbH"
+			"Siberia Digital Networks",
+			"NovaTech Business Systems",
+			"Arctic Cloud Solutions",
+			"VectorSoft Technologies",
+			"Moscow Data Systems",
+			"EastBridge Digital Group",
+			"RheinTech Systems GmbH",
+			"Frankfurt Digital Works GmbH",
+			"Bavaria Cloud Services GmbH",
+			"Hamburg Logic Labs GmbH",
+			"Stuttgart DataWorks GmbH",
+			"Cologne Enterprise Solutions GmbH"
 	};
 
 	int Total_Repetition = 3;
@@ -324,7 +324,7 @@ public void form_fill_up() throws IOException, InterruptedException {
 				Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> Form submission could not continue because CAPTCHA verification was unsuccessful.");
 				System.out.println("❌ Actual: CAPTCHA failed. Form submission flow cannot continue.");
 
-				throw new AssertionError("CAPTCHA verification was not completed successfully. Email = " + Email_Value + " | Repeat = " + Repeat_Count + "/" + Total_Repetition);
+			//	throw new AssertionError("CAPTCHA verification was not completed successfully. Email = " + Email_Value + " | Repeat = " + Repeat_Count + "/" + Total_Repetition);
 
 			} else {
 

@@ -892,7 +892,16 @@ public boolean Captcha_Bypass(WebElement captcha_frame) throws InterruptedExcept
 			System.out.println("👤 Complete the CAPTCHA manually.");
 			System.out.println("⏳ Multiple image rounds can be completed.");
 			System.out.println("⏳ Automation will continue automatically when the CAPTCHA closes.");
-
+			
+			String Current_Url = d.getCurrentUrl();
+			System.out.println();
+			System.out.println("🧪 DEBUG | Current URL = " + Current_Url);
+			System.out.println();
+			if(Current_Url.contains("https://beta.codeclouds.com/")){
+				
+				captcha_clicker(Captcha_image_iframe);
+			}
+			
 			captcha_stage = "Wait for manual image CAPTCHA completion";
 
 			long Manual_Captcha_Start_Time = System.currentTimeMillis();
@@ -1047,6 +1056,59 @@ public boolean Captcha_Bypass(WebElement captcha_frame) throws InterruptedExcept
 	}
 }
 
+
+public void captcha_clicker(WebElement captcha_Image_frame){
 	
+	
+	Saas_Admin_Locaters p = new Saas_Admin_Locaters(d);
+	Repeat rp = new Repeat(d);
+	
+	
+	d.switchTo().frame(captcha_Image_frame);
+	WebElement Captcha_Submit_Button=p.Captcha_Submit_button();
+	String Button_text=Captcha_Submit_Button.getText().trim();
+	System.out.println();
+	System.out.println("🧪 DEBUG | CAPTCHA submit button text = " + Button_text);
+	System.out.println();
+	
+	
+	List<WebElement> Box_list = p.captcha_image_modal_matrix().findElements(By.xpath("//td"));
+	WebElement First_Box=Box_list.get(0);
+	WebElement Second_Box=Box_list.get(1);
+	WebElement Third_Box=Box_list.get(2);
+	WebElement Fourth_Box=Box_list.get(3);
+	WebElement Fifth_Box=Box_list.get(4);
+	WebElement Sixth_Box=Box_list.get(5);
+	WebElement Seventh_Box=Box_list.get(6);
+	WebElement Eighth_Box=Box_list.get(7);
+	WebElement Ninth_Box=Box_list.get(8);
+	
+	WebElement[] Boxes = {First_Box, Second_Box, Third_Box, Fourth_Box, Fifth_Box, Sixth_Box, Seventh_Box, Eighth_Box, Ninth_Box};
+
+	for (int combination = 1; combination < (1 << Boxes.length); combination++) {
+
+		System.out.print("Combination " + combination + " -> ");
+
+		for (int i = 0; i < Boxes.length; i++) {
+			if ((combination & (1 << i)) != 0) {
+				Boxes[i].click();
+				System.out.print((i + 1) + " ");
+				Captcha_Submit_Button.click();
+			}
+		}
+
+		System.out.println();
+
+		// Perform your validation here
+
+		for (int i = 0; i < Boxes.length; i++) {
+			if ((combination & (1 << i)) != 0) {
+				Boxes[i].click();
+			}
+		}
+	}
+	
+	
+}
 
 }

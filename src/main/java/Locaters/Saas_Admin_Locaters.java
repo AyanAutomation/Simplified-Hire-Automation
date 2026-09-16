@@ -66,7 +66,8 @@ public class Saas_Admin_Locaters extends Repeat{
         By Image_pop_captcha_normal_iframe_by = By.xpath("//iframe[@title='recaptcha challenge expires in two minutes'and contains(@src,'https:')]");
         @FindBy(xpath="//iframe[@title='recaptcha challenge expires in two minutes'and contains(@src,'https:')]")
         public WebElement Image_pop_captcha_normal_iframe_Element;
-      
+        
+        
         @FindBy(xpath="//form//p[2]")
 		private WebElement Section_below_submit_button; 
 		@FindBy(xpath="//*[text()='Create Account']/..")
@@ -236,11 +237,11 @@ public class Saas_Admin_Locaters extends Repeat{
 		@FindBy(xpath="//*[text()='Every']/../../../../..//input[@class='ant-input']")
 		private WebElement Every_input_field;
 		@FindBy(xpath="//*[text()='Every']/../../../../..//*[@class='ant-select ant-select-single ant-select-show-arrow']")
-		private WebElement Every_fields_dropdown;/*
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
+		private WebElement Every_fields_dropdown;
+		@FindBy(xpath="//div[@id='rc-imageselect']")
+		private WebElement captcha_image_modal_matrix;
+		@FindBy(xpath="//button[@class='rc-button-default goog-inline-block']")
+		private WebElement Captcha_Submit_button;/*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -733,13 +734,13 @@ public class Saas_Admin_Locaters extends Repeat{
 		return Every_fields_dropdown;}
 		public WebElement Save_Button(){
 		wait_for_theElement(Save_Button);
-		return Save_Button;}/*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Save_Button;}
+		public WebElement captcha_image_modal_matrix(){
+		wait_for_theElement(captcha_image_modal_matrix);
+		return captcha_image_modal_matrix;}
+		public WebElement Captcha_Submit_button(){
+		wait_for_theElement(Captcha_Submit_button);
+		return Captcha_Submit_button;}/*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}
