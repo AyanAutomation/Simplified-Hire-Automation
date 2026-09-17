@@ -772,7 +772,7 @@ public boolean Captcha_Bypass(WebElement captcha_frame) throws InterruptedExcept
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Section:</b> CAPTCHA Validation");
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Complete CAPTCHA verification and wait for manual interaction only when an image challenge is presented.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Complete checkbox CAPTCHA verification and wait for additional image verification only when required.");
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> CAPTCHA verification should complete successfully before the form continues.");
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
 
@@ -781,18 +781,13 @@ public boolean Captcha_Bypass(WebElement captcha_frame) throws InterruptedExcept
 	System.out.println("🔹 Scenario Section: CAPTCHA Validation");
 	System.out.println("🧪 DEBUG | CAPTCHA method execution started.");
 	System.out.println("🧪 DEBUG | Current URL = " + d.getCurrentUrl());
-	System.out.println("🧪 DEBUG | Initial Stage = " + captcha_stage);
-	System.out.println();
 
 	try {
 
+		System.out.println();
 		System.out.println("━━━━━━━━━━━━━━ 🔐 CAPTCHA CHECKBOX ━━━━━━━━━━━━━━");
 
-		captcha_stage = "Switch into size=normal CAPTCHA iframe";
-
-		System.out.println("🧪 DEBUG | Stage = " + captcha_stage);
-		System.out.println("🧪 DEBUG | CAPTCHA iframe title = " + captcha_frame.getAttribute("title"));
-		System.out.println("🧪 DEBUG | CAPTCHA iframe src = " + captcha_frame.getAttribute("src"));
+		captcha_stage = "Switch into CAPTCHA checkbox iframe";
 
 		rp.Scroll_to_element(captcha_frame);
 
@@ -801,10 +796,7 @@ public boolean Captcha_Bypass(WebElement captcha_frame) throws InterruptedExcept
 		d.switchTo().frame(captcha_frame);
 		iframe_switched = true;
 
-		System.out.println("⏱ DEBUG | Checkbox iframe switch duration = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
-		System.out.println("🧪 DEBUG | iframe_switched = true");
-
-		captcha_stage = "Find CAPTCHA checkbox inside size=normal iframe";
+		System.out.println("⏱ DEBUG | CAPTCHA iframe switch = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
 
 		List<WebElement> checkbox_list = p.Captcha_checkbox_list();
 		List<WebElement> border_list = p.Captcha_checkbox_border_list();
@@ -813,107 +805,81 @@ public boolean Captcha_Bypass(WebElement captcha_frame) throws InterruptedExcept
 		System.out.println("🧪 DEBUG | Border count = " + border_list.size());
 
 		if (checkbox_list.size() == 0 && border_list.size() == 0) {
-
 			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> CAPTCHA checkbox could not be identified.");
 			System.out.println("❌ CAPTCHA Failure: Checkbox/border element was not found.");
-
 			return false;
 		}
 
 		WebElement captcha_target = checkbox_list.size() > 0 ? checkbox_list.get(0) : border_list.get(0);
 
-		System.out.println("🧪 DEBUG | CAPTCHA target selected from = " + (checkbox_list.size() > 0 ? "Checkbox List" : "Border List"));
-		System.out.println("🧪 DEBUG | Target aria-checked before click = " + captcha_target.getAttribute("aria-checked"));
+		System.out.println("🧪 DEBUG | CAPTCHA target = " + (checkbox_list.size() > 0 ? "Checkbox" : "Border"));
+		System.out.println("🧪 DEBUG | aria-checked before click = " + captcha_target.getAttribute("aria-checked"));
 
 		captcha_stage = "Click CAPTCHA checkbox";
 
-		Step_Start_Time = System.currentTimeMillis();
-
 		try {
-
+			Step_Start_Time = System.currentTimeMillis();
 			captcha_target.click();
-
-			System.out.println("⏱ DEBUG | Normal CAPTCHA click duration = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
-			System.out.println("🧪 DEBUG | Normal Selenium CAPTCHA click completed.");
-
-		} catch (Exception click_exception) {
-
-			System.out.println("🧪 DEBUG | Normal click failed.");
-			System.out.println("🧪 DEBUG | Exception = " + click_exception.getClass().getSimpleName());
-			System.out.println("🧪 DEBUG | Retrying with JavaScript click.");
-
+			System.out.println("⏱ DEBUG | CAPTCHA click = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
+		} catch (Exception e) {
+			System.out.println("🧪 DEBUG | Normal CAPTCHA click failed. JavaScript fallback started.");
 			rp.Java_script_executor_CLICK(captcha_target);
 		}
 
 		Thread.sleep(1200);
 
-		captcha_stage = "Verify immediate CAPTCHA checked state";
-
 		List<WebElement> anchor_list = d.findElements(By.xpath("//*[@id='recaptcha-anchor']"));
-
-		String captcha_status = anchor_list.size() > 0
-				? anchor_list.get(0).getAttribute("aria-checked")
-				: "not-found";
+		String captcha_status = anchor_list.size() > 0 ? anchor_list.get(0).getAttribute("aria-checked") : "not-found";
 
 		System.out.println("🧪 DEBUG | Immediate aria-checked = " + captcha_status);
 
-		if (captcha_status.equals("true")) {
-
-			Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> CAPTCHA verification completed successfully.");
-			System.out.println("✅ Actual: CAPTCHA completed immediately without image challenge.");
-			System.out.println("⏱ DEBUG | CAPTCHA total duration = " + (System.currentTimeMillis() - Captcha_Start_Time) + " ms");
-
+		if ("true".equals(captcha_status)) {
+			Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> CAPTCHA verification completed successfully without an image challenge.");
+			System.out.println("✅ Actual: CAPTCHA completed immediately.");
 			return true;
 		}
-
-		System.out.println("🧪 DEBUG | Checkbox is not yet verified.");
-		System.out.println("🧪 DEBUG | Checking for image CAPTCHA challenge.");
 
 		d.switchTo().defaultContent();
 		iframe_switched = false;
 
-		captcha_stage = "Check for image CAPTCHA challenge";
+		captcha_stage = "Detect optional image CAPTCHA";
 
 		WebElement Captcha_image_iframe = p.Image_pop_captcha_normal_iframe_Element;
 
 		Step_Start_Time = System.currentTimeMillis();
 
-		Boolean Image_frame_status = rp.check_element_visibility(Captcha_image_iframe, 3);
+		boolean Image_frame_status = rp.check_element_visibility(Captcha_image_iframe, 3);
 
-		System.out.println("⏱ DEBUG | Image CAPTCHA detection duration = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
+		System.out.println("⏱ DEBUG | Image CAPTCHA detection = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
 		System.out.println("🧪 DEBUG | Image CAPTCHA detected = " + Image_frame_status);
 
 		if (Image_frame_status) {
 
-			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Additional CAPTCHA verification is required. Waiting for manual completion.");
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Additional image CAPTCHA verification is required.");
 
 			System.out.println();
-			System.out.println("━━━━━━━━━━━━━━ 🖼️ MANUAL IMAGE CAPTCHA ━━━━━━━━━━━━━━");
-			System.out.println("👤 Complete the CAPTCHA manually.");
-			System.out.println("⏳ Multiple image rounds can be completed.");
-			System.out.println("⏳ Automation will continue automatically when the CAPTCHA closes.");
-			
+			System.out.println("━━━━━━━━━━━━━━ 🖼️ IMAGE CAPTCHA ━━━━━━━━━━━━━━");
+			System.out.println("👤 Complete the image CAPTCHA.");
+			System.out.println("⏳ Automation will continue automatically after the challenge closes.");
+
 			String Current_Url = d.getCurrentUrl();
-			System.out.println();
+
 			System.out.println("🧪 DEBUG | Current URL = " + Current_Url);
-			System.out.println();
-			if(Current_Url.contains("https://beta.codeclouds.com/")){
-				
+
+			if (Current_Url.contains("https://beta.codeclouds.com/")) {
 				captcha_clicker(Captcha_image_iframe);
 			}
-			
-			captcha_stage = "Wait for manual image CAPTCHA completion";
+
+			captcha_stage = "Wait for image CAPTCHA completion";
 
 			long Manual_Captcha_Start_Time = System.currentTimeMillis();
 
 			WebDriverWait Manual_Captcha_Wait = new WebDriverWait(d, Duration.ofSeconds(120));
 			Manual_Captcha_Wait.pollingEvery(Duration.ofSeconds(1));
 
-			System.out.println("🧪 DEBUG | Manual CAPTCHA dynamic wait started.");
-			System.out.println("🧪 DEBUG | Maximum wait = 120 seconds.");
-			System.out.println("🧪 DEBUG | Polling interval = 1 second.");
-
 			Manual_Captcha_Wait.until(driver -> {
+
+				driver.switchTo().defaultContent();
 
 				long Elapsed_Seconds = (System.currentTimeMillis() - Manual_Captcha_Start_Time) / 1000;
 
@@ -922,75 +888,69 @@ public boolean Captcha_Bypass(WebElement captcha_frame) throws InterruptedExcept
 					boolean Image_Captcha_Visible = Captcha_image_iframe.isDisplayed();
 
 					if (Elapsed_Seconds > 0 && Elapsed_Seconds % 5 == 0) {
-						System.out.println("⏳ DEBUG | Image CAPTCHA still active | Elapsed = " + Elapsed_Seconds + " seconds");
+						System.out.println("⏳ DEBUG | Image CAPTCHA active | Elapsed = " + Elapsed_Seconds + " seconds");
 					}
 
 					return !Image_Captcha_Visible;
 
 				} catch (NoSuchElementException | StaleElementReferenceException e) {
-
-					System.out.println("🧪 DEBUG | Image CAPTCHA iframe is no longer available.");
+					System.out.println("🧪 DEBUG | Image CAPTCHA iframe closed/removed.");
 					return true;
 				}
 			});
 
-			long Manual_Captcha_Duration = System.currentTimeMillis() - Manual_Captcha_Start_Time;
-
-			System.out.println("✅ DEBUG | Image CAPTCHA closed.");
-			System.out.println("⏱ DEBUG | Manual CAPTCHA total waiting time = " + Manual_Captcha_Duration + " ms");
-			System.out.println("⏱ DEBUG | Manual CAPTCHA total waiting time = " + String.format("%.2f", Manual_Captcha_Duration / 1000.0) + " seconds");
-
-			Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Additional CAPTCHA verification was completed successfully.");
+			System.out.println("✅ DEBUG | Image CAPTCHA stage completed.");
+			System.out.println("⏱ DEBUG | Image CAPTCHA duration = " + (System.currentTimeMillis() - Manual_Captcha_Start_Time) + " ms");
 
 		} else {
 
-			System.out.println("🧪 DEBUG | No image challenge appeared.");
-			System.out.println("🧪 DEBUG | Continuing to final CAPTCHA verification.");
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> No image CAPTCHA challenge appeared. Waiting for checkbox verification to complete.");
+			System.out.println("🟨 Actual: No image challenge appeared.");
+			System.out.println("⏳ DEBUG | Waiting for delayed checkbox verification.");
 		}
 
 		System.out.println();
 		System.out.println("━━━━━━━━━━━━━━ ✅ FINAL CAPTCHA VERIFICATION ━━━━━━━━━━━━━━");
 
-		captcha_stage = "Re-fetch CAPTCHA checkbox iframe";
+		captcha_stage = "Final CAPTCHA verification";
 
-		Step_Start_Time = System.currentTimeMillis();
+		WebDriverWait Final_Captcha_Wait = new WebDriverWait(d, Duration.ofSeconds(Image_frame_status ? 15 : 10));
+		Final_Captcha_Wait.pollingEvery(Duration.ofMillis(500));
 
-		List<WebElement> Refetched_Captcha_Frames = p.captcha_normal_iframe_list();
+		Boolean Final_Captcha_Status = Final_Captcha_Wait.until(driver -> {
 
-		System.out.println("⏱ DEBUG | CAPTCHA iframe refetch duration = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
-		System.out.println("🧪 DEBUG | Refetched iframe count = " + Refetched_Captcha_Frames.size());
+			driver.switchTo().defaultContent();
 
-		if (Refetched_Captcha_Frames.size() == 0) {
+			try {
 
-			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> CAPTCHA could not be verified after completion.");
-			System.out.println("❌ CAPTCHA Failure: Checkbox iframe unavailable for final verification.");
+				List<WebElement> Refetched_Captcha_Frames = p.captcha_normal_iframe_list();
 
-			return false;
-		}
+				if (Refetched_Captcha_Frames.size() == 0) {
+					System.out.println("🧪 DEBUG | Checkbox iframe temporarily unavailable.");
+					return false;
+				}
 
-		WebElement Refetched_Captcha_Frame = Refetched_Captcha_Frames.get(0);
+				driver.switchTo().frame(Refetched_Captcha_Frames.get(0));
 
-		rp.Scroll_to_element(Refetched_Captcha_Frame);
+				List<WebElement> Final_Anchor_List = driver.findElements(By.xpath("//*[@id='recaptcha-anchor']"));
 
-		Step_Start_Time = System.currentTimeMillis();
+				String Final_Status = Final_Anchor_List.size() > 0 ? Final_Anchor_List.get(0).getAttribute("aria-checked") : "not-found";
 
-		d.switchTo().frame(Refetched_Captcha_Frame);
-		iframe_switched = true;
+				System.out.println("🧪 DEBUG | Final polling aria-checked = " + Final_Status);
 
-		System.out.println("⏱ DEBUG | Final iframe switch duration = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
+				return "true".equals(Final_Status);
 
-		captcha_stage = "Verify final CAPTCHA checked state";
+			} catch (NoSuchElementException | StaleElementReferenceException e) {
 
-		anchor_list = d.findElements(By.xpath("//*[@id='recaptcha-anchor']"));
+				return false;
 
-		captcha_status = anchor_list.size() > 0
-				? anchor_list.get(0).getAttribute("aria-checked")
-				: "not-found";
+			} finally {
 
-		System.out.println("🧪 DEBUG | Final recaptcha-anchor count = " + anchor_list.size());
-		System.out.println("🧪 DEBUG | Final aria-checked = " + captcha_status);
+				driver.switchTo().defaultContent();
+			}
+		});
 
-		if (captcha_status.equals("true")) {
+		if (Final_Captcha_Status) {
 
 			long Captcha_Total_Duration = System.currentTimeMillis() - Captcha_Start_Time;
 
@@ -1003,23 +963,15 @@ public boolean Captcha_Bypass(WebElement captcha_frame) throws InterruptedExcept
 			return true;
 		}
 
-		System.out.println("❌ DEBUG | FINAL CAPTCHA RESULT = FAIL");
-		System.out.println("🧪 DEBUG | Expected aria-checked = true");
-		System.out.println("🧪 DEBUG | Actual aria-checked = " + captcha_status);
-
-		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> CAPTCHA verification was not completed successfully.");
-
 		return false;
 
 	} catch (TimeoutException e) {
 
 		System.out.println();
 		System.out.println("━━━━━━━━━━━━━━ ⏱ CAPTCHA TIMEOUT ━━━━━━━━━━━━━━");
-		System.out.println("❌ DEBUG | CAPTCHA manual completion exceeded the maximum wait.");
+		System.out.println("❌ DEBUG | CAPTCHA verification did not complete.");
 		System.out.println("🧪 DEBUG | Failed Stage = " + captcha_stage);
-		System.out.println("⏱ DEBUG | Maximum manual wait = 120 seconds");
-		System.out.println("⏱ DEBUG | Total method duration = " + (System.currentTimeMillis() - Captcha_Start_Time) + " ms");
-		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+		System.out.println("⏱ DEBUG | Total duration = " + (System.currentTimeMillis() - Captcha_Start_Time) + " ms");
 
 		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> CAPTCHA verification was not completed within the allowed time.");
 
@@ -1032,9 +984,6 @@ public boolean Captcha_Bypass(WebElement captcha_frame) throws InterruptedExcept
 		System.out.println("🧪 DEBUG | Failed Stage = " + captcha_stage);
 		System.out.println("🧪 DEBUG | Exception Type = " + e.getClass().getName());
 		System.out.println("🧪 DEBUG | Exception Message = " + e.getMessage());
-		System.out.println("🧪 DEBUG | iframe_switched = " + iframe_switched);
-		System.out.println("⏱ DEBUG | Method duration before exception = " + (System.currentTimeMillis() - Captcha_Start_Time) + " ms");
-		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 
 		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> CAPTCHA verification failed unexpectedly.");
 
@@ -1042,13 +991,9 @@ public boolean Captcha_Bypass(WebElement captcha_frame) throws InterruptedExcept
 
 	} finally {
 
-		if (iframe_switched) {
+		d.switchTo().defaultContent();
 
-			d.switchTo().defaultContent();
-
-			System.out.println("🧪 DEBUG | Driver returned to default content.");
-		}
-
+		System.out.println("🧪 DEBUG | Driver returned to default content.");
 		System.out.println("🧪 DEBUG | Final CAPTCHA Stage = " + captcha_stage);
 		System.out.println("⏱ DEBUG | Captcha_Bypass() final execution time = " + (System.currentTimeMillis() - Captcha_Start_Time) + " ms");
 		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");

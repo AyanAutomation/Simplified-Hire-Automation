@@ -29,7 +29,7 @@ public void form_fill_up() throws IOException, InterruptedException {
 
 	String[] Email_Names = {
 			"Sergei Belov",
-			"Viktor Orlov",
+			"Viktor Orlov", 
 			"Kirill Antonov",
 			"Pavel Mikhailov",
 			"Yulia Romanova",
@@ -43,8 +43,8 @@ public void form_fill_up() throws IOException, InterruptedException {
 	};
 
 	String[] Emails = {
-			"sergei.belov@gmail.com",
-			"viktor.orlov@gmail.com",
+			"sergei.belov@gmail.com", 
+			"viktor.orlov@gmail.com", 
 			"kirill.antonov@gmail.com",
 			"pavel.mikhailov@gmail.com",
 			"yulia.romanova@gmail.com",
@@ -72,7 +72,7 @@ public void form_fill_up() throws IOException, InterruptedException {
 			"Cologne Enterprise Solutions GmbH"
 	};
 
-	int Total_Repetition = 3;
+	int Total_Repetition = 6;
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Repeated frontend contact-form submission validation");
@@ -110,19 +110,13 @@ public void form_fill_up() throws IOException, InterruptedException {
 			Phone_Number_Builder.append(String.format("%02d", Repeat_Count));
 
 			String Phone_Number_Value = Phone_Number_Builder.toString();
-
 			String Message_Value;
 
 			if (Repeat_Count == 1) {
-
 				Message_Value = "Hello, we are currently exploring options to improve our web platform and would like to understand more about your development services, estimated timelines, and engagement process.";
-
 			} else if (Repeat_Count == 2) {
-
 				Message_Value = "Hi, our team is reviewing potential technology partners for an upcoming software project. Please share some information about your development process, available services, and how we can discuss our requirements.";
-
 			} else {
-
 				Message_Value = "Hello, I would like to speak with your team regarding a custom software requirement for our company. Please let me know a suitable time to discuss the project scope, estimated delivery timeline, and next steps.";
 			}
 
@@ -161,6 +155,8 @@ public void form_fill_up() throws IOException, InterruptedException {
 			System.out.println("✅ Actual: Form data entered successfully.");
 			System.out.println();
 
+			System.out.println("━━━━━━━━━━━━━━ 🚀 INITIAL SUBMISSION ━━━━━━━━━━━━━━");
+
 			Step_Start_Time = System.currentTimeMillis();
 
 			WebElement SubmitButton = p.SubmitButton();
@@ -179,7 +175,7 @@ public void form_fill_up() throws IOException, InterruptedException {
 			System.out.println("🟨 Actual: Initial form submission initiated.");
 
 			System.out.println();
-			System.out.println("━━━━━━━━━━━━━━ 🔒 PRIVACY TIMING DEBUG ━━━━━━━━━━━━━━");
+			System.out.println("━━━━━━━━━━━━━━ 🔒 PRIVACY VALIDATION ━━━━━━━━━━━━━━");
 
 			Step_Start_Time = System.currentTimeMillis();
 
@@ -192,7 +188,7 @@ public void form_fill_up() throws IOException, InterruptedException {
 
 				long Privacy_Start_Time = System.currentTimeMillis();
 
-				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Privacy confirmation was required. The confirmation was refreshed before submitting the form again.");
+				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Privacy confirmation was required. The privacy confirmation will be refreshed and the form submitted again.");
 				System.out.println("🟨 Actual: Privacy validation appeared.");
 
 				Step_Start_Time = System.currentTimeMillis();
@@ -234,12 +230,13 @@ public void form_fill_up() throws IOException, InterruptedException {
 
 			} else {
 
-				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Privacy confirmation validation was not displayed. No additional privacy action was required.");
+				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Privacy validation was not displayed. No additional privacy action was required.");
 				System.out.println("🟨 Actual: Privacy validation not required.");
 			}
 
 			System.out.println();
-			System.out.println("━━━━━━━━━━━━━━ 🔐 CAPTCHA TIMING DEBUG ━━━━━━━━━━━━━━");
+			System.out.println("━━━━━━━━━━━━━━ 🔐 CAPTCHA HANDLING ━━━━━━━━━━━━━━");
+			System.out.println("🧪 DEBUG | CAPTCHA check started after form submission.");
 
 			boolean captcha_appeared = false;
 			boolean captcha_status = false;
@@ -254,7 +251,8 @@ public void form_fill_up() throws IOException, InterruptedException {
 			if (captcha_frames.size() == 0) {
 
 				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> CAPTCHA verification was not required for this submission.");
-				System.out.println("🟨 Actual: CAPTCHA not displayed.");
+				System.out.println("🟨 Actual: CAPTCHA was not displayed.");
+				System.out.println("🧪 DEBUG | Original submission will continue without CAPTCHA retry.");
 
 			} else {
 
@@ -277,11 +275,8 @@ public void form_fill_up() throws IOException, InterruptedException {
 				System.out.println("🧪 DEBUG | Captcha_Bypass() result = " + captcha_status);
 
 				if (captcha_status) {
-
 					Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> CAPTCHA verification completed successfully.");
-
 				} else {
-
 					Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> CAPTCHA verification could not be completed successfully.");
 				}
 			}
@@ -290,7 +285,7 @@ public void form_fill_up() throws IOException, InterruptedException {
 
 			if (captcha_appeared && captcha_status) {
 
-				System.out.println("━━━━━━━━━━━━━━ 🔁 POST-CAPTCHA SUBMIT TIMING ━━━━━━━━━━━━━━");
+				System.out.println("━━━━━━━━━━━━━━ 🔁 POST-CAPTCHA SUBMISSION ━━━━━━━━━━━━━━");
 
 				Step_Start_Time = System.currentTimeMillis();
 
@@ -301,20 +296,10 @@ public void form_fill_up() throws IOException, InterruptedException {
 				Step_Start_Time = System.currentTimeMillis();
 
 				rp.Scroll_to_element(Refetched_Submit_Button);
-
-				System.out.println("⏱ DEBUG | Post-CAPTCHA Submit scroll = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
-
-				Step_Start_Time = System.currentTimeMillis();
-
 				rp.movetoelement(Refetched_Submit_Button);
-
-				System.out.println("⏱ DEBUG | Post-CAPTCHA Submit mouse move = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
-
-				Step_Start_Time = System.currentTimeMillis();
-
 				Refetched_Submit_Button.click();
 
-				System.out.println("⏱ DEBUG | Post-CAPTCHA Submit click = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
+				System.out.println("⏱ DEBUG | Post-CAPTCHA Submit scroll + move + click = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
 
 				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> Form submission continued successfully after CAPTCHA verification.");
 				System.out.println("✅ Actual: Form resubmitted after CAPTCHA.");
@@ -322,29 +307,21 @@ public void form_fill_up() throws IOException, InterruptedException {
 			} else if (captcha_appeared && !captcha_status) {
 
 				Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> Form submission could not continue because CAPTCHA verification was unsuccessful.");
-				System.out.println("❌ Actual: CAPTCHA failed. Form submission flow cannot continue.");
+				System.out.println("❌ Actual: CAPTCHA appeared but verification could not be confirmed.");
 
-			//	throw new AssertionError("CAPTCHA verification was not completed successfully. Email = " + Email_Value + " | Repeat = " + Repeat_Count + "/" + Total_Repetition);
+				throw new AssertionError("CAPTCHA verification was not completed successfully. Email = " + Email_Value + " | Repeat = " + Repeat_Count + "/" + Total_Repetition);
 
 			} else {
 
+				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> CAPTCHA was absent. No CAPTCHA resubmission was required.");
 				System.out.println("🧪 DEBUG | No CAPTCHA retry submission required.");
 			}
 
 			System.out.println();
-			System.out.println("━━━━━━━━━━━━━━ ⏳ SUBMISSION PROCESSING TIMING ━━━━━━━━━━━━━━");
-
-			Step_Start_Time = System.currentTimeMillis();
-
-			WebElement Spinner_loader = p.Loading_spinner();
-
-			System.out.println("⏱ DEBUG | Spinner fetch = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
-
-			Step_Start_Time = System.currentTimeMillis();
-
-			rp.wait_for_invisibilty_of_theElement(Spinner_loader);
-
-			System.out.println("⏱ DEBUG | Spinner invisibility wait = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
+			System.out.println("━━━━━━━━━━━━━━ ⏳ SUBMISSION PROCESSING ━━━━━━━━━━━━━━");
+			System.out.println("🧪 DEBUG | Submission has already been triggered.");
+			System.out.println("🧪 DEBUG | Loader may appear only after Submit and is treated as an optional intermediate state.");
+			System.out.println("🧪 DEBUG | Final synchronization will use the submission confirmation message.");
 
 			Step_Start_Time = System.currentTimeMillis();
 
@@ -397,7 +374,7 @@ public void form_fill_up() throws IOException, InterruptedException {
 	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Final Result:</b> Frontend contact-form submission validation completed successfully. Total Submissions = " + (Emails.length * Total_Repetition));
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
 
-	System.out.println("✅ Final Result: Frontend contact-form simulation completed successfully.");
+	System.out.println("✅ Final Result: Frontend contact-form submission validation completed successfully.");
 	System.out.println("Contact Sets = " + Emails.length);
 	System.out.println("Repetition Per Contact = " + Total_Repetition);
 	System.out.println("Total Submissions = " + (Emails.length * Total_Repetition));
