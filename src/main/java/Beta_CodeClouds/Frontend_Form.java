@@ -3,6 +3,9 @@ package Beta_CodeClouds;
 import java.io.IOException;
 import java.util.List;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
@@ -24,11 +27,17 @@ public void form_fill_up() throws IOException, InterruptedException {
 	Repeat rp = new Repeat(d);
 	Frontend_Locaters p = new Frontend_Locaters(d);
 	Saas_Admin_Locaters sa = new Saas_Admin_Locaters(d);
+	
+	JavascriptExecutor js = (JavascriptExecutor) d;
 
-	String URL = f.Data_Fetcher("Beta_Url");
-
+	String URL =  System.getProperty("Link") !=null ? System.getProperty("Link") :  f.Data_Fetcher("Beta_Url");
+	System.out.println();
+	System.out.println("🌐 Frontend Test URL = " + URL);
+	System.out.println();
+	
+	
 	String[] Email_Names = {
-			"Sergei Belov",
+			"Sergei Belov", 
 			"Viktor Orlov", 
 			"Kirill Antonov",
 			"Pavel Mikhailov",
@@ -43,18 +52,18 @@ public void form_fill_up() throws IOException, InterruptedException {
 	};
 
 	String[] Emails = {
-			"sergei.belov@gmail.com", 
-			"viktor.orlov@gmail.com", 
-			"kirill.antonov@gmail.com",
-			"pavel.mikhailov@gmail.com",
-			"yulia.romanova@gmail.com",
-			"marina.lebedeva@gmail.com",
-			"tobias.kruger@gmail.com",
-			"daniel.hartmann@gmail.com",
-			"leon.braun@gmail.com",
-			"sebastian.keller@gmail.com",
-			"laura.neumann@gmail.com",
-			"katharina.vogel@gmail.com"
+			"ayan.sengupta@codeclouds.com",
+			"ayan.sengupta@codeclouds.com",
+			"ayan.sengupta@codeclouds.com",
+			"ayan.sengupta@codeclouds.com",
+			"ayan.sengupta@codeclouds.com",
+			"ayan.sengupta@codeclouds.com",
+			"ayan.sengupta@codeclouds.com",
+			"ayan.sengupta@codeclouds.com",
+			"ayan.sengupta@codeclouds.com",
+			"ayan.sengupta@codeclouds.com",
+			"ayan.sengupta@codeclouds.com",
+			"ayan.sengupta@codeclouds.com"
 	};
 
 	String[] Company_Values = {
@@ -91,9 +100,11 @@ public void form_fill_up() throws IOException, InterruptedException {
 	System.out.println();
 
 	d.get(URL);
-
+    Thread.sleep(800);
+    Permission_Allow_Popup_Handling(2);
 	WebElement Header_Chat_Button = p.Lets_Chat_button();
 	Header_Chat_Button.click();
+	
 
 	for (int Email_Index = 0; Email_Index < Emails.length; Email_Index++) {
 
@@ -165,7 +176,8 @@ public void form_fill_up() throws IOException, InterruptedException {
 
 			Step_Start_Time = System.currentTimeMillis();
 
-			rp.Scroll_to_element(SubmitButton);
+			js.executeScript("document.querySelector('.modal.fade.show').scrollBy(0,1000)");
+
 			rp.movetoelement(SubmitButton);
 			SubmitButton.click();
 
@@ -381,4 +393,25 @@ public void form_fill_up() throws IOException, InterruptedException {
 	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 	System.out.println();
 }
+
+
+
+public void Permission_Allow_Popup_Handling(Integer seconds) {
+
+	Repeat rp = new Repeat(d);
+	Frontend_Locaters p = new Frontend_Locaters(d);
+
+	WebElement Cookie_Accept_Button = p.Cookie_Accept_button;
+
+	if (rp.check_element_visibility(Cookie_Accept_Button, seconds)) {
+		Cookie_Accept_Button.click();
+		rp.wait_for_invisibilty_of_theElement(Cookie_Accept_Button);
+		System.out.println("✅ Permission popup handled successfully.");
+	} else {
+		System.out.println("🟨 Permission popup not displayed.");
+	}
+}
+
+
+
 }

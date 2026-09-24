@@ -51,7 +51,7 @@ public class Frontend_Locaters extends Repeat{
 		private WebElement company;
 		@FindBy(id="message")
 		private WebElement message;
-		@FindBy(xpath="//button[@type='submit']")
+		@FindBy(xpath="//button[@type='submit' and contains(@class,'contact_popup-module__')]")
 		private WebElement SubmitButton; 
 		@FindBy(xpath="//div[contains(@class,'contactform-success')]")
 		private WebElement  Form_Submission_Success_Message; 
@@ -64,9 +64,9 @@ public class Frontend_Locaters extends Repeat{
 		@FindBy(xpath="//label[.//input[@id='privacy']]")
 		private WebElement Privacy_checkbox;
 		@FindBy(id="privacy")
-		private WebElement Privacy_checkbox_input;/*
-		@FindBy(xpath="")
-		private WebElement  ;
+		private WebElement Privacy_checkbox_input;
+		@FindBy(xpath="//div[contains(@class,'cookies_main') and contains(@class,'animate')]//button[contains(@class,'acceptAll_btn')]")
+		public WebElement Cookie_Accept_button;/*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
