@@ -70,9 +70,9 @@ public class Frontend_Locaters extends Repeat{
 		@FindBy(xpath="//div[contains(@id,'inquiryOption')]//label[contains(@class,'ant-checkbox-wrapper ant-checkbox-wrapper-')]")
 		private List <WebElement> Inquiry_Options; 
 		@FindBy(xpath="//div[contains(@class,'modal-content contact_popup-module__')]")
-		private WebElement Poup_Modal;/*
-		@FindBy(xpath="")
-		private WebElement  ;
+		private WebElement Poup_Modal;
+		@FindBy(xpath="//form[contains(@class,'consult_form contact_modal_popupform salesBtn')]")
+		private WebElement Bottom_form;/*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -440,10 +440,10 @@ public class Frontend_Locaters extends Repeat{
 		return Inquiry_Options;}
 		public WebElement Poup_Modal(){
 		wait_for_theElement(Poup_Modal);
-		return Poup_Modal;}/*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Poup_Modal;}
+		public WebElement Bottom_form(){
+		wait_for_theElement(Bottom_form);
+		return Bottom_form;}/*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}

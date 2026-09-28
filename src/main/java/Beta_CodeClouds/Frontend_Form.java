@@ -19,22 +19,55 @@ import Product_Codeclouds.Project.Simplified.Data_Reader;
 import Repeatative_codes.Repeat;
 
 public class Frontend_Form extends Book_A_Demo_form_fillup {
+	
+	
+public void Frontend_Lander(String Site_Link) throws IOException, InterruptedException{
+	
+	Frontend_Locaters p = new Frontend_Locaters(d);
+	Data_Reader f = new Data_Reader();
+	
+	String URL = System.getProperty("Link") != null ? System.getProperty("Link") : Site_Link;
+
+	System.out.println();
+	System.out.println("🌐 Frontend Test URL = " + URL);
+	System.out.println();
+	d.get(URL);
+
+	Thread.sleep(800);
+
+	Permission_Allow_Popup_Handling(2);
+	
+}	
+	
+@Test
+public void Footer_Form_Filler() throws IOException, InterruptedException{
+	
+	Frontend_Locaters p = new Frontend_Locaters(d);
+	Repeat rp = new Repeat(d);
+	
+	Frontend_Lander("https://www.codeclouds.com/");
+	WebElement Footer_From=p.Bottom_form();
+	
+	rp.Scroll_to_element(Footer_From);
+	List<WebElement> Footer_Fields=Footer_From.findElements(By.xpath(".//input[@type='text' or @type='email' or @type='tel']"));
+	
+}
+
+
+
+
 
 @Test
 public void form_fill_up() throws IOException, InterruptedException {
 
-	Data_Reader f = new Data_Reader();
+	
 	Repeat rp = new Repeat(d);
 	Frontend_Locaters p = new Frontend_Locaters(d);
 	Saas_Admin_Locaters sa = new Saas_Admin_Locaters(d);
 
 	JavascriptExecutor js = (JavascriptExecutor) d;
 
-	String URL = System.getProperty("Link") != null ? System.getProperty("Link") : f.Data_Fetcher("Beta_Url");
-
-	System.out.println();
-	System.out.println("🌐 Frontend Test URL = " + URL);
-	System.out.println();
+	
 
 	String[] Email_Names = {
 			"Sergei Belov Test",
@@ -112,12 +145,8 @@ public void form_fill_up() throws IOException, InterruptedException {
 	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 	System.out.println();
 
-	d.get(URL);
-
-	Thread.sleep(800);
-
-	Permission_Allow_Popup_Handling(2);
-
+	
+	Frontend_Lander("https://www.codeclouds.com/");
 	WebElement Header_Chat_Button = p.Lets_Chat_button();
 	Header_Chat_Button.click();
 
