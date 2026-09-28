@@ -66,11 +66,11 @@ public class Frontend_Locaters extends Repeat{
 		@FindBy(id="privacy")
 		private WebElement Privacy_checkbox_input;
 		@FindBy(xpath="//div[contains(@class,'cookies_main') and contains(@class,'animate')]//button[contains(@class,'acceptAll_btn')]")
-		public WebElement Cookie_Accept_button;/*
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
+		public WebElement Cookie_Accept_button;
+		@FindBy(xpath="//div[contains(@id,'inquiryOption')]//label[contains(@class,'ant-checkbox-wrapper ant-checkbox-wrapper-')]")
+		private List <WebElement> Inquiry_Options; 
+		@FindBy(xpath="//div[contains(@class,'modal-content contact_popup-module__')]")
+		private WebElement Poup_Modal;/*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -434,13 +434,13 @@ public class Frontend_Locaters extends Repeat{
 		return Privacy_checkbox;}
 		public WebElement Privacy_checkbox_input(){
 		wait_for_theElement(Privacy_checkbox_input);
-		return Privacy_checkbox_input;}/*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Privacy_checkbox_input;}
+		public List <WebElement> Inquiry_Options(){
+		wait_for_theElement(Inquiry_Options);
+		return Inquiry_Options;}
+		public WebElement Poup_Modal(){
+		wait_for_theElement(Poup_Modal);
+		return Poup_Modal;}/*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}

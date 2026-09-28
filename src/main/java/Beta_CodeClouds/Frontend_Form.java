@@ -27,28 +27,28 @@ public void form_fill_up() throws IOException, InterruptedException {
 	Repeat rp = new Repeat(d);
 	Frontend_Locaters p = new Frontend_Locaters(d);
 	Saas_Admin_Locaters sa = new Saas_Admin_Locaters(d);
-	
+
 	JavascriptExecutor js = (JavascriptExecutor) d;
 
-	String URL =  System.getProperty("Link") !=null ? System.getProperty("Link") :  f.Data_Fetcher("Beta_Url");
+	String URL = System.getProperty("Link") != null ? System.getProperty("Link") : f.Data_Fetcher("Beta_Url");
+
 	System.out.println();
 	System.out.println("🌐 Frontend Test URL = " + URL);
 	System.out.println();
-	
-	
+
 	String[] Email_Names = {
-			"Sergei Belov", 
-			"Viktor Orlov", 
-			"Kirill Antonov",
-			"Pavel Mikhailov",
-			"Yulia Romanova",
-			"Marina Lebedeva",
-			"Tobias Kruger",
-			"Daniel Hartmann",
-			"Leon Braun",
-			"Sebastian Keller",
-			"Laura Neumann",
-			"Katharina Vogel"
+			"Sergei Belov Test",
+			"Viktor Orlov Test",
+			"Kirill Antonov Test",
+			"Pavel Mikhailov Test",
+			"Yulia Romanova Test",
+			"Marina Lebedeva Test",
+			"Tobias Kruger Test",
+			"Daniel Hartmann Test",
+			"Leon Braun Test",
+			"Sebastian Keller Test",
+			"Laura Neumann Test",
+			"Katharina Vogel Test"
 	};
 
 	String[] Emails = {
@@ -81,13 +81,24 @@ public void form_fill_up() throws IOException, InterruptedException {
 			"Cologne Enterprise Solutions GmbH"
 	};
 
+	String[] Inquiry_Option_Names = {
+			"Talent Hiring",
+			"Enterprise Solutions",
+			"Web & App Development",
+			"Creative Design",
+			"Partners & Investors",
+			"Press",
+			"Other"
+	};
+
 	int Total_Repetition = 6;
+	int Checkbox_Combination = 1;
 
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔹 Scenario Title:</b> Repeated frontend contact-form submission validation");
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Submit the frontend contact form using multiple customer contact details, handle privacy confirmation and CAPTCHA when required, and verify successful submission.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Submit the frontend contact form using multiple customer contact details and different inquiry combinations, handle privacy confirmation and CAPTCHA when required, and verify successful submission.");
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Input:</b> Contact Sets = " + Emails.length + " | Repetition Per Contact = " + Total_Repetition + " | Total Submissions = " + (Emails.length * Total_Repetition));
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> Every configured contact-form submission should complete successfully and display the confirmation message.");
+	Report_Listen.log_print_in_report().log(Status.INFO, "<b>✅ Expected:</b> Every submission should contain at least one inquiry option, use a different inquiry combination, and complete successfully.");
 	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
 
 	System.out.println();
@@ -96,15 +107,45 @@ public void form_fill_up() throws IOException, InterruptedException {
 	System.out.println("📥 Contact Sets = " + Emails.length);
 	System.out.println("📥 Repetition Per Contact = " + Total_Repetition);
 	System.out.println("📥 Total Submissions = " + (Emails.length * Total_Repetition));
+	System.out.println("📥 Available Inquiry Options = " + Inquiry_Option_Names.length);
+	System.out.println("📥 Possible Non-Empty Checkbox Combinations = " + ((1 << Inquiry_Option_Names.length) - 1));
 	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 	System.out.println();
 
 	d.get(URL);
-    Thread.sleep(800);
-    Permission_Allow_Popup_Handling(2);
+
+	Thread.sleep(800);
+
+	Permission_Allow_Popup_Handling(2);
+
 	WebElement Header_Chat_Button = p.Lets_Chat_button();
 	Header_Chat_Button.click();
-	
+
+	WebElement Modal = p.Poup_Modal();
+
+	System.out.println();
+	System.out.println("━━━━━━━━━━━━━━ 📋 CONTACT MODAL VALIDATION ━━━━━━━━━━━━━━");
+	System.out.println();
+
+	boolean Modal_Status = rp.check_element_visibility(Modal, 5);
+
+	System.out.println("🧪 DEBUG | Contact modal displayed = " + Modal_Status);
+	System.out.println();
+
+	if (Modal_Status) {
+
+		Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Contact form popup opened successfully.");
+		System.out.println("✅ Contact form popup opened successfully.");
+
+	} else {
+
+		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> Contact form popup did not appear after clicking Let's Chat.");
+		System.out.println("❌ Contact form popup did not appear after clicking Let's Chat.");
+
+		throw new AssertionError("Contact form popup did not appear after clicking Let's Chat.");
+	}
+
+	System.out.println();
 
 	for (int Email_Index = 0; Email_Index < Emails.length; Email_Index++) {
 
@@ -124,10 +165,15 @@ public void form_fill_up() throws IOException, InterruptedException {
 			String Message_Value;
 
 			if (Repeat_Count == 1) {
+
 				Message_Value = "Hello, we are currently exploring options to improve our web platform and would like to understand more about your development services, estimated timelines, and engagement process.";
+
 			} else if (Repeat_Count == 2) {
+
 				Message_Value = "Hi, our team is reviewing potential technology partners for an upcoming software project. Please share some information about your development process, available services, and how we can discuss our requirements.";
+
 			} else {
+
 				Message_Value = "Hello, I would like to speak with your team regarding a custom software requirement for our company. Please let me know a suitable time to discuss the project scope, estimated delivery timeline, and next steps.";
 			}
 
@@ -142,6 +188,169 @@ public void form_fill_up() throws IOException, InterruptedException {
 			System.out.println("Repeat = " + Repeat_Count + "/" + Total_Repetition);
 			System.out.println();
 
+			System.out.println("━━━━━━━━━━━━━━ ☑️ INQUIRY CHECKBOX COMBINATION ━━━━━━━━━━━━━━");
+			System.out.println();
+
+			Modal = p.Poup_Modal();
+
+			js.executeScript("arguments[0].scrollTo(0,0);", Modal);
+
+			List<WebElement> Checkboxes = p.Inquiry_Options();
+
+			int Maximum_Combinations = (1 << Checkboxes.size()) - 1;
+
+			if (Checkbox_Combination > Maximum_Combinations) {
+				Checkbox_Combination = 1;
+			}
+
+			int Current_Combination = Checkbox_Combination;
+
+			System.out.println("🧪 DEBUG | Checkbox count = " + Checkboxes.size());
+			System.out.println("🧪 DEBUG | Combination Number = " + Current_Combination + "/" + Maximum_Combinations);
+			System.out.println();
+
+			/*
+			 * PASS 1
+			 *
+			 * Select every checkbox that SHOULD be selected first.
+			 *
+			 * This is intentional.
+			 * We do not uncheck the existing default selection before
+			 * another required checkbox has been selected.
+			 */
+
+			for (int Checkbox_Index = 0; Checkbox_Index < Checkboxes.size(); Checkbox_Index++) {
+
+				Checkboxes = p.Inquiry_Options();
+
+				WebElement Checkbox = Checkboxes.get(Checkbox_Index);
+
+				boolean Should_Be_Selected = (Current_Combination & (1 << Checkbox_Index)) != 0;
+
+				Boolean Currently_Selected = (Boolean) js.executeScript(
+						"const e=arguments[0];" +
+						"const input=(e.matches && e.matches(\"input[type='checkbox']\")) ? e : e.querySelector(\"input[type='checkbox']\");" +
+						"return input ? input.checked : false;",
+						Checkbox
+				);
+
+				System.out.println("🧪 DEBUG | PASS 1 | Option = " + Inquiry_Option_Names[Checkbox_Index] + " | Current = " + Currently_Selected + " | Required = " + Should_Be_Selected);
+
+				if (Should_Be_Selected && !Currently_Selected) {
+
+					Checkbox.click();
+
+					System.out.println("🧪 DEBUG | Selected = " + Inquiry_Option_Names[Checkbox_Index]);
+				}
+			}
+
+			System.out.println();
+
+			/*
+			 * PASS 2
+			 *
+			 * Now deselect options that are NOT part of the required combination.
+			 *
+			 * Because required options were selected in PASS 1 first,
+			 * the form never temporarily reaches zero selections.
+			 */
+
+			for (int Checkbox_Index = 0; Checkbox_Index < Checkboxes.size(); Checkbox_Index++) {
+
+				Checkboxes = p.Inquiry_Options();
+
+				WebElement Checkbox = Checkboxes.get(Checkbox_Index);
+
+				boolean Should_Be_Selected = (Current_Combination & (1 << Checkbox_Index)) != 0;
+
+				Boolean Currently_Selected = (Boolean) js.executeScript(
+						"const e=arguments[0];" +
+						"const input=(e.matches && e.matches(\"input[type='checkbox']\")) ? e : e.querySelector(\"input[type='checkbox']\");" +
+						"return input ? input.checked : false;",
+						Checkbox
+				);
+
+				System.out.println("🧪 DEBUG | PASS 2 | Option = " + Inquiry_Option_Names[Checkbox_Index] + " | Current = " + Currently_Selected + " | Required = " + Should_Be_Selected);
+
+				if (!Should_Be_Selected && Currently_Selected) {
+
+					Checkbox.click();
+
+					System.out.println("🧪 DEBUG | Deselected = " + Inquiry_Option_Names[Checkbox_Index]);
+				}
+			}
+
+			System.out.println();
+			System.out.println("━━━━━━━━━━━━━━ 🔎 FINAL CHECKBOX STATE ━━━━━━━━━━━━━━");
+			System.out.println();
+
+			Checkboxes = p.Inquiry_Options();
+
+			int Selected_Checkbox_Count = 0;
+			StringBuilder Selected_Inquiry_Options = new StringBuilder();
+
+			for (int Checkbox_Index = 0; Checkbox_Index < Checkboxes.size(); Checkbox_Index++) {
+
+				WebElement Checkbox = Checkboxes.get(Checkbox_Index);
+
+				Boolean Final_Selected_Status = (Boolean) js.executeScript(
+						"const e=arguments[0];" +
+						"const input=(e.matches && e.matches(\"input[type='checkbox']\")) ? e : e.querySelector(\"input[type='checkbox']\");" +
+						"return input ? input.checked : false;",
+						Checkbox
+				);
+
+				System.out.println("🧪 DEBUG | Final State | " + Inquiry_Option_Names[Checkbox_Index] + " = " + Final_Selected_Status);
+
+				if (Final_Selected_Status) {
+
+					Selected_Checkbox_Count++;
+
+					if (Selected_Inquiry_Options.length() > 0) {
+						Selected_Inquiry_Options.append(", ");
+					}
+
+					Selected_Inquiry_Options.append(Inquiry_Option_Names[Checkbox_Index]);
+				}
+			}
+
+			/*
+			 * Safety fallback.
+			 *
+			 * A submission must never proceed with zero selected inquiry options.
+			 */
+
+			if (Selected_Checkbox_Count == 0) {
+
+				System.out.println();
+				System.out.println("⚠ DEBUG | No inquiry option remained selected.");
+				System.out.println("🧪 DEBUG | Applying mandatory fallback selection = Talent Hiring.");
+				System.out.println();
+
+				Checkboxes = p.Inquiry_Options();
+
+				Checkboxes.get(0).click();
+
+				Selected_Checkbox_Count = 1;
+
+				Selected_Inquiry_Options.setLength(0);
+				Selected_Inquiry_Options.append(Inquiry_Option_Names[0]);
+
+				Report_Listen.log_print_in_report().log(Status.INFO, "<b>🟨 Actual:</b> No inquiry option remained selected after applying the combination. Talent Hiring was selected as the mandatory fallback.");
+			}
+
+			System.out.println();
+			System.out.println("✅ Inquiry checkbox combination applied successfully.");
+			System.out.println("Combination Number = " + Current_Combination);
+			System.out.println("Selected Checkbox Count = " + Selected_Checkbox_Count);
+			System.out.println("Selected Options = " + Selected_Inquiry_Options);
+			System.out.println();
+
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>📥 Inquiry Selection:</b> Combination = " + Current_Combination + " | Selected Options = " + Selected_Inquiry_Options);
+			Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Inquiry checkbox combination applied successfully. Selected Count = " + Selected_Checkbox_Count);
+
+			Checkbox_Combination++;
+
 			long Step_Start_Time = System.currentTimeMillis();
 
 			WebElement FullName = p.Full_Name();
@@ -152,15 +361,34 @@ public void form_fill_up() throws IOException, InterruptedException {
 
 			System.out.println("⏱ DEBUG | Form element fetch = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
 
+			System.out.println();
+			System.out.println("━━━━━━━━━━━━━━ 📝 FORM DATA ENTRY TIMING ━━━━━━━━━━━━━━");
+
 			Step_Start_Time = System.currentTimeMillis();
 
 			FullName.sendKeys(Full_Name_Value);
 			Email.sendKeys(Email_Value);
 			Phone.sendKeys(Phone_Number_Value);
 			Company.sendKeys(Company_Value);
-			Message.sendKeys(Message_Value);
 
-			System.out.println("⏱ DEBUG | Form data entry = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
+			System.out.println("⏱ DEBUG | Name + Email + Phone + Company entry = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
+
+			Step_Start_Time = System.currentTimeMillis();
+
+			js.executeScript(
+					"const element = arguments[0];" +
+					"const value = arguments[1];" +
+					"const setter = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set;" +
+					"setter.call(element, value);" +
+					"element.dispatchEvent(new Event('input', {bubbles:true}));" +
+					"element.dispatchEvent(new Event('change', {bubbles:true}));",
+					Message,
+					Message_Value
+			);
+
+			System.out.println("⏱ DEBUG | Message entry using JavaScript = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
+			System.out.println("🧪 DEBUG | Message length = " + Message_Value.length() + " characters");
+			System.out.println();
 
 			Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Contact details were entered successfully.");
 			System.out.println("✅ Actual: Form data entered successfully.");
@@ -176,7 +404,9 @@ public void form_fill_up() throws IOException, InterruptedException {
 
 			Step_Start_Time = System.currentTimeMillis();
 
-			js.executeScript("document.querySelector('.modal.fade.show').scrollBy(0,1000)");
+			Modal = p.Poup_Modal();
+
+			js.executeScript("arguments[0].scrollBy(0,1000);", Modal);
 
 			rp.movetoelement(SubmitButton);
 			SubmitButton.click();
@@ -287,8 +517,11 @@ public void form_fill_up() throws IOException, InterruptedException {
 				System.out.println("🧪 DEBUG | Captcha_Bypass() result = " + captcha_status);
 
 				if (captcha_status) {
+
 					Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> CAPTCHA verification completed successfully.");
+
 				} else {
+
 					Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Actual:</b> CAPTCHA verification could not be completed successfully.");
 				}
 			}
@@ -347,13 +580,15 @@ public void form_fill_up() throws IOException, InterruptedException {
 
 			System.out.println("⏱ DEBUG | Success message text read = " + (System.currentTimeMillis() - Step_Start_Time) + " ms");
 
-			Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Form submitted successfully. Name = " + Full_Name_Value + " | Email = " + Email_Value + " | Company = " + Company_Value + " | Submission = " + Repeat_Count + "/" + Total_Repetition + " | Confirmation = " + Success_Message_Text);
+			Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Form submitted successfully. Name = " + Full_Name_Value + " | Email = " + Email_Value + " | Company = " + Company_Value + " | Inquiry = " + Selected_Inquiry_Options + " | Submission = " + Repeat_Count + "/" + Total_Repetition + " | Confirmation = " + Success_Message_Text);
 
 			System.out.println("✅ Actual: Form submitted successfully.");
 			System.out.println("Name = " + Full_Name_Value);
 			System.out.println("Email = " + Email_Value);
 			System.out.println("Company = " + Company_Value);
 			System.out.println("Phone Number = " + Phone_Number_Value);
+			System.out.println("Inquiry Combination = " + Current_Combination);
+			System.out.println("Selected Inquiry Options = " + Selected_Inquiry_Options);
 			System.out.println("Repeat = " + Repeat_Count + "/" + Total_Repetition);
 			System.out.println("Confirmation = " + Success_Message_Text);
 			System.out.println();
@@ -375,6 +610,8 @@ public void form_fill_up() throws IOException, InterruptedException {
 			System.out.println("Name = " + Full_Name_Value);
 			System.out.println("Email = " + Email_Value);
 			System.out.println("Company = " + Company_Value);
+			System.out.println("Inquiry Combination = " + Current_Combination);
+			System.out.println("Selected Inquiry Options = " + Selected_Inquiry_Options);
 			System.out.println("Repeat = " + Repeat_Count + "/" + Total_Repetition);
 			System.out.println("⏱ Total iteration duration = " + Iteration_Total_Duration + " ms");
 			System.out.println("⏱ Total iteration duration = " + String.format("%.2f", Iteration_Total_Duration / 1000.0) + " seconds");
