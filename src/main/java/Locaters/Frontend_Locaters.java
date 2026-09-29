@@ -72,17 +72,17 @@ public class Frontend_Locaters extends Repeat{
 		@FindBy(xpath="//div[contains(@class,'modal-content contact_popup-module__')]")
 		private WebElement Poup_Modal;
 		@FindBy(xpath="//form[contains(@class,'consult_form contact_modal_popupform salesBtn')]")
-		private WebElement Bottom_form;/*
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
+		private WebElement Bottom_form;
+		@FindBy(xpath="//a[@href='/jobs/' and contains(@class,'btn Nav_nav_btn__')]")
+		private WebElement Apply_Job_Header_Button;
+		@FindBy(xpath="//*[contains(@class,'Apply_all_tags__')]")
+		private WebElement Job_Type_tags_section;
+		@FindBy(xpath="//h1[text()='Careers at CodeClouds']")
+		private WebElement Landed_in_Jobs_page_confirmation;
+		@FindBy(xpath="//div[contains(@class,'row d-none d-xl-flex')]")
+		private WebElement  Job_Apply_Card_Table;
+		@FindBy(xpath="//button[contains(@class,'Apply_load_more__')]")
+		public WebElement Show_More_button;/*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -443,19 +443,19 @@ public class Frontend_Locaters extends Repeat{
 		return Poup_Modal;}
 		public WebElement Bottom_form(){
 		wait_for_theElement(Bottom_form);
-		return Bottom_form;}/*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Bottom_form;}
+		public WebElement Apply_Job_Header_Button(){
+		wait_for_theElement(Apply_Job_Header_Button);
+		return Apply_Job_Header_Button;} 
+		public WebElement Job_Type_tags_section(){
+		wait_for_theElement(Job_Type_tags_section);
+		return Job_Type_tags_section;}
+		public WebElement Landed_in_Jobs_page_confirmation(){
+		wait_for_theElement(Landed_in_Jobs_page_confirmation);
+		return Landed_in_Jobs_page_confirmation;}
+		public WebElement Job_Apply_Card_Table(){
+		wait_for_theElement(Job_Apply_Card_Table);
+		return Job_Apply_Card_Table;}/*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}
