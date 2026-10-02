@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -60,19 +61,43 @@ public void Footer_Form_Filler() throws IOException, InterruptedException{
 public void Jobs_Page_count_check() throws IOException, InterruptedException {
 
 	Frontend_Locaters p = new Frontend_Locaters(d);
-	Repeat rp = new Repeat(d);
 
 	Frontend_Lander("https://careers.codeclouds.com/");
 
 	WebElement Apply_Jobs = p.Apply_Job_Header_Button();
 	Apply_Jobs.click();
 
-	WebElement jobs_section = p.Job_Type_tags_section();
+	Thread.sleep(800);
 
-//	p.Landed_in_Jobs_page_confirmation();
+	// Positions Available is selected by default
+	Job_Count_Validation();
+
+	WebElement Sort_Field = p.Select_Dropdown_Field();
+	Select Sort_Dropdown = new Select(Sort_Field);
+
+	Sort_Dropdown.selectByVisibleText("Fulfilled");
 
 	Thread.sleep(800);
 
+	Job_Count_Validation();
+}
+
+
+public void Job_Count_Validation() throws InterruptedException {
+
+	Frontend_Locaters p = new Frontend_Locaters(d);
+	Repeat rp = new Repeat(d);
+
+	WebElement Sort_Field = p.Select_Dropdown_Field();
+	Select Sort_Dropdown = new Select(Sort_Field);
+
+	String Selected_Sort_Value = Sort_Dropdown.getFirstSelectedOption().getText().trim();
+
+	System.out.println();
+	System.out.println("━━━━━━━━━━━━━━ 💼 " + Selected_Sort_Value.toUpperCase() + " COUNT VALIDATION ━━━━━━━━━━━━━━");
+	System.out.println();
+
+	WebElement jobs_section = p.Job_Type_tags_section();
 	rp.movetoelement(jobs_section);
 
 	List<WebElement> Job_Types = jobs_section.findElements(By.xpath(".//*[contains(@class,'Apply_tags__')]"));
@@ -80,14 +105,15 @@ public void Jobs_Page_count_check() throws IOException, InterruptedException {
 	int All_Job_Count = 0;
 	int Category_Job_Count = 0;
 
-	StringBuilder Category_Count_Summary = new StringBuilder();
+	StringBuilder Category_Count_Report = new StringBuilder();
 
-	System.out.println();
-	System.out.println("━━━━━━━━━━━━━━ 💼 JOB COUNT VALIDATION ━━━━━━━━━━━━━━");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━ 💼 JOB COUNT VALIDATION ━━━━━━━━━━━━━━</b>");
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📘 Description:</b> Validate category counts, load all available job cards, and verify that the total loaded job cards match the All jobs count.");
+	Category_Count_Report.append("<div style='border:1px solid #3c5268;border-radius:8px;padding:14px;'>");
+	Category_Count_Report.append("<div style='font-size:16px;font-weight:bold;margin-bottom:12px;'>📊 " + Selected_Sort_Value + " — Job Category Breakdown</div>");
+	Category_Count_Report.append("<table style='width:100%;border-collapse:collapse;'>");
+	Category_Count_Report.append("<tr style='border-bottom:1px solid #506273;'>");
+	Category_Count_Report.append("<th style='text-align:left;padding:8px;'>Job Category</th>");
+	Category_Count_Report.append("<th style='text-align:right;padding:8px;'>Count</th>");
+	Category_Count_Report.append("</tr>");
 
 	for (WebElement Job_Type : Job_Types) {
 
@@ -96,6 +122,12 @@ public void Jobs_Page_count_check() throws IOException, InterruptedException {
 
 		if (Job_Type_name.contains("(")) {
 			Job_Count = Integer.parseInt(Job_Type_name.substring(Job_Type_name.lastIndexOf("(") + 1, Job_Type_name.lastIndexOf(")")));
+		}
+
+		String Job_Category_Name = Job_Type_name;
+
+		if (Job_Type_name.contains("(")) {
+			Job_Category_Name = Job_Type_name.substring(0, Job_Type_name.lastIndexOf("(")).trim();
 		}
 
 		if (Job_Type_name.startsWith("All")) {
@@ -109,52 +141,28 @@ public void Jobs_Page_count_check() throws IOException, InterruptedException {
 
 			Category_Job_Count = Category_Job_Count + Job_Count;
 
-			Category_Count_Summary.append(Job_Type_name).append(" = ").append(Job_Count).append(" | ");
-
-			System.out.println("📂 Category = " + Job_Type_name);
-			System.out.println("🔢 Count = " + Job_Count);
+			System.out.println("📂 " + Job_Category_Name + " = " + Job_Count);
 			System.out.println("➕ Running Total = " + Category_Job_Count);
 			System.out.println();
+
+			Category_Count_Report.append("<tr style='border-bottom:1px solid #394b5c;'>");
+			Category_Count_Report.append("<td style='padding:8px;'>📁 " + Job_Category_Name + "</td>");
+			Category_Count_Report.append("<td style='text-align:right;padding:8px;font-weight:bold;'>" + Job_Count + "</td>");
+			Category_Count_Report.append("</tr>");
 		}
 	}
 
-	System.out.println("━━━━━━━━━━━━━━ 📊 CATEGORY COUNT SUMMARY ━━━━━━━━━━━━━━");
-	System.out.println();
+	Category_Count_Report.append("<tr style='border-top:2px solid #8ca0b3;'>");
+	Category_Count_Report.append("<td style='padding:10px;font-size:15px;font-weight:bold;'>TOTAL</td>");
+	Category_Count_Report.append("<td style='text-align:right;padding:10px;font-size:16px;font-weight:bold;'>" + Category_Job_Count + "</td>");
+	Category_Count_Report.append("</tr>");
+	Category_Count_Report.append("</table>");
+	Category_Count_Report.append("</div>");
 
-	System.out.println(Category_Count_Summary);
-	System.out.println();
+	Report_Listen.log_print_in_report().log(Status.INFO,
+			"<div style='font-size:15px;font-weight:bold;'>💼 Job View: " + Selected_Sort_Value + "</div>");
 
-	System.out.println("Combined Category Count = " + Category_Job_Count);
-	System.out.println("All Jobs Count = " + All_Job_Count);
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📂 Category Counts:</b> " + Category_Count_Summary);
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>➕ Combined Category Count:</b> " + Category_Job_Count);
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📌 All Jobs Count:</b> " + All_Job_Count);
-
-	if (All_Job_Count == Category_Job_Count) {
-
-		System.out.println("✅ Category count add-up matches All jobs count.");
-		System.out.println();
-
-		Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Result:</b> Category count add-up matches the All jobs count.");
-
-	} else {
-
-		System.out.println("❌ Category count add-up mismatch.");
-		System.out.println("Expected All Count = " + All_Job_Count);
-		System.out.println("Actual Category Total = " + Category_Job_Count);
-		System.out.println();
-
-		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Result:</b> Category count mismatch. All = " + All_Job_Count + " | Category Total = " + Category_Job_Count);
-
-		Assert.fail("Category job count mismatch. All = " + All_Job_Count + " | Category Total = " + Category_Job_Count);
-	}
-
-	System.out.println("━━━━━━━━━━━━━━ 🔽 SHOW MORE HANDLING ━━━━━━━━━━━━━━");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔽 Action:</b> Load all available job cards using Show More.");
+	Report_Listen.log_print_in_report().log(Status.INFO, Category_Count_Report.toString());
 
 	WebElement Job_card_section = p.Job_Apply_Card_Table();
 	rp.movetoelement(Job_card_section);
@@ -166,17 +174,14 @@ public void Jobs_Page_count_check() throws IOException, InterruptedException {
 		rp.movetoelement(Show_More_button);
 		Show_More_button.click();
 
-		System.out.println("🟨 Show More clicked. Loading additional job cards.");
+		System.out.println("🟨 Show More clicked. Loading additional jobs.");
 		System.out.println();
 
 		Thread.sleep(500);
 	}
 
-	System.out.println("✅ Show More is no longer available.");
-	System.out.println("✅ All available job cards are loaded.");
+	System.out.println("✅ All jobs loaded for " + Selected_Sort_Value);
 	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Actual:</b> Show More is no longer available. All job cards have been loaded.");
 
 	Job_card_section = p.Job_Apply_Card_Table();
 
@@ -184,46 +189,87 @@ public void Jobs_Page_count_check() throws IOException, InterruptedException {
 
 	int Loaded_Job_Card_Count = All_Job_Cards.size();
 
-	System.out.println("━━━━━━━━━━━━━━ 🧾 JOB CARD COUNT VALIDATION ━━━━━━━━━━━━━━");
+	WebElement Showing_Details_Element = p.Total_Job_Count_From_Listing_Summary();
+
+	String Showing_Details_Text = Showing_Details_Element.getText().trim();
+
+	String[] Showing_Details = Showing_Details_Text.replace("Showing ", "").replace(" jobs", "").split(" ");
+
+	int Showing_List_Count = Integer.parseInt(Showing_Details[2]);
+	int Showing_Total_Job_Count = Integer.parseInt(Showing_Details[4]);
+
+	System.out.println("━━━━━━━━━━━━━━ 📊 COUNT RECONCILIATION ━━━━━━━━━━━━━━");
+	System.out.println();
+	System.out.println("All Jobs Count = " + All_Job_Count);
+	System.out.println("Category Total = " + Category_Job_Count);
+	System.out.println("Showing Loaded = " + Showing_List_Count);
+	System.out.println("Showing Total = " + Showing_Total_Job_Count);
+	System.out.println("Displayed Job Listings = " + Loaded_Job_Card_Count);
 	System.out.println();
 
-	System.out.println("📌 All Jobs Count = " + All_Job_Count);
-	System.out.println("🧾 Loaded Job Cards Count = " + Loaded_Job_Card_Count);
-	System.out.println();
+	String Count_Reconciliation_Report =
+			"<div style='border:1px solid #3c5268;border-radius:8px;padding:14px;'>" +
+			"<div style='font-size:16px;font-weight:bold;margin-bottom:12px;'>🧾 Count Reconciliation</div>" +
 
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>📌 Expected All Jobs Count:</b> " + All_Job_Count);
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>🧾 Actual Loaded Job Cards Count:</b> " + Loaded_Job_Card_Count);
+			"<table style='width:100%;border-collapse:collapse;'>" +
 
-	if (All_Job_Count == Loaded_Job_Card_Count) {
+			"<tr style='border-bottom:1px solid #394b5c;'>" +
+			"<td style='padding:8px;'>📌 All Jobs</td>" +
+			"<td style='text-align:right;padding:8px;font-weight:bold;'>" + All_Job_Count + "</td>" +
+			"</tr>" +
 
-		System.out.println("✅ Loaded job card count matches All jobs count.");
+			"<tr style='border-bottom:1px solid #394b5c;'>" +
+			"<td style='padding:8px;'>➕ Category Total</td>" +
+			"<td style='text-align:right;padding:8px;font-weight:bold;'>" + Category_Job_Count + "</td>" +
+			"</tr>" +
+
+			"<tr style='border-bottom:1px solid #394b5c;'>" +
+			"<td style='padding:8px;'>📋 Jobs Shown</td>" +
+			"<td style='text-align:right;padding:8px;font-weight:bold;'>" + Showing_List_Count + "</td>" +
+			"</tr>" +
+
+			"<tr style='border-bottom:1px solid #394b5c;'>" +
+			"<td style='padding:8px;'>📋 Listing Total</td>" +
+			"<td style='text-align:right;padding:8px;font-weight:bold;'>" + Showing_Total_Job_Count + "</td>" +
+			"</tr>" +
+
+			"<tr style='border-top:2px solid #8ca0b3;'>" +
+			"<td style='padding:10px;font-size:15px;font-weight:bold;'>🧾 Job Listings Displayed</td>" +
+			"<td style='text-align:right;padding:10px;font-size:16px;font-weight:bold;'>" + Loaded_Job_Card_Count + "</td>" +
+			"</tr>" +
+
+			"</table>" +
+			"</div>";
+
+	Report_Listen.log_print_in_report().log(Status.INFO, Count_Reconciliation_Report);
+
+	if (All_Job_Count == Category_Job_Count &&
+			All_Job_Count == Showing_List_Count &&
+			All_Job_Count == Showing_Total_Job_Count &&
+			All_Job_Count == Loaded_Job_Card_Count) {
+
+		System.out.println("✅ All " + Selected_Sort_Value + " job counts matched successfully.");
 		System.out.println();
 
-		Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Result:</b> Loaded job card count matches the All jobs count.");
+		Report_Listen.log_print_in_report().log(Status.PASS,
+				"<div style='font-size:15px;font-weight:bold;'>✅ " + Selected_Sort_Value + " job counts are fully reconciled. All displayed totals match.</div>");
 
 	} else {
 
-		System.out.println("❌ Loaded job card count does not match All jobs count.");
-		System.out.println("Expected = " + All_Job_Count);
-		System.out.println("Actual = " + Loaded_Job_Card_Count);
+		System.out.println("❌ " + Selected_Sort_Value + " job count mismatch.");
 		System.out.println();
 
-		Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Result:</b> Job card count mismatch. Expected = " + All_Job_Count + " | Actual = " + Loaded_Job_Card_Count);
+		Report_Listen.log_print_in_report().log(Status.FAIL,
+				"<div style='font-size:15px;font-weight:bold;'>❌ " + Selected_Sort_Value + " job counts do not reconcile. One or more displayed totals are inconsistent.</div>");
 
-		Assert.fail("Loaded job card count mismatch. Expected = " + All_Job_Count + " | Actual = " + Loaded_Job_Card_Count);
+		Assert.fail(Selected_Sort_Value + " job count mismatch.");
 	}
 
-	System.out.println("━━━━━━━━━━━━━━ ✅ FINAL RESULT ━━━━━━━━━━━━━━");
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 	System.out.println();
-	System.out.println("✅ Category Total = " + Category_Job_Count);
-	System.out.println("✅ All Jobs Count = " + All_Job_Count);
-	System.out.println("✅ Loaded Job Cards = " + Loaded_Job_Card_Count);
-	System.out.println("✅ Job count validation completed successfully.");
-	System.out.println();
-
-	Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Final Result:</b> Category Total = " + Category_Job_Count + " | All Jobs = " + All_Job_Count + " | Loaded Job Cards = " + Loaded_Job_Card_Count);
-	Report_Listen.log_print_in_report().log(Status.INFO, "<b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>");
 }
+
+
 
 
 @Test

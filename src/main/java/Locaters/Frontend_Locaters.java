@@ -82,11 +82,11 @@ public class Frontend_Locaters extends Repeat{
 		@FindBy(xpath="//div[contains(@class,'row d-none d-xl-flex')]")
 		private WebElement  Job_Apply_Card_Table;
 		@FindBy(xpath="//button[contains(@class,'Apply_load_more__')]")
-		public WebElement Show_More_button;/*
-		@FindBy(xpath="")
-		private WebElement  ;
-		@FindBy(xpath="")
-		private WebElement  ;
+		public WebElement Show_More_button;
+		@FindBy(xpath="//select")
+		private WebElement Select_Dropdown_Field;
+		@FindBy(xpath="//div[contains(@class,'Apply_showing__')]")
+		private WebElement Total_Job_Count_From_Listing_Summary;/*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -455,13 +455,13 @@ public class Frontend_Locaters extends Repeat{
 		return Landed_in_Jobs_page_confirmation;}
 		public WebElement Job_Apply_Card_Table(){
 		wait_for_theElement(Job_Apply_Card_Table);
-		return Job_Apply_Card_Table;}/*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Job_Apply_Card_Table;}
+		public WebElement Select_Dropdown_Field(){
+		wait_for_theElement(Select_Dropdown_Field);
+		return Select_Dropdown_Field;}
+		public WebElement Total_Job_Count_From_Listing_Summary(){
+		wait_for_theElement(Total_Job_Count_From_Listing_Summary);
+		return Total_Job_Count_From_Listing_Summary;}/*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}
