@@ -86,9 +86,9 @@ public class Frontend_Locaters extends Repeat{
 		@FindBy(xpath="//select")
 		private WebElement Select_Dropdown_Field;
 		@FindBy(xpath="//div[contains(@class,'Apply_showing__')]")
-		private WebElement Total_Job_Count_From_Listing_Summary;/*
-		@FindBy(xpath="")
-		private WebElement  ;
+		private WebElement Total_Job_Count_From_Listing_Summary;
+		@FindBy(xpath = "//div[contains(@class,'contactform_success')]//p[contains(normalize-space(),'Thanks for contacting us')]")
+        WebElement Contact_Form_Success_Message;/*
 		@FindBy(xpath="")
 		private WebElement  ;
 		@FindBy(xpath="")
@@ -461,10 +461,10 @@ public class Frontend_Locaters extends Repeat{
 		return Select_Dropdown_Field;}
 		public WebElement Total_Job_Count_From_Listing_Summary(){
 		wait_for_theElement(Total_Job_Count_From_Listing_Summary);
-		return Total_Job_Count_From_Listing_Summary;}/*
-		public WebElement (){
-		wait_for_theElement();
-		return ;}
+		return Total_Job_Count_From_Listing_Summary;}
+		public WebElement Contact_Form_Success_Message(){
+		wait_for_theElement(Contact_Form_Success_Message);
+		return Contact_Form_Success_Message;}/*
 		public WebElement (){
 		wait_for_theElement();
 		return ;}

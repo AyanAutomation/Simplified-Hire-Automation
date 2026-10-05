@@ -2,6 +2,7 @@ package Beta_CodeClouds;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.TreeMap;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -9,6 +10,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
@@ -40,23 +42,340 @@ public void Frontend_Lander(String Site_Link) throws IOException, InterruptedExc
     
 }	
 	
-@Test
-public void Footer_Form_Filler() throws IOException, InterruptedException{
-	
+@Test(dataProvider = "Contact_Form_Data")
+public void Footer_Form_Filler(TreeMap<String, String> data) throws IOException, InterruptedException {
+
 	Frontend_Locaters p = new Frontend_Locaters(d);
 	Repeat rp = new Repeat(d);
-	
-	Frontend_Lander("https://www.codeclouds.com/");
-	WebElement Footer_From=p.Bottom_form();
-	
-	rp.Scroll_to_element(Footer_From);
-	List<WebElement> Footer_Fields=Footer_From.findElements(By.xpath(".//input[@type='text' or @type='email' or @type='tel']"));
-	
+
+	String Full_Name = data.get("Full Name");
+	String Email = data.get("Email");
+	String Country_Code = data.get("Country Code");
+	String Phone = data.get("Phone");
+	String Company = data.get("Company");
+	String Message = data.get("Message");
+	String Privacy_Policy = data.get("Privacy Policy");
+	String Newsletter = data.get("Newsletter");
+
+	System.out.println();
+	System.out.println("━━━━━━━━━━━━━━ 📩 FOOTER CONTACT FORM EXECUTION ━━━━━━━━━━━━━━");
+	System.out.println();
+	System.out.println("👤 Dataset Name = " + Full_Name);
+	System.out.println();
+
+	try {
+
+		Frontend_Lander("https://www.codeclouds.com/");
+
+		WebElement Footer_From = p.Bottom_form();
+		rp.wait_for_theElement(Footer_From);
+		rp.Scroll_to_element(Footer_From);
+
+		List<WebElement> Footer_Fields = Footer_From.findElements(By.xpath(".//input[@type='text' or @type='email' or @type='tel']"));
+		List<WebElement> Message_Fields = Footer_From.findElements(By.xpath(".//textarea"));
+		List<WebElement> Footer_Checkboxes = Footer_From.findElements(By.xpath(".//input[@type='checkbox']"));
+		List<WebElement> Submit_Buttons = Footer_From.findElements(By.xpath(".//button[@type='submit']"));
+
+		Footer_Form_Debug(Footer_Fields, Message_Fields, Footer_Checkboxes, Submit_Buttons);
+
+		if (Footer_Fields.size() < 4 || Message_Fields.isEmpty() || Footer_Checkboxes.size() < 2 || Submit_Buttons.isEmpty()) {
+			throw new AssertionError("Required footer form elements are missing.");
+		}
+
+		WebElement Full_Name_Field = Footer_Fields.get(0);
+		WebElement Email_Field = Footer_Fields.get(1);
+		WebElement Phone_Field = Footer_Fields.get(2);
+		WebElement Company_Field = Footer_Fields.get(3);
+		WebElement Message_Field = Message_Fields.get(0);
+		WebElement Privacy_Policy_Checkbox = Footer_Checkboxes.get(0);
+		WebElement Newsletter_Checkbox = Footer_Checkboxes.get(1);
+		WebElement Submit_Button = Submit_Buttons.get(0);
+
+		rp.wait_for_theElement(Full_Name_Field);
+		rp.wait_for_theElement(Email_Field);
+		rp.wait_for_theElement(Phone_Field);
+		rp.wait_for_theElement(Company_Field);
+		rp.wait_for_theElement(Message_Field);
+		rp.wait_for_theElement(Submit_Button);
+
+		Thread.sleep(500);
+
+		Full_Name_Field.sendKeys(Full_Name);
+		Email_Field.sendKeys(Email);
+		Phone_Field.sendKeys(Phone);
+		Company_Field.sendKeys(Company);
+		Message_Field.sendKeys(Message);
+
+		rp.wait_for_element_to_be_clickable(Privacy_Policy_Checkbox);
+		rp.wait_for_element_to_be_clickable(Newsletter_Checkbox);
+
+		if (Privacy_Policy.equals("true") != Privacy_Policy_Checkbox.isSelected()) {
+			Privacy_Policy_Checkbox.click();
+		}
+
+		if (Newsletter.equals("true") != Newsletter_Checkbox.isSelected()) {
+			Newsletter_Checkbox.click();
+		}
+
+		System.out.println();
+		System.out.println("━━━━━━━━━━━━━━ 📋 FORM DATA SUMMARY ━━━━━━━━━━━━━━");
+		System.out.println();
+		System.out.println("👤 Full Name      = " + Full_Name);
+		System.out.println("📧 Email          = " + Email);
+		System.out.println("🌍 Country Code   = " + Country_Code);
+		System.out.println("📞 Phone          = " + Phone);
+		System.out.println("🏢 Company        = " + Company);
+		System.out.println("💬 Message        = " + Message);
+		System.out.println("🔒 Privacy Policy = " + Privacy_Policy);
+		System.out.println("📨 Newsletter     = " + Newsletter);
+		System.out.println();
+
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>📩 Contact Form Submission</b>");
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>👤 Name:</b> " + Full_Name);
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>📧 Email:</b> " + Email);
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🏢 Company:</b> " + Company);
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>🔒 Privacy Policy:</b> " + (Privacy_Policy.equals("true") ? "Accepted" : "Not Accepted"));
+		Report_Listen.log_print_in_report().log(Status.INFO, "<b>📨 Newsletter:</b> " + (Newsletter.equals("true") ? "Subscribed" : "Not Subscribed"));
+
+		rp.wait_for_element_to_be_clickable(Submit_Button);
+		Submit_Button.click();
+
+		WebElement Success_Message = p.Contact_Form_Success_Message();
+		rp.wait_for_theElement(Success_Message);
+
+		String Success_Message_Text = Success_Message.getText().trim();
+
+		System.out.println("📨 Success Message = " + Success_Message_Text);
+		System.out.println();
+
+		if (Success_Message_Text.contains("Thanks for contacting us")) {
+
+			System.out.println("✅ Contact form submitted successfully.");
+			System.out.println();
+
+			Report_Listen.log_print_in_report().log(Status.PASS, "<b>✅ Result:</b> Contact form submitted successfully.");
+			Report_Listen.log_print_in_report().log(Status.INFO, "<b>📨 Confirmation:</b> " + Success_Message_Text);
+
+		} else {
+
+			Report_Listen.log_print_in_report().log(Status.FAIL, "<b>❌ Result:</b> Contact form submission confirmation was not received.");
+
+			Assert.fail("Unexpected contact form success message. Actual = " + Success_Message_Text);
+		}
+
+	} catch (RuntimeException | AssertionError e) {
+
+		Footer_Form_Error_Debug(e);
+
+		throw e;
+	}
+
+	System.out.println("━━━━━━━━━━━━━━ ✅ FOOTER FORM EXECUTION COMPLETED ━━━━━━━━━━━━━━");
+	System.out.println();
 }
 
+public void Footer_Form_Debug(List<WebElement> Footer_Fields, List<WebElement> Message_Fields, List<WebElement> Footer_Checkboxes, List<WebElement> Submit_Buttons) {
 
+	System.out.println();
+	System.out.println("━━━━━━━━━━━━━━ 🔎 FOOTER FORM DEBUG ━━━━━━━━━━━━━━");
+	System.out.println();
 
+	System.out.println("🧩 Input Fields Found = " + Footer_Fields.size() + " | Expected = 4");
+	System.out.println("💬 Message Fields Found = " + Message_Fields.size() + " | Expected = 1");
+	System.out.println("☑️ Checkboxes Found = " + Footer_Checkboxes.size() + " | Expected = 2");
+	System.out.println("🔘 Submit Buttons Found = " + Submit_Buttons.size() + " | Expected = 1");
+	System.out.println();
 
+	if (Footer_Fields.size() >= 4) {
+		System.out.println("👤 Full Name Field   → Displayed = " + Footer_Fields.get(0).isDisplayed() + " | Enabled = " + Footer_Fields.get(0).isEnabled());
+		System.out.println("📧 Email Field       → Displayed = " + Footer_Fields.get(1).isDisplayed() + " | Enabled = " + Footer_Fields.get(1).isEnabled());
+		System.out.println("📞 Phone Field       → Displayed = " + Footer_Fields.get(2).isDisplayed() + " | Enabled = " + Footer_Fields.get(2).isEnabled());
+		System.out.println("🏢 Company Field     → Displayed = " + Footer_Fields.get(3).isDisplayed() + " | Enabled = " + Footer_Fields.get(3).isEnabled());
+	}
+
+	if (!Message_Fields.isEmpty()) {
+		System.out.println("💬 Message Field     → Displayed = " + Message_Fields.get(0).isDisplayed() + " | Enabled = " + Message_Fields.get(0).isEnabled());
+	}
+
+	if (Footer_Checkboxes.size() >= 2) {
+		System.out.println("🔒 Privacy Checkbox  → Displayed = " + Footer_Checkboxes.get(0).isDisplayed() + " | Enabled = " + Footer_Checkboxes.get(0).isEnabled() + " | Selected = " + Footer_Checkboxes.get(0).isSelected());
+		System.out.println("📨 Newsletter        → Displayed = " + Footer_Checkboxes.get(1).isDisplayed() + " | Enabled = " + Footer_Checkboxes.get(1).isEnabled() + " | Selected = " + Footer_Checkboxes.get(1).isSelected());
+	}
+
+	if (!Submit_Buttons.isEmpty()) {
+		System.out.println("🔘 Submit Button     → Displayed = " + Submit_Buttons.get(0).isDisplayed() + " | Enabled = " + Submit_Buttons.get(0).isEnabled());
+	}
+
+	System.out.println();
+
+	if (Footer_Fields.size() != 4) {
+		System.out.println("⚠️ INPUT LOCATOR WARNING → Expected 4 fields but found " + Footer_Fields.size() + ". Locator may be missing elements or matching additional elements.");
+	}
+
+	if (Message_Fields.size() != 1) {
+		System.out.println("⚠️ MESSAGE LOCATOR WARNING → Expected 1 textarea but found " + Message_Fields.size() + ". Locator may be non-unique.");
+	}
+
+	if (Footer_Checkboxes.size() != 2) {
+		System.out.println("⚠️ CHECKBOX LOCATOR WARNING → Expected 2 checkboxes but found " + Footer_Checkboxes.size() + ".");
+	}
+
+	if (Submit_Buttons.size() != 1) {
+		System.out.println("⚠️ SUBMIT LOCATOR WARNING → Expected 1 submit button but found " + Submit_Buttons.size() + ". Locator may be non-unique.");
+	}
+
+	System.out.println();
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println();
+}
+
+public void Footer_Form_Error_Debug(Throwable e) {
+
+	System.out.println();
+	System.out.println("━━━━━━━━━━━━━━ ❌ FOOTER FORM ERROR DEBUG ━━━━━━━━━━━━━━");
+	System.out.println();
+
+	System.out.println("Exception Type = " + e.getClass().getSimpleName());
+	System.out.println("Exception Message = " + e.getMessage());
+	System.out.println();
+
+	if (e instanceof org.openqa.selenium.TimeoutException) {
+		System.out.println("🔎 Reason → Required element did not become visible/clickable within the configured wait time.");
+	} else if (e instanceof org.openqa.selenium.NoSuchElementException) {
+		System.out.println("🔎 Reason → Required element could not be located. Check locator and current DOM.");
+	} else if (e instanceof org.openqa.selenium.ElementNotInteractableException) {
+		System.out.println("🔎 Reason → Element exists but cannot currently be interacted with. It may be hidden, disabled, or the wrong matched element.");
+	} else if (e instanceof org.openqa.selenium.ElementClickInterceptedException) {
+		System.out.println("🔎 Reason → Another element or overlay is blocking the click.");
+	} else if (e instanceof org.openqa.selenium.StaleElementReferenceException) {
+		System.out.println("🔎 Reason → DOM changed after the element was fetched and the stored WebElement became stale.");
+	} else if (e instanceof IndexOutOfBoundsException) {
+		System.out.println("🔎 Reason → Locator returned fewer elements than expected and the requested index was unavailable.");
+	} else {
+		System.out.println("🔎 Reason → Unexpected automation execution error.");
+	}
+
+	System.out.println();
+	System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	System.out.println();
+}
+
+@DataProvider
+public Object[][] Contact_Form_Data() {
+
+	TreeMap<String, String> data1 = new TreeMap<String, String>();
+	data1.put("Full Name", "Adrian Test Mircea");
+	data1.put("Email", "adrianmircea89@gmail.com");
+	data1.put("Country Code", "+91");
+	data1.put("Phone", "9184206317");
+	data1.put("Company", "NovaTech Digital Solutions");
+	data1.put("Message", "We are looking for a reliable technology partner to develop and maintain a scalable web application for our growing business. Please share details about your development process, project timelines, and engagement models.");
+	data1.put("Privacy Policy", "true");
+	data1.put("Newsletter", "true");
+
+	TreeMap<String, String> data2 = new TreeMap<String, String>();
+	data2.put("Full Name", "Lucian Test Kovarik");
+	data2.put("Email", "luciankovarik@gmail.com");
+	data2.put("Country Code", "+91");
+	data2.put("Phone", "9273518642");
+	data2.put("Company", "Vector Cloud Systems");
+	data2.put("Message", "Our organization is planning a custom software project and we would like to understand your available development services, technical capabilities, estimated delivery timeline, and support options.");
+	data2.put("Privacy Policy", "true");
+	data2.put("Newsletter", "false");
+
+	TreeMap<String, String> data3 = new TreeMap<String, String>();
+	data3.put("Full Name", "Marek Test Zielinski");
+	data3.put("Email", "marekzielinski92@gmail.com");
+	data3.put("Country Code", "+91");
+	data3.put("Phone", "9362745198");
+	data3.put("Company", "Arctic Business Technologies");
+	data3.put("Message", "We need assistance with designing and developing a modern business platform that can support multiple users and integrations. Please let us know how your team can help us with this requirement.");
+	data3.put("Privacy Policy", "true");
+	data3.put("Newsletter", "true");
+
+	TreeMap<String, String> data4 = new TreeMap<String, String>();
+	data4.put("Full Name", "Nadia Test Velikova");
+	data4.put("Email", "nadiavelikova@gmail.com");
+	data4.put("Country Code", "+91");
+	data4.put("Phone", "9451637284");
+	data4.put("Company", "Eastern Digital Networks");
+	data4.put("Message", "We are currently evaluating development partners for an upcoming digital transformation project. We would like to discuss our requirements, available resources, project approach, and expected implementation schedule.");
+	data4.put("Privacy Policy", "true");
+	data4.put("Newsletter", "false");
+
+	TreeMap<String, String> data5 = new TreeMap<String, String>();
+	data5.put("Full Name", "Emil Test Saarinen");
+	data5.put("Email", "emilsaarinen88@gmail.com");
+	data5.put("Country Code", "+91");
+	data5.put("Phone", "9546823175");
+	data5.put("Company", "BrightWave Software Solutions");
+	data5.put("Message", "Our company is interested in developing a customized web and mobile solution. Please provide information regarding your development process, technology expertise, estimated project duration, and post-launch support.");
+	data5.put("Privacy Policy", "true");
+	data5.put("Newsletter", "true");
+
+	TreeMap<String, String> data6 = new TreeMap<String, String>();
+	data6.put("Full Name", "Petra Test Novakova");
+	data6.put("Email", "petranovakova91@gmail.com");
+	data6.put("Country Code", "+91");
+	data6.put("Phone", "9635714286");
+	data6.put("Company", "FutureGrid Technologies");
+	data6.put("Message", "We would like to discuss a new enterprise application requirement with your team. The solution should be scalable, secure, user friendly, and capable of integrating with our existing business systems.");
+	data6.put("Privacy Policy", "true");
+	data6.put("Newsletter", "false");
+
+	TreeMap<String, String> data7 = new TreeMap<String, String>();
+	data7.put("Full Name", "Dorian Test Ionescu");
+	data7.put("Email", "dorianionescu@gmail.com");
+	data7.put("Country Code", "+91");
+	data7.put("Phone", "9724681357");
+	data7.put("Company", "RheinTech Systems GmbH");
+	data7.put("Message", "We are searching for an experienced development team for a long-term software engagement. Please share information regarding your available services, team structure, development methodology, and communication process.");
+	data7.put("Privacy Policy", "true");
+	data7.put("Newsletter", "true");
+
+	TreeMap<String, String> data8 = new TreeMap<String, String>();
+	data8.put("Full Name", "Freja Test Lindberg");
+	data8.put("Email", "frejalindberg90@gmail.com");
+	data8.put("Country Code", "+91");
+	data8.put("Phone", "9813572468");
+	data8.put("Company", "Frankfurt Digital Works GmbH");
+	data8.put("Message", "Our team is planning to modernize an existing business application and introduce several new features. We would like to discuss the project scope, required technologies, estimated timeline, and development cost.");
+	data8.put("Privacy Policy", "true");
+	data8.put("Newsletter", "false");
+
+	TreeMap<String, String> data9 = new TreeMap<String, String>();
+	data9.put("Full Name", "Bastien Test Moreau");
+	data9.put("Email", "bastienmoreau87@gmail.com");
+	data9.put("Country Code", "+91");
+	data9.put("Phone", "9902468135");
+	data9.put("Company", "Bavaria Cloud Services GmbH");
+	data9.put("Message", "We need a technology partner capable of handling product design, development, testing, deployment, and ongoing maintenance. Please contact us to discuss our requirements and possible engagement options.");
+	data9.put("Privacy Policy", "true");
+	data9.put("Newsletter", "true");
+
+	TreeMap<String, String> data10 = new TreeMap<String, String>();
+	data10.put("Full Name", "Stefan Test Radoslav");
+	data10.put("Email", "stefanradoslav@gmail.com");
+	data10.put("Country Code", "+91");
+	data10.put("Phone", "9091357246");
+	data10.put("Company", "Stuttgart DataWorks GmbH");
+	data10.put("Message", "We are exploring options for building a new customer-facing digital platform and would like to understand your development capabilities, delivery process, quality assurance approach, and long-term support services.");
+	data10.put("Privacy Policy", "true");
+	data10.put("Newsletter", "false");
+
+	return new Object[][] { 
+		{ data1 }, 
+		{ data2 }, 
+		{ data3 },
+		{ data4 },
+		{ data5 },
+		{ data6 },
+		{ data7 },
+		{ data8 },
+		{ data9 },
+		{ data10 }
+	};
+}
 @Test
 public void Jobs_Page_count_check() throws IOException, InterruptedException {
 
@@ -269,7 +588,13 @@ public void Job_Count_Validation() throws InterruptedException {
 	System.out.println();
 }
 
-
+public void Filter_Check(){
+	
+	
+	
+	
+	
+}
 
 
 @Test
